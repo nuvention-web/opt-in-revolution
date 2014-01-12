@@ -9,6 +9,12 @@ var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 
+// database stuff
+var mongo = require('mongodb');
+var monk = require('monk');
+var db = monk('localhost:27017/optInRev');
+
+
 var app = express();
 
 // all environments
@@ -33,7 +39,9 @@ if ('development' == app.get('env')) {
 // routes
 app.get('/', routes.index);
 app.get('/users', user.list);
-app.get('/emails', routes.viewEmail);
+app.get('/admin', routes.admin(db));
+app.get('/about', routes.about);
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

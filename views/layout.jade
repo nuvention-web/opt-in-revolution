@@ -1,7 +1,30 @@
 doctype html
-html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+html(lang='en')
+head
+	title= title
+	link(href='/stylesheets/bootstrap.css', rel='stylesheet')
+	link(href='/stylesheets/style.css', rel='stylesheet')
+	script(src='//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js')
+	script(src='/javascripts/bootstrap.js')
+body
+	.navbar.navbar-default.navbar-fixed-top.opt-header(role='navigation')
+		.container
+			.navbar-header
+				button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+					span.sr-only Toggle navigation
+					span.icon-bar
+					span.icon-bar
+					span.icon-bar
+				a.navbar-brand(href='/') Opt In Revolution
+			.navbar-collapse.collapse
+				ul.nav.navbar-nav.navbar-right
+					each nav in [{link: '', name: "Home"}, {link: 'about', name: "About Us"}, {link: '#', name: "Contact"}]
+						if active === nav.name
+							li.active
+								a(href='/#{nav.link}') #{nav.name}
+						else
+							li
+								a(href='/#{nav.link}') #{nav.name}
+	.container
+		block content
+

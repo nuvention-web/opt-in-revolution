@@ -1,0 +1,18 @@
+extends layout
+
+block content
+	p Welcome to the #{title}
+	br
+	p Viewing all Emails
+	div.container
+		div.content
+			table.table.table-striped
+				thead
+					tr
+						th Email
+						th userType
+				tbody
+				each user, i in userlist
+					tr
+						td #{user.email}
+						td #{user.userType}

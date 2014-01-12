@@ -1,8 +1,13 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  height:100%;
+  padding-top: 70px;
 }
 
 a {
   color: #00B7FF;
+}
+
+.opt-header {
+	/*background-color: #563d7c;*/
 }

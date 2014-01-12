@@ -42,6 +42,8 @@ app.get('/users', user.list);
 app.get('/admin', routes.admin(db));
 app.get('/about', routes.about);
 
+app.post('/addEmail', routes.addEmail(db));
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

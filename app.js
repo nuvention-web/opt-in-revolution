@@ -4,16 +4,24 @@
  */
 
 var express = require('express');
-var routes = require('./routes');
-var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
+var fs = require('fs');
 
 // database stuff
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('localhost:27017/optInRev');
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/optInRev');
+mongoose.connection.on("open", function(){
+  console.log("Connected to database");
+});
 
+var db = mongoose.connection;
+
+// auth stuff
+// var passport = require("passport");
+// var LocalStrategy = require("passport-local").Strategy;
 
 var app = express();
 
@@ -26,23 +34,26 @@ app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
-app.use(express.cookieParser('your secret here'));
+app.use(express.cookieParser('nuvention web 2014'));
 app.use(express.session());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
+
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-// routes
-app.get('/', routes.index);
-app.get('/users', user.list);
-app.get('/admin', routes.admin(db));
-app.get('/about', routes.about);
-
-app.post('/addEmail', routes.addEmail(db));
+// dynamically include routes (Controller)
+fs.readdirSync('./controllers').forEach(function (file) {
+  if(file.substr(-3) == '.js') {
+      route = require('./controllers/' + file);
+      route.controller(app);
+  }
+});
 
 
 http.createServer(app).listen(app.get('port'), function(){

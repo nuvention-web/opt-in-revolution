@@ -1,0 +1,90 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'install', '-d' ]
+2 info using npm@1.3.11
+3 info using node@v0.10.24
+4 verbose readDependencies using package.json deps
+5 verbose install where, deps [ '/Users/Allen/Desktop/Opt In Revolution',
+5 verbose install   [ 'express',
+5 verbose install     'jade',
+5 verbose install     'mongodb',
+5 verbose install     'monk',
+5 verbose install     'passport',
+5 verbose install     'passport-local',
+5 verbose install     'mongoose',
+5 verbose install     'fs' ] ]
+6 info preinstall application-name@0.0.1
+7 verbose readDependencies using package.json deps
+8 verbose already installed skipping jade@* /Users/Allen/Desktop/Opt In Revolution
+9 verbose already installed skipping mongodb@* /Users/Allen/Desktop/Opt In Revolution
+10 verbose already installed skipping monk@* /Users/Allen/Desktop/Opt In Revolution
+11 verbose already installed skipping passport@* /Users/Allen/Desktop/Opt In Revolution
+12 verbose already installed skipping passport-local@* /Users/Allen/Desktop/Opt In Revolution
+13 verbose already installed skipping mongoose@* /Users/Allen/Desktop/Opt In Revolution
+14 verbose cache add [ 'fs@*', null ]
+15 verbose cache add name=undefined spec="fs@*" args=["fs@*",null]
+16 verbose parsed url { protocol: null,
+16 verbose parsed url   slashes: null,
+16 verbose parsed url   auth: null,
+16 verbose parsed url   host: null,
+16 verbose parsed url   port: null,
+16 verbose parsed url   hostname: null,
+16 verbose parsed url   hash: null,
+16 verbose parsed url   search: null,
+16 verbose parsed url   query: null,
+16 verbose parsed url   pathname: 'fs@*',
+16 verbose parsed url   path: 'fs@*',
+16 verbose parsed url   href: 'fs@*' }
+17 verbose cache add name="fs" spec="*" args=["fs","*"]
+18 verbose parsed url { protocol: null,
+18 verbose parsed url   slashes: null,
+18 verbose parsed url   auth: null,
+18 verbose parsed url   host: null,
+18 verbose parsed url   port: null,
+18 verbose parsed url   hostname: null,
+18 verbose parsed url   hash: null,
+18 verbose parsed url   search: null,
+18 verbose parsed url   query: null,
+18 verbose parsed url   pathname: '*',
+18 verbose parsed url   path: '*',
+18 verbose parsed url   href: '*' }
+19 verbose addNamed [ 'fs', '*' ]
+20 verbose addNamed [ null, '*' ]
+21 verbose already installed skipping express@3.4.7 /Users/Allen/Desktop/Opt In Revolution
+22 silly lockFile d8bf140d-fs fs@*
+23 verbose lock fs@* /Users/Allen/.npm/d8bf140d-fs.lock
+24 silly addNameRange { name: 'fs', range: '*', hasData: false }
+25 verbose url raw fs
+26 verbose url resolving [ 'https://registry.npmjs.org/', './fs' ]
+27 verbose url resolved https://registry.npmjs.org/fs
+28 info trying registry request attempt 1 at 13:09:32
+29 http GET https://registry.npmjs.org/fs
+30 http 404 https://registry.npmjs.org/fs
+31 silly registry.get cb [ 404,
+31 silly registry.get   { date: 'Sun, 12 Jan 2014 19:09:32 GMT',
+31 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R15B03)',
+31 silly registry.get     'content-type': 'application/json',
+31 silly registry.get     'cache-control': 'max-age=0',
+31 silly registry.get     'content-length': '52',
+31 silly registry.get     'accept-ranges': 'bytes',
+31 silly registry.get     via: '1.1 varnish',
+31 silly registry.get     age: '0',
+31 silly registry.get     'x-served-by': 'cache-d46-DAL',
+31 silly registry.get     'x-cache': 'MISS',
+31 silly registry.get     'x-cache-hits': '0',
+31 silly registry.get     'x-timer': 'S1389553772.523999691,VS0,VE14',
+31 silly registry.get     'keep-alive': 'timeout=10, max=50',
+31 silly registry.get     connection: 'Keep-Alive' } ]
+32 silly lockFile d8bf140d-fs fs@*
+33 silly lockFile d8bf140d-fs fs@*
+34 error 404 'fs' is not in the npm registry.
+34 error 404 You should bug the author to publish it
+34 error 404
+34 error 404 Note that you can also install from a
+34 error 404 tarball, folder, or http url, or git url.
+35 error System Darwin 13.0.0
+36 error command "/usr/local/bin/node" "/usr/local/bin/npm" "install" "-d"
+37 error cwd /Users/Allen/Desktop/Opt In Revolution
+38 error node -v v0.10.24
+39 error npm -v 1.3.11
+40 error code E404
+41 verbose exit [ 1, true ]

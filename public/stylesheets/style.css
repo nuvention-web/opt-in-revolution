@@ -12,8 +12,21 @@ a {
 	/*background-color: #563d7c;*/
 }
 
+.landing-page-img {
+	width:100%;
+	height:500px;
+}
 .value-prop{
 	text-align: center;
+}
+
+.about-us {
+	/*text-align: center;	*/
+}
+
+.about-us-img {
+	width:100%;
+	height:500px;
 }
 
 .input-mysize{

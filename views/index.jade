@@ -3,9 +3,12 @@ extends layout
 block content
   .jumbotron
     .value-prop
+      img.landing-page-img(src='/images/landingpage.jpg', width='100%')
       h1 Opt In Revolution
       p
-        | We are an online market place that matches stay-at-home moms with part-time, project based work for small/medium sized business
+        | We match the mom who wants a flexible schedule and fewer hours with the business looking for her skill set.
+      p
+        | We're Opt In Revolution. Want to know more?
 
     form.form-inline.input-form(name="addEmail", role="form", method="post",action="/addEmail")
       .form-group

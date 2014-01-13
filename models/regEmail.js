@@ -1,7 +1,7 @@
 var mongoose = require('mongoose')
       ,Schema = mongoose.Schema
       regEmailSchema = new Schema( {
-          email: String,
+          email: { type: String, required: true, index: { unique: true } },
           userType: String,
           dateInserted: { type: Date, default: Date.now }
       }),

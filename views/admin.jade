@@ -1,17 +1,19 @@
 extends layout
 
 block content
-	p Welcome to the #{title}
+	h2 Admin Dashboard
+	p
+		| Used to view and capture submitted emails
 	br
-	p Viewing all Emails
+	h3 Viewing all Emails
 	div.container
 		div.content
 			table.table.table-striped
 				thead
 					tr
 						th Email
-						th userType
-						th dateInserted
+						th Comment
+						th Date Submitted
 				tbody
 				each user, i in userlist
 					tr

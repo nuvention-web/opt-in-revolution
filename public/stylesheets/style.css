@@ -9,7 +9,12 @@ a {
 }
 
 .opt-header {
-	/*background-color: #563d7c;*/
+	background-color: #0588A8;
+
+}
+
+li a .opt-nav-text {
+	color:white;
 }
 
 .landing-page-img {

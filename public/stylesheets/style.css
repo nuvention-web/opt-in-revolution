@@ -11,3 +11,16 @@ a {
 .opt-header {
 	/*background-color: #563d7c;*/
 }
+
+.value-prop{
+	text-align: center;
+}
+
+.input-mysize{
+	width: 250px;
+}
+
+.input-form {
+	width:500px;
+	margin: 0 auto;
+}

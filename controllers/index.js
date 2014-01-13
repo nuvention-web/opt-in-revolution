@@ -41,7 +41,6 @@ module.exports.controller = function(app) {
         });
     });
 
-
     app.post('/addEmail', function(req, res) {
         // Get our form values. These rely on the "name" attributes
         var userEmail = req.body.emailInput;

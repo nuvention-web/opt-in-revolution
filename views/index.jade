@@ -2,15 +2,16 @@ extends layout
 
 block content
   .jumbotron
-    h1 Opt In Revolution
-    p
-      | We are an online market place that matches stay-at-home moms with part-time, project based work for small/medium sized business
+    .value-prop
+      h1 Opt In Revolution
+      p
+        | We are an online market place that matches stay-at-home moms with part-time, project based work for small/medium sized business
 
-    form.form-inline(name="addEmail", role="form", method="post",action="/addEmail")
+    form.form-inline.input-form(name="addEmail", role="form", method="post",action="/addEmail")
       .form-group
         label.sr-only(for='userEmailInput') Email address
         input#userEmailInput.form-control(type='email', name="emailInput", placeholder='Enter email')
       .form-group
         label.sr-only(for='userTypeInput') Password
-        input#userTypeInput.form-control(type='text', name="userTypeInput", placeholder='User Type')
+        input#userTypeInput.form-control.input-mysize(type='text', name="userTypeInput", placeholder='Tell us a bit about yourself')
       button.btn.btn-default(type='submit') Submit

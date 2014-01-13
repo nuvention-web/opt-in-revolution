@@ -3,6 +3,7 @@
  * GET home page.
  */
 var mongoose = require('mongoose');
+var AdminUser = require('../models/adminUser');
 var RegEmail = require('../models/regEmail');
 module.exports.controller = function(app) {
 
@@ -16,15 +17,30 @@ module.exports.controller = function(app) {
                                 active: "About Us" });
     });
 
-    app.get('/admin', function(req, res) {
-        RegEmail.find({},function(e,docs){
-            res.render("admin", {
-                "userlist" : docs,
-                title: "Admin Page",
-                active: "admin"
+    app.get('/login', function(req, res) {
+        res.render("Login", { title: "Login",
+                                active: "" });
+    });
+
+    app.post('/auth', function(req, res) {
+        // Get our form values. These rely on the "name" attributes
+        var emailInput = req.body.email;
+        var password = req.body.password;
+        
+        // fetch user and test password verification
+        AdminUser.findOne({ email: emailInput }, function(err, admin) {
+            if (err) throw err;
+
+            // test a matching password
+            admin.comparePassword(password, function(err, isMatch) {
+                if (err) throw err;
+                console.log(password, isMatch); // -> nuventionWeb: true
+                req.session.isAdmin=true;
+                res.redirect("/admin"); // FIX THIS LATER
             });
         });
     });
+
 
     app.post('/addEmail', function(req, res) {
         // Get our form values. These rely on the "name" attributes

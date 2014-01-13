@@ -9,9 +9,9 @@
     "express": "3.4.7",
     "jade": "*",
     "mongodb": "*",
-    "monk": "*",
     "passport": "*",
     "passport-local": "*",
     "mongoose": "*",
+    "bcrypt": "*"
   }
 }

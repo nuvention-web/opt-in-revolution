@@ -10,7 +10,6 @@ var fs = require('fs');
 
 // database stuff
 var mongo = require('mongodb');
-var monk = require('monk');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/optInRev');
 mongoose.connection.on("open", function(){
@@ -20,8 +19,8 @@ mongoose.connection.on("open", function(){
 var db = mongoose.connection;
 
 // auth stuff
-// var passport = require("passport");
-// var LocalStrategy = require("passport-local").Strategy;
+var passport = require("passport");
+var LocalStrategy = require("passport-local").Strategy;
 
 var app = express();
 
@@ -39,8 +38,10 @@ app.use(express.session());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 
 // development only
 if ('development' == app.get('env')) {

@@ -18,7 +18,7 @@ module.exports.controller = function(app) {
     });
 
     app.get('/login', function(req, res) {
-        res.render("Login", { title: "Login",
+        res.render("login", { title: "Login",
                                 active: "" });
     });
 

@@ -6,25 +6,24 @@ head
 	link(href='/stylesheets/style.css', rel='stylesheet')
 	script(src='//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js')
 	script(src='/javascripts/bootstrap.js')
+	script(src='/javascripts/analytics.js')
+
 body
-	.navbar.navbar-default.navbar-fixed-top.opt-header(role='navigation')
-		.container
-			.navbar-header
-				button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
-					span.sr-only Toggle navigation
-					span.icon-bar
-					span.icon-bar
-					span.icon-bar
-				a.opt-nav-text.navbar-brand(href='/') Opt In Revolution
-			.navbar-collapse.collapse
-				ul.nav.navbar-nav.navbar-right
-					each nav in [{link: '', name: "Home"}, {link: 'about', name: "About Us"}, {link: '#', name: "Contact"}]
-						if active === nav.name
-							li.active
-								a.opt-nav-text(href='/#{nav.link}') #{nav.name}
-						else
-							li
-								a.opt-nav-text(href='/#{nav.link}') #{nav.name}
-	.container
-		block content
+	.opt-navbar-wrapper
+		.navbar.navbar-default.navbar-fixed-top.opt-header(role='navigation')
+			.container
+				.navbar-header
+					button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+						span.sr-only Toggle navigation
+						span.icon-bar
+						span.icon-bar
+						span.icon-bar
+					a.opt-nav-text.navbar-brand(href='/') Opt In Revolution
+				.navbar-collapse.collapse
+					ul.nav.navbar-nav.navbar-right
+						each nav in [{link: '', name: "Home"}, {link: 'about', name: "About Us"}, {link: '#', name: "Contact"}]
+							li 
+								a.btn.btn-primary.opt-btn(href='/#{nav.link}') #{nav.name}
+			.opt-filler-header
+	block content
 

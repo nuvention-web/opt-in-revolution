@@ -1,7 +1,6 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   height:100%;
-  /*padding-top: 50px;*/
 }
 
 a {
@@ -21,8 +20,8 @@ a {
 }
 
 .opt-filler-header {
-	background-color: #cdd8d5;
-	height:15px;
+	background-color: #00FFFF;
+	height:10px;
 	position: relative;
 }
 
@@ -40,15 +39,22 @@ li a .opt-nav-text {
 */
 
 .landing-page-bg {
-  /*background-image: url('../images/landingpage.jpg');*/
-  /*background-image: url('http://unplugged.ee/wp-content/uploads/2013/03/frank2.jpg');*/
-  /*background-repeat: no-repeat;*/
-  /*-webkit-background-size: cover;*/
-  /*-moz-background-size: cover;*/
-  /*-o-background-size: cover;*/
-  /*background-size: cover;*/
-  /*max-height: 450px;*/
-  /*height:100%;*/
+	display:block;
+	position:absolute;
+	z-index:1;
+    min-width:100%;
+    min-height:100%;
+    background:transparent url('../images/landingpage2.jpg') center center no-repeat;
+    background-size:cover;
+}
+
+.landing-page-bg .opt-landing-content {
+	display:block;
+	position:relative;
+	z-index:2;
+	color:white;
+	margin-top:250px;
+	text-align:center;
 }
 
 .landing-page-img {
@@ -57,6 +63,14 @@ li a .opt-nav-text {
 }
 .value-prop{
 	text-align: center;
+}
+
+.opt-title-header {
+	font-size: 40pt;
+}
+
+.opt-landing-page-content {
+	font-size: 12pt;
 }
 
 /*

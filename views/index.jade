@@ -2,12 +2,15 @@ extends layout
 
 block content
   .landing-page-bg
-    .value-prop
-      img.landing-page-img(src='/images/landingpage.jpg', width='100%')
-      h1 Opt In Revolution
-      p
-        | We match highly qualified moms with flexible, project based work from businesses looking for great part time talent.
-      p
+    .opt-landing-content
+      h1.opt-title-header
+        b Opt In Revolution
+      p.opt-landing-page-content
+        b
+          | We match highly qualified moms with flexible, project based work from businesses looking for great part time talent.
+      br
+      br
+      p.opt-landing-page-content
         | We're Opt In Revolution. Want to know more?
 
     form.form-inline.input-form(name="addEmail", role="form", method="post",action="/addEmail")
@@ -18,7 +21,3 @@ block content
         label.sr-only(for='userTypeInput') Password
         input#userTypeInput.form-control.input-mysize(type='text', name="userTypeInput", placeholder='Tell us a bit about yourself')
       button.btn.btn-default(type='submit') Submit
-
-    br
-    br
-    br

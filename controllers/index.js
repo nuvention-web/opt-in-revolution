@@ -22,6 +22,12 @@ module.exports.controller = function(app) {
                                 active: "" });
     });
 
+    app.get('/team', function(req, res) {
+        res.render("team", { title: "Login",
+                                active: "" });
+    });
+
+
     app.post('/auth', function(req, res) {
         // Get our form values. These rely on the "name" attributes
         var emailInput = req.body.email;

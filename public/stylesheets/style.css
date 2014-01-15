@@ -87,12 +87,14 @@ li a .opt-nav-text {
 	margin-top: 50px;
 }
 
-.opt-team-about-us {
 
-}
+/*
+	Team Page Styles
+*/
 
 .opt-team { 
 	text-align: center;
+	margin-top: 50px;
 }
 
 .opt-team-header { 

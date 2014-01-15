@@ -33,7 +33,6 @@ li a .opt-nav-text {
 	margin-top: 3px;
 }
 
-
 /*
 	Landing Page Styles
 */
@@ -53,14 +52,11 @@ li a .opt-nav-text {
 	position:relative;
 	z-index:2;
 	color:white;
-	margin-top:250px;
+	margin-top:200px;
 	text-align:center;
+	text-shadow:1px 1px #000000;
 }
 
-.landing-page-img {
-	width:100%;
-	height:550px;
-}
 .value-prop{
 	text-align: center;
 }
@@ -81,6 +77,30 @@ li a .opt-nav-text {
 	/*text-align: center;	*/
 }
 
+.opt-table-about-us {
+	width:600px;
+	margin: 0 auto;
+}
+
+.opt-about-header {
+	text-align: center;
+	margin-top: 50px;
+}
+
+.opt-team-about-us {
+
+}
+
+.opt-team { 
+	text-align: center;
+}
+
+.opt-team-header { 
+	border-bottom: 2px solid #eee;
+	padding-bottom: 10px;
+}
+
+
 .about-us-img {
 	width:100%;
 	height:500px;
@@ -89,7 +109,6 @@ li a .opt-nav-text {
 /*
 	Login Form Page Styles
 */
-
 
 .input-mysize{
 	width: 250px;

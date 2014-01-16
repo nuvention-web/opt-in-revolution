@@ -24,6 +24,6 @@ body
 					ul.nav.navbar-nav.navbar-right
 						each nav in [{link: '', name: "Home"}, {link: 'about', name: "About"}, {link: 'team', name: "Team"}]
 							li 
-								a.btn.btn-primary.opt-btn(href='/#{nav.link}') #{nav.name}
+								a.opt-nav-text(href='/#{nav.link}') #{nav.name}
 			.opt-filler-header
 	block content

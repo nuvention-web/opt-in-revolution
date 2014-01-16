@@ -16,7 +16,7 @@ a {
 }
 
 .opt-header {
-	background-color: #0588A8;
+	background-color: #541E74;
 }
 
 .opt-filler-header {
@@ -29,9 +29,27 @@ li a .opt-nav-text {
 	color:white;
 }
 
-.opt-btn {
-	margin-top: 3px;
+.navbar-default
+.navbar-nav li a {
+	color:white;
 }
+.navbar-default
+.navbar-brand {
+color: white;
+}
+
+.navbar-default 
+.navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+color: white;
+background-color: transparent;
+}
+
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+color: white;
+background-color: transparent;
+}
+
+
 
 /*
 	Landing Page Styles
@@ -77,10 +95,6 @@ li a .opt-nav-text {
 	/*text-align: center;	*/
 }
 
-.opt-table-about-us {
-	width:600px;
-	margin: 0 auto;
-}
 
 .opt-about-header {
 	text-align: center;
@@ -92,20 +106,11 @@ li a .opt-nav-text {
 	Team Page Styles
 */
 
-.opt-team { 
-	text-align: center;
-	margin-top: 50px;
-}
-
 .opt-team-header { 
 	border-bottom: 2px solid #eee;
+	text-align: center;
 	padding-bottom: 10px;
-}
-
-
-.about-us-img {
-	width:100%;
-	height:500px;
+	margin-top: 50px;
 }
 
 /*

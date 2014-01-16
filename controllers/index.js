@@ -23,7 +23,7 @@ module.exports.controller = function(app) {
     });
 
     app.get('/team', function(req, res) {
-        res.render("team", { title: "Login",
+        res.render("team", { title: "Our Team",
                                 active: "" });
     });
 

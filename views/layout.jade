@@ -2,6 +2,7 @@ doctype html
 html(lang='en')
 head
 	title= title
+	link(rel='stylesheet', type='text/css', href='http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin')
 	link(href='/stylesheets/bootstrap.css', rel='stylesheet')
 	link(href='/stylesheets/style.css', rel='stylesheet')
 	script(src='//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js')
@@ -19,7 +20,9 @@ body
 						span.icon-bar
 						span.icon-bar
 						span.icon-bar
-					a.opt-nav-text.navbar-brand(href='/') Opt In Revolution
+					a.opt-nav-text.navbar-brand(href='/') 
+						img.opt-logo(src='/images/logo.png', alt='Opt-In Logo')
+						| Opt-In Revolution
 				.navbar-collapse.collapse
 					ul.nav.navbar-nav.navbar-right
 						each nav in [{link: '', name: "Home"}, {link: 'about', name: "About"}, {link: 'team', name: "Team"}]

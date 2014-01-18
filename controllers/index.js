@@ -8,7 +8,7 @@ var RegEmail = require('../models/regEmail');
 module.exports.controller = function(app) {
 
     app.get('/', function(req, res) {
-        res.render("index", { title: "Opt In Revolution",
+        res.render("index", { title: "Opt-In Revolution",
                                 active: "Home" });
     });
 

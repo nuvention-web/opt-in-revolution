@@ -1,10 +1,16 @@
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  /*font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;*/
+  font-family: Ubuntu, sans-serif;
+  font-size: 15px;
   height:100%;
 }
 
 a {
   color: #00B7FF;
+}
+
+.centered {
+	text-align: center;
 }
 
 /*
@@ -21,12 +27,12 @@ a {
 
 .opt-filler-header {
 	background-color: #00FFFF;
-	height:10px;
+	height:15px;
 	position: relative;
 }
 
-li a .opt-nav-text {
-	color:white;
+.opt-logo {
+  	height:30px;
 }
 
 .navbar-default
@@ -36,6 +42,10 @@ li a .opt-nav-text {
 .navbar-default
 .navbar-brand {
 color: white;
+}
+
+.opt-logo-text {
+	padding-top:5px;
 }
 
 .navbar-default 
@@ -105,13 +115,6 @@ background-color: transparent;
 /*
 	Team Page Styles
 */
-
-.opt-team-header { 
-	border-bottom: 2px solid #eee;
-	text-align: center;
-	padding-bottom: 10px;
-	margin-top: 50px;
-}
 
 /*
 	Login Form Page Styles

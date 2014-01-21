@@ -18,17 +18,14 @@ a {
 */
 
 .opt-navbar-wrapper {
-  padding-top: 50px;
+  margin-top:70px;
 }
 
 .opt-header {
 	background-color: #541E74;
-}
-
-.opt-filler-header {
-	background-color: #00FFFF;
-	height:15px;
-	position: relative;
+	border-style:solid;
+	border-bottom-color:#00FFFF;
+	border-bottom-width:10px;
 }
 
 .opt-logo {
@@ -115,6 +112,10 @@ background-color: transparent;
 /*
 	Team Page Styles
 */
+
+.opt-team-desc {
+	margin-bottom: 50px;
+}
 
 /*
 	Login Form Page Styles

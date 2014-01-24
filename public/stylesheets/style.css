@@ -75,24 +75,23 @@ background-color: transparent;
 .landing-page-bg .opt-landing-content {
 	display:block;
 	position:relative;
-	z-index:2;
 	color:white;
 	margin-top:200px;
 	text-align:center;
 	text-shadow:1px 1px #000000;
 }
 
-.value-prop{
-	text-align: center;
+.form-wrapper {
+
 }
 
 .opt-title-header {
 	font-size: 40pt;
 }
 
-.opt-landing-page-content {
-	font-size: 12pt;
-}
+/*.opt-landing-page-content {*/
+	/*font-size: 12pt;*/
+/*}*/
 
 /*
 	About Us Page Styles
@@ -123,9 +122,11 @@ background-color: transparent;
 
 .input-mysize{
 	width: 250px;
+	margin-left: 5px;
+	margin-right: 5px;
 }
 
 .input-form {
-	width:500px;
+	width:600px;
 	margin: 0 auto;
 }

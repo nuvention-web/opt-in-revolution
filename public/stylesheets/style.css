@@ -106,14 +106,27 @@ background-color: transparent;
 *****************************************************************/
 
 .opt-about-header {
-	text-align: center;
 	margin-top: 50px;
 }
 
 .tile {
 	min-height: 100%;
-    height: 100%;
+    /*height: 100%;*/
     color: white;
+}
+
+.about-text {
+	padding-top:120px;
+}
+
+.about-img {
+	padding-top:120px;
+	padding-left:100px;
+	/*text-align: center;*/
+}
+
+.opt-about-image {
+	margin: 0 auto;
 }
 
 #top {
@@ -138,6 +151,19 @@ background-color: transparent;
 	background-color: #3CC9E5;
     /*background:transparent url('../images/landingpage3.jpg') center center no-repeat;*/
     /*background-size:cover;*/
+}
+
+#create {
+	background-color: #113840;
+    /*background:transparent url('../images/landingpage3.jpg') center center no-repeat;*/
+    /*background-size:cover;*/
+}
+
+.opt-create-btn {
+	margin-top:20px;
+	padding-top: 35px;
+	height: 100px;
+	width: 200px;
 }
 
 /****************************************************************

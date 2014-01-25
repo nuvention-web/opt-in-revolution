@@ -1,8 +1,9 @@
-body {
+html, body {
   /*font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;*/
   font-family: Ubuntu, sans-serif;
   font-size: 15px;
   height:100%;
+  width:100%;
 }
 
 a {
@@ -58,9 +59,9 @@ background-color: transparent;
 
 
 
-/*
+/****************************************************************
 	Landing Page Styles
-*/
+*****************************************************************/
 
 .landing-page-bg {
 	display:block;
@@ -89,36 +90,67 @@ background-color: transparent;
 	font-size: 40pt;
 }
 
-/*.opt-landing-page-content {*/
-	/*font-size: 12pt;*/
-/*}*/
-
-/*
-	About Us Page Styles
-*/
-
-.about-us {
-	/*text-align: center;	*/
+.opt-call-to-action {
+	margin-top: 60px;
 }
 
+.opt-about-btn {
+	margin-left: 5px;
+	margin-right: 5px;
+	height: 50px;
+	width: 200px;
+}
+
+/****************************************************************
+	About Us Page Styles
+*****************************************************************/
 
 .opt-about-header {
 	text-align: center;
 	margin-top: 50px;
 }
 
+.tile {
+	min-height: 100%;
+    height: 100%;
+    color: white;
+}
 
-/*
+#top {
+    background: #21707F;
+    /*background:transparent url('../images/landingpage.jpg') center center no-repeat;*/
+	/*background-size:cover;*/
+}
+
+#employ {
+	background-color: #43E0FF;
+    /*background:transparent url('../images/landingpage3.jpg') center center no-repeat;*/
+    /*background-size:cover;*/
+}
+
+#empower {
+	background-color: #113840;
+    /*background:transparent url('../images/landingpage3.jpg') center center no-repeat;*/
+    /*background-size:cover;*/
+}
+
+#engage {
+	background-color: #3CC9E5;
+    /*background:transparent url('../images/landingpage3.jpg') center center no-repeat;*/
+    /*background-size:cover;*/
+}
+
+/****************************************************************
 	Team Page Styles
-*/
+*****************************************************************/
 
 .opt-team-desc {
 	margin-bottom: 50px;
 }
 
-/*
-	Login Form Page Styles
-*/
+/****************************************************************
+	Login Page Styles
+*****************************************************************/
 
 .input-mysize{
 	width: 250px;

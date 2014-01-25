@@ -5,6 +5,8 @@
 var mongoose = require('mongoose');
 var AdminUser = require('../models/adminUser');
 var RegEmail = require('../models/regEmail');
+var url = require('url');
+
 module.exports.controller = function(app) {
 
     app.get('/', function(req, res) {
@@ -13,8 +15,14 @@ module.exports.controller = function(app) {
     });
 
     app.get('/about', function(req, res) {
+        var url_parts = url.parse(req.url, true);
+        var query = url_parts.query;
+        var userType = query.view;
+        console.log(query);
+        res.location("userlist");
         res.render("about", { title: "About Us",
-                                active: "About Us" });
+                                active: "About Us",
+                                view: userType});
     });
 
     app.get('/login', function(req, res) {

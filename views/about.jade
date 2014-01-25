@@ -1,35 +1,26 @@
 extends layout
 
 block content
-	.container
-		.row.mt.centered
-			.opt-team-header
-				h1 About
-				blockquote
-					| We're a company dedicated to matching the skills women have with the companies that need them. Forty three percent of women drop out of the workforce at some point in their life, yet they have the skills, experience, and knowledge that can still make them competitive.
-
-		.row.mt.centered
-			.col-lg-6
-				h4 For Mothers
-				p
-					|  Opt In Revolution is for women with MBAs, Law Degrees, or equivalent education and with more than five years worth of work experience to find temporary and flexible freelance work. We want the opt out generation to come back in.
-				ul
-					li
-						| point 1
-					li
-						| point 2
-			.col-lg-6
-				h4 For Businesses
-				p
-					| Opt In Revolution provides a focused, niche group of employees with experience and skillsets eager for work. Small and medium sized businesses that can't afford to hire consulting firms or marketing agencies can find the same-level of talent at Opt In Revolution. Furthermore, the new talent brings new insights and experiences to the business, helping them learn, expand and grow.
-				ul
-					li
-						| point 1
-					li
-						| point 2
-
-
-
-
-
-
+	.tile#top
+		.container
+			.row.mt.centered
+				.opt-team-header
+					h1 About #{view}
+					blockquote
+						| We're a company dedicated to matching the skills women have with the companies that need them. Forty three percent of women drop out of the workforce at some point in their life, yet they have the skills, experience, and knowledge that can still make them competitive.
+	.tile#employ
+		.container
+			.row.mt.centered
+				.col-lg-12
+					h1 EMPLOY
+	.tile#empower
+		.container
+			.row.mt.centered
+				.col-lg-12
+					h1 EMPOWER
+	.tile#engage
+		.container
+			.row.mt.centered
+				.col-lg-12
+					h1 ENGAGE
+					

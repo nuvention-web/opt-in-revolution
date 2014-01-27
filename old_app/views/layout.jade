@@ -1,0 +1,32 @@
+doctype html
+html(lang='en')
+head
+	title= title
+	link(rel='shortcut icon', href='/images/favicon.ico')
+	link(rel='stylesheet', type='text/css', href='http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin')
+	link(href='/stylesheets/bootstrap.css', rel='stylesheet')
+	link(href='/stylesheets/style.css', rel='stylesheet')
+	script(src='//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js')
+	script(src='/javascripts/bootstrap.js')
+	script(src='/javascripts/analytics.js')
+
+body
+	.opt-navbar-wrapper
+		.navbar.navbar-default.navbar-fixed-top.opt-header(role='navigation')
+			.container
+				.navbar-header
+					button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+						span.sr-only Toggle navigation
+						span.icon-bar
+						span.icon-bar
+						span.icon-bar
+						span.icon-bar
+					a.opt-nav-text.navbar-brand(href='/') 
+						img.opt-logo(src='/images/logo.png', alt='Opt-In Logo')
+						| Opt-In Revolution
+				.navbar-collapse.collapse
+					ul.nav.navbar-nav.navbar-right
+						each nav in [{link: '', name: "Home"}, {link: 'about', name: "About"}, {link: 'team', name: "Team"}]
+							li 
+								a.opt-nav-text(href='/#{nav.link}') #{nav.name}
+	block content

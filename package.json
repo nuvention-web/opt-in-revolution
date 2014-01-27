@@ -1,17 +1,24 @@
 {
-  "name": "opt-in-revolution",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "start": "node app.js"
-  },
+  "name": "hackathon-starter",
+  "version": "0.0.0",
   "dependencies": {
-    "express": "3.4.7",
-    "jade": "*",
-    "mongodb": "*",
-    "passport": "*",
-    "passport-local": "*",
-    "mongoose": "*",
-    "bcrypt": "*"
+    "async": "~0.2.10",
+    "bcrypt": "~0.7.7",
+    "cheerio": "~0.13.1",
+    "connect-flash": "~0.1.1",
+    "express": "~3.4.8",
+    "express-validator": "~1.0.1",
+    "fbgraph": "~0.2.8",
+    "jade": "~1.1.5",
+    "less-middleware": "~0.1.15",
+    "mongoose": "~3.8.5",
+    "passport": "~0.2.0",
+    "passport-facebook": "~1.0.2",
+    "passport-google-oauth": "~0.1.5",
+    "passport-local": "~0.1.6",
+    "passport-oauth": "~1.0.0",
+    "request": "~2.33.0",
+    "sendgrid": "~0.4.6",
+    "underscore": "~1.5.2"
   }
 }

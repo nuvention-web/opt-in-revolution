@@ -19,8 +19,8 @@ html
     script(src='/js/lib/bootstrap.js')
     script(src='/js/main.js')
   body
-    #wrap
-      .navbar.navbar-default.navbar-fixed-top
+    .opt-navbar-wrapper
+      .navbar.navbar-default.navbar-fixed-top.opt-header(role='navigation')
         .container
           .navbar-header
             button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
@@ -28,15 +28,16 @@ html
               span.icon-bar
               span.icon-bar
               span.icon-bar
-            a.navbar-brand(href='/') Project name
-          .collapse.navbar-collapse
+              span.icon-bar
+            a.opt-nav-text.navbar-brand(href='/') 
+              img.opt-logo(src='/images/logo.png', alt='Opt-In Logo')
+              | Opt-In Revolution
+          .navbar-collapse.collapse
             ul.nav.navbar-nav
-              li(class=title=='Home'?'active':undefined)
-                a(href='/') Home
-              li(class=title=='API Browser'?'active':undefined)
-                a(href='/api') API Browser
-              li(class=title=='Contact'?'active':undefined)
-                a(href='/contact') Contact
+              each nav in [{link: '', name: "Home"}, {link: 'about', name: "About"}, {link: 'team', name: "Team"}]
+                li 
+                  a.opt-nav-text(href='/#{nav.link}') #{nav.name}
+    
             ul.nav.navbar-nav.navbar-right
               if !user
                 li(class=title=='Login'?'active':undefined)
@@ -54,22 +55,4 @@ html
                     li: a(href='/account') My Account
                     li.divider
                     li: a(href='/logout') Logout
-      .container
-        block content
-    #footer
-      .container.text-center
-        div
-          | © 2014 Company, Inc.
-        div
-          strong Hackathon Starter
-          |  Project
-          |  ·
-          | Created by
-          a(href='http://sahatyalkabov.com')  Sahat Yalkabov
-        div
-          | Code licensed under
-          a(href='http://opensource.org/licenses/mit-license.html')  MIT License
-        div
-          a(href='https://github.com/sahat/hackathon-starter') GitHub Project
-          |  ·
-          a(href='https://github.com/sahat/hackathon-starter/issues')  Issues
+      block content

@@ -22,13 +22,13 @@ exports.postJob = function (req, res) {
 			res.send("There was a problem adding the information to the database.");
 		}
 		else {
-			res.redirect("jobs/jobpost");
+			res.redirect("/jobslist");
 		}
 	});
 };
 
-exports.getJobPost = function(req, res) {
-	res.render('jobs/jobpost', {title: "Post a job"});
+exports.submitJobPost = function(req, res) {
+	res.render('jobs/postjob', {title: "Post a job"});
 };
 
 exports.listJobs = function(req, res) {
@@ -36,6 +36,15 @@ exports.listJobs = function(req, res) {
 		res.render("jobs/jobslist", {
 			"joblist" : docs,
 			title: "Job Listing Page",
+		});
+	});
+};
+
+exports.applyJob = function(req, res) {
+	Job.findById(req.params.id, function(e, docs) {
+		res.render("jobs/applyjob", {
+			"job" : docs,
+			title: "Apply to this job",
 		});
 	});
 };

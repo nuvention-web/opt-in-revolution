@@ -101,9 +101,10 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', { successRe
 app.get('/auth/google', passport.authenticate('google', { scope: 'profile email' }));
 app.get('/auth/google/callback', passport.authenticate('google', { successRedirect: '/', failureRedirect: '/login' }));
 
-app.post('/post-job', jobController.getJobPost);
-app.get('/jobpost', jobController.getJobPost);
+app.post('/postJob', jobController.postJob);
+app.get('/postjob', jobController.submitJobPost);
 app.get('/jobslist', jobController.listJobs);
+app.get('/job/apply-:id', jobController.applyJob);
 
 app.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));

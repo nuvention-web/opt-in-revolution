@@ -45,6 +45,10 @@ html
                   li(class=title=='Create Account')
                     a(href='/signup') Create Account
                 else
+                  //- li.dropdown(class=title=='User Actions')
+                  //-   ul.dropdown-menu
+                  //-     li: a(href='/jobslist') See Opportunities
+                  //-     li: a(href='/') See Companies
                   li.dropdown(class=title=='Account Management')
                     a.dropdown-toggle(href='#', data-toggle='dropdown')
                       if user.profile.picture

@@ -15,6 +15,7 @@ block content
 							th Job Title
 							th Job Description
 							th Date Submitted
+							th Apply
 					tbody
 					each job, i in joblist
 						tr
@@ -22,3 +23,5 @@ block content
 							td #{job.jobName}
 							td #{job.jobDescription}
 							td #{job.dateCreated}
+							td 
+								a(href="/job/apply-#{job.id}") Apply

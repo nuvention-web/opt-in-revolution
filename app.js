@@ -20,7 +20,7 @@ var homeController = require('./controllers/home');
 var userController = require('./controllers/user');
 var apiController = require('./controllers/api');
 var contactController = require('./controllers/contact');
-
+var jobController = require('./controllers/job');
 /**
  * API keys + Passport configuration.
  */
@@ -101,6 +101,9 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', { successRe
 app.get('/auth/google', passport.authenticate('google', { scope: 'profile email' }));
 app.get('/auth/google/callback', passport.authenticate('google', { successRedirect: '/', failureRedirect: '/login' }));
 
+app.post('/post-job', jobController.getJobPost);
+app.get('/jobpost', jobController.getJobPost);
+app.get('/jobslist', jobController.listJobs);
 
 app.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));

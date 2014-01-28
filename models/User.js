@@ -4,7 +4,7 @@ var bcrypt = require('bcrypt');
 var userSchema = new mongoose.Schema({
   email: { type: String, unique: true },
   password: String,
-
+  userType: String, //Mom or business
   tokens: Array,
   provider: String,
   facebook: { type: String, unique: true, sparse: true },
@@ -16,7 +16,16 @@ var userSchema = new mongoose.Schema({
     location: { type: String, default: '' },
     website: { type: String, default: '' },
     picture: { type: String, default: '' }
-  }
+  },
+
+  dateCreated: {type: Date, default: Date.now },
+
+  bio: { type: String },
+  skills: { type: String },
+  photo: { type: String },
+  interests: { type: String },
+  //Store company IDs in this array
+  companiesContacted: { type : Array }
 });
 
 userSchema.pre('save', function(next) {

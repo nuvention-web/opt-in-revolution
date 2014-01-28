@@ -7,10 +7,10 @@ var fs = require('fs');
 var flash = require('connect-flash');
 var less = require('less-middleware');
 var path = require('path');
+var mongodb = require('mongodb')
 var mongoose = require('mongoose');
 var passport = require('passport');
 var expressValidator = require('express-validator');
-
 
 /**
  * Load controllers.
@@ -21,6 +21,7 @@ var userController = require('./controllers/user');
 var apiController = require('./controllers/api');
 var contactController = require('./controllers/contact');
 var jobController = require('./controllers/job');
+
 /**
  * API keys + Passport configuration.
  */

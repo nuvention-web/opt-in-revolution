@@ -2,18 +2,22 @@ extends ../layout
 
 block content
 	.container
-		p
-			| Apply to this job!
-
-		tr
-			th Company
-			th Job Title
-			th Job Description
-			th Date Submitted
-			th Apply
-		tbody
-			tr
-				td #{job.companyName}
-				td #{job.jobName}
-				td #{job.jobDescription}
-				td #{job.dateCreated}
+		.job-listing-wrapper
+			.row.mt.centered
+				.col-lg-12
+					h1 
+						| Apply to this job!
+			table.table.table-striped
+				thead
+					tr
+						th Company
+						th Job Title
+						th Job Description
+						th Date Submitted
+						th Apply
+					tbody
+						tr
+							td #{job.companyName}
+							td #{job.jobName}
+							td #{job.jobDescription}
+							td #{job.dateCreated}

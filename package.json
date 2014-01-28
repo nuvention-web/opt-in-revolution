@@ -1,6 +1,6 @@
 {
-  "name": "hackathon-starter",
-  "version": "0.0.0",
+  "name": "opt-in-revolution",
+  "version": "0.1.0",
   "dependencies": {
     "async": "~0.2.10",
     "bcrypt": "~0.7.7",

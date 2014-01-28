@@ -1,0 +1,18 @@
+extends ../layout
+
+block content
+	.jumbotron
+		p
+			| Input job information
+
+		form.form-inline(name="dummyJobPost", role="form", method="post",action="post-job")
+			.form-group
+				label.sr-only(for='jobName') Job Name
+				input#jobName.form-control(type='text', name='jobName', placeholder='Enter job name')
+			.form-group
+				label.sr-only(for='company') Company
+				input#company.form-control(type='text', name='company', placeholder='Enter company name')
+			.form-group
+				label.sr-only(for='description') Description
+				input#description.form-control(type='text', name="description", placeholder='Enter description')
+			button.btn.btn-default(type='submit') Submit

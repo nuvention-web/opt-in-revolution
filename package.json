@@ -11,6 +11,7 @@
     "fbgraph": "~0.2.8",
     "jade": "~1.1.5",
     "less-middleware": "~0.1.15",
+    "mongodb": "*",
     "mongoose": "~3.8.5",
     "passport": "~0.2.0",
     "passport-facebook": "~1.0.2",

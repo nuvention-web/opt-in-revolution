@@ -81,6 +81,8 @@ app.use(express.errorHandler());
 app.get('/', homeController.index);
 app.get('/about', homeController.about);
 app.get('/team', homeController.team);
+
+// Account Stuff
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
@@ -93,14 +95,19 @@ app.post('/account/profile', passportConf.isAuthenticated, userController.postUp
 app.post('/account/password', passportConf.isAuthenticated, userController.postUpdatePassword);
 app.post('/account/delete', passportConf.isAuthenticated, userController.postDeleteAccount);
 app.get('/account/unlink/:provider', passportConf.isAuthenticated, userController.getOauthUnlink);
+
+// API Related
 app.get('/api', apiController.getApi);
 app.get('/api/facebook', passportConf.isAuthenticated, apiController.getFacebook);
 app.get('/api/scraping', apiController.getScraping);
+
+// Auth Stuff
 app.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email' }));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', { successRedirect: '/', failureRedirect: '/login' }));
 app.get('/auth/google', passport.authenticate('google', { scope: 'profile email' }));
 app.get('/auth/google/callback', passport.authenticate('google', { successRedirect: '/', failureRedirect: '/login' }));
 
+// Job Related
 app.post('/postJob', jobController.postJob);
 app.get('/postjob', jobController.submitJobPost);
 app.get('/jobslist', jobController.listJobs);

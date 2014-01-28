@@ -2,13 +2,26 @@ extends layout
 
 block content
 	.tile#top
+		.tile-half
+			.container
+				.row.mt.centered
+					.col-lg-12
+						.opt-about-header
+							big
+								h1 About #{view}
+							p
+								big
+									| We're a company dedicated to matching the skills women have with the companies that need them. Forty three percent of women drop out of the workforce at some point in their life, yet they have the skills, experience, and knowledge that can still make them competitive.
 		.container
 			.row.mt.centered
-				.col-lg-12
-					.opt-team-header
-						h1 About #{view}
-						blockquote
-							| We're a company dedicated to matching the skills women have with the companies that need them. Forty three percent of women drop out of the workforce at some point in their life, yet they have the skills, experience, and knowledge that can still make them competitive.
+				.col-lg-6
+					h3 For Mothers
+					blockquote
+						| Opt In Revolution is for women with MBAs, Law Degrees, or equivalent education and with more than five years worth of work experience to find temporary and flexible freelance work. We want the opt out generation to come back in.
+				.col-lg-6
+					h3 For Businesses
+					blockquote
+						| We provide a focused, niche group of employees with experience and skillsets eager for work. Small and medium sized businesses that can't afford to hire consulting firms or marketing agencies can find the same-level of talent at Opt In Revolution.
 	.tile#employ
 		.container
 			.row.mt.centered
@@ -16,7 +29,7 @@ block content
 					.about-img-wrapper
 						.about-img
 							//- p thing
-							img.img-circle.img-responsive(src='/images/bike.jpg', width='350', alt='')
+							img.img-circle.img-responsive(src='/images/employ.jpg', width='350', alt='')
 				.col-lg-6
 					.about-text
 						h1 EMPLOY
@@ -33,7 +46,7 @@ block content
 				.col-lg-6
 					.about-img
 						//- p thing
-						img.img-circle.img-responsive(src='/images/bike.jpg', width='350', alt='')
+						img.img-circle.img-responsive(src='/images/empower.jpg', width='350', alt='')
 	.tile#engage
 		.container
 			.row.mt.centered

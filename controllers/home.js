@@ -2,6 +2,7 @@
  * GET /
  * Home page.
  */
+ var url = require('url');
 
 exports.index = function(req, res) {
   res.render('home', {
@@ -10,9 +11,15 @@ exports.index = function(req, res) {
 };
 
 exports.about = function(req, res) {
-  res.render('about', {
-    title: 'About'
-  });
+	var url_parts = url.parse(req.url, true);
+	var query = url_parts.query;
+	var userType = query.view;
+	// console.log(query);
+	// console.log(userType);
+	res.render('about', {
+		title: 'About',
+		view: userType
+	});
 };
 
 

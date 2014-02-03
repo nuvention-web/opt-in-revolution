@@ -31,7 +31,7 @@ html
               span.icon-bar
               span.icon-bar
             a.opt-nav-text.navbar-brand(href='/') 
-              img.opt-logo(src='/images/logo.png', alt='Opt-In Logo')
+              img.opt-logo(src='/images/logo_2.png', alt='Opt-In Logo')
               | Opt-In Revolution
           .navbar-collapse.collapse
             .cust-navbar
@@ -49,7 +49,7 @@ html
                   li.dropdown(class=title=='User Actions')
                     a.dropdown-toggle(href='#', data-toggle='dropdown') 
                       | Actions
-                      i.caret
+                      span.caret
                     ul.dropdown-menu
                       li: a(href='/jobslist') View Listings
                       li: a(href='/') View Companies
@@ -58,7 +58,7 @@ html
                       if user.profile.picture
                         img(src='#{user.profile.picture}')
                       | #{user.profile.name || 'Profile'}&nbsp;
-                      i.caret
+                      span.caret
                     ul.dropdown-menu
                       li: a(href='/account') My Account
                       li.divider

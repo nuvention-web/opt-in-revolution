@@ -1,7 +1,7 @@
 var mongoose = require('mongoose')
-      ,Schema = mongoose.Schema
-      ,bcrypt = require('bcrypt')
-      ,SALT_WORK_FACTOR = 10;
+  ,Schema = mongoose.Schema
+  ,bcrypt = require('bcrypt')
+  ,SALT_WORK_FACTOR = 10;
 
 
 var jobSchema = new Schema({
@@ -9,6 +9,13 @@ var jobSchema = new Schema({
 	jobName: {type: String},
     companyName: {type: String},
     jobDescription: {type: String},
+    industry: {type: String},
+    jobFunction: {type: String},
+    duration: {type: String},
+    hoursPerWeek: {type: String},
+    telephoneOnly: {type: String},
+    skillsNeeded: {type: String},
+    pay: {type: String},
     dateCreated: { type: Date, default: Date.now }
 });
 

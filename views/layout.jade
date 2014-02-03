@@ -45,7 +45,7 @@ html
                     a(href='/login') Login
                   li(class=title=='Create Account')
                     a(href='/signup') Create Account
-                else
+                else if user.userType=='mom'
                   li.dropdown(class=title=='User Actions')
                     a.dropdown-toggle(href='#', data-toggle='dropdown') 
                       | Actions
@@ -53,6 +53,24 @@ html
                     ul.dropdown-menu
                       li: a(href='/jobslist') View Listings
                       li: a(href='/') View Companies
+                  li.dropdown(class=title=='Account Management')
+                    a.dropdown-toggle(href='#', data-toggle='dropdown')
+                      if user.profile.picture
+                        img(src='#{user.profile.picture}')
+                      | #{user.profile.name || 'Profile'}&nbsp;
+                      i.caret
+                    ul.dropdown-menu
+                      li: a(href='/account') My Account
+                      li.divider
+                      li: a(href='/logout') Logout
+                else
+                  li.dropdown(class=title=='User Actions')
+                    a.dropdown-toggle(href='#', data-toggle='dropdown') 
+                      | Actions
+                      i.caret
+                    ul.dropdown-menu
+                      li: a(href='/postjob') Post Job
+                      li: a(href='/companyposts') View My Postings
                   li.dropdown(class=title=='Account Management')
                     a.dropdown-toggle(href='#', data-toggle='dropdown')
                       if user.profile.picture

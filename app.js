@@ -109,7 +109,7 @@ app.get('/auth/google', passport.authenticate('google', { scope: 'profile email'
 app.get('/auth/google/callback', passport.authenticate('google', { successRedirect: '/', failureRedirect: '/login' }));
 
 // Job Related
-app.post('/postJob', jobController.postJob);
+app.post('/postJob', passportConf.isAuthenticated, jobController.postJob);
 app.get('/postjob', jobController.submitJobPost);
 app.get('/jobslist', jobController.listJobs);
 app.get('/job/apply-:id', jobController.applyJob);

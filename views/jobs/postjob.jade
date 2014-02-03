@@ -1,18 +1,44 @@
 extends ../layout
 
 block content
-	.jumbotron
 		p
 			| Input job information
 
-		form.form-inline(name="dummyJobPost", role="form", method="post",action="postJob")
+		form.form-horizontal(name="JobPost", role="form", method="post",action="postJob")
 			.form-group
-				label.sr-only(for='jobName') Job Name
-				input#jobName.form-control(type='text', name='jobName', placeholder='Enter job name')
+				label.col-xs-1.control-label(for='jobName') Job Name
+				.col-xs-7
+					input#jobName.form-control(type='text', name='jobName', placeholder='Enter job name')
 			.form-group
-				label.sr-only(for='company') Company
-				input#company.form-control(type='text', name='company', placeholder='Enter company name')
+				label.col-xs-1.control-label(for='description') Description
+				.col-xs-7
+					input#description.form-control(type='text', name="description", placeholder='Enter description')
 			.form-group
-				label.sr-only(for='description') Description
-				input#description.form-control(type='text', name="description", placeholder='Enter description')
+				label.col-xs-1.control-label(for='industry') Industry
+				.col-xs-7
+					input#industry.form-control(type='text', name="industry", placeholder='Enter industry')
+			.form-group
+				label.col-xs-1.control-label(for='jobFunction') Job Function
+				.col-xs-7
+					input#jobFunction.form-control(type='text', name="jobFunction", placeholder='Enter job function')
+			.form-group
+				label.col-xs-1.control-label(for='duration') Duration
+				.col-xs-7
+					input#duration.form-control(type='text', name="duration", placeholder='Enter duration')
+			.form-group
+				label.col-xs-1.control-label(for='hoursPerWeek') Hours Per Week
+				.col-xs-7
+					input#hoursPerWeek.form-control(type='text', name="hoursPerWeek", placeholder='Enter hours per week')
+			.form-group
+				label.col-xs-1.control-label(for='telephoneOnly') Telephone Only
+				.col-xs-7
+					input#telephoneOnly.form-control(type='text', name="telephoneOnly", placeholder='Enter telephone only')
+			.form-group
+				label.col-xs-1.control-label(for='skillsNeeded') Skills Needed
+				.col-xs-7
+					input#skillsNeeded.form-control(type='text', name="skillsNeeded", placeholder='Enter skills needed')
+			.form-group
+				label.col-xs-1.control-label(for='pay') Pay
+				.col-xs-7
+					input#pay.form-control(type='text', name="pay", placeholder='Enter pay')
 			button.btn.btn-default(type='submit') Submit

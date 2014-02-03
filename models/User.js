@@ -25,7 +25,13 @@ var userSchema = new mongoose.Schema({
   photo: { type: String },
   interests: { type: String },
   //Store company IDs in this array
-  companiesContacted: { type : Array }
+  companiesContacted: { type : Array },
+
+  company: { 
+    companyName: {type: String},
+    companyDescription: {type: String},
+    companyPhoto: {type:String},
+  },
 });
 
 userSchema.pre('save', function(next) {

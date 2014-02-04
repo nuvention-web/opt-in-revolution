@@ -67,7 +67,7 @@ html
                   li.dropdown(class=title=='User Actions')
                     a.dropdown-toggle(href='#', data-toggle='dropdown') 
                       | Actions
-                      i.caret
+                      span.caret
                     ul.dropdown-menu
                       li: a(href='/postjob') Post Job
                       li: a(href='/companyposts') View My Postings
@@ -76,7 +76,7 @@ html
                       if user.profile.picture
                         img(src='#{user.profile.picture}')
                       | #{user.profile.name || 'Profile'}&nbsp;
-                      i.caret
+                      span.caret
                     ul.dropdown-menu
                       li: a(href='/account') My Account
                       li.divider

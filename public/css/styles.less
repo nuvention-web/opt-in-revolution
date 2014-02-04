@@ -102,6 +102,9 @@ i {
   float:left;
 }
 
+.right {
+  float:right;
+}
 .menu-right {
   float:right;
   margin-top:5px;
@@ -120,6 +123,10 @@ i {
     background:transparent url('../images/landingpage.jpg') center center no-repeat;
     background-size:cover;
     min-height: 50%;
+      -webkit-box-shadow: 0 4px 4px -2px #777;
+   -moz-box-shadow: 0 4px 4px -2px #777;
+        box-shadow: 0 4px 4px -2px #777;
+        color:white;
 }
 
 .opt-about-header-section-biz {
@@ -127,18 +134,22 @@ i {
     background:transparent url('../images/job-banner2.jpg') center center no-repeat;
     background-size:cover;
     min-height: 50%;
+      -webkit-box-shadow: 0 4px 4px -2px #777;
+   -moz-box-shadow: 0 4px 4px -2px #777;
+        box-shadow: 0 4px 4px -2px #777;
+        color:white;
 }
 
 .opt-about-header-content {
   padding-bottom:10px;
-  padding-top: 25px;
+  padding-top: 150px;
     text-align:center;
 }
 
-div.hr {
-  height:1px;
-  background-color: grey;
-}
+// div.hr {
+//   height:1px;
+//   background-color: grey;
+// }
 
 span.caret.d-text {
   margin-left: 5px;
@@ -165,31 +176,19 @@ span.caret.d-text {
   margin: 0 auto;
 }
 
-#top {
-    background: #21707F;
-}
-
-#employ {
-  background-color: #43E0FF;
-}
-
-#empower {
-  background-color: #113840;
-}
-
-#engage {
-  background-color: #3CC9E5;
-}
-
-#create {
-  background-color: #113840;
-}
-
 .opt-create-btn {
   margin-top:20px;
   padding-top: 35px;
   height: 100px;
   width: 200px;
+}
+
+.opt-quote blockquote small {
+  color:white
+}
+
+.opt-about-desc {
+  font-size: 18px;
 }
 
 /****************************************************************
@@ -245,8 +244,31 @@ span.caret.d-text {
 
 .job-card {
   margin-bottom: 30px;
-  box-shadow: 0 0 20px #777;
+  padding: 10px 10px 10px 10px;
+  box-shadow: 0 0 15px #777;
   border-radius: 5px; 
+  // width:800px;
 }
 
+.job-card-heading {
+  margin-right: 0px;
+  margin-left: 0px;
+  float:none;
+}
 
+.job-card-description {
+    margin-right: 0px;
+  margin-left: 0px;
+  float:none;
+}
+
+.job-card-other {
+    margin-right: 0px;
+  margin-left: 0px;
+  float:none;
+
+}
+
+.job-btn {
+  margin-right: 5px;
+}

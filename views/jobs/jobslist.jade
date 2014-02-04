@@ -1,0 +1,32 @@
+extends ../layout
+
+block content
+	.tile-job
+		.container
+			.row.mt.centered
+				.col-lg-12
+					.job-header
+						big
+							h1 Job Opportunities
+						small
+							| See what opportunities await you
+	.container
+		.job-listing-wrapper
+			table.table.table-striped
+				thead
+					tr
+						th Company
+						th Job Title
+						th Job Description
+						th Date Submitted
+						th Apply
+					tbody
+						each job, i in joblist
+							tr
+							td #{job.companyName}
+							td #{job.jobName}
+							td #{job.jobDescription}
+							td #{job.dateCreated}
+							td
+								a.btn.btn-success.btn-md(href='/job/apply-#{job.id}', role='button') Apply
+								//- a.button(href="/job/apply-#{job.id}") Apply

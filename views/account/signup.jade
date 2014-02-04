@@ -1,0 +1,39 @@
+extends ../layout
+
+block content
+  .container
+    if errors.length
+      .alert.alert-danger.animated.fadeIn.opt-alert
+        for error in errors
+          div= error.msg
+    .opt-create-acct
+      form.form-horizontal(id='signup-form', method='POST')
+        legend.centered Signup
+        .form-group
+          label.col-sm-3.control-label(for='email') Email
+          .col-sm-7
+            input.form-control(type='email', name='email', id='email', placeholder='Email', autofocus)
+        .form-group
+          label.col-sm-3.control-label(for='usertype') Account Type
+          .col-sm-7
+            //- input.form-control(type='radio', name='usertype', id='usertype', placeholder='Email', autofocus)
+            .radio
+              input(type='radio', name='usertype', value='mom', id='usertype', autofocus)
+              | I am a mom
+            .radio
+              input(type='radio', name='usertype', value='employer', id='usertype', autofocus)
+              | I am an employer
+
+        .form-group
+          label.col-sm-3.control-label(for='username') Password
+          .col-sm-7
+            input.form-control(type='password', name='password', id='password', placeholder='Password')
+        .form-group
+          label.col-sm-3.control-label(for='username') Confirm Password
+          .col-sm-7
+            input.form-control(type='password', name='confirmPassword', id='confirmPassword', placeholder='Confirm Password')
+        .form-group
+          .col-sm-offset-3.col-sm-7
+            button.btn.btn-success(type='submit')
+              i.fa.fa-check
+              | Signup

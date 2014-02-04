@@ -1,32 +1,66 @@
 doctype html
-html(lang='en')
-head
-	title= title
-	link(rel='shortcut icon', href='/images/favicon.ico')
-	link(rel='stylesheet', type='text/css', href='http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin')
-	link(href='/stylesheets/bootstrap.css', rel='stylesheet')
-	link(href='/stylesheets/style.css', rel='stylesheet')
-	script(src='//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js')
-	script(src='/javascripts/bootstrap.js')
-	script(src='/javascripts/analytics.js')
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='description', content='')
+    meta(name='author', content='')
 
-body
-	.opt-navbar-wrapper
-		.navbar.navbar-default.navbar-fixed-top.opt-header(role='navigation')
-			.container
-				.navbar-header
-					button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
-						span.sr-only Toggle navigation
-						span.icon-bar
-						span.icon-bar
-						span.icon-bar
-						span.icon-bar
-					a.opt-nav-text.navbar-brand(href='/') 
-						img.opt-logo(src='/images/logo.png', alt='Opt-In Logo')
-						| Opt-In Revolution
-				.navbar-collapse.collapse
-					ul.nav.navbar-nav.navbar-right
-						each nav in [{link: '', name: "Home"}, {link: 'about', name: "About"}, {link: 'team', name: "Team"}]
-							li 
-								a.opt-nav-text(href='/#{nav.link}') #{nav.name}
-	block content
+    title Opt In Revolution
+
+    link(rel='shortcut icon', href='/images/favicon.ico')
+    link(href='/css/lib/font-awesome.min.css', rel='stylesheet')
+    link(href='/css/lib/animate.css', rel='stylesheet')
+
+    link(href='/css/styles.css', rel='stylesheet')
+
+    script(src='/js/lib/jquery.js')
+    script(src='/js/lib/bootstrap.js')
+    script(src='/js/google_analytics.js')  
+    script(src='/js/main.js')
+  body
+    .opt-navbar-wrapper
+      .navbar.navbar-default.navbar-fixed-top.opt-header(role='navigation')
+        .container
+          .navbar-header
+            button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+              span.sr-only Toggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+            a.opt-nav-text.navbar-brand(href='/') 
+              img.opt-logo(src='/images/logo.png', alt='Opt-In Logo')
+              | Opt-In Revolution
+          .navbar-collapse.collapse
+            .cust-navbar
+              ul.nav.navbar-nav
+                each nav in [{link: '', name: "Home"}, {link: 'about', name: "About"}, {link: 'team', name: "Team"}]
+                  li 
+                    a.opt-nav-text(href='/#{nav.link}') #{nav.name}
+              ul.nav.navbar-nav.navbar-right
+                if !user
+                  li(class=title=='Login')
+                    a(href='/login') Login
+                  li(class=title=='Create Account')
+                    a(href='/signup') Create Account
+                else
+                  li.dropdown(class=title=='User Actions')
+                    a.dropdown-toggle(href='#', data-toggle='dropdown') 
+                      | Actions
+                      i.caret
+                    ul.dropdown-menu
+                      li: a(href='/jobslist') View Listings
+                      li: a(href='/') View Companies
+                  li.dropdown(class=title=='Account Management')
+                    a.dropdown-toggle(href='#', data-toggle='dropdown')
+                      if user.profile.picture
+                        img(src='#{user.profile.picture}')
+                      | #{user.profile.name || 'Profile'}&nbsp;
+                      i.caret
+                    ul.dropdown-menu
+                      li: a(href='/account') My Account
+                      li.divider
+                      li: a(href='/logout') Logout
+    block content

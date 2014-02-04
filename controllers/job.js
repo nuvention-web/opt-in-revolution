@@ -8,6 +8,8 @@ var passport = require('passport');
 
 var Job = require('../models/Job');
 var User = require('../models/User');
+var ObjectID = require('mongoose').Types.ObjectId; 
+
 
 exports.postJob = function (req, res) {
 	//get form value - based on the name attributes
@@ -23,7 +25,17 @@ exports.postJob = function (req, res) {
 
 	User.findById(req.user.id, function(err, user) {
 		//submit to the DB
-		var newJob = new Job({jobName: jobName, companyName: user.company.companyName, jobDescription: description, industry: industry, jobFunction: jobFunction, duration: duration, hoursPerWeek: hoursPerWeek, telephoneOnly: telephoneOnly, skillsNeeded: skillsNeeded, pay: pay, companyID: req.user.id});
+		var newJob = new Job({jobName: jobName, 
+								companyName: user.company.companyName, 
+								jobDescription: description, 
+								industry: industry, 
+								jobFunction: jobFunction, 
+								duration: duration, 
+								hoursPerWeek: hoursPerWeek, 
+								telephoneOnly: telephoneOnly, 
+								skillsNeeded: skillsNeeded, 
+								pay: pay, 
+								companyID: req.user.id});
 		newJob.save(function(err, doc) {
 			if(err) {
 				//if failed, return error
@@ -68,15 +80,12 @@ exports.applyJob = function(req, res) {
 };
 
 exports.saveJob = function(req, res) {
-	// User.update({_id:req.user.id}, {
-	// 	$push: {companiesContacted: req.params.id}
-	// });
 	User.findById(req.user.id, function(err, user) {
-		user.companiesContacted.push(req.params.id);
-		user.save();
-		// user.save(function(err, user, count) {
-		// 	// res.redirect("/jobslist");
-		// });
+		// Save as ObjectID for easier querying when viewing saved jobs
+		user.companiesContacted.push(new ObjectID(req.params.id));
+		user.save(function(err, user, count) {
+			res.redirect("/jobslist");
+		});
 	});
 };
 
@@ -90,24 +99,13 @@ exports.viewCompanyPosts = function(req, res) {
 };
 
 exports.viewSavedJobs = function(req, res) {
-	var myJobs = []
 	User.findById(req.user.id, function(err, user) {
-		for (var i =0; i<user.companiesContacted.length; i++) {
-			Job.find({companyID: user.companiesContacted[i]}, function (e, docs) {
-				console.log(user.companiesContacted);
-				console.log(user.companiesContacted.length);
-				console.log(user.companiesContacted[i]);
-				console.log(docs);
-				myJobs.push(docs);
+		Job.find({_id: {$in: user.companiesContacted}}, function (e, docs) {
+			// console.log(docs)
+			res.render("jobs/savedjobs", {
+				"joblist" : docs,
+				title: "Saved Companies",
 			});
-		}
-		console.log(myJobs);
-		// Job.find({companyID: {$in: user.companiesContacted}}, function (e, docs) {
-		// 	console.log(docs)
-		res.render("jobs/savedjobs", {
-			"joblist" : myJobs,
-			title: "Saved Companies",
-		// });
 		});
 	});
 };

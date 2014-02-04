@@ -109,10 +109,13 @@ app.get('/auth/google', passport.authenticate('google', { scope: 'profile email'
 app.get('/auth/google/callback', passport.authenticate('google', { successRedirect: '/', failureRedirect: '/login' }));
 
 // Job Related
-app.post('/postJob', jobController.postJob);
+app.post('/postJob', passportConf.isAuthenticated, jobController.postJob);
 app.get('/postjob', jobController.submitJobPost);
+app.get('/mylistings', jobController.viewCompanyPosts);
 app.get('/jobslist', jobController.listJobs);
 app.get('/job/apply-:id', jobController.applyJob);
+app.get('/job/save-:id', jobController.saveJob);
+app.get('/viewsavedjobs', jobController.viewSavedJobs);
 
 app.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));

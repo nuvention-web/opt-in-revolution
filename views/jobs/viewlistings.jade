@@ -1,0 +1,59 @@
+extends ../layout
+
+block content
+	.tile-job
+		.container
+			.row.mt.centered
+				.col-lg-12
+					.job-header
+						big
+							h1 My Listings
+	if joblist.length==0
+		.container
+			.job-listing-wrapper
+				.row.mt
+						h4 You haven't posted any jobs yet!
+	else
+		.container
+			.job-listing-wrapper
+				each job, i in joblist
+					.row.mt
+						.job-card
+							.row.mt.job-card-heading
+								.col-md-1
+									img.pagination-centered(src='/images/office.jpg', width='50', alt='')
+								.col-md-11
+									h3 #{job.jobName}
+									h4 #{job.companyName}
+							.row.mt.job-card-description
+								h4 Description
+								.col-md-12
+									p 
+										| #{job.jobDescription}
+							.row.mt.job-card-other
+								h4 Details
+								.col-md-6
+									p 
+										b Industry: 
+										| #{job.industry}
+									p
+										b Job Function: 
+										| #{job.jobFunction}
+									p
+										b Skills Needed: 
+										| #{job.skillsNeeded}
+								.col-md-6
+									p
+										b Duration: 
+										| #{job.duration}
+									p
+										b Hours per week: 
+										| #{job.hoursPerWeek}
+									p
+										b Pay: 
+										| #{job.pay}
+										//- | #{job.dateCreated}
+							.row.mt.job-card-buttons
+								.col-md-12.col-md-offset-10
+									a.btn.btn-success.btn-md.job-btn(href='/job/apply-#{job.id}', role='button') Update
+									a.btn.btn-success.btn-md.job-btn(href='/job/apply-#{job.id}', role='button') Delete

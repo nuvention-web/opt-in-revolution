@@ -1,75 +1,111 @@
 extends layout
 
 block content
-	.tile#top
-		.tile-half
+	if view == 'biz'
+		.opt-about-header-section-biz
 			.container
 				.row.mt.centered
-					.col-lg-12
-						.opt-about-header
-							big
-								h1 About #{view}
+					.col-md-6
+						h1
+							//- | About Ufs
+					.col-md-6
+						h1 
+							.btn-group.menu-right
+								button.btn.btn-default
+									| I am a: 
+								button.btn.btn-default.dropdown-toggle.opt-about-btn-type(type='button', data-toggle='dropdown')
+									if view == 'mom'
+										| Mother
+									else if view == 'biz'
+										| Business
+									else
+										| Click to choose
+									span.caret.d-text
+								ul.dropdown-menu.pull-right(role='menu')
+									li
+										a(href='/about?view=mom') Mother
+									li
+										a(href='/about?view=biz') Business
+				.row.mt.centered.opt-about-header-content
+					.col-md-6
+						p
+							| Opt-In Revolution is dedicated to finding viable work solutions for mothers and companies by providing a dynamic online marketplace, extensive resources and meaningful networks. 
+					.col-md-6.opt-team-stuff
+						blockquote
 							p
-								big
-									| We're a company dedicated to matching the skills women have with the companies that need them. Forty three percent of women drop out of the workforce at some point in their life, yet they have the skills, experience, and knowledge that can still make them competitive.
-		.container
-			.row.mt.centered
-				.col-lg-6
-					h3 For Mothers
-					blockquote
-						| Opt In Revolution is for women with MBAs, Law Degrees, or equivalent education and with more than five years worth of work experience to find temporary and flexible freelance work. We want the opt out generation to come back in.
-				.col-lg-6
-					h3 For Businesses
-					blockquote
-						| We provide a focused, niche group of employees with experience and skillsets eager for work. Small and medium sized businesses that can't afford to hire consulting firms or marketing agencies can find the same-level of talent at Opt In Revolution.
-	.tile#employ
-		.container
-			.row.mt.centered
-				.col-lg-6
-					.about-img-wrapper
-						.about-img
-							//- p thing
-							img.img-circle.img-responsive(src='/images/employ.jpg', width='350', alt='')
-				.col-lg-6
-					.about-text
-						h1 EMPLOY
-						p
-							| Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-	.tile#empower
-		.container
-			.row.mt.centered
-				.col-lg-6
-					.about-text
-						h1 EMPOWER
-						p
-							| "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat."
-				.col-lg-6
-					.about-img
-						//- p thing
-						img.img-circle.img-responsive(src='/images/empower.jpg', width='350', alt='')
-	.tile#engage
-		.container
-			.row.mt.centered
-				.col-lg-6
-					.about-img
-						//- p thing
-						img.img-circle.img-responsive(src='/images/bike.jpg', width='350', alt='')
-				.col-lg-6
-					.about-text
-						h1 ENGAGE
-						p 
-							| "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
-
-
-	.tile#create
+								| Forty-three percent of women drop out of the workforce at some point in their life, yet they have the skills, experience, and knowledge that can still make them competitive.
+							small
+								b
+									| Sheryl Sandberg,
+									cite(title='Source Title')  Lean In
+	else
+		.opt-about-header-section
 			.container
 				.row.mt.centered
-					.col-lg-12
-						.about-text
-							h1 
-								| Want to see more? 
-								br
-								br
-								| Create a profile and join the Opt In Revolution!
+					.col-md-6
+						h1
+							//- | About Us
+					.col-md-6
+						h1 
+							.btn-group.menu-right
+								button.btn.btn-default
+									| I am a: 
+								button.btn.btn-default.dropdown-toggle.opt-about-btn-type(type='button', data-toggle='dropdown')
+									if view == 'mom'
+										| Mother
+									else if view == 'biz'
+										| Business
+									else
+										| Click to choose
+									span.caret.d-text
+								ul.dropdown-menu.pull-right(role='menu')
+									li
+										a(href='/about?view=mom') Mother
+									li
+										a(href='/about?view=biz') Business
+				.row.mt.centered.opt-about-header-content
+					.col-md-6.opt-about-desc
+						p
+							| Opt-In Revolution is dedicated to finding viable work solutions for mothers and companies by providing a dynamic online marketplace, extensive resources and meaningful networks. 
+					.col-md-6.opt-quote
+						blockquote
+							p
+								| Forty-three percent of women drop out of the workforce at some point in their life, yet they have the skills, experience, and knowledge that can still make them competitive.
+							small
+								b
+									| Sheryl Sandberg,
+									cite(title='Source Title')  Lean In
+	.container
+		//- .hr
+		.opt-about-pillars
+			.row.mt.centered
+				.col-md-4
+					h4 Employ
+					img.img-circle.pagination-centered(src='/images/employ.jpg', width='200', alt='')
+					if view == 'mom'
+						p 
+							| Explore a dynamic marketplace to find flexible, project based work
+					else
+						p
+							| Explore a dynamic marketplace to find highly qualified talent
 
-							a.btn.btn-success.btn-lg.opt-create-btn(href='/signup', role='button') Sign Up
+				.col-md-4
+					h4 Empower
+					img.img-circle.pagination-centered(src='/images/empower.jpg', width='200', alt='')
+					if view == 'mom'
+						p 
+							| Find the necessary resources and tools to enhance your career
+					else
+						p
+							| Find the necessary resources and tools to enhance your hiring skills
+				.col-md-4
+					h4 Engage
+					img.img-circle.pagination-centered(src='/images/empower.jpg', width='200', alt='')
+					if view == 'mom'
+						p 
+							| Connect with other Moms to expand your professional and personal networks
+					else
+						p
+							| Connect with fellow employers to expand your professional and personal networks
+			br
+			br

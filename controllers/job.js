@@ -68,16 +68,46 @@ exports.applyJob = function(req, res) {
 };
 
 exports.saveJob = function(req, res) {
+	// User.update({_id:req.user.id}, {
+	// 	$push: {companiesContacted: req.params.id}
+	// });
 	User.findById(req.user.id, function(err, user) {
-		
-	})
-}
+		user.companiesContacted.push(req.params.id);
+		user.save();
+		// user.save(function(err, user, count) {
+		// 	// res.redirect("/jobslist");
+		// });
+	});
+};
 
 exports.viewCompanyPosts = function(req, res) {
 	Job.find({companyID: req.user.id}, function (e, docs) {
 		res.render("jobs/viewlistings", {
 			"joblist": docs,
 			title: "Company Listings",
+		});
+	});
+};
+
+exports.viewSavedJobs = function(req, res) {
+	var myJobs = []
+	User.findById(req.user.id, function(err, user) {
+		for (var i =0; i<user.companiesContacted.length; i++) {
+			Job.find({companyID: user.companiesContacted[i]}, function (e, docs) {
+				console.log(user.companiesContacted);
+				console.log(user.companiesContacted.length);
+				console.log(user.companiesContacted[i]);
+				console.log(docs);
+				myJobs.push(docs);
+			});
+		}
+		console.log(myJobs);
+		// Job.find({companyID: {$in: user.companiesContacted}}, function (e, docs) {
+		// 	console.log(docs)
+		res.render("jobs/savedjobs", {
+			"joblist" : myJobs,
+			title: "Saved Companies",
+		// });
 		});
 	});
 };

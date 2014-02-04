@@ -38,7 +38,8 @@ exports.getAccount = function(req, res) {
   res.render('account/profile', {
     title: 'Account Management',
     success: req.flash('success'),
-    error: req.flash('error')
+    error: req.flash('error'),
+    errors: req.flash('errors')
   });
 };
 

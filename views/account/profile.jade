@@ -10,7 +10,11 @@ block content
       .alert.alert-success.animated.fadeInUp.opt-alert
         button.close(data-dismiss='alert') ×
         i.fa.fa-check
-        = success    
+        = success
+    if errors.length
+      .alert.alert-danger.animated.fadeIn.opt-alert
+        button.close(data-dismiss='alert') x
+        = "Fill out company information before posting jobs"
     .profile-wrap
       if user.userType=='mom'
         .page-header

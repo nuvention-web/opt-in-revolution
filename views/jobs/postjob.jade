@@ -1,44 +1,65 @@
 extends ../layout
 
 block content
-		p
-			| Input job information
-
-		form.form-horizontal(name="JobPost", role="form", method="post",action="postJob")
-			.form-group
-				label.col-xs-1.control-label(for='jobName') Job Name
-				.col-xs-7
-					input#jobName.form-control(type='text', name='jobName', placeholder='Enter job name')
-			.form-group
-				label.col-xs-1.control-label(for='description') Description
-				.col-xs-7
-					input#description.form-control(type='text', name="description", placeholder='Enter description')
-			.form-group
-				label.col-xs-1.control-label(for='industry') Industry
-				.col-xs-7
-					input#industry.form-control(type='text', name="industry", placeholder='Enter industry')
-			.form-group
-				label.col-xs-1.control-label(for='jobFunction') Job Function
-				.col-xs-7
-					input#jobFunction.form-control(type='text', name="jobFunction", placeholder='Enter job function')
-			.form-group
-				label.col-xs-1.control-label(for='duration') Duration
-				.col-xs-7
-					input#duration.form-control(type='text', name="duration", placeholder='Enter duration')
-			.form-group
-				label.col-xs-1.control-label(for='hoursPerWeek') Hours Per Week
-				.col-xs-7
-					input#hoursPerWeek.form-control(type='text', name="hoursPerWeek", placeholder='Enter hours per week')
-			.form-group
-				label.col-xs-1.control-label(for='telephoneOnly') Telephone Only
-				.col-xs-7
-					input#telephoneOnly.form-control(type='text', name="telephoneOnly", placeholder='Enter telephone only')
-			.form-group
-				label.col-xs-1.control-label(for='skillsNeeded') Skills Needed
-				.col-xs-7
-					input#skillsNeeded.form-control(type='text', name="skillsNeeded", placeholder='Enter skills needed')
-			.form-group
-				label.col-xs-1.control-label(for='pay') Pay
-				.col-xs-7
-					input#pay.form-control(type='text', name="pay", placeholder='Enter pay')
-			button.btn.btn-default(type='submit') Submit
+	.container
+		//- h2.centered Post a job
+		.post-job-wrapper
+			.job-card
+				form.form-horizontal(name="JobPost", role="form", method="post",action="postJob")
+					.row.mt.job-card-other
+						.col-md-12
+							h2.centered Post a job
+					.row.mt.job-card-other
+						.col-md-12
+							.row.mt.job-card-other
+								.form-group
+									label.col-md-2.control-label(for='jobName') Job Name
+									.col-md-10
+										input#jobName.form-control(type='text', name='jobName')
+					.row.mt.job-card-other
+						.col-md-12
+							.form-group
+								label.col-md-2.control-label(for='description') Description
+								.col-md-10
+									input#description.form-control(type='text', name="description")
+					.row.mt.job-card-other
+						.col-md-6
+							.row.mt.job-card-other
+								.form-group
+									label.col-md-4.control-label(for='industry') Industry
+									.col-md-8
+										input#industry.form-control(type='text', name="industry")
+							.row.mt.job-card-other
+								.form-group
+									label.col-md-4.control-label(for='jobFunction') Job Function
+									.col-md-8
+										input#jobFunction.form-control(type='text', name="jobFunction")
+							.row.mt.job-card-other
+								.form-group
+									label.col-md-4.control-label(for='skillsNeeded') Skills Needed
+									.col-md-8
+										input#skillsNeeded.form-control(type='text', name="skillsNeeded")
+							.row.mt.job-card-other
+								.form-group
+									label.col-md-4.control-label(for='pay') Pay
+									.col-md-8
+										input#pay.form-control(type='text', name="pay")
+						.col-md-6
+							.row.mt.job-card-other
+								.form-group
+									label.col-md-4.control-label(for='duration') Duration
+									.col-md-8
+										input#duration.form-control(type='text', name="duration")
+							.row.mt.job-card-other
+								.form-group
+									label.col-md-4.control-label(for='hoursPerWeek') Hours Per Week
+									.col-md-8
+										input#hoursPerWeek.form-control(type='text', name="hoursPerWeek")
+							.row.mt.job-card-other
+								.form-group
+									label.col-md-4.control-label(for='telephoneOnly') Telephone Only
+									.col-md-8
+										input#telephoneOnly.form-control(type='text', name="telephoneOnly")
+					.row.mt.job-card-buttons
+						.col-md-12.col-md-offset-10
+							button.btn.btn-default(type='submit') Submit

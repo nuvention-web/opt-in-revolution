@@ -30,69 +30,32 @@ i {
 *****************************************************************/
 
 .opt-navbar-wrapper {
-  margin-top:70px;
+  margin-top:60px;
 }
 
 .opt-header {
-  background-color: #541E74;
-  border-style:solid;
-  border-bottom-color:#00FFFF;
-  border-bottom-width:10px;
+  // background-color: #541E74;
+  // border-style:solid;
+  // border-top-color:#777;
+  // border-top-width:4px;
+  -webkit-box-shadow: 0 4px 4px -2px #777;
+   -moz-box-shadow: 0 4px 4px -2px #777;
+        box-shadow: 0 4px 4px -2px #777;
 }
 
 .opt-logo {
     height:30px;
 }
 
-.navbar-default
-.navbar-nav li a {
-  color:white;
-}
-.navbar-default
-.navbar-brand {
-color: white;
-}
-
 .opt-logo-text {
   padding-top:5px;
-}
-
-.navbar-default 
-.navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-color: white;
-background-color: transparent;
-}
-
-.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
-color: white;
-background-color: transparent;
-}
-
-.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
-background-color: transparent;
-color: white;
-}
-
-.navbar-default .navbar-nav>.dropdown>a .caret {
-border-top-color: white;
-border-bottom-color: white;
 }
 
 .cust-navbar {
   padding-top: 5px;
   font-size: 15px;
+  line-height: 20px;
 }
-
-.navbar-nav>li>.dropdown-menu { 
-  background-color: #541E74;
-}
-ul.nav.navbar-nav.navbar-right.actions {
-  background-color: red;
-}
-
-.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
-  // background-color: transparent;
-  }
 
 /****************************************************************
   Landing Page Styles
@@ -135,29 +98,59 @@ ul.nav.navbar-nav.navbar-right.actions {
 /****************************************************************
   About Us Page Styles
 *****************************************************************/
+.left {
+  float:left;
+}
+
+.menu-right {
+  float:right;
+  margin-top:5px;
+  margin-right: 15px;
+  margin-left:50px;
+}
 
 .tile {
   min-height: 100%;
-    /*height: 100%;*/
     color: white;
 }
 
-.tile-half {
-  position:relative;
-  height:70%;
-    background:transparent url('../images/about-banner2.jpg') center center no-repeat;
-  background-size:cover;
-  overflow:auto;
+.opt-about-header-section {
+    background:transparent url('../images/landingpage.jpg') center center no-repeat;
+    background-size:cover;
+    min-height: 50%;
+      -webkit-box-shadow: 0 4px 4px -2px #777;
+   -moz-box-shadow: 0 4px 4px -2px #777;
+        box-shadow: 0 4px 4px -2px #777;
+        color:white;
 }
 
-.opt-about-header {
-  padding-top:200px;
+.opt-about-header-section-biz {
+    background:transparent url('../images/job-banner2.jpg') center center no-repeat;
+    background-size:cover;
+    min-height: 50%;
+      -webkit-box-shadow: 0 4px 4px -2px #777;
+   -moz-box-shadow: 0 4px 4px -2px #777;
+        box-shadow: 0 4px 4px -2px #777;
+        color:white;
+}
+
+.opt-about-header-content {
   padding-bottom:10px;
+  padding-top: 150px;
     text-align:center;
-  text-shadow:1px 1px #000000;
 }
 
+span.caret.d-text {
+  margin-left: 5px;
+}
 
+.opt-about-pillars {
+  padding-top:50px;
+}
+
+.opt-about-btn-type {
+  width:150px;
+}
 
 .about-text {
   padding-top:120px;
@@ -166,31 +159,10 @@ ul.nav.navbar-nav.navbar-right.actions {
 .about-img {
   padding-top:120px;
   padding-left:100px;
-  /*text-align: center;*/
 }
 
 .opt-about-image {
   margin: 0 auto;
-}
-
-#top {
-    background: #21707F;
-}
-
-#employ {
-  background-color: #43E0FF;
-}
-
-#empower {
-  background-color: #113840;
-}
-
-#engage {
-  background-color: #3CC9E5;
-}
-
-#create {
-  background-color: #113840;
 }
 
 .opt-create-btn {
@@ -198,6 +170,14 @@ ul.nav.navbar-nav.navbar-right.actions {
   padding-top: 35px;
   height: 100px;
   width: 200px;
+}
+
+.opt-quote blockquote small {
+  color:white
+}
+
+.opt-about-desc {
+  font-size: 18px;
 }
 
 /****************************************************************
@@ -234,9 +214,8 @@ ul.nav.navbar-nav.navbar-right.actions {
     min-height: 40%;
     /*height: 100%;*/
     color: white;
-    // background-color: red;
-        background:transparent url('../images/job-banner.jpg') center center no-repeat;
-  background-size:cover;
+    background:transparent url('../images/job-banner.jpg') center center no-repeat;
+    background-size:cover;
 }
 
 .job-header {
@@ -252,11 +231,41 @@ ul.nav.navbar-nav.navbar-right.actions {
   margin-bottom: 15px;
 }
 
-.job-post {
-  margin-top: 15px;
-  margin-bottom: 15px;
-  width: 500px;  
+.job-card {
+  margin-bottom: 30px;
+  padding: 10px 10px 10px 10px;
+  box-shadow: 0 0 15px #777;
+  border-radius: 5px; 
+  // width:800px;
 }
 
+.job-card-heading {
+  margin-right: 0px;
+  margin-left: 0px;
+  float:none;
+}
 
+.job-card-description {
+    margin-right: 0px;
+  margin-left: 0px;
+  float:none;
+}
 
+.job-card-other {
+    margin-right: 0px;
+  margin-left: 0px;
+  float:none;
+
+}
+
+.job-btn {
+  margin-right: 5px;
+}
+
+#description {
+  height:150px;
+}
+
+.post-job-wrapper {
+  margin-top: 40px;
+}

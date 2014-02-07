@@ -38,7 +38,8 @@ exports.getAccount = function(req, res) {
   res.render('account/profile', {
     title: 'Account Management',
     success: req.flash('success'),
-    error: req.flash('error')
+    error: req.flash('error'),
+    errors: req.flash('errors')
   });
 };
 
@@ -86,6 +87,7 @@ exports.postLogin = function(req, res, next) {
 exports.postSignup = function(req, res, next) {
   req.assert('email', 'Email cannot be blank').notEmpty();
   req.assert('email', 'Email is not valid').isEmail();
+  req.assert('usertype', 'Select your account type').notEmpty()
   req.assert('password', 'Password cannot be blank').notEmpty();
   req.assert('password', 'Password must be at least 4 characters long').len(4);
   req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
@@ -99,7 +101,8 @@ exports.postSignup = function(req, res, next) {
 
   var user = new User({
     email: req.body.email,
-    password: req.body.password
+    password: req.body.password,
+    userType: req.body.usertype
   });
 
   user.save(function(err) {
@@ -130,6 +133,9 @@ exports.postUpdateProfile = function(req, res, next) {
     user.profile.gender = req.body.gender || '';
     user.profile.location = req.body.location || '';
     user.profile.website = req.body.website || '';
+    user.company.companyName = req.body.companyName || '';
+    user.company.companyDescription = req.body.companyDescription || '';
+    //Need to add company image
 
     user.save(function(err) {
       if (err) return next(err);

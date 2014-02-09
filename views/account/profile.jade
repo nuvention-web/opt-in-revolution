@@ -22,22 +22,34 @@ block content
 
         form.form-horizontal(action='/account/profile', method='POST')
           .form-group
-            label.col-xs-2.control-label(for='email') Email
-            .col-xs-4
-              input.form-control(type='email', name='email', id='email', value='#{user.email}')
-          .form-group
             label.col-xs-2.control-label(for='name') Name
             .col-xs-4
               input.form-control(type='text', name='name', id='name', value='#{user.profile.name}')
           .form-group
-            label.col-xs-2.control-label(for='name') Gender
+            label.col-xs-2.control-label(for='email') Email
             .col-xs-4
-              label.radio
-                input(type='radio', checked=user.profile.gender=='male', name='gender', value='male', data-toggle='radio')
-                | Male
-              label.radio
-                input(type='radio', checked=user.profile.gender=='female', name='gender', value='female', data-toggle='radio')
-                | Female
+              input.form-control(type='email', name='email', id='email', value='#{user.email}')
+          .form-group
+            label.col-xs-2.control-label(for='bio') Bio
+            .col-xs-4
+              input.form-control(type='textarea', name='bio', id='bio', value='#{user.bio}')
+          .form-group
+            label.col-xs-2.control-label(for='interests') Interests
+            .col-xs-4
+              input.form-control(type='text', name='interests', id='interests', value='#{user.interests}')
+          .form-group
+            label.col-xs-2.control-label(for='skills') Skills
+            .col-xs-4
+              input.form-control(type='text', name='skills', id='skills', value='#{user.skills}')
+          //- .form-group
+          //-   label.col-xs-2.control-label(for='name') Gender
+          //-   .col-xs-4
+          //-     label.radio
+          //-       input(type='radio', checked=user.profile.gender=='male', name='gender', value='male', data-toggle='radio')
+          //-       | Male
+          //-     label.radio
+          //-       input(type='radio', checked=user.profile.gender=='female', name='gender', value='female', data-toggle='radio')
+          //-       | Female
           .form-group
             label.col-xs-2.control-label(for='location') Location
             .col-xs-4
@@ -95,7 +107,7 @@ block content
       .page-header
         h3 Delete Account
 
-      p You can delete your account, but keep in mind this action is irreversiable.
+      p You can delete your account, but keep in mind this action is irreversible.
       form(action='/account/delete', method='POST')
         button.btn.btn-danger(type='submit') Delete my account
 

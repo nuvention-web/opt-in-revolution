@@ -76,10 +76,10 @@ block content
 									| Sheryl Sandberg,
 									cite(title='Source Title')  Lean In
 	.container
-		.opt-about-pillars
+		#opt-about-pillars
 			.row.mt.centered
 				.col-md-4
-					.pillar(data-toggle='collapse', data-target='#employ')
+					.pillar-employ
 						h4 Employ
 						img.img-circle.pagination-centered(src='/images/employ.jpg', height='160', width='175', alt='')
 						if view == 'mom'
@@ -88,9 +88,8 @@ block content
 						else
 							p.opt-pillar-desc
 								| Explore a dynamic marketplace to find highly qualified talent
-
 				.col-md-4
-					.pillar(data-toggle='collapse', data-target='#empower')
+					.pillar-empower
 						h4 Empower
 						img.img-circle.pagination-centered(src='/images/empower.jpg', height='160',width='175', alt='')
 						if view == 'mom'
@@ -100,7 +99,7 @@ block content
 							p.opt-pillar-desc
 								| Find the necessary resources and tools to enhance your hiring skills
 				.col-md-4
-					.pillar(data-toggle='collapse', data-target='#engage')
+					.pillar-engage
 						h4 Engage
 						img.img-circle.pagination-centered(src='/images/engage.jpg', height='160',width='175', alt='')
 						if view == 'mom'
@@ -109,26 +108,21 @@ block content
 						else
 							p.opt-pillar-desc
 								| Connect with fellow employers to expand your professional and personal networks
-			br
-			br
-		.opt-about-pillars-detail
-			#employ.collapse.in 
-				p
-					| EMPLOY ME
+			.row.mt
+				.opt-about-pillars-detail#employ
+					p
+						| EMPLOY ME
+					br
+					br
+				.opt-about-pillars-detail#empower
+					p
+						| EMPOWER ME
+					br
+					br
+				.opt-about-pillars-detail#engage
+					p
+						| ENGAGE ME
+					br
+					br
 				br
 				br
-			#empower.collapse.in 
-				p
-					| EMPOWER ME
-				br
-				br
-			#engage.collapse.in 
-				p
-					| ENGAGE ME
-				br
-				br
-			br
-			br
-			br
-			br
-			br

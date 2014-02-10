@@ -1,21 +1,22 @@
 $(document).ready(function() {
 
-  // Place JavaScript code here...
-  $('.collapse').collapse();
 
- //  $('#employ').on('show.bs.collapse', function () {
- //  	console.log('employ');
- //  		$('.collapse.in').collapse();
- //  });
+	// Events for About Us Tab views
+	$('.opt-about-pillars-detail').slideUp();
 
- // $('#empower').on('show.bs.collapse', function () {
- // 	console.log('empower');
- //  		$('.collapse.in').collapse();
- //  });
+	$('.pillar-employ').on('click', function() {
+		$('.opt-about-pillars-detail').not('#employ').slideUp();
+		$('#employ').slideToggle();
+	});
 
- // $('#engage').on('show.bs.collapse', function () {
- // 	console.log('engage');
- //  		$('.collapse.in').collapse();
- //  });
+	$('.pillar-empower').on('click', function() {
+		$('.opt-about-pillars-detail').not('#empower').slideUp();
+		$('#empower').slideToggle();
+	});
+
+	$('.pillar-engage').on('click', function() {
+		$('.opt-about-pillars-detail').not('#engage').slideUp();
+		$('#engage').slideToggle();
+	});
 
 });

@@ -10,11 +10,6 @@ block content
 							h1 Job Opportunities
 						small
 							| See what opportunities await you
-	.job-filter
-		.container
-			.job-filter-breadcrumbs
-				b
-					| Viewing all jobs
 	.container
 		.row.mt
 			.col-md-2
@@ -44,6 +39,11 @@ block content
 					br
 
 			.col-md-10
+				.row.mt
+					.job-listing-filter-wrapper
+						//- .job-filter-breadcrumbs
+						b
+							| Viewing all jobs
 				.job-listing-wrapper
 					each job, i in joblist
 						.row.mt

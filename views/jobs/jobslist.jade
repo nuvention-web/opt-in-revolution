@@ -11,45 +11,78 @@ block content
 						small
 							| See what opportunities await you
 	.container
-		.job-listing-wrapper
-			each job, i in joblist
+		.row.mt
+			.col-md-2
+				.job-listing-filter-wrapper
+					b
+						a(href='#', role='button') All Jobs
+					br
+					br
+					b
+						| Industry
+					br
+					a(href='#', role='button') Business Services
+					br
+					a(href='#', role='button') Web Software
+					br
+					a(href='#', role='button') Public Relations
+					br
+					br
+					b
+						| Job Function
+					br
+					a(href='#', role='button') Accounting
+					br
+					a(href='#', role='button') Engineer
+					br
+					a(href='#', role='button') Marketing
+					br
+
+			.col-md-10
 				.row.mt
-					.job-card
-						.row.mt.job-card-heading
-							.col-md-1
-								img.pagination-centered(src='/images/office.jpg', width='50', alt='')
-							.col-md-11
-								h3 #{job.jobName}
-								h4 #{job.companyName}
-						.row.mt.job-card-description
-							h4 Description
-							.col-md-12
-								p 
-									| #{job.jobDescription}
-						.row.mt.job-card-other
-							h4 Details
-							.col-md-6
-								p 
-									b Industry: 
-									| #{job.industry}
-								p
-									b Job Function: 
-									| #{job.jobFunction}
-								p
-									b Skills Needed: 
-									| #{job.skillsNeeded}
-							.col-md-6
-								p
-									b Duration: 
-									| #{job.duration}
-								p
-									b Hours per week: 
-									| #{job.hoursPerWeek}
-								p
-									b Pay: 
-									| #{job.pay}
-									//- | #{job.dateCreated}
-						.row.mt.job-card-buttons
-							.col-md-12.col-md-offset-10
-								a.btn.btn-success.btn-md.job-btn(href='/job/apply-#{job.id}', role='button') Apply
-								a.btn.btn-success.btn-md.job-btn(href='/job/save-#{job.id}', role='button') Save
+					.job-listing-filter-wrapper
+						//- .job-filter-breadcrumbs
+						b
+							| Viewing all jobs
+				.job-listing-wrapper
+					each job, i in joblist
+						.row.mt
+							.job-card
+								.row.mt.job-card-heading
+									.col-md-1
+										img.pagination-centered(src='/images/office.jpg', width='50', alt='')
+									.col-md-11
+										h3 #{job.jobName}
+										h4 #{job.companyName}
+								.row.mt.job-card-description
+									h4 Description
+									.col-md-12
+										p 
+											| #{job.jobDescription}
+								.row.mt.job-card-other
+									h4 Details
+									.col-md-6
+										p 
+											b Industry: 
+											| #{job.industry}
+										p
+											b Job Function: 
+											| #{job.jobFunction}
+										p
+											b Skills Needed: 
+											| #{job.skillsNeeded}
+									.col-md-6
+										p
+											b Duration: 
+											| #{job.duration}
+										p
+											b Hours per week: 
+											| #{job.hoursPerWeek}
+										p
+											b Pay: 
+											| #{job.pay}
+											//- | #{job.dateCreated}
+								.row.mt.job-card-buttons
+									.col-md-12.col-md-offset-10
+										a.btn.btn-success.btn-md.job-btn(href='/job/apply-#{job.id}', role='button') Apply
+										a.btn.btn-success.btn-md.job-btn(href='/job/save-#{job.id}', role='button') Save

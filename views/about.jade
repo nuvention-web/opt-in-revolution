@@ -78,51 +78,121 @@ block content
 	.container
 		#opt-about-pillars
 			.row.mt.centered
-				.col-md-4
-					.pillar-employ
-						h4 Employ
-						img.img-circle.pagination-centered(src='/images/employ.jpg', height='160', width='175', alt='')
-						if view == 'mom'
-							p.opt-pillar-desc
-								| Explore a dynamic marketplace to find flexible, project based work
-						else
-							p.opt-pillar-desc
-								| Explore a dynamic marketplace to find highly qualified talent
-				.col-md-4
-					.pillar-empower
-						h4 Empower
-						img.img-circle.pagination-centered(src='/images/empower.jpg', height='160',width='175', alt='')
-						if view == 'mom'
-							p.opt-pillar-desc
-								| Find the necessary resources and tools to enhance your career
-						else
-							p.opt-pillar-desc
-								| Find the necessary resources and tools to enhance your hiring skills
-				.col-md-4
-					.pillar-engage
-						h4 Engage
-						img.img-circle.pagination-centered(src='/images/engage.jpg', height='160',width='175', alt='')
-						if view == 'mom'
-							p.opt-pillar-desc
-								| Connect with other Moms to expand your professional and personal networks
-						else
-							p.opt-pillar-desc
-								| Connect with fellow employers to expand your professional and personal networks
+				ul#myTab.nav.nav-tabs
+					li.active.col-md-4
+						.pillar-employ(href='#employ', data-toggle='tab')
+							h4 Employ
+							img.img-circle.pagination-centered(src='/images/employ.jpg', height='160', width='175', alt='')
+							if view == 'biz'
+								p.opt-pillar-desc
+									| Explore a dynamic marketplace to find highly qualified talent
+							else
+								p.opt-pillar-desc
+									| Explore a dynamic marketplace to find flexible, project based work
+					li.col-md-4
+						.pillar-empower(href='#empower', data-toggle='tab')
+							h4 Empower
+							img.img-circle.pagination-centered(src='/images/empower.jpg', height='160',width='175', alt='')
+							if view == 'biz'
+								p.opt-pillar-desc
+									| Find the necessary resources and tools to enhance your hiring skills
+							else
+								p.opt-pillar-desc
+									| Find the necessary resources and tools to enhance your career
+					li.col-md-4
+						.pillar-engage(href='#engage', data-toggle='tab')
+							h4 Engage
+							img.img-circle.pagination-centered(src='/images/engage.jpg', height='160',width='175', alt='')
+							if view == 'biz'
+								p.opt-pillar-desc
+									| Connect with fellow employers to expand your professional and personal networks
+							else
+								p.opt-pillar-desc
+									| Connect with other Moms to expand your professional and personal networks
+			br
+			br
 			.row.mt
-				.opt-about-pillars-detail#employ
-					p
-						| EMPLOY ME
+				.pillar-detail-wrapper.tab-content
+					.opt-about-pillars-detail.tab-pane.active#employ
+						p
+							| EMPLOY ME
+						br
+						br
+					.opt-about-pillars-detail.tab-pane#empower
+						.col-md-12.centered
+							h2
+								| Your Road Map Back Into the Workforce
+							p
+								| Getting back into the workforce takes more than just finding a job listing. Rebuilding networks, polishing resumes, and building a reputation are all key steps to maintaining a freelancing career. The Opt-In Revolution is about empowering you with the skills, tools and connections you need. Below is a list of the best articles, tips, and strategies to help you be the tough and productive mom you are.
+						br
+						.col-md-12
+							h4
+								| Reading Material
+							p
+								| First of all, know that you aren’t alone. Lots of women are returning to work after taking time off to raise their kids, and making successful careers through contract work and consultation. These are some of the articles written about them.
+							.container
+								p
+									a(href='http://www.nytimes.com/2013/08/11/magazine/the-opt-out-generation-wants-back-in.html?_r=1&', target='_blank') The Opt Out Generation Wants Back In
+									| - New York Times Magazine, This is the story that inspired our founding and our name.
+								p
+									a(href='http://faculty.haas.berkeley.edu/wolfram/Papers/OptOut_Draft_July08.pdf', target='_blank') Opt-Out Patterns Across Careers: Labor Force Participation Rates Among Highly Educated mothers
+									| - Berkeley University
+								p
+									a(href='http://www.forbes.com/2010/06/23/100-best-womens-blogs-forbes-woman-time-websites.html', target='_blank') 100 Best Sites/Blogs for Working Mothers
+									| - Forbes
+							br
+						.col-md-12
+							h4
+								| Tips and strategies
+							p
+								| It’s important to have a plan. These articles will help you hone your ideas into a strategy for getting your contract work on track.
+							.container
+								p
+									a(href='http://www.forbes.com/sites/susanadams/2012/11/20/7-keys-to-rejoining-the-workforce-after-a-long-break/', target='_blank') 7 Keys to Rejoining the Workforce After Raising Kids
+									| - Forbes
+								p
+									a(href='http://money.usnews.com/money/careers/articles/2008/02/01/how-to-rejoin-the-workforce-after-raising-kids?page=2', target='_blank') How to Rejoin The Workforce After Raising Kids
+									|  - U.S. News and World Report
+								p
+									a(href='http://www.jobsandmoms.com/2010/02/backtoworkresume.html', target='_blank') Writing a Resume for Returning Moms
+									| - Jobs and Moms
+							br
+						.col-md-12
+							h4 
+								| Groups
+							p 
+								| Don’t try and do it all on your own. Joining a group of fellow freelancing moms can be great for networking, advice and support when you’re getting your career started.
+							.container
+								p
+									a(href='http://foundingmoms.com/', target='_blank') Mom-trepreneurs
+									|  - These meetup has 61 groups across the country. Their made up of moms who have embarked on their own careers as freelancers, consultants, and other small businesses.
+								p
+									a(href='http://www.irelaunch.com/rtwabout', target='_blank') iRelaunch Conferences
+									|  - These conferences have women from all over the country coming together to share their stories and advice.
+								p
+									a(href='http://www.meetup.com/Working-Mom-Chicago/', target='_blank') Working Mom Chicago
+									|  - For moms in the Chicago area, this group is focused on women who know the balancing act of work and parenting very well.
+							br
+						.col-md-12
+							h4
+								| Marketing and PR resources
+							p
+								| Staying in touch is half the battle. Knowing the industry trends will give you a key competitive edge when applying for jobs. These are some of the best resources for the marketing and PR moms who want to keep up with the times.
+							.container
+								p
+									a(href='http://www.meetup.com/Working-Mom-Chicago/', target='_blank') Moz
+									|  - They started out as an SEO site, but have turned into the go-to source for all things online marketing. Their Mozinars are also great for catching up if you’ve let your know-how slack a bit.
+								p
+									a(href='http://www.meetup.com/Working-Mom-Chicago/', target='_blank') DuctTapeMarketing
+									|  - These guys have a funny name and serious insights. They’re great for motivation and practical advice alike.
+								p
+									a(href='http://www.toprankblog.com/', target='_blank') Top Rank Blog
+									|  - Top Rank Blog – They’ve been around for 10 years and have been giving solid advice the whole time. Definitely a well-respected voice in the online marketing landscape.
+							br
+					.opt-about-pillars-detail.tab-pane#engage
+						p
+							| ENGAGE ME
+						br
+						br
 					br
 					br
-				.opt-about-pillars-detail#empower
-					p
-						| EMPOWER ME
-					br
-					br
-				.opt-about-pillars-detail#engage
-					p
-						| ENGAGE ME
-					br
-					br
-				br
-				br

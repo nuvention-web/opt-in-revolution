@@ -76,36 +76,59 @@ block content
 									| Sheryl Sandberg,
 									cite(title='Source Title')  Lean In
 	.container
-		//- .hr
 		.opt-about-pillars
 			.row.mt.centered
 				.col-md-4
-					h4 Employ
-					img.img-circle.pagination-centered(src='/images/employ.jpg', height='160', width='175', alt='')
-					if view == 'mom'
-						p.opt-pillar-desc
-							| Explore a dynamic marketplace to find flexible, project based work
-					else
-						p.opt-pillar-desc
-							| Explore a dynamic marketplace to find highly qualified talent
+					.pillar(data-toggle='collapse', data-target='#employ')
+						h4 Employ
+						img.img-circle.pagination-centered(src='/images/employ.jpg', height='160', width='175', alt='')
+						if view == 'mom'
+							p.opt-pillar-desc
+								| Explore a dynamic marketplace to find flexible, project based work
+						else
+							p.opt-pillar-desc
+								| Explore a dynamic marketplace to find highly qualified talent
 
 				.col-md-4
-					h4 Empower
-					img.img-circle.pagination-centered(src='/images/empower.jpg', height='160',width='175', alt='')
-					if view == 'mom'
-						p.opt-pillar-desc
-							| Find the necessary resources and tools to enhance your career
-					else
-						p.opt-pillar-desc
-							| Find the necessary resources and tools to enhance your hiring skills
+					.pillar(data-toggle='collapse', data-target='#empower')
+						h4 Empower
+						img.img-circle.pagination-centered(src='/images/empower.jpg', height='160',width='175', alt='')
+						if view == 'mom'
+							p.opt-pillar-desc
+								| Find the necessary resources and tools to enhance your career
+						else
+							p.opt-pillar-desc
+								| Find the necessary resources and tools to enhance your hiring skills
 				.col-md-4
-					h4 Engage
-					img.img-circle.pagination-centered(src='/images/engage.jpg', height='160',width='175', alt='')
-					if view == 'mom'
-						p.opt-pillar-desc
-							| Connect with other Moms to expand your professional and personal networks
-					else
-						p.opt-pillar-desc
-							| Connect with fellow employers to expand your professional and personal networks
+					.pillar(data-toggle='collapse', data-target='#engage')
+						h4 Engage
+						img.img-circle.pagination-centered(src='/images/engage.jpg', height='160',width='175', alt='')
+						if view == 'mom'
+							p.opt-pillar-desc
+								| Connect with other Moms to expand your professional and personal networks
+						else
+							p.opt-pillar-desc
+								| Connect with fellow employers to expand your professional and personal networks
+			br
+			br
+		.opt-about-pillars-detail
+			#employ.collapse.in 
+				p
+					| EMPLOY ME
+				br
+				br
+			#empower.collapse.in 
+				p
+					| EMPOWER ME
+				br
+				br
+			#engage.collapse.in 
+				p
+					| ENGAGE ME
+				br
+				br
+			br
+			br
+			br
 			br
 			br

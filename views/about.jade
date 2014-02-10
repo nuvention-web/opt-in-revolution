@@ -27,7 +27,7 @@ block content
 									li
 										a(href='/about?view=biz') Business
 				.row.mt.centered.opt-about-header-content
-					.col-md-6
+					.col-md-6.opt-about-desc
 						p
 							| Opt-In Revolution is dedicated to finding viable work solutions for mothers and companies by providing a dynamic online marketplace, extensive resources and meaningful networks. 
 					.col-md-6.opt-team-stuff
@@ -81,31 +81,31 @@ block content
 			.row.mt.centered
 				.col-md-4
 					h4 Employ
-					img.img-circle.pagination-centered(src='/images/employ.jpg', width='200', alt='')
+					img.img-circle.pagination-centered(src='/images/employ.jpg', height='160', width='175', alt='')
 					if view == 'mom'
-						p 
+						p.opt-pillar-desc
 							| Explore a dynamic marketplace to find flexible, project based work
 					else
-						p
+						p.opt-pillar-desc
 							| Explore a dynamic marketplace to find highly qualified talent
 
 				.col-md-4
 					h4 Empower
-					img.img-circle.pagination-centered(src='/images/empower.jpg', width='200', alt='')
+					img.img-circle.pagination-centered(src='/images/empower.jpg', height='160',width='175', alt='')
 					if view == 'mom'
-						p 
+						p.opt-pillar-desc
 							| Find the necessary resources and tools to enhance your career
 					else
-						p
+						p.opt-pillar-desc
 							| Find the necessary resources and tools to enhance your hiring skills
 				.col-md-4
 					h4 Engage
-					img.img-circle.pagination-centered(src='/images/empower.jpg', width='200', alt='')
+					img.img-circle.pagination-centered(src='/images/engage.jpg', height='160',width='175', alt='')
 					if view == 'mom'
-						p 
+						p.opt-pillar-desc
 							| Connect with other Moms to expand your professional and personal networks
 					else
-						p
+						p.opt-pillar-desc
 							| Connect with fellow employers to expand your professional and personal networks
 			br
 			br

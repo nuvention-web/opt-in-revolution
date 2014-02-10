@@ -117,6 +117,8 @@ app.get('/job/apply-:id', jobController.applyJob);
 app.get('/job/save-:id', jobController.saveJob);
 app.get('/viewsavedjobs', jobController.viewSavedJobs);
 
+app.get('/viewcandidates', userController.viewCandidates);
+
 app.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
 });

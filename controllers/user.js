@@ -189,6 +189,16 @@ exports.postDeleteAccount = function(req, res, next) {
   });
 };
 
+
+exports.viewCandidates = function(req, res) {
+  User.find({userType: 'mom'}, function(e, moms) {
+    res.render('viewcandidates', {
+      "candidates": moms,
+      title: "View Candidates",
+    }); 
+  });
+};
+
 /**
  * GET /account/unlink/:provider
  * Unlink OAuth2 provider from the current user.

@@ -62,23 +62,18 @@ i {
 *****************************************************************/
 
 .landing-page-bg {
-  display:block;
-  position:absolute;
-  z-index:1;
-    min-width:100%;
-    min-height:100%;
-    // background:transparent url('../images/landing2.JPG') center center no-repeat;
-    background:transparent url('../images/landingpage.jpg') center center no-repeat;
+    height:100%;
+    background:transparent url('../images/opt_landing.jpg') center center no-repeat;
     background-size:cover;
 }
 
 .landing-page-bg .opt-landing-content {
   display:block;
   position:relative;
-  color:white;
-  margin-top:200px;
+  color:#777;
+  margin-top:25px;
+  margin-left: 700px;
   text-align:center;
-  text-shadow:1px 1px #000000;
 }
 
 .opt-title-header {
@@ -86,16 +81,30 @@ i {
 }
 
 .opt-call-to-action {
-  margin-top: 60px;
+  margin-top: 175px;
+}
+
+h1.opt-title-header {
+  font-size: 50pt;
 }
 
 .opt-about-btn {
   margin-left: 5px;
   margin-right: 5px;
+  background-color: #FEE000;
+  color:black;
   height: 50px;
   width: 200px;
 }
 
+.opt-about-btn.btn-success:hover {
+  color: #9975b9;
+  background-color: #FEE000;
+}
+
+.opt-about-btn.btn {
+  border:none;
+}
 /****************************************************************
   About Us Page Styles
 *****************************************************************/

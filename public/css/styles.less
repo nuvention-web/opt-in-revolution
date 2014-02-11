@@ -34,10 +34,6 @@ i {
 }
 
 .opt-header {
-  // background-color: #541E74;
-  // border-style:solid;
-  // border-top-color:#777;
-  // border-top-width:4px;
   -webkit-box-shadow: 0 4px 4px -2px #777;
    -moz-box-shadow: 0 4px 4px -2px #777;
         box-shadow: 0 4px 4px -2px #777;
@@ -57,6 +53,10 @@ i {
   line-height: 20px;
 }
 
+.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
+  border-bottom: 2px solid #777; 
+}
+
 /****************************************************************
   Landing Page Styles
 *****************************************************************/
@@ -72,7 +72,6 @@ i {
   position:relative;
   color:#777;
   margin-top:25px;
-  margin-left: 700px;
   text-align:center;
 }
 
@@ -81,7 +80,7 @@ i {
 }
 
 .opt-call-to-action {
-  margin-top: 175px;
+  padding-top: 40%;
 }
 
 h1.opt-title-header {
@@ -351,14 +350,15 @@ a.pillar-link {
 *****************************************************************/
 
 .footer {
-   height: 100px;
+   height: auto;
    color:white;
    font-size: 15px;
   background-color: #b5b5b5;
+  padding-bottom:20px;
 }
 
 .footer-content {
-  margin-top:30px;
+  margin-top:20px; 
 }
 
 .footer-content a {

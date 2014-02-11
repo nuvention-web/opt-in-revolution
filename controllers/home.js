@@ -28,3 +28,16 @@ exports.team = function(req, res) {
     title: 'Team'
   });
 };
+
+exports.empower = function(req, res) {
+  res.render('empower', {
+    title: 'Empower'
+  });
+};
+
+
+exports.engage = function(req, res) {
+  res.render('engage', {
+    title: 'Engage'
+  });
+};

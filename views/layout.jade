@@ -37,7 +37,7 @@ html
           .navbar-collapse.collapse
             .cust-navbar
               ul.nav.navbar-nav
-                each nav in [{link: '', name: "Home"}, {link: 'about', name: "About"}, {link: 'team', name: "Team"}]
+                each nav in [{link: 'about', name: "About"}, {link: 'team', name: "Team"}, {link: 'employ', name: "Employ"}, {link: 'empower', name: "Empower"}, {link: 'engage', name: "Engage"}]
                   li 
                     a.opt-nav-text(href='/#{nav.link}') #{nav.name}
               ul.nav.navbar-nav.navbar-right
@@ -52,7 +52,7 @@ html
                       | Actions
                       span.caret
                     ul.dropdown-menu
-                      li: a(href='/jobslist') View Listings
+                      li: a(href='/employ') View Listings
                       li: a(href='/viewsavedjobs') View Saved Jobs
                   li.dropdown(class=title=='Account Management')
                     a.dropdown-toggle(href='#', data-toggle='dropdown')
@@ -84,3 +84,4 @@ html
                       li.divider
                       li: a(href='/logout') Logout
     block content
+    p hi there

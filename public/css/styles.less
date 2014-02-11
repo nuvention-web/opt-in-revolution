@@ -125,9 +125,9 @@ h1.opt-title-header {
 }
 
 .opt-about-header-section {
-    background:transparent url('../images/landingpage.jpg') center center no-repeat;
+    background:transparent url('../images/landingpage.jpg') center no-repeat;
     background-size:cover;
-    min-height: 50%;
+    min-height: 30%;
       -webkit-box-shadow: 0 4px 4px -2px #777;
    -moz-box-shadow: 0 4px 4px -2px #777;
         box-shadow: 0 4px 4px -2px #777;
@@ -135,9 +135,9 @@ h1.opt-title-header {
 }
 
 .opt-about-header-section-biz {
-    background:transparent url('../images/job-banner.jpg') center center no-repeat;
+    background:transparent url('../images/job-banner.jpg') center no-repeat;
     background-size:cover;
-    min-height: 50%;
+    min-height: 30%;
       -webkit-box-shadow: 0 4px 4px -2px #777;
    -moz-box-shadow: 0 4px 4px -2px #777;
         box-shadow: 0 4px 4px -2px #777;
@@ -146,7 +146,7 @@ h1.opt-title-header {
 
 .opt-about-header-content {
   padding-bottom:10px;
-  padding-top: 150px;
+  padding-top: 50px;
     text-align:center;
 }
 
@@ -155,7 +155,7 @@ span.caret.d-text {
 }
 
 #opt-about-pillars {
-  padding-top:50px;
+  padding-top:25px;
 }
 
 .opt-about-btn-type {
@@ -187,23 +187,26 @@ span.caret.d-text {
 }
 
 .opt-about-desc {
-  font-size: 18px;
+  font-size: 15px;
 }
 
 p.opt-pillar-desc {
   margin-top: 10px;
 }
 
-.pillar {
-
+a.pillar-link {
+  color:black;
+  text-decoration:none; 
 }
 
-.opt-about-pillars-detail {
-
+.pillar:hover {
+    // background-color: #d3d3d3;
+    // box-shadow: 0 0 15px #777;
+   border-bottom: 2px solid #777; /* or whatever colour you'd prefer */
+  // border-radius: 5px;
 }
 
 #employ {
-
 }
 
 #empower {
@@ -211,25 +214,6 @@ p.opt-pillar-desc {
 } 
 
 #engage {
-}
-
-li.active.col-md-4 {
-  box-shadow: 0 0 5px #777;
-  border-radius: 3px; 
-}
-
-.pillar-header {
-  border-width:2px; 
-border-bottom-style:inset;
-}
-
-.pillar-detail-wrapper {
-  box-shadow: 0 0 5px #777;
-  border-radius: 3px; 
-}
-
-.pillar-content {
-  margin-top:50px;
 }
 
 .opt-about-jobs-btn {
@@ -305,8 +289,8 @@ border-bottom-style:inset;
   margin-bottom: 30px;
   padding: 10px 10px 10px 10px;
   box-shadow: 0 0 15px #777;
-  border-radius: 5px; 
-  // width:800px;
+  border-radius: 5px;
+  font-size: 12px;
 }
 
 .job-card-heading {
@@ -316,20 +300,38 @@ border-bottom-style:inset;
 }
 
 .job-card-description {
-    margin-right: 0px;
+  margin-right: 0px;
   margin-left: 0px;
   float:none;
 }
 
 .job-card-other {
-    margin-right: 0px;
+  margin-right: 0px;
   margin-left: 0px;
   float:none;
+}
 
+.job-card-description h5{
+  margin-left: 15px;
+}
+
+.job-card-other h5{
+  margin-left: 15px;
 }
 
 .job-btn {
   margin-right: 5px;
+  background-color: #FEE000;
+  color:black;
+}
+
+.job-btn.btn-success:hover {
+  color: #9975b9;
+  background-color: #FEE000;
+}
+
+.job-btn.btn {
+  border:none;
 }
 
 #description {

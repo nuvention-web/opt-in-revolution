@@ -72,7 +72,7 @@ exports.postLogin = function(req, res, next) {
 
     req.logIn(user, function(err) {
       if (err) return next(err);
-      return res.redirect('/jobslist');
+      return res.redirect('/employ');
     });
   })(req, res, next);
 };

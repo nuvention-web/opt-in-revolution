@@ -4,21 +4,28 @@ $(document).ready(function() {
 	// // Events for About Us Tab views
 	// $('.opt-about-pillars-detail').slideUp();
 
-	// $('.pillar-employ').on('click', function() {
-	// 	$('.opt-about-pillars-detail').not('#employ').slideUp();
-	// 	$('#employ').slideToggle();
-	// 	$('body').scrollTo('.pillar-detail-wrapper');
-	// });
+	// $('#empower').fadeTo("fast",0.5)
+	// $('#engage').fadeTo("fast",0.5)
 
-	// $('.pillar-empower').on('click', function() {
-	// 	$('.opt-about-pillars-detail').not('#empower').slideUp();
-	// 	$('#empower').slideToggle();
-	// 	$('body').scrollTo('.pillar-detail-wrapper');
-	// });
+	// For fading out other tabs
+	$('#employ').stop().hover(function() {
+		$('#employ').stop().fadeTo("fast",1)
 
-	// $('.pillar-engage').on('click', function() {
-	// 	$('.opt-about-pillars-detail').not('#engage').slideUp();
-	// 	$('#engage').slideToggle();
-	// 	$('body').scrollTo('.pillar-detail-wrapper');
-	// });
+		$('#empower').stop().fadeTo("fast",0.5)
+		$('#engage').stop().fadeTo("fast",0.5)
+	});
+
+	$('#empower').stop().hover(function() {
+		$('#empower').stop().fadeTo("fast",1)
+
+		$('#employ').stop().fadeTo("fast",0.5)
+		$('#engage').stop().fadeTo("fast",0.5)
+	});
+
+	$('#engage').stop().hover(function() {
+		$('#engage').stop().fadeTo("fast",1)
+
+		$('#employ').stop().fadeTo("fast",0.5)
+		$('#empower').stop().fadeTo("fast",0.5)
+	});
 });

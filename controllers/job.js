@@ -9,7 +9,7 @@ var passport = require('passport');
 var Job = require('../models/Job');
 var User = require('../models/User');
 var ObjectID = require('mongoose').Types.ObjectId; 
-
+var url = require('url');
 
 exports.postJob = function (req, res) {
 	//get form value - based on the name attributes
@@ -62,7 +62,14 @@ exports.submitJobPost = function(req, res) {
 };
 
 exports.listJobs = function(req, res) {
-	Job.find({}).
+	var url_parts = url.parse(req.url, true);
+	var query = url_parts.query;
+	var industry = query.industry;
+	var jobFunction = query.jobfunction;
+
+
+	Job.find().
+	or([{jobFunction: jobFunction}]).
 	sort('-dateCreated').
 	exec(function(e, docs) {
 		res.render("jobs/jobslist", {

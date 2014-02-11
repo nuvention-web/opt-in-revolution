@@ -37,7 +37,7 @@ html
           .navbar-collapse.collapse
             .cust-navbar
               ul.nav.navbar-nav
-                each nav in [{link: 'about', name: "About"}, {link: 'team', name: "Team"}, {link: 'employ', name: "Employ"}, {link: 'empower', name: "Empower"}, {link: 'engage', name: "Engage"}]
+                each nav in [{link: 'about', name: "About"}, {link: 'employ', name: "Employ"}, {link: 'empower', name: "Empower"}, {link: 'engage', name: "Engage"}]
                   li 
                     a.opt-nav-text(href='/#{nav.link}') #{nav.name}
               ul.nav.navbar-nav.navbar-right
@@ -84,4 +84,20 @@ html
                       li.divider
                       li: a(href='/logout') Logout
     block content
-    p hi there
+    .footer
+      .container
+        .row.mt.centered
+          .footer-content
+            .col-md-8.col-md-offset-2
+              .row.mt
+                .col-md-3.col-md-offset-1
+                  a(href='/') The Opt In Revolution
+                .col-md-1
+                  &middot;
+                .col-md-3
+                  a(href='/team') Our Team 
+                .col-md-1
+                  &middot;
+                .col-md-3
+                  &copy; Opt In Revolution 2014
+

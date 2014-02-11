@@ -45,7 +45,6 @@ block content
 			.col-md-10
 				.row.mt
 					.job-listing-filter-wrapper
-						//- .job-filter-breadcrumbs
 						b
 							| Viewing all jobs
 				.job-listing-wrapper
@@ -81,9 +80,9 @@ block content
 										b Pay: 
 										| #{job.pay}
 								.row.mt.job-card-buttons
-									.col-md-12.col-md-offset-10
+									.col-md-2.col-md-offset-10
 										if typeof(user)==='undefined'
-											a.btn.btn-success.btn-md.job-btn(href='/signup', role='button') Sign Up To Apply!
+											a.btn.btn-success.btn-md.job-btn(href='/signup', role='button') Sign Up
 										else
 											a.btn.btn-success.btn-md.job-btn(href='/job/apply-#{job.id}', role='button') Apply
 											a.btn.btn-success.btn-md.job-btn(href='/job/save-#{job.id}', role='button') Save

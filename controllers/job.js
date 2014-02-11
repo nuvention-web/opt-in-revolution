@@ -42,7 +42,7 @@ exports.postJob = function (req, res) {
 				res.send("There was a problem adding the information to the database.");
 			}
 			else {
-				res.redirect("/jobslist");
+				res.redirect("/employ");
 			}
 		});
 	});
@@ -67,16 +67,26 @@ exports.listJobs = function(req, res) {
 	var industry = query.industry;
 	var jobFunction = query.jobfunction;
 
-
-	Job.find().
-	or([{jobFunction: jobFunction}]).
-	sort('-dateCreated').
-	exec(function(e, docs) {
-		res.render("jobs/jobslist", {
-			"joblist" : docs,
-			title: "Job Listing Page",
+	if (typeof(jobFunction)==='undefined') {
+		Job.find().
+		sort('-dateCreated').
+		exec(function(e, docs) {
+			res.render("jobs/jobslist", {
+				"joblist" : docs,
+				title: "Job Listing Page",
+			});
 		});
-	});
+	}
+	else {
+		Job.find({jobFunction: jobFunction}).
+		sort('-dateCreated').
+		exec(function(e, docs) {
+			res.render("jobs/jobslist", {
+				"joblist" : docs,
+				title: "Job Listing Page",
+			});
+		});
+	}
 };
 
 exports.applyJob = function(req, res) {
@@ -93,7 +103,7 @@ exports.saveJob = function(req, res) {
 		// Save as ObjectID for easier querying when viewing saved jobs
 		user.companiesContacted.push(new ObjectID(req.params.id));
 		user.save(function(err, user, count) {
-			res.redirect("/jobslist");
+			res.redirect("/employ");
 		});
 	});
 };

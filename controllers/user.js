@@ -135,6 +135,9 @@ exports.postUpdateProfile = function(req, res, next) {
     user.bio = req.body.bio || '';
     user.skills = req.body.skills || '';
     user.interests = req.body.interests || '';
+
+    user.company.companyName = req.body.companyName || '';
+    user.company.companyDescription = req.body.companyDescription || '';
     //Need to add company image
 
     user.save(function(err) {

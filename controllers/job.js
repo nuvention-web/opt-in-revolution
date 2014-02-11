@@ -62,7 +62,9 @@ exports.submitJobPost = function(req, res) {
 };
 
 exports.listJobs = function(req, res) {
-	Job.find({}, function(e, docs) {
+	Job.find({}).
+	sort('-dateCreated').
+	exec(function(e, docs) {
 		res.render("jobs/jobslist", {
 			"joblist" : docs,
 			title: "Job Listing Page",

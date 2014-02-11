@@ -21,21 +21,25 @@ block content
 					b
 						| Industry
 					br
-					a(href='#', role='button') Business Services
+					a(href='#', role='button') Consumer products
 					br
-					a(href='#', role='button') Web Software
+					a(href='#', role='button') Apparel
 					br
-					a(href='#', role='button') Public Relations
+					a(href='#', role='button') Other retail
+					br
+					a(href='#', role='button') Food and beverage
+					br
+					a(href='#', role='button') Entertainment and leisure
 					br
 					br
 					b
 						| Job Function
 					br
-					a(href='#', role='button') Accounting
-					br
-					a(href='#', role='button') Engineer
+					a(href='#', role='button') Public relations
 					br
 					a(href='#', role='button') Marketing
+					br
+					a(href='#', role='button') Strategy
 					br
 
 			.col-md-10
@@ -84,5 +88,9 @@ block content
 											//- | #{job.dateCreated}
 								.row.mt.job-card-buttons
 									.col-md-12.col-md-offset-10
-										a.btn.btn-success.btn-md.job-btn(href='/job/apply-#{job.id}', role='button') Apply
-										a.btn.btn-success.btn-md.job-btn(href='/job/save-#{job.id}', role='button') Save
+										if typeof(user)==='undefined'
+											a.btn.btn-success.btn-md.job-btn(href='/signup', role='button') Sign Up To Apply!
+										else
+											a.btn.btn-success.btn-md.job-btn(href='/job/apply-#{job.id}', role='button') Apply
+											a.btn.btn-success.btn-md.job-btn(href='/job/save-#{job.id}', role='button') Save
+							

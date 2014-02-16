@@ -19,4 +19,11 @@ module.exports = {
     passReqToCallback: true
   },
 
+  linkedin: {
+    consumerKey: "754zc72220f44d",
+    consumerSecret: "TcOxRYSBUsAd8Ewf",
+    callbackURL: "http://127.0.0.1:3000/auth/linkedin/callback",
+    profileFields: ['id', 'email-address', 'headline', 'industry', 'summary', 'positions', 'picture-url', 'skills', 'educations',]
+  },
+
 };

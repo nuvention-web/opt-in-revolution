@@ -107,7 +107,12 @@ app.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email' }))
 app.get('/auth/facebook/callback', passport.authenticate('facebook', { successRedirect: '/', failureRedirect: '/login' }));
 app.get('/auth/google', passport.authenticate('google', { scope: 'profile email' }));
 app.get('/auth/google/callback', passport.authenticate('google', { successRedirect: '/', failureRedirect: '/login' }));
-
+app.get('/auth/linkedin', passport.authenticate('linkedin'));
+app.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failureRedirect: '/login', successRedirect: '/', scope: ['r_basicprofile', 'r_fullprofile', 'r_emailaddress']  }));
+  // function(req, res) {
+  //   // Successful authentication, redirect home.
+  //   res.redirect('/');
+  // });
 // Job Related
 app.post('/postJob', passportConf.isAuthenticated, jobController.postJob);
 app.get('/postjob', jobController.submitJobPost);

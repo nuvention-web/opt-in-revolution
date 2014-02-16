@@ -4,6 +4,7 @@ var OAuthStrategy = require('passport-oauth').OAuthStrategy;
 var OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var LinkedInStrategy = require('passport-linkedin').Strategy;
 var User = require('../models/User');
 var secrets = require('./secrets');
 var _ = require('underscore');
@@ -61,7 +62,7 @@ passport.use(new FacebookStrategy(secrets.facebook, function (req, accessToken, 
 }));
 
 
-passport.use(new GoogleStrategy(secrets.google, function(req, accessToken, refreshToken, profile, done) {
+passport.use(new GoogleStrategy(secrets.google, function (req, accessToken, refreshToken, profile, done) {
   if (req.user) {
     User.findById(req.user.id, function(err, user) {
       user.google = profile.id;
@@ -88,6 +89,33 @@ passport.use(new GoogleStrategy(secrets.google, function(req, accessToken, refre
       });
     });
   }
+}));
+
+passport.use(new LinkedInStrategy(secrets.linkedin, function(req, token, tokenSecret, profile, done) {
+    console.log(req);
+    console.log(tokenSecret);
+    User.findById(req.user._id, function (err, user) {
+      user.linkedin = profile.id;
+      console.log(profile);
+      //dont need usertype, email, or password
+
+      //user.tokens.push({kind: 'linkedin', accessToken: tokenSecret});
+      user.profile.name = profile.displayName;
+      user.profile.picture = profile.picture-url;
+      user.bio = profile.summary;
+      for(var i=0; i<profile.skills.values.length; i++) {
+        user.skills.push(profile.skills.values[i].skill.name);
+      }
+      //user.interests = ;
+      for(var i=0; i<profile.education.values.length; i++) {
+        user.education.push(profile.educations.values[i].schoolName);
+      }
+
+      user.save(function(err) {
+        done(err, user);
+      });
+      // return done(err, user);
+    });
 }));
 
 

@@ -94,7 +94,7 @@ passport.use(new GoogleStrategy(secrets.google, function (req, accessToken, refr
 passport.use(new LinkedInStrategy(secrets.linkedin, function(req, token, tokenSecret, profile, done) {
     console.log(req);
     console.log(tokenSecret);
-    User.findById(req.user._id, function (err, user) {
+    User.findById(req.user.id, function (err, user) {
       user.linkedin = profile.id;
       console.log(profile);
       //dont need usertype, email, or password

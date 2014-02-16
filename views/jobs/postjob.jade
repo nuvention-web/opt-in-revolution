@@ -2,64 +2,93 @@ extends ../layout
 
 block content
 	.container
-		//- h2.centered Post a job
-		.post-job-wrapper
-			.job-card
-				form.form-horizontal(name="JobPost", role="form", method="post",action="postJob")
-					.row.mt.job-card-other
-						.col-md-12
-							h2.centered Post a job
-					.row.mt.job-card-other
-						.col-md-12
+		.row.mt
+			.col-md-10.col-md-offset-1
+				.post-job-wrapper
+					.job-card
+						form.form-horizontal(name="JobPost", role="form", method="post",action="postJob")
+							.row.mt.job-card-other.centered
+								.col-md-12
+									h2.centered Post a Project
 							.row.mt.job-card-other
-								.form-group
-									label.col-md-2.control-label(for='jobName') Job Name
-									.col-md-10
-										input#jobName.form-control(type='text', name='jobName')
-					.row.mt.job-card-other
-						.col-md-12
-							.form-group
-								label.col-md-2.control-label(for='description') Description
-								.col-md-10
-									input#description.form-control(type='text', name="description")
-					.row.mt.job-card-other
-						.col-md-6
+								.col-md-9.col-md-offset-1
+									.form-group
+										label.col-md-4.control-label(for='jobName') Company Name
+										.col-md-8
+											input#jobName.form-control(type='text', name='jobName', value='#{user.company.companyName}') 
 							.row.mt.job-card-other
-								.form-group
-									label.col-md-4.control-label(for='industry') Industry
-									.col-md-8
-										input#industry.form-control(type='text', name="industry")
+								.col-md-9.col-md-offset-1
+									.form-group
+										label.col-md-4.control-label(for='jobName') Company Website
+										.col-md-8
+											input#jobName.form-control(type='text', name='jobName') 
 							.row.mt.job-card-other
-								.form-group
-									label.col-md-4.control-label(for='jobFunction') Job Function
-									.col-md-8
-										input#jobFunction.form-control(type='text', name="jobFunction")
+								.col-md-9.col-md-offset-1
+									.form-group
+										label.col-md-4.control-label(for='jobName') Project Title
+										.col-md-8
+											input#jobName.form-control(type='text', name='jobName')
 							.row.mt.job-card-other
-								.form-group
-									label.col-md-4.control-label(for='skillsNeeded') Skills Needed
-									.col-md-8
-										input#skillsNeeded.form-control(type='text', name="skillsNeeded")
+								.col-md-9.col-md-offset-1
+									.form-group
+										label.col-md-4.control-label(for='description') Project Description
+										.col-md-8
+											textarea#description.form-control(type='text', name="description")
 							.row.mt.job-card-other
-								.form-group
-									label.col-md-4.control-label(for='pay') Pay
-									.col-md-8
-										input#pay.form-control(type='text', name="pay")
-						.col-md-6
+								.col-md-9.col-md-offset-1
+									.form-group
+										label.col-md-4.control-label(for='skillsNeeded') Skills Needed
+										.col-md-8
+											textarea#skillsNeeded.form-control(type='text', name="skillsNeeded")
 							.row.mt.job-card-other
-								.form-group
-									label.col-md-4.control-label(for='duration') Duration
-									.col-md-8
-										input#duration.form-control(type='text', name="duration")
+								.col-md-9.col-md-offset-1
+									.form-group
+										label.col-md-4.control-label(for='jobFunction') Job Function
+										.col-md-8
+											input#jobFunction.form-control(type='text', name="jobFunction")
 							.row.mt.job-card-other
-								.form-group
-									label.col-md-4.control-label(for='hoursPerWeek') Hours Per Week
-									.col-md-8
-										input#hoursPerWeek.form-control(type='text', name="hoursPerWeek")
+								.col-md-9.col-md-offset-1
+									.form-group
+										label.col-md-4.control-label(for='industry') Industry
+										.col-md-3
+											input#industry.form-control(type='text', name="industry")
 							.row.mt.job-card-other
-								.form-group
-									label.col-md-4.control-label(for='telephoneOnly') Telephone Only
-									.col-md-8
-										input#telephoneOnly.form-control(type='text', name="telephoneOnly")
-					.row.mt.job-card-buttons
-						.col-md-12.col-md-offset-10
-							button.btn.btn-default(type='submit') Submit
+								.col-md-9.col-md-offset-1
+									.form-group
+										label.col-md-4.control-label(for='duration') Duration
+										.col-md-3
+											input#duration.form-control(type='text', name="duration")
+							.row.mt.job-card-other
+								.col-md-9.col-md-offset-1
+									.form-group
+										label.col-md-4.control-label(for='hoursPerWeek') Primary Communication Method
+										.col-md-3
+											select#hoursPerWeek.form-control.opt-select-form
+												option Email
+												option Phone
+												option In-Person
+											//- input#hoursPerWeek.form-control(type='text', name="hoursPerWeek")
+							.row.mt.job-card-other
+								.col-md-9.col-md-offset-1
+									.form-group
+										label.col-md-4.control-label(for='hoursPerWeek') Check-in Frequency
+										.col-md-3
+											select#hoursPerWeek.form-control.opt-select-form
+												option Daily
+												option 3-5 times / week
+												option Weekly
+											//- input#hoursPerWeek.form-control(type='text', name="hoursPerWeek")
+							.row.mt.job-card-other
+								.col-md-9.col-md-offset-1
+									.form-group
+										label.col-md-4.control-label(for='pay') Pay
+										.col-md-3
+											input#pay.form-control(type='text', name="pay")
+							//- .row.mt.job-card-other
+							//- 	.form-group
+							//- 		label.col-md-4.control-label(for='telephoneOnly') Telephone Only
+							//- 		.col-md-8
+							//- 			input#telephoneOnly.form-control(type='text', name="telephoneOnly")
+							.row.mt.job-card-buttons.centered
+								.col-md-8.col-md-offset-2
+									button.btn.btn-default.opt-about-btn(type='submit') Submit

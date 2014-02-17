@@ -3,7 +3,7 @@ var bcrypt = require('bcrypt');
 var findOrCreate = require('mongoose-findorcreate')
 
 var userSchema = new mongoose.Schema({
-  email: { type: String}, //, unique: true },
+  email: { type: String, unique: true },
   password: String,
   userType: String, //Mom or business
   tokens: Array,
@@ -29,7 +29,7 @@ var userSchema = new mongoose.Schema({
   education: { type: Array},
 
   positions: {type: Array},
-  linkedinURL: {type: String},
+  linkedinURL: {type: String, default: ''},
   dateOfBirth: {type:String},
   //Store company IDs in this array
 

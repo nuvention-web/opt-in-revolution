@@ -29,34 +29,42 @@ block content
             .col-xs-4
               input.form-control(type='email', name='email', id='email', value='#{user.email}')
           .form-group
+            label.col-xs-2.control-label(for='education') Education
+            .col-xs-4
+              textarea.form-control(type='text', name='education', id='education')
+                | #{user.education.pop().schoolName}
+                each e in user.education
+                  | , #{e.schoolName}
+          .form-group
             label.col-xs-2.control-label(for='bio') Bio
             .col-xs-4
-              input.form-control(type='textarea', name='bio', id='bio', value='#{user.bio}')
+              textarea.form-control(type='textarea', name='bio', id='bio', value='#{user.bio}')
           .form-group
             label.col-xs-2.control-label(for='interests') Interests
             .col-xs-4
-              input.form-control(type='text', name='interests', id='interests', value='#{user.interests}')
+              textarea.form-control(type='text', name='interests', id='interests', value='#{user.interests}')
           .form-group
             label.col-xs-2.control-label(for='skills') Skills
             .col-xs-4
-              input.form-control(type='text', name='skills', id='skills', value='#{user.skills}')
-          //- .form-group
-          //-   label.col-xs-2.control-label(for='name') Gender
-          //-   .col-xs-4
-          //-     label.radio
-          //-       input(type='radio', checked=user.profile.gender=='male', name='gender', value='male', data-toggle='radio')
-          //-       | Male
-          //-     label.radio
-          //-       input(type='radio', checked=user.profile.gender=='female', name='gender', value='female', data-toggle='radio')
-          //-       | Female
+              textarea.form-control(type='text', name='skills', id='skills')
+                | #{user.skills.pop()}
+                each s in user.skills
+                  | , #{s}
+          .form-group
+            label.col-xs-2.control-label(for='positions') Positions
+            .col-xs-4
+              textarea.form-control(type='text', name='positions', id='positions')
+                | #{user.positions.pop().title}
+                each p in user.positions
+                  | , #{p.title}
           .form-group
             label.col-xs-2.control-label(for='location') Location
             .col-xs-4
               input.form-control(type='text', name='location', id='location', value='#{user.profile.location}')
           .form-group
-            label.col-xs-2.control-label(for='website') Website
+            label.col-xs-2.control-label(for='website') LinkedIn Profile
             .col-xs-4
-              input.form-control(type='text', name='website', id='website', value='#{user.profile.website}')
+              input.form-control(type='text', name='website', id='website', value='#{user.linkedinURL}')
           .form-group
             .col-xs-offset-2.col-xs-4
               button.btn.btn.btn-primary(type='submit') Update Profile

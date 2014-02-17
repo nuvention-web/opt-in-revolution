@@ -112,7 +112,7 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', { successRe
 app.get('/auth/google', passport.authenticate('google', { scope: 'profile email' }));
 app.get('/auth/google/callback', passport.authenticate('google', { successRedirect: '/', failureRedirect: '/login' }));
 app.get('/auth/linkedin', passport.authenticate('linkedin'));
-app.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failureRedirect: '/login', successRedirect: '/', scope: ['r_basicprofile', 'r_fullprofile', 'r_emailaddress']  }));
+app.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failureRedirect: '/', successRedirect: '/account', scope: ['r_basicprofile', 'r_fullprofile', 'r_emailaddress']  }));
 
 
 // Job Related

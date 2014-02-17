@@ -10,15 +10,11 @@ var secrets = require('./secrets');
 var _ = require('underscore');
 
 passport.serializeUser(function(user, done) {
-  console.log("in serializeUser")
-  console.log(user.id)
   done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done) {
   User.findById(id, function (err, user) {
-    console.log("in deserializeUser");
-    console.log(user.id);
     if(!err) done(null, user);
     else done(err, null)  ;
     // done(err, user);
@@ -100,26 +96,42 @@ passport.use(new GoogleStrategy(secrets.google, function (req, accessToken, refr
 
 
 passport.use(new LinkedInStrategy(secrets.linkedin, function(req, token, tokenSecret, profile, done) {
-    console.log(req);
-    console.log(req.session);
-    console.log(token);
-    console.log(tokenSecret);
+    console.log(req.user.id);
     console.log(profile);
     User.findById(req.user.id, function (err, user) {
       user.linkedin = profile.id;
       console.log(profile);
 
       //user.tokens.push({kind: 'linkedin', accessToken: tokenSecret});
-      user.profile.name = profile.displayName;
-      // user.profile.picture = profile.picture_url;
-      // user.bio = profile.summary;
-      // for(var i=0; i<profile.skills.values.length; i++) {
-      //   user.skills.push(profile.skills.values[i].skill.name);
-      // }
-      // //user.interests = ;
-      // for(var i=0; i<profile.education.values.length; i++) {
-      //   user.education.push(profile.educations.values[i].schoolName);
-      // }
+      user.profile.name = profile._json.firstName + " " + profile._json.lastName;
+      user.profile.picture = profile._json.pictureUrl;
+      user.bio = profile._json.summary;
+      for(var i=0; i<profile._json.skills.values.length; i++) {
+        user.skills.push(profile._json.skills.values[i].skill.name);
+      }
+      //user.interests = ;
+      for(var i=0; i<profile._json.educations.values.length; i++) {
+        userEducation = {}
+        console.log(profile._json.educations.values[i].schoolName);
+        userEducation['schoolName'] = profile._json.educations.values[i].schoolName;
+        userEducation['fieldOfStudy'] = profile._json.educations.values[i].fieldOfStudy;
+        userEducation['startDate'] = profile._json.educations.values[i].startDate;
+        userEducation['endDate'] = profile._json.educations.values[i].endDate;
+        userEducation['degree'] = profile._json.educations.values[i].degree;
+        user.education.push(userEducation);
+      }
+
+      for(var i=0; i<profile._json.positions.values.length; i++) {
+        userPosition = {}
+        console.log(profile._json.positions.values[i].title);
+        userPosition['title'] = profile._json.positions.values[i].title
+        userPosition['summary'] = profile._json.positions.values[i].summary
+        userPosition['startDate'] = profile._json.positions.values[i].startDate
+        userPosition['endDate'] = profile._json.positions.values[i].endDate
+        user.positions.push(userPosition);
+      }
+
+      user.linkedinURL = profile._json.publicProfileUrl;
 
       user.save(function(err) {
         done(err, user);

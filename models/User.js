@@ -23,11 +23,16 @@ var userSchema = new mongoose.Schema({
   dateCreated: {type: Date, default: Date.now },
 
   bio: { type: String, default: '' },
-  skills: { type: String, default: '' },
+  skills: { type: Array},
   photo: { type: String, default: '' },
   interests: { type: String, default: '' },
-  education: { type: String, default: ''},
+  education: { type: Array},
+
+  positions: {type: Array},
+  linkedinURL: {type: String},
+  dateOfBirth: {type:String},
   //Store company IDs in this array
+
   companiesContacted: { type : Array },
 
   company: { 

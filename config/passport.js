@@ -102,7 +102,7 @@ passport.use(new LinkedInStrategy(secrets.linkedin, function(req, token, tokenSe
       user.linkedin = profile.id;
       console.log(profile);
 
-      //user.tokens.push({kind: 'linkedin', accessToken: tokenSecret});
+      // user.tokens.push({kind: 'linkedin', accessToken: token});
       user.profile.name = profile._json.firstName + " " + profile._json.lastName;
       user.profile.picture = profile._json.pictureUrl;
       user.bio = profile._json.summary;

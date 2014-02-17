@@ -10,7 +10,7 @@ var userSchema = new mongoose.Schema({
   provider: String,
   facebook: { type: String, unique: true, sparse: true },
   google: { type: String, unique: true, sparse: true },
-  linkedin: {type: String, unique: true, sparse: true },
+  linkedin: {type: String },
 
   profile: {
     name: { type: String, default: '' },

@@ -18,7 +18,7 @@ block content
     .profile-wrap
       if user.userType=='mom'
         .page-header
-          h3 Profile Information #{user._id}
+          h3 Profile Information 
         form.form-horizontal(action='/account/profile', method='POST')
           .form-group
             label.col-xs-2.control-label(for='name') Name
@@ -69,11 +69,11 @@ block content
             .col-xs-4
               input.form-control(type='text', name='website', id='website', value='#{user.linkedinURL}')
           .form-group
-            .col-xs-offset-2.col-xs-4
-              button.btn.btn.btn-primary(type='submit') Update Profile
-          .form-group
-            .col-xs-offset-2.col-xs-4
-              a(href="/auth/linkedin") Sync Profile Information Using Linkedin
+            .col-xs-6
+              .col-xs-offset-4.col-xs-4
+                button.btn.btn.btn-primary(type='submit') Update Profile
+              .col-xs-4
+                a.btn.btn.btn-primary(href="/auth/linkedin") Sync with Linkedin
       else if user.userType=='employer'
         .page-header
           h3 Company Information

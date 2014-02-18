@@ -20,10 +20,10 @@ var userSchema = new mongoose.Schema({
 
   dateCreated: {type: Date, default: Date.now },
 
-  bio: { type: String },
-  skills: { type: String },
-  photo: { type: String },
-  interests: { type: String },
+  bio: { type: String, default: '' },
+  skills: { type: String, default: '' },
+  photo: { type: String, default: '' },
+  interests: { type: String, default: '' },
   //Store company IDs in this array
   companiesContacted: { type : Array },
 

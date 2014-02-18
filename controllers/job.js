@@ -9,7 +9,7 @@ var passport = require('passport');
 var Job = require('../models/Job');
 var User = require('../models/User');
 var ObjectID = require('mongoose').Types.ObjectId; 
-
+var url = require('url');
 
 exports.postJob = function (req, res) {
 	//get form value - based on the name attributes
@@ -42,7 +42,7 @@ exports.postJob = function (req, res) {
 				res.send("There was a problem adding the information to the database.");
 			}
 			else {
-				res.redirect("/jobslist");
+				res.redirect("/employ");
 			}
 		});
 	});
@@ -62,12 +62,31 @@ exports.submitJobPost = function(req, res) {
 };
 
 exports.listJobs = function(req, res) {
-	Job.find({}, function(e, docs) {
-		res.render("jobs/jobslist", {
-			"joblist" : docs,
-			title: "Job Listing Page",
+	var url_parts = url.parse(req.url, true);
+	var query = url_parts.query;
+	var industry = query.industry;
+	var jobFunction = query.jobfunction;
+
+	if (typeof(jobFunction)==='undefined') {
+		Job.find().
+		sort('-dateCreated').
+		exec(function(e, docs) {
+			res.render("jobs/jobslist", {
+				"joblist" : docs,
+				title: "Job Listing Page",
+			});
 		});
-	});
+	}
+	else {
+		Job.find({jobFunction: jobFunction}).
+		sort('-dateCreated').
+		exec(function(e, docs) {
+			res.render("jobs/jobslist", {
+				"joblist" : docs,
+				title: "Job Listing Page",
+			});
+		});
+	}
 };
 
 exports.applyJob = function(req, res) {
@@ -84,7 +103,7 @@ exports.saveJob = function(req, res) {
 		// Save as ObjectID for easier querying when viewing saved jobs
 		user.companiesContacted.push(new ObjectID(req.params.id));
 		user.save(function(err, user, count) {
-			res.redirect("/jobslist");
+			res.redirect("/employ");
 		});
 	});
 };

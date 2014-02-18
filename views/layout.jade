@@ -16,6 +16,7 @@ html
     link(href='/css/styles.css', rel='stylesheet')
 
     script(src='/js/lib/jquery.js')
+    script(src='/js/lib/jquery_custom.js')
     script(src='/js/lib/bootstrap.js')
     script(src='/js/google_analytics.js')  
     script(src='/js/main.js')
@@ -36,7 +37,7 @@ html
           .navbar-collapse.collapse
             .cust-navbar
               ul.nav.navbar-nav
-                each nav in [{link: '', name: "Home"}, {link: 'about', name: "About"}, {link: 'team', name: "Team"}]
+                each nav in [{link: 'about', name: "About"}, {link: 'employ', name: "Employ"}, {link: 'empower', name: "Empower"}, {link: 'engage', name: "Engage"}]
                   li 
                     a.opt-nav-text(href='/#{nav.link}') #{nav.name}
               ul.nav.navbar-nav.navbar-right
@@ -51,7 +52,7 @@ html
                       | Actions
                       span.caret
                     ul.dropdown-menu
-                      li: a(href='/jobslist') View Listings
+                      li: a(href='/employ') View Listings
                       li: a(href='/viewsavedjobs') View Saved Jobs
                   li.dropdown(class=title=='Account Management')
                     a.dropdown-toggle(href='#', data-toggle='dropdown')
@@ -71,6 +72,7 @@ html
                     ul.dropdown-menu
                       li: a(href='/postjob') Post Job
                       li: a(href='/mylistings') View My Listings
+                      li: a(href='/viewcandidates') Find Candidates
                   li.dropdown(class=title=='Account Management')
                     a.dropdown-toggle(href='#', data-toggle='dropdown')
                       if user.profile.picture
@@ -82,3 +84,20 @@ html
                       li.divider
                       li: a(href='/logout') Logout
     block content
+    .footer
+      .container
+        .row.mt.centered
+          .footer-content
+            .col-md-8.col-md-offset-2
+              .row.mt
+                .col-md-3.col-md-offset-1
+                  a(href='/') The Opt In Revolution
+                .col-md-1
+                  | &middot;
+                .col-md-3
+                  a(href='/team') Our Team 
+                .col-md-1
+                  | &middot;
+                .col-md-3
+                  | &copy; Opt In Revolution 2014
+

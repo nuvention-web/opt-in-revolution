@@ -11,45 +11,79 @@ block content
 						small
 							| See what opportunities await you
 	.container
-		.job-listing-wrapper
-			each job, i in joblist
+		.row.mt
+			.col-md-2
+				.job-listing-filter-wrapper
+					b
+						a(href='/employ', role='button') All Jobs
+					br
+					br
+					b
+						| Industry
+					br
+					a(href='/employ?industry=consumer-products', role='button') Consumer products
+					br
+					a(href='/employ?industry=apparel', role='button') Apparel
+					br
+					a(href='/employ?industry=other-retail', role='button') Other retail
+					br
+					a(href='/employ?industry=food-and-beverage', role='button') Food and beverage
+					br
+					a(href='/employ?industry=entertainment-and-leisure', role='button') Entertainment and leisure
+					br
+					br
+					b
+						| Job Function
+					br
+					a(href='/employ?jobfunction=public-relations', role='button') Public relations
+					br
+					a(href='/employ?jobfunction=Marketing', role='button') Marketing
+					br
+					a(href='/employ?jobfunction=strategy', role='button') Strategy
+					br
+
+			.col-md-10
 				.row.mt
-					.job-card
-						.row.mt.job-card-heading
-							.col-md-1
-								img.pagination-centered(src='/images/office.jpg', width='50', alt='')
-							.col-md-11
-								h3 #{job.jobName}
-								h4 #{job.companyName}
-						.row.mt.job-card-description
-							h4 Description
-							.col-md-12
-								p 
-									| #{job.jobDescription}
-						.row.mt.job-card-other
-							h4 Details
-							.col-md-6
-								p 
-									b Industry: 
-									| #{job.industry}
-								p
-									b Job Function: 
-									| #{job.jobFunction}
-								p
-									b Skills Needed: 
-									| #{job.skillsNeeded}
-							.col-md-6
-								p
-									b Duration: 
-									| #{job.duration}
-								p
-									b Hours per week: 
-									| #{job.hoursPerWeek}
-								p
-									b Pay: 
-									| #{job.pay}
-									//- | #{job.dateCreated}
-						.row.mt.job-card-buttons
-							.col-md-12.col-md-offset-10
-								a.btn.btn-success.btn-md.job-btn(href='/job/apply-#{job.id}', role='button') Apply
-								a.btn.btn-success.btn-md.job-btn(href='/job/save-#{job.id}', role='button') Save
+					.job-listing-filter-wrapper
+						b
+							| Viewing all jobs
+				.job-listing-wrapper
+					each job, i in joblist
+						.row.mt
+							.job-card
+								.row.mt.job-card-heading
+									.col-md-12
+										h4 
+											| #{job.jobName} - #{job.companyName}
+								.row.mt.job-card-description
+									h5 Description
+									.col-md-12
+										| #{job.jobDescription}
+								.row.mt.job-card-other
+									h5 Details
+									.col-md-6
+										b Industry: 
+										| #{job.industry}
+										br
+										b Job Function: 
+										| #{job.jobFunction}
+										br
+										b Skills Needed: 
+										| #{job.skillsNeeded}
+									.col-md-6
+										b Duration: 
+										| #{job.duration}
+										br
+										b Hours per week: 
+										| #{job.hoursPerWeek}
+										br
+										b Pay: 
+										| #{job.pay}
+								.row.mt.job-card-buttons
+									.col-md-2.col-md-offset-10
+										if typeof(user)==='undefined'
+											a.btn.btn-success.btn-md.job-btn(href='/signup', role='button') Sign Up
+										else
+											a.btn.btn-success.btn-md.job-btn(href='/job/apply-#{job.id}', role='button') Apply
+											a.btn.btn-success.btn-md.job-btn(href='/job/save-#{job.id}', role='button') Save
+							

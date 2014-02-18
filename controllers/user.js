@@ -72,7 +72,7 @@ exports.postLogin = function(req, res, next) {
 
     req.logIn(user, function(err) {
       if (err) return next(err);
-      return res.redirect('/jobslist');
+      return res.redirect('/employ');
     });
   })(req, res, next);
 };
@@ -114,7 +114,7 @@ exports.postSignup = function(req, res, next) {
     }
     req.logIn(user, function(err) {
       if (err) return next(err);
-      res.redirect('/jobslist');
+      res.redirect('/employ');
     });
   });
 };
@@ -130,9 +130,12 @@ exports.postUpdateProfile = function(req, res, next) {
 
     user.profile.name = req.body.name || '';
     user.profile.email = req.body.email || '';
-    user.profile.gender = req.body.gender || '';
     user.profile.location = req.body.location || '';
     user.profile.website = req.body.website || '';
+    user.bio = req.body.bio || '';
+    user.skills = req.body.skills || '';
+    user.interests = req.body.interests || '';
+
     user.company.companyName = req.body.companyName || '';
     user.company.companyDescription = req.body.companyDescription || '';
     //Need to add company image
@@ -186,6 +189,16 @@ exports.postDeleteAccount = function(req, res, next) {
     if (err) return next(err);
     req.logout();
     res.redirect('/');
+  });
+};
+
+
+exports.viewCandidates = function(req, res) {
+  User.find({userType: 'mom'}, function(e, moms) {
+    res.render('viewcandidates', {
+      "candidates": moms,
+      title: "View Candidates",
+    }); 
   });
 };
 

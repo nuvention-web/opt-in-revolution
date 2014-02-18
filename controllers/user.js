@@ -128,13 +128,20 @@ exports.postUpdateProfile = function(req, res, next) {
   User.findById(req.user.id, function(err, user) {
     if (err) return next(err);
 
+    console.log(req.body)
+
     user.profile.name = req.body.name || '';
     user.profile.email = req.body.email || '';
     user.profile.location = req.body.location || '';
     user.profile.website = req.body.website || '';
     user.bio = req.body.bio || '';
+    user.education = req.body.education || '';
+    user.positions = req.body.positions || '';
     user.skills = req.body.skills || '';
     user.interests = req.body.interests || '';
+
+    console.log(user.bio)
+    console.log(user.interests)
 
     user.company.companyName = req.body.companyName || '';
     user.company.companyDescription = req.body.companyDescription || '';

@@ -49,9 +49,12 @@ block content
 												.col-md-9.col-md-offset-1
 													textarea.form-control(type='text', name='education', id='education')
 														if user.education[0]
-															| #{user.education.pop().schoolName}
-															each e in user.education
-																| , #{e.schoolName}
+															if typeof(user.education[0])==='object'
+																| #{user.education.pop().schoolName}
+																each e in user.education
+																	| , #{e.schoolName}
+															else
+																| #{user.education}
 								.row.mt
 									.col-md-9.col-md-offset-1
 										.form-group
@@ -82,9 +85,12 @@ block content
 												.col-md-9.col-md-offset-1
 													textarea.form-control(type='text', name='positions', id='positions')
 														if user.positions[0]
-															| #{user.positions.pop().title}
-															each p in user.positions
-																| , #{p.title}
+															if typeof(user.positions[0])==='object'
+																| #{user.positions.pop().title}
+																each p in user.positions
+																	| , #{p.title}
+															else
+																| #{user.positions}
 								.row.mt
 									.col-md-9.col-md-offset-1
 										.form-group

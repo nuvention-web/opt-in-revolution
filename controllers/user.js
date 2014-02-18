@@ -135,6 +135,8 @@ exports.postUpdateProfile = function(req, res, next) {
     user.profile.location = req.body.location || '';
     user.profile.website = req.body.website || '';
     user.bio = req.body.bio || '';
+    user.education = req.body.education || '';
+    user.positions = req.body.positions || '';
     user.skills = req.body.skills || '';
     user.interests = req.body.interests || '';
 

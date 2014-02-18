@@ -1,138 +1,198 @@
 extends ../layout
 
 block content
-  .container
-    if error.length
-      .alert.alert-danger.animated.fadeIn.opt-alert
-        button.close(data-dismiss='alert') ×
-        = error
-    if success.length
-      .alert.alert-success.animated.fadeInUp.opt-alert
-        button.close(data-dismiss='alert') ×
-        i.fa.fa-check
-        = success
-    if errors.length
-      .alert.alert-danger.animated.fadeIn.opt-alert
-        button.close(data-dismiss='alert') x
-        = "Fill out company information before posting jobs"
-    .profile-wrap
-      if user.userType=='mom'
-        .page-header
-          h3 Profile Information 
-        form.form-horizontal(action='/account/profile', method='POST')
-          .form-group
-            label.col-xs-2.control-label(for='name') Name
-            .col-xs-4
-              input.form-control(type='text', name='name', id='name', value='#{user.profile.name}')
-          .form-group
-            label.col-xs-2.control-label(for='email') Email
-            .col-xs-4
-              input.form-control(type='email', name='email', id='email', value='#{user.email}')
-          .form-group
-            label.col-xs-2.control-label(for='education') Education
-            .col-xs-4
-              textarea.form-control(type='text', name='education', id='education')
-                if user.education[0]
-                  | #{user.education.pop().schoolName}
-                  each e in user.education
-                    | , #{e.schoolName}
-          .form-group
-            label.col-xs-2.control-label(for='bio') Bio
-            .col-xs-4
-              textarea.form-control(type='textarea', name='bio', id='bio', value='#{user.bio}')
-          .form-group
-            label.col-xs-2.control-label(for='interests') Interests
-            .col-xs-4
-              textarea.form-control(type='text', name='interests', id='interests', value='#{user.interests}')
-          .form-group
-            label.col-xs-2.control-label(for='skills') Skills
-            .col-xs-4
-              textarea.form-control(type='text', name='skills', id='skills')
-                if user.skills[0]
-                  | #{user.skills.pop()}
-                  each s in user.skills
-                    | , #{s}
-          .form-group
-            label.col-xs-2.control-label(for='positions') Positions
-            .col-xs-4
-              textarea.form-control(type='text', name='positions', id='positions')
-                if user.positions[0]
-                  | #{user.positions.pop().title}
-                  each p in user.positions
-                    | , #{p.title}
-          .form-group
-            label.col-xs-2.control-label(for='location') Location
-            .col-xs-4
-              input.form-control(type='text', name='location', id='location', value='#{user.profile.location}')
-          .form-group
-            label.col-xs-2.control-label(for='website') LinkedIn Profile
-            .col-xs-4
-              input.form-control(type='text', name='website', id='website', value='#{user.linkedinURL}')
-          .form-group
-            .col-xs-6
-              .col-xs-offset-4.col-xs-4
-                button.btn.btn.btn-primary(type='submit') Update Profile
-              .col-xs-4
-                a.btn.btn.btn-primary(href="/auth/linkedin") Sync with Linkedin
-      else if user.userType=='employer'
-        .page-header
-          h3 Company Information
+	.container
+		if error.length
+			.alert.alert-danger.animated.fadeIn.opt-alert
+				button.close(data-dismiss='alert') ×
+				= error
+		if success.length
+			.alert.alert-success.animated.fadeInUp.opt-alert
+				button.close(data-dismiss='alert') ×
+				i.fa.fa-check
+				= success
+		if errors.length
+			.alert.alert-danger.animated.fadeIn.opt-alert
+				button.close(data-dismiss='alert') x
+				= "Fill out company information before posting jobs"
+		.row.mt
+			.col-md-10.col-md-offset-1
+				.profile-wrap
+					if user.userType=='mom'
+						.page-header.centered
+							h3 Profile Information 
+						form.form-horizontal(action='/account/profile', method='POST')
+							.row.mt
+								.col-md-9.col-md-offset-1
+									.col-md-2.col-md-offset-1
+										if user.profile.picture
+											img.prof-pic.pagination-centered(src='#{user.profile.picture}', height='90px')
+										else
+											img.prof-pic.pagination-centered(src='/images/linkedin-default.jpg', height='90px')
+									.col-md-9
+										.row.mt
+											.col-md-12
+												.form-group
+													label.col-md-2.control-label(for='name') Name
+													.col-md-8
+														input.form-control(type='text', name='name', id='name', value='#{user.profile.name}')
+										.row.mt
+											.col-md-12
+												.form-group
+													label.col-md-2.control-label(for='email') Email
+													.col-md-8
+														input.form-control(type='email', name='email', id='email', value='#{user.email}')
+							.row.mt
+								.col-md-9.col-md-offset-1
+									.form-group
+										.row.mt
+											.col-md-10.col-md-offset-1
+												label.control-label(for='education') Education
+										.row.mt
+											.col-md-10.col-md-offset-1
+												textarea.form-control(type='text', name='education', id='education')
+													if user.education[0]
+														| #{user.education.pop().schoolName}
+														each e in user.education
+															| , #{e.schoolName}
+							.row.mt
+								.col-md-9.col-md-offset-1
+									.form-group
+										.row.mt
+											.col-md-10.col-md-offset-1
+												label.control-label(for='bio') Bio
+										.row.mt
+											.col-md-10.col-md-offset-1
+												textarea.form-control(type='textarea', name='bio', id='bio', value='#{user.bio}')
+							.row.mt
+								.col-md-9.col-md-offset-1
+									.form-group
+										.row.mt
+											.col-md-10.col-md-offset-1
+												label.control-label(for='interests') Interests
+										.row.mt
+											.col-md-10.col-md-offset-1
+												textarea.form-control(type='text', name='interests', id='interests', value='#{user.interests}')
+							.row.mt
+								.col-md-9.col-md-offset-1
+									.form-group
+										.row.mt
+											.col-md-10.col-md-offset-1
+												label.control-label(for='skills') Skills
+										.row.mt
+											.col-md-10.col-md-offset-1
+												textarea.form-control(type='text', name='skills', id='skills')
+													if user.skills[0]
+														| #{user.skills.pop()}
+														each s in user.skills
+															| , #{s}
+							.row.mt
+								.col-md-9.col-md-offset-1
+									.form-group
+										.row.mt
+											.col-md-10.col-md-offset-1
+												label.control-label(for='positions') Positions
+										.row.mt
+											.col-md-10.col-md-offset-1
+												textarea.form-control(type='text', name='positions', id='positions')
+													if user.positions[0]
+														| #{user.positions.pop().title}
+														each p in user.positions
+															| , #{p.title}
+							.row.mt
+								.col-md-9.col-md-offset-1
+									.form-group
+										.row.mt
+											.col-md-10.col-md-offset-1
+												label.control-label(for='location') Location
+										.row.mt
+											.col-md-10.col-md-offset-1
+												input.form-control(type='text', name='location', id='location', value='#{user.profile.location}')
+							.row.mt
+								.col-md-9.col-md-offset-1
+									.form-group
+										.row.mt
+											.col-md-10.col-md-offset-1
+												label.control-label(for='website') LinkedIn Profile
+										.row.mt
+											.col-md-10.col-md-offset-1
+												input.form-control(type='text', name='website', id='website', value='#{user.linkedinURL}')
+							.row.mt
+								.col-md-9.col-md-offset-1
+									.form-group
+										.row.mt
+											.col-md-6.col-md-offset-5
+												.col-md-offset-1.col-md-5
+													button.btn.btn.btn-primary(type='submit') Update Profile
+												.col-md-5
+													a.btn.btn.btn-primary(href="/auth/linkedin") Sync with Linkedin
+					else if user.userType=='employer'
+						.page-header
+							h3 Company Information
 
-        form.form-horizontal(action='/account/profile', method='POST')
-          .form-group
-            label.col-xs-2.control-label(for='email') Email
-            .col-xs-4
-              input.form-control(type='email', name='email', id='email', value='#{user.email}')
-          .form-group
-            label.col-xs-2.control-label(for='companyName') Company Name
-            .col-xs-4
-              if typeof(user.company.companyName)=='undefined'
-                input.form-control(type='companyName', name='companyName', id='companyName', value='')
-              else
-                input.form-control(type='companyName', name='companyName', id='companyName', value='#{user.company.companyName}')
-          .form-group
-            label.col-xs-2.control-label(for='companyDescription') Company Description
-            .col-xs-4
-              if typeof(user.company.companyDescription)=='undefined'
-                input.form-control(type='companyDescription', name='companyDescription', id='companyDescription', value='')
-              else
-                input.form-control(type='companyDescription', name='companyDescription', id='companyDescription', value='#{user.company.companyDescription}')
-          .form-group
-            .col-xs-offset-2.col-xs-4
-              button.btn.btn.btn-primary(type='submit') Update Profile
+						form.form-horizontal(action='/account/profile', method='POST')
+							.row.mt
+								.col-md-9.col-md-offset-1
+									.form-group
+										label.col-md-2.control-label(for='email') Email
+										.col-md-4
+											input.form-control(type='email', name='email', id='email', value='#{user.email}')
+							.row.mt
+								.col-md-9.col-md-offset-1
+									.form-group
+										label.col-md-2.control-label(for='companyName') Company Name
+										.col-md-4
+											if typeof(user.company.companyName)=='undefined'
+												input.form-control(type='companyName', name='companyName', id='companyName', value='')
+											else
+												input.form-control(type='companyName', name='companyName', id='companyName', value='#{user.company.companyName}')
+							.row.mt
+								.col-md-9.col-md-offset-1
+									.form-group
+										label.col-md-2.control-label(for='companyDescription') Company Description
+										.col-md-4
+											if typeof(user.company.companyDescription)=='undefined'
+												input.form-control(type='companyDescription', name='companyDescription', id='companyDescription', value='')
+											else
+												input.form-control(type='companyDescription', name='companyDescription', id='companyDescription', value='#{user.company.companyDescription}')
+							.row.mt
+								.col-md-9.col-md-offset-1
+									.form-group
+										.col-md-offset-2.col-md-4
+											button.btn.btn.btn-primary(type='submit') Update Profile
 
-      .page-header
-        h3 Change Password
+					.page-header
+						h3 Change Password
 
-      form.form-horizontal(action='/account/password', method='POST')
-        .form-group
-          label.col-xs-3.control-label(for='password') New Password
-          .col-xs-4
-            input.form-control(type='password', name='password', id='password')
-        .form-group
-          label.col-xs-3.control-label(for='confirmPassword') Confirm Password
-          .col-xs-4
-            input.form-control(type='password', name='confirmPassword', id='confirmPassword')
-        .form-group
-          .col-xs-offset-3.col-xs-4
-            button.btn.btn.btn-primary(type='submit') Change Password
+					form.form-horizontal(action='/account/password', method='POST')
+						.form-group
+							label.col-md-3.control-label(for='password') New Password
+							.col-md-4
+								input.form-control(type='password', name='password', id='password')
+						.form-group
+							label.col-md-3.control-label(for='confirmPassword') Confirm Password
+							.col-md-4
+								input.form-control(type='password', name='confirmPassword', id='confirmPassword')
+						.form-group
+							.col-md-offset-3.col-md-4
+								button.btn.btn.btn-primary(type='submit') Change Password
 
-      .page-header
-        h3 Delete Account
+					.page-header
+						h3 Delete Account
 
-      p You can delete your account, but keep in mind this action is irreversible.
-      form(action='/account/delete', method='POST')
-        button.btn.btn-danger(type='submit') Delete my account
+					p You can delete your account, but keep in mind this action is irreversible.
+					form(action='/account/delete', method='POST')
+						button.btn.btn-danger(type='submit') Delete my account
 
-    //- .page-header
-    //-   h3 Linked Accounts
+			//- .page-header
+			//-   h3 Linked Accounts
 
-    //- if user.google
-    //-   p: a.text-danger(href='/account/unlink/google') Unlink your Google account
-    //- else
-    //-   p: a(href='/auth/google') Link your Google account
+			//- if user.google
+			//-   p: a.text-danger(href='/account/unlink/google') Unlink your Google account
+			//- else
+			//-   p: a(href='/auth/google') Link your Google account
 
-    //- if user.facebook
-    //-   p: a.text-danger(href='/account/unlink/facebook') Unlink your Facebook account
-    //- else
-    //-   p: a(href='/auth/facebook') Link your Facebook account
+			//- if user.facebook
+			//-   p: a.text-danger(href='/account/unlink/facebook') Unlink your Facebook account
+			//- else
+			//-   p: a(href='/auth/facebook') Link your Facebook account

@@ -24,12 +24,12 @@ block content
 						form.form-horizontal(action='/account/profile', method='POST')
 							.row.mt
 								.col-md-9.col-md-offset-1
-									.col-md-2.col-md-offset-1
+									.col-md-3.col-md-offset-1.prof-column
 										if user.profile.picture
-											img.prof-pic.pagination-centered(src='#{user.profile.picture}', height='90px')
+											img.prof-pic.pagination-centered(src='#{user.profile.picture}', height='130px')
 										else
-											img.prof-pic.pagination-centered(src='/images/linkedin-default.jpg', height='90px')
-									.col-md-9
+											img.prof-pic.pagination-centered(src='/images/linkedin-default.jpg', height='130px')
+									.col-md-8
 										.form-group
 											label.col-md-2.control-label(for='name') Name
 											.col-md-8
@@ -60,7 +60,8 @@ block content
 													label.control-label(for='bio') Bio
 											.row.mt
 												.col-md-9.col-md-offset-1
-													textarea.form-control(type='textarea', name='bio', id='bio', value='#{user.bio}')
+													textarea.form-control(type='textarea', name='bio', id='bio')
+														| #{user.bio}
 								.row.mt
 									.col-md-9.col-md-offset-1
 										.form-group
@@ -69,7 +70,8 @@ block content
 													label.control-label(for='interests') Interests
 											.row.mt
 												.col-md-9.col-md-offset-1
-													textarea.form-control(type='text', name='interests', id='interests', value='#{user.interests}')
+													textarea.form-control(type='text', name='interests', id='interests')
+														| #{user.interests}
 								.row.mt
 									.col-md-9.col-md-offset-1
 										.form-group

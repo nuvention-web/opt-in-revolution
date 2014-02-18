@@ -23,7 +23,7 @@ module.exports = {
     consumerKey: "754zc72220f44d",
     consumerSecret: "TcOxRYSBUsAd8Ewf",
     callbackURL: "http://127.0.0.1:3000/auth/linkedin/callback",
-    profileFields: ['first-name', 'last-name', 'id', 'email-address', 'headline', 'industry', 'summary', 'positions', 'picture-url', 'skills', 'educations', 'public-profile-url', 'date-of-birth',],
+    profileFields: ['first-name', 'last-name', 'id', 'email-address', 'headline', 'industry', 'summary', 'positions', 'picture-urls::(original)', 'skills', 'educations', 'public-profile-url', 'date-of-birth',],
     passReqToCallback: true
   },
 

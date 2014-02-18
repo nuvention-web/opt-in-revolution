@@ -30,102 +30,99 @@ block content
 										else
 											img.prof-pic.pagination-centered(src='/images/linkedin-default.jpg', height='90px')
 									.col-md-9
-										.row.mt
-											.col-md-12
-												.form-group
-													label.col-md-2.control-label(for='name') Name
-													.col-md-8
-														input.form-control(type='text', name='name', id='name', value='#{user.profile.name}')
-										.row.mt
-											.col-md-12
-												.form-group
-													label.col-md-2.control-label(for='email') Email
-													.col-md-8
-														input.form-control(type='email', name='email', id='email', value='#{user.email}')
-							.row.mt
-								.col-md-9.col-md-offset-1
-									.form-group
-										.row.mt
-											.col-md-10.col-md-offset-1
-												label.control-label(for='education') Education
-										.row.mt
-											.col-md-10.col-md-offset-1
-												textarea.form-control(type='text', name='education', id='education')
-													if user.education[0]
-														| #{user.education.pop().schoolName}
-														each e in user.education
-															| , #{e.schoolName}
-							.row.mt
-								.col-md-9.col-md-offset-1
-									.form-group
-										.row.mt
-											.col-md-10.col-md-offset-1
-												label.control-label(for='bio') Bio
-										.row.mt
-											.col-md-10.col-md-offset-1
-												textarea.form-control(type='textarea', name='bio', id='bio', value='#{user.bio}')
-							.row.mt
-								.col-md-9.col-md-offset-1
-									.form-group
-										.row.mt
-											.col-md-10.col-md-offset-1
-												label.control-label(for='interests') Interests
-										.row.mt
-											.col-md-10.col-md-offset-1
-												textarea.form-control(type='text', name='interests', id='interests', value='#{user.interests}')
-							.row.mt
-								.col-md-9.col-md-offset-1
-									.form-group
-										.row.mt
-											.col-md-10.col-md-offset-1
-												label.control-label(for='skills') Skills
-										.row.mt
-											.col-md-10.col-md-offset-1
-												textarea.form-control(type='text', name='skills', id='skills')
-													if user.skills[0]
-														| #{user.skills.pop()}
-														each s in user.skills
-															| , #{s}
-							.row.mt
-								.col-md-9.col-md-offset-1
-									.form-group
-										.row.mt
-											.col-md-10.col-md-offset-1
-												label.control-label(for='positions') Positions
-										.row.mt
-											.col-md-10.col-md-offset-1
-												textarea.form-control(type='text', name='positions', id='positions')
-													if user.positions[0]
-														| #{user.positions.pop().title}
-														each p in user.positions
-															| , #{p.title}
-							.row.mt
-								.col-md-9.col-md-offset-1
-									.form-group
-										.row.mt
-											.col-md-10.col-md-offset-1
-												label.control-label(for='location') Location
-										.row.mt
-											.col-md-10.col-md-offset-1
-												input.form-control(type='text', name='location', id='location', value='#{user.profile.location}')
-							.row.mt
-								.col-md-9.col-md-offset-1
-									.form-group
-										.row.mt
-											.col-md-10.col-md-offset-1
-												label.control-label(for='website') LinkedIn Profile
-										.row.mt
-											.col-md-10.col-md-offset-1
-												input.form-control(type='text', name='website', id='website', value='#{user.linkedinURL}')
-							.row.mt
-								.col-md-9.col-md-offset-1
-									.form-group
-										.row.mt
-											.col-md-6.col-md-offset-5
-												.col-md-offset-1.col-md-5
-													button.btn.btn.btn-primary(type='submit') Update Profile
-												.col-md-5
-													a.btn.btn.btn-primary(href="/auth/linkedin") Sync with Linkedin
+										.form-group
+											label.col-md-2.control-label(for='name') Name
+											.col-md-8
+												input.form-control(type='text', name='name', id='name', value='#{user.profile.name}')
+										.form-group
+											label.col-md-2.control-label(for='email') Email
+											.col-md-8
+												input.form-control(type='email', name='email', id='email', value='#{user.email}')
+							.prof-bottom-wrapper
+								.row.mt
+									.col-md-9.col-md-offset-1
+										.form-group
+											.row.mt
+												.col-md-9.col-md-offset-1
+													label.control-label(for='education') Education
+											.row.mt
+												.col-md-9.col-md-offset-1
+													textarea.form-control(type='text', name='education', id='education')
+														if user.education[0]
+															| #{user.education.pop().schoolName}
+															each e in user.education
+																| , #{e.schoolName}
+								.row.mt
+									.col-md-9.col-md-offset-1
+										.form-group
+											.row.mt
+												.col-md-9.col-md-offset-1
+													label.control-label(for='bio') Bio
+											.row.mt
+												.col-md-9.col-md-offset-1
+													textarea.form-control(type='textarea', name='bio', id='bio', value='#{user.bio}')
+								.row.mt
+									.col-md-9.col-md-offset-1
+										.form-group
+											.row.mt
+												.col-md-9.col-md-offset-1
+													label.control-label(for='interests') Interests
+											.row.mt
+												.col-md-9.col-md-offset-1
+													textarea.form-control(type='text', name='interests', id='interests', value='#{user.interests}')
+								.row.mt
+									.col-md-9.col-md-offset-1
+										.form-group
+											.row.mt
+												.col-md-9.col-md-offset-1
+													label.control-label(for='positions') Positions
+											.row.mt
+												.col-md-9.col-md-offset-1
+													textarea.form-control(type='text', name='positions', id='positions')
+														if user.positions[0]
+															| #{user.positions.pop().title}
+															each p in user.positions
+																| , #{p.title}
+								.row.mt
+									.col-md-9.col-md-offset-1
+										.form-group
+											.row.mt
+												.col-md-9.col-md-offset-1
+													label.control-label(for='skills') Skills
+											.row.mt
+												.col-md-9.col-md-offset-1
+													textarea.form-control(type='text', name='skills', id='skills')
+														if user.skills[0]
+															| #{user.skills.pop()}
+															each s in user.skills
+																| , #{s}
+								.row.mt
+									.col-md-9.col-md-offset-1
+										.form-group
+											.row.mt
+												.col-md-6.col-md-offset-1
+													label.control-label(for='location') Location
+											.row.mt
+												.col-md-6.col-md-offset-1
+													input.form-control(type='text', name='location', id='location', value='#{user.profile.location}')
+								.row.mt
+									.col-md-9.col-md-offset-1
+										.form-group
+											.row.mt
+												.col-md-6.col-md-offset-1
+													label.control-label(for='website') LinkedIn Profile
+											.row.mt
+												.col-md-6.col-md-offset-1
+													input.form-control(type='text', name='website', id='website', value='#{user.linkedinURL}')
+								.row.mt
+									.col-md-9.col-md-offset-1
+										.form-group
+											.row.mt
+												.col-md-6.col-md-offset-4
+													.col-md-offset-1.col-md-5
+														button.btn.btn.btn-primary(type='submit') Update Profile
+													.col-md-5
+														a.btn.btn.btn-primary(href="/auth/linkedin") Sync with Linkedin
 					else if user.userType=='employer'
 						.page-header
 							h3 Company Information

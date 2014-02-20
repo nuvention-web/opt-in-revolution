@@ -58,8 +58,10 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use(expressValidator());
 app.use(express.methodOverride());
+// app.use(express.cookieSession());
 app.use(express.session({ secret: 'your secret code' }));
 app.use(passport.initialize());
+
 app.use(passport.session());
 app.use(function(req, res, next) {
   res.locals.user = req.user;
@@ -74,6 +76,8 @@ app.use(function(req, res) {
   res.render('404');
 });
 app.use(express.errorHandler());
+
+
 
 /**
  * Application routes.
@@ -107,6 +111,9 @@ app.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email' }))
 app.get('/auth/facebook/callback', passport.authenticate('facebook', { successRedirect: '/', failureRedirect: '/login' }));
 app.get('/auth/google', passport.authenticate('google', { scope: 'profile email' }));
 app.get('/auth/google/callback', passport.authenticate('google', { successRedirect: '/', failureRedirect: '/login' }));
+app.get('/auth/linkedin', passport.authenticate('linkedin'));
+app.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failureRedirect: '/', successRedirect: '/account', scope: ['r_basicprofile', 'r_fullprofile', 'r_emailaddress']  }));
+
 
 // Job Related
 app.post('/postJob', passportConf.isAuthenticated, jobController.postJob);

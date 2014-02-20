@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
+var findOrCreate = require('mongoose-findorcreate')
 
 var userSchema = new mongoose.Schema({
   email: { type: String, unique: true },
@@ -9,6 +10,7 @@ var userSchema = new mongoose.Schema({
   provider: String,
   facebook: { type: String, unique: true, sparse: true },
   google: { type: String, unique: true, sparse: true },
+  linkedin: {type: String },
 
   profile: {
     name: { type: String, default: '' },
@@ -21,10 +23,16 @@ var userSchema = new mongoose.Schema({
   dateCreated: {type: Date, default: Date.now },
 
   bio: { type: String, default: '' },
-  skills: { type: String, default: '' },
+  skills: { type: Array},
   photo: { type: String, default: '' },
   interests: { type: String, default: '' },
+  education: { type: Array},
+
+  positions: {type: Array},
+  linkedinURL: {type: String, default: ''},
+  dateOfBirth: {type:String},
   //Store company IDs in this array
+
   companiesContacted: { type : Array },
 
   company: { 
@@ -57,5 +65,7 @@ userSchema.methods.comparePassword = function(candidatePassword, cb) {
     cb(null, isMatch);
   });
 };
+
+userSchema.plugin(findOrCreate);
 
 module.exports = mongoose.model('User', userSchema);

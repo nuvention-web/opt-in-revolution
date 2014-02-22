@@ -47,13 +47,6 @@ html
                   li(class=title=='Create Account')
                     a(href='/signup') Create Account
                 else if user.userType=='mom'
-                  li.dropdown(class=title=='User Actions')
-                    a.dropdown-toggle(href='#', data-toggle='dropdown') 
-                      | Actions
-                      span.caret
-                    ul.dropdown-menu
-                      li: a(href='/employ') View Listings
-                      li: a(href='/viewsavedjobs') View Saved Jobs
                   li.dropdown(class=title=='Account Management')
                     a.dropdown-toggle(href='#', data-toggle='dropdown')
                       if user.profile.picture
@@ -65,16 +58,11 @@ html
                     ul.dropdown-menu
                       li: a(href='/account') My Account
                       li.divider
+                      li: a(href='/employ') View Listings
+                      li: a(href='/viewsavedjobs') View Saved Jobs
+                      li.divider
                       li: a(href='/logout') Logout
                 else
-                  li.dropdown(class=title=='User Actions')
-                    a.dropdown-toggle(href='#', data-toggle='dropdown') 
-                      | Actions
-                      span.caret
-                    ul.dropdown-menu
-                      li: a(href='/postjob') Post Job
-                      li: a(href='/mylistings') View My Listings
-                      li: a(href='/viewcandidates') Find Candidates
                   li.dropdown(class=title=='Account Management')
                     a.dropdown-toggle(href='#', data-toggle='dropdown')
                       if user.profile.picture
@@ -85,6 +73,10 @@ html
                       span.caret
                     ul.dropdown-menu
                       li: a(href='/account') My Account
+                      li.divider
+                      li: a(href='/postjob') Post Job
+                      li: a(href='/mylistings') View My Listings
+                      li: a(href='/viewcandidates') Find Candidates
                       li.divider
                       li: a(href='/logout') Logout
     block content

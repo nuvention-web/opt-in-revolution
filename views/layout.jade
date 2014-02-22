@@ -7,7 +7,7 @@ html
     meta(name='description', content='')
     meta(name='author', content='')
 
-    title Opt In Revolution
+    title AthenaHire
 
     link(rel='shortcut icon', href='/images/favicon.ico')
     link(href='/css/lib/font-awesome.min.css', rel='stylesheet')
@@ -32,12 +32,14 @@ html
               span.icon-bar
               span.icon-bar
             a.opt-nav-text.navbar-brand(href='/') 
-              img.opt-logo(src='/images/logo_2.png', alt='Opt-In Logo')
-              | Opt-In Revolution
+              //- img.opt-logo(src='/images/logo_2.png', alt='Opt-In Logo')
+              img.opt-logo(src='/images/owl.png', alt='AthenaHire Logo')
+              | AthenaHire
           .navbar-collapse.collapse
             .cust-navbar
               ul.nav.navbar-nav
-                each nav in [{link: 'about', name: "About"}, {link: 'employ', name: "Employ"}, {link: 'empower', name: "Empower"}, {link: 'engage', name: "Engage"}]
+                //- each nav in [{link: 'about', name: "About"}, {link: 'employ', name: "Employ"}, {link: 'empower', name: "Empower"}, {link: 'engage', name: "Engage"}]
+                each nav in [{link: 'about', name: "How It Works"}, {link: 'employ', name: "Find a Project"}, {link: 'empower', name: "Post a Project"}]
                   li 
                     a.opt-nav-text(href='/#{nav.link}') #{nav.name}
               ul.nav.navbar-nav.navbar-right
@@ -87,7 +89,7 @@ html
             .col-md-8.col-md-offset-2
               .row.mt
                 .col-md-3.col-md-offset-1
-                  a(href='/') The Opt In Revolution
+                  a(href='/') AthenaHire
                 .col-md-1
                   | &middot;
                 .col-md-3
@@ -95,5 +97,5 @@ html
                 .col-md-1
                   | &middot;
                 .col-md-3
-                  | &copy; Opt In Revolution 2014
+                  | &copy; AthenaHire 2014
 

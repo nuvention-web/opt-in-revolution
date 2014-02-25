@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var _ = require('underscore');
 var User = require('../models/User');
+var User = require('../models/Emails');
 
 /**
  * GET /login

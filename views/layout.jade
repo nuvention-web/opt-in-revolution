@@ -84,18 +84,32 @@ html
     block content
     .footer
       .container
-        .row.mt.centered
-          .footer-content
-            .col-md-8.col-md-offset-2
-              .row.mt
-                .col-md-3.col-md-offset-1
+        .footer-content
+          .row.mt
+            .col-md-4
+              p About Us
+              ul
+                li
                   a(href='/') AthenaHire
-                .col-md-1
-                  | &middot;
-                .col-md-3
+                li 
                   a(href='/team') Our Team 
-                .col-md-1
-                  | &middot;
-                .col-md-3
-                  | &copy; AthenaHire 2014
+            .col-md-4
+              p Join Our Mailing List for Updates
+              .form-wrapper
+                form.form-inline.input-form(name="email", role="form", method="post",action="/subscribeEmailPost")
+                  .form-group
+                    label.sr-only(for='emailInput') Email address
+                    input#userEmailInput.form-control(type='email', name="email", placeholder='Enter email')
+                  button.btn.btn-default.opt-subscribe-btn(type='submit') Subscribe
+            .col-md-4
+              p
+                | Contact Us
+                address
+                  | Farley Center - NUvention: Web
+                  br
+                  | 2133 Sheridan Road
+                  br
+                  | Evanston, IL 60208
+              p
+                | &copy; AthenaHire 2014
 

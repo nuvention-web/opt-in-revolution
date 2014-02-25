@@ -86,6 +86,7 @@ app.use(express.errorHandler());
 app.get('/', homeController.index);
 app.get('/about', homeController.about);
 app.get('/team', homeController.team);
+app.post('/subscribeEmailPost', homeController.subscribeEmailPost)
 
 // Account Stuff
 app.get('/login', userController.getLogin);

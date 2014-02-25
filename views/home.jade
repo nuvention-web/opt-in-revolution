@@ -4,6 +4,15 @@ block content
   .landing-page-bg
     .container
       .opt-landing-content
+        if errors && errors.length
+          .alert.alert-danger.animated.fadeIn.opt-alert
+            button.close(data-dismiss='alert') ×
+            | Sorry, please check that you have entered a valid email.
+        if success && success.length
+          .alert.alert-success.animated.fadeInUp.opt-alert
+            button.close(data-dismiss='alert') ×
+            i.fa.fa-check
+            | Thank you! You've been added to our mailing list!
         .row.mt.centered
           .col-md-5.col-md-offset-7
             .row.mt
@@ -25,14 +34,3 @@ block content
 
               a.btn.btn-success.btn-lg.opt-about-btn(href='/about?view=mom', role='button') I am a mother
               a.btn.btn-success.btn-lg.opt-about-btn(href='/about?view=biz', role='button') I am a business
-        //- button.btn.btn-success.btn-lg(type='button') MOM
-        //- button.btn.btn-success.btn-lg(type='button') BIZ
-      //- .form-wrapper
-      //-   form.form-inline.input-form(name="addEmail", role="form", method="post",action="/addEmail")
-      //-     .form-group
-      //-       label.sr-only(for='userEmailInput') Email address
-      //-       input#userEmailInput.form-control(type='email', name="emailInput", placeholder='Enter email')
-      //-     .form-group
-      //-       label.sr-only(for='userTypeInput') User Type
-      //-       input#userTypeInput.form-control.input-mysize(type='text', name="userTypeInput", placeholder='Tell us a bit about yourself')
-      //-     button.btn.btn-default(type='submit') Submit

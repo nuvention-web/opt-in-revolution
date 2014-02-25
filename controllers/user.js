@@ -2,7 +2,6 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var _ = require('underscore');
 var User = require('../models/User');
-var User = require('../models/Emails');
 
 /**
  * GET /login
@@ -41,7 +40,7 @@ exports.getAccount = function(req, res) {
     success: req.flash('success'),
     error: req.flash('error'),
     errors: req.flash('errors'),
-    signUp: req.flash('signUp'),
+    signUp: req.flash('signUp')
   });
 };
 
@@ -106,8 +105,6 @@ exports.postSignup = function(req, res, next) {
     password: req.body.password,
     userType: req.body.usertype
   });
-  
-  req.flash('signUp', 'signUp');
 
   user.save(function(err) {
     if (err) {
@@ -118,7 +115,7 @@ exports.postSignup = function(req, res, next) {
     }
     req.logIn(user, function(err) {
       if (err) return next(err);
-      res.redirect('/account');
+      res.redirect('/employ');
     });
   });
 };
@@ -190,13 +187,13 @@ exports.postUpdatePassword = function(req, res, next) {
 };
 
 /**
- * POST /account/deactivate
+ * POST /account/delete
  * Delete user account.
  * @param {string} id
  */
 
-exports.postDeactivateAccount = function(req, res, next) {
-  User.update({ _id: req.user.id }, function(err) {
+exports.postDeleteAccount = function(req, res, next) {
+  User.remove({ _id: req.user.id }, function(err) {
     if (err) return next(err);
     req.logout();
     res.redirect('/');

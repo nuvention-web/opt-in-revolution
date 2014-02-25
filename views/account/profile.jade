@@ -145,6 +145,15 @@ block content
 										.row.mt
 											.col-md-12
 												a.btn.btn.btn-primary(href="/auth/linkedin") Sync with Linkedin
+												//- a.btn.btn.btn-primary(href="/auth/linkedin",data-toggle='modal', data-target='#linkedInLoading') Sync with Linkedin
+									//- #linkedInLoading.modal.fade(tabindex='-1', role='dialog', aria-labelledby='linkedInLoadingLabel', aria-hidden='true')
+										.modal-dialog
+											.modal-content
+												.modal-header
+													button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+													h4#linkedInLoadingLabel.modal-title Syncing with LinkedIn....
+												.modal-body
+													| ...
 					else if user.userType=='employer'
 						.biz-prof-wrapper
 							.page-header

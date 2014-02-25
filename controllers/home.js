@@ -39,13 +39,11 @@ exports.empower = function(req, res) {
   });
 };
 
-
 exports.engage = function(req, res) {
   res.render('engage', {
     title: 'Engage'
   });
 };
-
 
 exports.subscribeEmailPost = function(req,res) {
 

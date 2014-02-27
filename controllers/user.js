@@ -140,6 +140,7 @@ exports.postUpdateProfile = function(req, res, next) {
     user.positions = req.body.positions || '';
     user.skills = req.body.skills || '';
     user.interests = req.body.interests || '';
+    user.yearsOfExperience = req.body.yearsOfExperience || '';
 
     console.log(user.bio)
     console.log(user.interests)

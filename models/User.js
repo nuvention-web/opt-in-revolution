@@ -30,6 +30,7 @@ var userSchema = new mongoose.Schema({
   education: { type: Array},
 
   positions: {type: Array},
+  yearsOfExperience: {type: String},
   linkedinURL: {type: String, default: ''},
   dateOfBirth: {type:String},
   //Store company IDs in this array

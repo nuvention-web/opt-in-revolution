@@ -11,14 +11,19 @@ block content
 				button.close(data-dismiss='alert') ×
 				i.fa.fa-check
 				= success
-		if errors.length
+		if companyError && companyError.length
 			.alert.alert-danger.animated.fadeIn.opt-alert
 				button.close(data-dismiss='alert') x
-				= "Fill out company information before posting jobs"
+				= "Fill out company information before posting jobs" 
 		if signUp.length
 			.alert.alert-info.animated.fadeIn.opt-alert
 				button.close(data-dismiss='alert') x
 				= "Please fill out your name and bio before applying to jobs."
+		//- if errors && errors.length
+		//- 	for error in errors
+		//- 		.alert.alert-danger.animated.fadeIn.opt-alert
+		//- 			button.close(data-dismiss='alert') x
+		//- 			div= error.msg
 		.row.mt
 			.col-md-10.col-md-offset-1
 				.profile-wrap
@@ -62,7 +67,8 @@ block content
 															textarea.form-control(type='text', name='education', id='education')
 																if user.education[0]
 																	if typeof(user.education[0])==='object'
-																		| #{user.education.pop().schoolName}
+																		- var edu = user.education.pop();
+																		| #{edu.schoolName} - #{edu.degree}
 																		each e in user.education
 																			| , #{e.schoolName}
 																	else
@@ -126,6 +132,73 @@ block content
 														.col-md-9.col-md-offset-1
 															textarea.form-control(type='text', name='interests', id='interests')
 																| #{user.interests}
+										.row.mt
+											.col-md-12
+												.form-group
+													.row.mt
+														.col-md-9.col-md-offset-1
+															label.control-label(for='desiredHoursPerWeek') Desired Hours Per Week (check all that apply)
+													.row.mt
+														.col-md-9.col-md-offset-1
+															label < 10
+																input(type='checkbox', name='desiredHoursPerWeek', value='<10', checked=user.desiredHoursPerWeek.indexOf('<10')!=-1)
+															label 10-20
+																input(type='checkbox', name='desiredHoursPerWeek', value='10-20', checked=user.desiredHoursPerWeek.indexOf('10-20')!=-1)
+															label 20-30
+																input(type='checkbox', name='desiredHoursPerWeek', value='20-30', checked=user.desiredHoursPerWeek.indexOf('20-30')!=-1)
+															label 30-40
+																input(type='checkbox', name='desiredHoursPerWeek', value='30-40', checked=user.desiredHoursPerWeek.indexOf('30-40')!=-1)
+										.row.mt
+											.col-md-12
+												.form-group
+													.row.mt
+														.col-md-9.col-md-offset-1
+															label.control-label(for='desiredProjectLength') Desired Project Length (check all that apply)
+													.row.mt
+														.col-md-9.col-md-offset-1
+															label < 1 week
+																input(type='checkbox', name='desiredProjectLength', value='< 1 week', checked=user.desiredProjectLength.indexOf('< 1 week')!=-1)
+															label 1-2 weeks
+																input(type='checkbox', name='desiredProjectLength', value='1-2 weeks', checked=user.desiredProjectLength.indexOf('1-2 weeks')!=-1)
+															label 2-4 weeks
+																input(type='checkbox', name='desiredProjectLength', value='2-4 weeks', checked=user.desiredProjectLength.indexOf('2-4 weeks')!=-1)
+															label 1-2 months
+																input(type='checkbox', name='desiredProjectLength', value='1-2 months',checked=user.desiredProjectLength.indexOf('1-2 months')!=-1)
+															label 2-3 months
+																input(type='checkbox', name='desiredProjectLength', value='2-3 months', checked=user.desiredProjectLength.indexOf('2-3 months')!=-1)
+															label 3+ months
+																input(type='checkbox', name='desiredProjectLength', value='3+ months', checked=user.desiredProjectLength.indexOf('3+ months')!=-1)
+										.row.mt
+											.col-md-12
+												.form-group
+													.row.mt
+														.col-md-9.col-md-offset-1
+															label.control-label(for='primaryComm') Primary Communication Method (check all that apply)
+													.row.mt
+														.col-md-9.col-md-offset-1
+															label Email
+																input(type='checkbox', name='communicationPreferences', value='Email', checked=user.communicationPreferences.indexOf('Email')!=-1)
+															label Phone
+																input(type='checkbox', name='communicationPreferences', value='Phone', checked=user.communicationPreferences.indexOf('Phone')!=-1)
+															label In-Person
+																input(type='checkbox', name='communicationPreferences', value='In-Person', checked=user.communicationPreferences.indexOf('In-Person')!=-1)
+										.row.mt
+											.col-md-12
+												.form-group
+													.row.mt
+														.col-md-9.col-md-offset-1
+															label.control-label(for='checkinFrequency') Check-in Frequency
+													.row.mt
+														.col-md-9.col-md-offset-1
+															label Daily
+																input(type='checkbox', name='checkinFrequency', value='Daily', checked=user.checkinFrequencyPreference.indexOf('Daily')!=-1)
+															label Twice a week
+																input(type='checkbox', name='checkinFrequency', value='Twice a week', checked=user.checkinFrequencyPreference.indexOf('Twice a week')!=-1)
+															label Weekly
+																input(type='checkbox', name='checkinFrequency', value='Weekly', checked=user.checkinFrequencyPreference.indexOf('Weekly')!=-1)
+															label Monthly
+																input(type='checkbox', name='checkinFrequency', value='Monthly', checked=user.checkinFrequencyPreference.indexOf('Monthly')!=-1)
+
 										//- .row.mt
 										//- 	.col-md-12
 										//- 		.form-group

@@ -52,7 +52,7 @@ exports.postJob = function (req, res) {
 exports.submitJobPost = function(req, res) {
 	User.findById(req.user.id, function(err, user) {
 		if (typeof(user.company.companyName) === 'undefined' || user.company.companyName == null || user.company.companyName.length == 0) { //typeof user.company.companyName==='undefined' || typeof user) {
-			req.flash('errors', { msg: "Please fill in company name " });
+			req.flash('companyError', { msg: "Fill out company information before posting jobs" });
 			return res.redirect('/account');
 		}
 		else{ 

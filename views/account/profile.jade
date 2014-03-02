@@ -36,11 +36,21 @@ block content
 						#home.tab-pane.active 
 							.col-md-10
 								if user.userType=='mom'
-									.page-header
-										.prof-label-header
-											h3  Profile
-									.row.mt
-										form.form-horizontal(action='/account/profile', method='POST')
+									form.form-horizontal(action='/account/profile', method='POST')
+										.page-header
+											.prof-label-header
+												.row.mt
+													.col-md-7
+														.fg-h2-special
+															h2 Profile
+													.col-md-5
+														.form-group.fg-special
+															.row.mt
+																.col-md-6
+																	button.btn.btn.btn-primary.opt-btn-update(type='submit') Update Profile
+																.col-md-6
+																	a.btn.btn.btn-primary(href="/auth/linkedin") Sync with Linkedin
+										.row.mt										
 											.col-md-12
 												.row.mt.prof-column
 													.col-md-3
@@ -324,7 +334,7 @@ block content
 													br
 													br
 													br
-											.col-md-3
+											//- .col-md-3
 												.form-group
 													.row.mt
 														.col-md-12

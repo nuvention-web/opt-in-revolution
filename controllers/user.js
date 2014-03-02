@@ -149,6 +149,8 @@ exports.postUpdateProfile = function(req, res, next) {
     user.desiredProjectLength = req.body.desiredProjectLength || '';
     user.communicationPreferences = req.body.communicationPreferences || '';
     user.checkinFrequencyPreference = req.body.checkinFrequency || '';
+    user.industryPreference = req.body.industryPreference || '';
+    user.jobFunctionPreference = req.body.jobFunctionPreference || '';
     //Need to add company image
 
     user.save(function(err) {

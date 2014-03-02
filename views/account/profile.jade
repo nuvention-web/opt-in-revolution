@@ -19,380 +19,388 @@ block content
 			.alert.alert-info.animated.fadeIn.opt-alert
 				button.close(data-dismiss='alert') x
 				= "Please fill out your name and bio before applying to jobs."
-		//- if errors && errors.length
-		//- 	for error in errors
-		//- 		.alert.alert-danger.animated.fadeIn.opt-alert
-		//- 			button.close(data-dismiss='alert') x
-		//- 			div= error.msg
 		.row.mt
-			.col-md-10.col-md-offset-1
-				.profile-wrap
-					if user.userType=='mom'
-						.page-header
-							.prof-label-header
-								h3  My Profile
-						.row.mt
-							form.form-horizontal(action='/account/profile', method='POST')
-								.col-md-9
+			.profile-wrap
+				.col-md-2.col-md-offset-1
+					ul.nav.nav-tabs.tabs-left
+						li.active
+							a(href='#home', data-toggle='tab') Profile
+						li
+							a(href='#settings', data-toggle='tab') Account Settings
+						//- li
+							a(href='#messages', data-toggle='tab') Messages
+						//- li
+							a(href='#settings', data-toggle='tab') Settings
+				.col-md-9
+					.tab-content
+						#home.tab-pane.active 
+							.col-md-10
+								if user.userType=='mom'
+									.page-header
+										.prof-label-header
+											h3  Profile
 									.row.mt
-										.col-md-12
-											.col-md-3.col-md-offset-1.prof-column
-												if user.profile.picture
-													img.prof-pic.pagination-centered(src='#{user.profile.picture}', height='130px')
-												else
-													img.prof-pic.pagination-centered(src='/images/linkedin-default.jpg', height='130px')
-											.col-md-8
-												.form-group
-													label.col-md-2.control-label(for='name') Name
-													.col-md-8
-														input.form-control(type='text', name='name', id='name', value='#{user.profile.name}')
-												.form-group
-													label.col-md-2.control-label(for='email') Email
-													.col-md-8
-														input.form-control(type='email', name='email', id='email', value='#{user.email}')
-												.form-group
-													label.col-md-2.control-label(for='Location') Location
-													.col-md-8
-														input.form-control(type='text', name='location', id='location', value='#{user.profile.location}')
-									.prof-bottom-wrapper
-										.row.mt
-											//- .col-md-9.col-md-offset-1
+										form.form-horizontal(action='/account/profile', method='POST')
 											.col-md-12
-												.form-group
+												.row.mt.prof-column
+													.col-md-3
+														if user.profile.picture
+															img.prof-pic.pagination-centered(src='#{user.profile.picture}', height='130px')
+														else
+															img.prof-pic.pagination-centered(src='/images/linkedin-default.jpg', height='130px')
+													.col-md-9
+														.form-group
+															label.col-md-2.control-label(for='name') Name
+															.col-md-10
+																input.form-control(type='text', name='name', id='name', value='#{user.profile.name}')
+														.form-group
+															label.col-md-2.control-label(for='email') Email
+															.col-md-10
+																input.form-control(type='email', name='email', id='email', value='#{user.email}')
+														.form-group
+															label.col-md-2.control-label(for='Location') Location
+															.col-md-10
+																input.form-control(type='text', name='location', id='location', value='#{user.profile.location}')
+												.prof-bottom-wrapper
 													.row.mt
-														.col-md-9.col-md-offset-1
-															label.control-label(for='education') Education
+														.col-md-12
+															.form-group
+																.row.mt
+																	.col-md-12
+																		label.control-label(for='education') Education
+																.row.mt
+																	.col-md-12
+																		textarea.form-control(type='text', name='education', id='education')
+																			if user.education[0]
+																				if typeof(user.education[0])==='object'
+																					- var edu = user.education.pop();
+																					| #{edu.schoolName} - #{edu.degree}
+																					each e in user.education
+																						| , #{e.schoolName}
+																				else
+																					| #{user.education}
 													.row.mt
-														.col-md-9.col-md-offset-1
-															textarea.form-control(type='text', name='education', id='education')
-																if user.education[0]
-																	if typeof(user.education[0])==='object'
-																		- var edu = user.education.pop();
-																		| #{edu.schoolName} - #{edu.degree}
-																		each e in user.education
-																			| , #{e.schoolName}
-																	else
-																		| #{user.education}
-										.row.mt
-											.col-md-12
-												.form-group
+														.col-md-12
+															.form-group
+																.row.mt
+																	.col-md-12
+																		label.control-label(for='bio') Bio
+																.row.mt
+																	.col-md-12
+																		textarea.form-control(type='textarea', name='bio', id='bio')
+																			| #{user.bio}
 													.row.mt
-														.col-md-9.col-md-offset-1
-															label.control-label(for='bio') Bio
+														.col-md-12
+															.form-group
+																.row.mt
+																	.col-md-12
+																		label.control-label(for='positions') Professional Experience
+																.row.mt
+																	.col-md-12
+																		textarea.form-control(type='text', name='positions', id='positions')
+																			if user.positions[0]
+																				if typeof(user.positions[0])==='object'
+																					- var pos = user.positions.pop();
+																					| #{pos.title}, #{pos.company}#{"\n"}
+																					each p in user.positions
+																						| #{p.title}, #{p.company}#{"\n"}
+																				else
+																					| #{user.positions}
 													.row.mt
-														.col-md-9.col-md-offset-1
-															textarea.form-control(type='textarea', name='bio', id='bio')
-																| #{user.bio}
-										.row.mt
-											.col-md-12
-												.form-group
+														.col-md-12
+															.form-group
+																.row.mt
+																	.col-md-12
+																		label.control-label(for='yearsOfExperience') Years of Professional Experience
+																.row.mt
+																	.col-md-12
+																		input.form-control(type='text', name='yearsOfExperience', id='yearsOfExperience', value='#{user.yearsOfExperience}')
 													.row.mt
-														.col-md-9.col-md-offset-1
-															label.control-label(for='positions') Professional Experience
+														.col-md-12
+															.form-group
+																.row.mt
+																	.col-md-12
+																		label.control-label(for='skills') Skills
+																.row.mt
+																	.col-md-12
+																		textarea.form-control(type='text', name='skills', id='skills')
+																			if user.skills[0]
+																				| #{user.skills.pop()}
+																				each s in user.skills
+																					| , #{s}
 													.row.mt
-														.col-md-9.col-md-offset-1
-															textarea.form-control(type='text', name='positions', id='positions')
-																if user.positions[0]
-																	if typeof(user.positions[0])==='object'
-																		- var pos = user.positions.pop();
-																		| #{pos.title}, #{pos.company}#{"\n"}
-																		each p in user.positions
-																			| #{p.title}, #{p.company}#{"\n"}
-																	else
-																		| #{user.positions}
-										.row.mt
-											.col-md-12
-												.form-group
+														.col-md-12
+															.form-group
+																.row.mt
+																	.col-md-12
+																		label.control-label(for='interests') Interests
+																.row.mt
+																	.col-md-12
+																		textarea.form-control(type='text', name='interests', id='interests')
+																			| #{user.interests}
 													.row.mt
-														.col-md-9.col-md-offset-1
-															label.control-label(for='yearsOfExperience') Years of Professional Experience
+														.col-md-12
+															.form-group
+																.row.mt
+																	.col-md-12
+																		label.control-label(for='desiredHoursPerWeek') Desired Hours Per Week (check all that apply)
+																.row.mt
+																	.col-md-12
+																		label < 10
+																			input(type='checkbox', name='desiredHoursPerWeek', value='<10', checked=user.desiredHoursPerWeek.indexOf('<10')!=-1)
+																		label 10-20
+																			input(type='checkbox', name='desiredHoursPerWeek', value='10-20', checked=user.desiredHoursPerWeek.indexOf('10-20')!=-1)
+																		label 20-30
+																			input(type='checkbox', name='desiredHoursPerWeek', value='20-30', checked=user.desiredHoursPerWeek.indexOf('20-30')!=-1)
+																		label 30-40
+																			input(type='checkbox', name='desiredHoursPerWeek', value='30-40', checked=user.desiredHoursPerWeek.indexOf('30-40')!=-1)
 													.row.mt
-														.col-md-9.col-md-offset-1
-															input.form-control(type='text', name='yearsOfExperience', id='yearsOfExperience', value='#{user.yearsOfExperience}')
-										.row.mt
-											.col-md-12
-												.form-group
+														.col-md-12
+															.form-group
+																.row.mt
+																	.col-md-12
+																		label.control-label(for='desiredProjectLength') Desired Project Length (check all that apply)
+																.row.mt
+																	.col-md-12
+																		label < 1 week
+																			input(type='checkbox', name='desiredProjectLength', value='< 1 week', checked=user.desiredProjectLength.indexOf('< 1 week')!=-1)
+																		label 1-2 weeks
+																			input(type='checkbox', name='desiredProjectLength', value='1-2 weeks', checked=user.desiredProjectLength.indexOf('1-2 weeks')!=-1)
+																		label 2-4 weeks
+																			input(type='checkbox', name='desiredProjectLength', value='2-4 weeks', checked=user.desiredProjectLength.indexOf('2-4 weeks')!=-1)
+																		label 1-2 months
+																			input(type='checkbox', name='desiredProjectLength', value='1-2 months',checked=user.desiredProjectLength.indexOf('1-2 months')!=-1)
+																		label 2-3 months
+																			input(type='checkbox', name='desiredProjectLength', value='2-3 months', checked=user.desiredProjectLength.indexOf('2-3 months')!=-1)
+																		label 3+ months
+																			input(type='checkbox', name='desiredProjectLength', value='3+ months', checked=user.desiredProjectLength.indexOf('3+ months')!=-1)
 													.row.mt
-														.col-md-9.col-md-offset-1
-															label.control-label(for='skills') Skills
+														.col-md-12
+															.form-group
+																.row.mt
+																	.col-md-12
+																		label.control-label(for='primaryComm') Primary Communication Method (check all that apply)
+																.row.mt
+																	.col-md-12
+																		label Email
+																			input(type='checkbox', name='communicationPreferences', value='Email', checked=user.communicationPreferences.indexOf('Email')!=-1)
+																		label Phone
+																			input(type='checkbox', name='communicationPreferences', value='Phone', checked=user.communicationPreferences.indexOf('Phone')!=-1)
+																		label In-Person
+																			input(type='checkbox', name='communicationPreferences', value='In-Person', checked=user.communicationPreferences.indexOf('In-Person')!=-1)
 													.row.mt
-														.col-md-9.col-md-offset-1
-															textarea.form-control(type='text', name='skills', id='skills')
-																if user.skills[0]
-																	| #{user.skills.pop()}
-																	each s in user.skills
-																		| , #{s}
-										.row.mt
-											.col-md-12
-												.form-group
+														.col-md-12
+															.form-group
+																.row.mt
+																	.col-md-12
+																		label.control-label(for='checkinFrequency') Check-in Frequency
+																.row.mt
+																	.col-md-12
+																		label Daily
+																			input(type='checkbox', name='checkinFrequency', value='Daily', checked=user.checkinFrequencyPreference.indexOf('Daily')!=-1)
+																		label Twice a week
+																			input(type='checkbox', name='checkinFrequency', value='Twice a week', checked=user.checkinFrequencyPreference.indexOf('Twice a week')!=-1)
+																		label Weekly
+																			input(type='checkbox', name='checkinFrequency', value='Weekly', checked=user.checkinFrequencyPreference.indexOf('Weekly')!=-1)
+																		label Monthly
+																			input(type='checkbox', name='checkinFrequency', value='Monthly', checked=user.checkinFrequencyPreference.indexOf('Monthly')!=-1)
 													.row.mt
-														.col-md-9.col-md-offset-1
-															label.control-label(for='interests') Interests
+														.col-md-12
+															.form-group
+																.row.mt
+																	.col-md-12
+																		label.control-label(for='industryPreference') Industry
+																.row.mt
+																	.col-md-12
+																		label Accounting
+																			input(type='checkbox', name='industryPreference', value='Accounting', checked=user.industryPreference.indexOf('Accounting')!=-1)
+																		label Advertising
+																			input(type='checkbox', name='industryPreference', value='Advertising', checked=user.industryPreference.indexOf('Advertising')!=-1)
+																		label Aerospace
+																			input(type='checkbox', name='industryPreference', value='Aerospace', checked=user.industryPreference.indexOf('Aerospace')!=-1)
+																		label Agriculture
+																			input(type='checkbox', name='industryPreference', value='Agriculture', checked=user.industryPreference.indexOf('Agriculture')!=-1)
+																		label Airline
+																			input(type='checkbox', name='industryPreference', value='Airline', checked=user.industryPreference.indexOf('Airline')!=-1)
+																		label Apparel & Accessories
+																			input(type='checkbox', name='industryPreference', value='Apparel & Accessories', checked=user.industryPreference.indexOf('Apparel & Accessories')!=-1)
+																		label Automotive
+																			input(type='checkbox', name='industryPreference', value='Automotive', checked=user.industryPreference.indexOf('Automotive')!=-1)
+																		label Banking
+																			input(type='checkbox', name='industryPreference', value='Banking', checked=user.industryPreference.indexOf('Banking')!=-1)
+																		label Biotech
+																			input(type='checkbox', name='industryPreference', value='Biotech', checked=user.industryPreference.indexOf('Biotech')!=-1)
+																		label Broadcasting
+																			input(type='checkbox', name='industryPreference', value='Broadcasting', checked=user.industryPreference.indexOf('Broadcasting')!=-1)
+																		label Computer
+																			input(type='checkbox', name='industryPreference', value='Computer', checked=user.industryPreference.indexOf('Computer')!=-1)
+																		label Consulting
+																			input(type='checkbox', name='industryPreference', value='Consulting', checked=user.industryPreference.indexOf('Consulting')!=-1)
+																		label Consumer Products
+																			input(type='checkbox', name='industryPreference', value='Consumer Products', checked=user.industryPreference.indexOf('Consumer Products')!=-1)
+																		label Defense
+																			input(type='checkbox', name='industryPreference', value='Defense', checked=user.industryPreference.indexOf('Defense')!=-1)
+																		label Education
+																			input(type='checkbox', name='industryPreference', value='Education', checked=user.industryPreference.indexOf('Education')!=-1)
+																		label Electronics
+																			input(type='checkbox', name='industryPreference', value='Electronics', checked=user.industryPreference.indexOf('Electronics')!=-1)
+																		label Energy
+																			input(type='checkbox', name='industryPreference', value='Energy', checked=user.industryPreference.indexOf('Energy')!=-1)
+																		label Entertainment & Leisure
+																			input(type='checkbox', name='industryPreference', value='Entertainment & Leisure', checked=user.industryPreference.indexOf('Entertainment & Leisure')!=-1)
+																		label Financial Services
+																			input(type='checkbox', name='industryPreference', value='Financial Services', checked=user.industryPreference.indexOf('Financial Services')!=-1)
+																		label Food & Beverage
+																			input(type='checkbox', name='industryPreference', value='Food & Beverage', checked=user.industryPreference.indexOf('Food & Beverage')!=-1)
+																		label Health Care
+																			input(type='checkbox', name='industryPreference', value='Health Care', checked=user.industryPreference.indexOf('Health Care')!=-1)
+																		label Logistics
+																			input(type='checkbox', name='industryPreference', value='Logistics', checked=user.industryPreference.indexOf('Logistics')!=-1)
+																		label Manufacturing
+																			input(type='checkbox', name='industryPreference', value='Manufacturing', checked=user.industryPreference.indexOf('Manufacturing')!=-1)
+																		label Nonprofit
+																			input(type='checkbox', name='industryPreference', value='Nonprofit', checked=user.industryPreference.indexOf('Nonprofit')!=-1)
+																		label Pharmaceuticals
+																			input(type='checkbox', name='industryPreference', value='Pharmaceuticals', checked=user.industryPreference.indexOf('Pharmaceuticals')!=-1)
+																		label Private Equity
+																			input(type='checkbox', name='industryPreference', value='Private Equity', checked=user.industryPreference.indexOf('Private Equity')!=-1)
+																		label Publishing
+																			input(type='checkbox', name='industryPreference', value='Publishing', checked=user.industryPreference.indexOf('Publishing')!=-1)
+																		label Real Estate
+																			input(type='checkbox', name='industryPreference', value='Real Estate', checked=user.industryPreference.indexOf('Real Estate')!=-1)
+																		label Retail & Wholesale
+																			input(type='checkbox', name='industryPreference', value='Retail & Wholesale', checked=user.industryPreference.indexOf('Retail & Wholesale')!=-1)
+																		label Sports
+																			input(type='checkbox', name='industryPreference', value='Sports', checked=user.industryPreference.indexOf('Sports')!=-1)
+																		label Technology
+																			input(type='checkbox', name='industryPreference', value='Technology', checked=user.industryPreference.indexOf('Technology')!=-1)
+																		label Telecommunications
+																			input(type='checkbox', name='industryPreference', value='Telecommunications', checked=user.industryPreference.indexOf('Telecommunications')!=-1)
+																		label Transportation/Shipping
+																			input(type='checkbox', name='industryPreference', value='Transportation/Shipping', checked=user.industryPreference.indexOf('Transportation/Shipping')!=-1)
+																		label Venture Capital
+																			input(type='checkbox', name='industryPreference', value='Venture Capital', checked=user.industryPreference.indexOf('Venture Capital')!=-1)
 													.row.mt
-														.col-md-9.col-md-offset-1
-															textarea.form-control(type='text', name='interests', id='interests')
-																| #{user.interests}
-										.row.mt
-											.col-md-12
-												.form-group
-													.row.mt
-														.col-md-9.col-md-offset-1
-															label.control-label(for='desiredHoursPerWeek') Desired Hours Per Week (check all that apply)
-													.row.mt
-														.col-md-9.col-md-offset-1
-															label < 10
-																input(type='checkbox', name='desiredHoursPerWeek', value='<10', checked=user.desiredHoursPerWeek.indexOf('<10')!=-1)
-															label 10-20
-																input(type='checkbox', name='desiredHoursPerWeek', value='10-20', checked=user.desiredHoursPerWeek.indexOf('10-20')!=-1)
-															label 20-30
-																input(type='checkbox', name='desiredHoursPerWeek', value='20-30', checked=user.desiredHoursPerWeek.indexOf('20-30')!=-1)
-															label 30-40
-																input(type='checkbox', name='desiredHoursPerWeek', value='30-40', checked=user.desiredHoursPerWeek.indexOf('30-40')!=-1)
-										.row.mt
-											.col-md-12
-												.form-group
-													.row.mt
-														.col-md-9.col-md-offset-1
-															label.control-label(for='desiredProjectLength') Desired Project Length (check all that apply)
-													.row.mt
-														.col-md-9.col-md-offset-1
-															label < 1 week
-																input(type='checkbox', name='desiredProjectLength', value='< 1 week', checked=user.desiredProjectLength.indexOf('< 1 week')!=-1)
-															label 1-2 weeks
-																input(type='checkbox', name='desiredProjectLength', value='1-2 weeks', checked=user.desiredProjectLength.indexOf('1-2 weeks')!=-1)
-															label 2-4 weeks
-																input(type='checkbox', name='desiredProjectLength', value='2-4 weeks', checked=user.desiredProjectLength.indexOf('2-4 weeks')!=-1)
-															label 1-2 months
-																input(type='checkbox', name='desiredProjectLength', value='1-2 months',checked=user.desiredProjectLength.indexOf('1-2 months')!=-1)
-															label 2-3 months
-																input(type='checkbox', name='desiredProjectLength', value='2-3 months', checked=user.desiredProjectLength.indexOf('2-3 months')!=-1)
-															label 3+ months
-																input(type='checkbox', name='desiredProjectLength', value='3+ months', checked=user.desiredProjectLength.indexOf('3+ months')!=-1)
-										.row.mt
-											.col-md-12
-												.form-group
-													.row.mt
-														.col-md-9.col-md-offset-1
-															label.control-label(for='primaryComm') Primary Communication Method (check all that apply)
-													.row.mt
-														.col-md-9.col-md-offset-1
-															label Email
-																input(type='checkbox', name='communicationPreferences', value='Email', checked=user.communicationPreferences.indexOf('Email')!=-1)
-															label Phone
-																input(type='checkbox', name='communicationPreferences', value='Phone', checked=user.communicationPreferences.indexOf('Phone')!=-1)
-															label In-Person
-																input(type='checkbox', name='communicationPreferences', value='In-Person', checked=user.communicationPreferences.indexOf('In-Person')!=-1)
-										.row.mt
-											.col-md-12
-												.form-group
-													.row.mt
-														.col-md-9.col-md-offset-1
-															label.control-label(for='checkinFrequency') Check-in Frequency
-													.row.mt
-														.col-md-9.col-md-offset-1
-															label Daily
-																input(type='checkbox', name='checkinFrequency', value='Daily', checked=user.checkinFrequencyPreference.indexOf('Daily')!=-1)
-															label Twice a week
-																input(type='checkbox', name='checkinFrequency', value='Twice a week', checked=user.checkinFrequencyPreference.indexOf('Twice a week')!=-1)
-															label Weekly
-																input(type='checkbox', name='checkinFrequency', value='Weekly', checked=user.checkinFrequencyPreference.indexOf('Weekly')!=-1)
-															label Monthly
-																input(type='checkbox', name='checkinFrequency', value='Monthly', checked=user.checkinFrequencyPreference.indexOf('Monthly')!=-1)
-										.row.mt
-											.col-md-12
-												.form-group
-													.row.mt
-														.col-md-9.col-md-offset-1
-															label.control-label(for='industryPreference') Industry
-													.row.mt
-														.col-md-9.col-md-offset-1
-															label Accounting
-																input(type='checkbox', name='industryPreference', value='Accounting', checked=user.industryPreference.indexOf('Accounting')!=-1)
-															label Advertising
-																input(type='checkbox', name='industryPreference', value='Advertising', checked=user.industryPreference.indexOf('Advertising')!=-1)
-															label Aerospace
-																input(type='checkbox', name='industryPreference', value='Aerospace', checked=user.industryPreference.indexOf('Aerospace')!=-1)
-															label Agriculture
-																input(type='checkbox', name='industryPreference', value='Agriculture', checked=user.industryPreference.indexOf('Agriculture')!=-1)
-															label Airline
-																input(type='checkbox', name='industryPreference', value='Airline', checked=user.industryPreference.indexOf('Airline')!=-1)
-															label Apparel & Accessories
-																input(type='checkbox', name='industryPreference', value='Apparel & Accessories', checked=user.industryPreference.indexOf('Apparel & Accessories')!=-1)
-															label Automotive
-																input(type='checkbox', name='industryPreference', value='Automotive', checked=user.industryPreference.indexOf('Automotive')!=-1)
-															label Banking
-																input(type='checkbox', name='industryPreference', value='Banking', checked=user.industryPreference.indexOf('Banking')!=-1)
-															label Biotech
-																input(type='checkbox', name='industryPreference', value='Biotech', checked=user.industryPreference.indexOf('Biotech')!=-1)
-															label Broadcasting
-																input(type='checkbox', name='industryPreference', value='Broadcasting', checked=user.industryPreference.indexOf('Broadcasting')!=-1)
-															label Computer
-																input(type='checkbox', name='industryPreference', value='Computer', checked=user.industryPreference.indexOf('Computer')!=-1)
-															label Consulting
-																input(type='checkbox', name='industryPreference', value='Consulting', checked=user.industryPreference.indexOf('Consulting')!=-1)
-															label Consumer Products
-																input(type='checkbox', name='industryPreference', value='Consumer Products', checked=user.industryPreference.indexOf('Consumer Products')!=-1)
-															label Defense
-																input(type='checkbox', name='industryPreference', value='Defense', checked=user.industryPreference.indexOf('Defense')!=-1)
-															label Education
-																input(type='checkbox', name='industryPreference', value='Education', checked=user.industryPreference.indexOf('Education')!=-1)
-															label Electronics
-																input(type='checkbox', name='industryPreference', value='Electronics', checked=user.industryPreference.indexOf('Electronics')!=-1)
-															label Energy
-																input(type='checkbox', name='industryPreference', value='Energy', checked=user.industryPreference.indexOf('Energy')!=-1)
-															label Entertainment & Leisure
-																input(type='checkbox', name='industryPreference', value='Entertainment & Leisure', checked=user.industryPreference.indexOf('Entertainment & Leisure')!=-1)
-															label Financial Services
-																input(type='checkbox', name='industryPreference', value='Financial Services', checked=user.industryPreference.indexOf('Financial Services')!=-1)
-															label Food & Beverage
-																input(type='checkbox', name='industryPreference', value='Food & Beverage', checked=user.industryPreference.indexOf('Food & Beverage')!=-1)
-															label Health Care
-																input(type='checkbox', name='industryPreference', value='Health Care', checked=user.industryPreference.indexOf('Health Care')!=-1)
-															label Logistics
-																input(type='checkbox', name='industryPreference', value='Logistics', checked=user.industryPreference.indexOf('Logistics')!=-1)
-															label Manufacturing
-																input(type='checkbox', name='industryPreference', value='Manufacturing', checked=user.industryPreference.indexOf('Manufacturing')!=-1)
-															label Nonprofit
-																input(type='checkbox', name='industryPreference', value='Nonprofit', checked=user.industryPreference.indexOf('Nonprofit')!=-1)
-															label Pharmaceuticals
-																input(type='checkbox', name='industryPreference', value='Pharmaceuticals', checked=user.industryPreference.indexOf('Pharmaceuticals')!=-1)
-															label Private Equity
-																input(type='checkbox', name='industryPreference', value='Private Equity', checked=user.industryPreference.indexOf('Private Equity')!=-1)
-															label Publishing
-																input(type='checkbox', name='industryPreference', value='Publishing', checked=user.industryPreference.indexOf('Publishing')!=-1)
-															label Real Estate
-																input(type='checkbox', name='industryPreference', value='Real Estate', checked=user.industryPreference.indexOf('Real Estate')!=-1)
-															label Retail & Wholesale
-																input(type='checkbox', name='industryPreference', value='Retail & Wholesale', checked=user.industryPreference.indexOf('Retail & Wholesale')!=-1)
-															label Sports
-																input(type='checkbox', name='industryPreference', value='Sports', checked=user.industryPreference.indexOf('Sports')!=-1)
-															label Technology
-																input(type='checkbox', name='industryPreference', value='Technology', checked=user.industryPreference.indexOf('Technology')!=-1)
-															label Telecommunications
-																input(type='checkbox', name='industryPreference', value='Telecommunications', checked=user.industryPreference.indexOf('Telecommunications')!=-1)
-															label Transportation/Shipping
-																input(type='checkbox', name='industryPreference', value='Transportation/Shipping', checked=user.industryPreference.indexOf('Transportation/Shipping')!=-1)
-															label Venture Capital
-																input(type='checkbox', name='industryPreference', value='Venture Capital', checked=user.industryPreference.indexOf('Venture Capital')!=-1)
-										.row.mt
-											.col-md-12
-												.form-group
-													.row.mt
-														.col-md-9.col-md-offset-1
-															label.control-label(for='jobFunctionPreference') Job Function
-													.row.mt
-														.col-md-9.col-md-offset-1
-															label Accounting
-																input(type='checkbox', name='jobFunctionPreference', value='Accounting', checked=user.jobFunctionPreference.indexOf('Accounting')!=-1)
-															label Business Development
-																input(type='checkbox', name='jobFunctionPreference', value='Business Development', checked=user.jobFunctionPreference.indexOf('Business Development')!=-1)
-															label Cost Reduction
-																input(type='checkbox', name='jobFunctionPreference', value='Cost Reduction', checked=user.jobFunctionPreference.indexOf('Cost Reduction')!=-1)
-															label Customer Service
-																input(type='checkbox', name='jobFunctionPreference', value='Customer Service', checked=user.jobFunctionPreference.indexOf('Customer Service')!=-1)
-															label Finance
-																input(type='checkbox', name='jobFunctionPreference', value='Finance', checked=user.jobFunctionPreference.indexOf('Finance')!=-1)
-															label Human Resources
-																input(type='checkbox', name='jobFunctionPreference', value='Human Resources', checked=user.jobFunctionPreference.indexOf('Human Resources')!=-1)
-															label Marketing
-																input(type='checkbox', name='jobFunctionPreference', value='Marketing', checked=user.jobFunctionPreference.indexOf('Marketing')!=-1)
-															label Operations
-																input(type='checkbox', name='jobFunctionPreference', value='Operations', checked=user.jobFunctionPreference.indexOf('Operations')!=-1)
-															label Other
-																input(type='checkbox', name='jobFunctionPreference', value='Other', checked=user.jobFunctionPreference.indexOf('Other')!=-1)
-															label Sales
-																input(type='checkbox', name='jobFunctionPreference', value='Sales', checked=user.jobFunctionPreference.indexOf('Sales')!=-1)
-															label Strategy
-																input(type='checkbox', name='jobFunctionPreference', value='Strategy', checked=user.jobFunctionPreference.indexOf('Strategy')!=-1)
+														.col-md-12
+															.form-group
+																.row.mt
+																	.col-md-12
+																		label.control-label(for='jobFunctionPreference') Job Function
+																.row.mt
+																	.col-md-12
+																		label Accounting
+																			input(type='checkbox', name='jobFunctionPreference', value='Accounting', checked=user.jobFunctionPreference.indexOf('Accounting')!=-1)
+																		label Business Development
+																			input(type='checkbox', name='jobFunctionPreference', value='Business Development', checked=user.jobFunctionPreference.indexOf('Business Development')!=-1)
+																		label Cost Reduction
+																			input(type='checkbox', name='jobFunctionPreference', value='Cost Reduction', checked=user.jobFunctionPreference.indexOf('Cost Reduction')!=-1)
+																		label Customer Service
+																			input(type='checkbox', name='jobFunctionPreference', value='Customer Service', checked=user.jobFunctionPreference.indexOf('Customer Service')!=-1)
+																		label Finance
+																			input(type='checkbox', name='jobFunctionPreference', value='Finance', checked=user.jobFunctionPreference.indexOf('Finance')!=-1)
+																		label Human Resources
+																			input(type='checkbox', name='jobFunctionPreference', value='Human Resources', checked=user.jobFunctionPreference.indexOf('Human Resources')!=-1)
+																		label Marketing
+																			input(type='checkbox', name='jobFunctionPreference', value='Marketing', checked=user.jobFunctionPreference.indexOf('Marketing')!=-1)
+																		label Operations
+																			input(type='checkbox', name='jobFunctionPreference', value='Operations', checked=user.jobFunctionPreference.indexOf('Operations')!=-1)
+																		label Other
+																			input(type='checkbox', name='jobFunctionPreference', value='Other', checked=user.jobFunctionPreference.indexOf('Other')!=-1)
+																		label Sales
+																			input(type='checkbox', name='jobFunctionPreference', value='Sales', checked=user.jobFunctionPreference.indexOf('Sales')!=-1)
+																		label Strategy
+																			input(type='checkbox', name='jobFunctionPreference', value='Strategy', checked=user.jobFunctionPreference.indexOf('Strategy')!=-1)
 
-										//- .row.mt
-										//- 	.col-md-12
-										//- 		.form-group
-										//- 			.row.mt
-										//- 				.col-md-6.col-md-offset-1
-										//- 					label.control-label(for='website') LinkedIn Profile
-										//- 			.row.mt
-										//- 				.col-md-6.col-md-offset-1
-										//- 					input.form-control(type='text', name='website', id='website', value='#{user.linkedinURL}')
-										br
-										br
-										br
-										br
-								.col-md-3
+													//- .row.mt
+													//- 	.col-md-12
+													//- 		.form-group
+													//- 			.row.mt
+													//- 				.col-md-6.col-md-offset-1
+													//- 					label.control-label(for='website') LinkedIn Profile
+													//- 			.row.mt
+													//- 				.col-md-6.col-md-offset-1
+													//- 					input.form-control(type='text', name='website', id='website', value='#{user.linkedinURL}')
+													br
+													br
+													br
+													br
+											.col-md-3
+												.form-group
+													.row.mt
+														.col-md-12
+															button.btn.btn.btn-primary.opt-btn-update(type='submit') Update Profile
+													.row.mt
+														.col-md-12
+															a.btn.btn.btn-primary(href="/auth/linkedin") Sync with Linkedin
+															//- a.btn.btn.btn-primary(href="/auth/linkedin",data-toggle='modal', data-target='#linkedInLoading') Sync with Linkedin
+												//- #linkedInLoading.modal.fade(tabindex='-1', role='dialog', aria-labelledby='linkedInLoadingLabel', aria-hidden='true')
+													.modal-dialog
+														.modal-content
+															.modal-header
+																button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+																h4#linkedInLoadingLabel.modal-title Syncing with LinkedIn....
+															.modal-body
+																| ...
+								else if user.userType=='employer'
+									.biz-prof-wrapper
+										.page-header
+											h3 Company Information
+
+										form.form-horizontal(action='/account/profile', method='POST')
+											.col-md-9
+												.row.mt
+													.col-md-12
+														.form-group
+															label.col-md-2.control-label(for='email') Email
+															.col-md-4
+																input.form-control(type='email', name='email', id='email', value='#{user.email}')
+												.row.mt
+													.col-md-12
+														.form-group
+															label.col-md-2.control-label(for='companyName') Company Name
+															.col-md-4
+																if typeof(user.company.companyName)=='undefined'
+																	input.form-control(type='companyName', name='companyName', id='companyName', value='')
+																else
+																	input.form-control(type='companyName', name='companyName', id='companyName', value='#{user.company.companyName}')
+												.row.mt
+													.col-md-12
+														.form-group
+															label.col-md-2.control-label(for='companyDescription') Company Description
+															.col-md-4
+																if typeof(user.company.companyDescription)=='undefined'
+																	input.form-control(type='companyDescription', name='companyDescription', id='companyDescription', value='')
+																else
+																	input.form-control(type='companyDescription', name='companyDescription', id='companyDescription', value='#{user.company.companyDescription}')
+												br
+												br
+												br
+												br
+											.col-md-3
+												.row.mt
+													.col-md-9.col-md-offset-1
+														.form-group
+															.col-md-offset-2.col-md-4
+																button.btn.btn.btn-primary.opt-btn-update(type='submit') Update Profile
+						#settings.tab-pane 
+							.opt-login-wrapper
+								.page-header
+									h3 Change Password
+
+								form.form-horizontal(action='/account/password', method='POST')
 									.form-group
-										.row.mt
-											.col-md-12
-												button.btn.btn.btn-primary.opt-btn-update(type='submit') Update Profile
-										.row.mt
-											.col-md-12
-												a.btn.btn.btn-primary(href="/auth/linkedin") Sync with Linkedin
-												//- a.btn.btn.btn-primary(href="/auth/linkedin",data-toggle='modal', data-target='#linkedInLoading') Sync with Linkedin
-									//- #linkedInLoading.modal.fade(tabindex='-1', role='dialog', aria-labelledby='linkedInLoadingLabel', aria-hidden='true')
-										.modal-dialog
-											.modal-content
-												.modal-header
-													button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
-													h4#linkedInLoadingLabel.modal-title Syncing with LinkedIn....
-												.modal-body
-													| ...
-					else if user.userType=='employer'
-						.biz-prof-wrapper
-							.page-header
-								h3 Company Information
-
-							form.form-horizontal(action='/account/profile', method='POST')
-								.col-md-9
-									.row.mt
-										.col-md-12
-											.form-group
-												label.col-md-2.control-label(for='email') Email
-												.col-md-4
-													input.form-control(type='email', name='email', id='email', value='#{user.email}')
-									.row.mt
-										.col-md-12
-											.form-group
-												label.col-md-2.control-label(for='companyName') Company Name
-												.col-md-4
-													if typeof(user.company.companyName)=='undefined'
-														input.form-control(type='companyName', name='companyName', id='companyName', value='')
-													else
-														input.form-control(type='companyName', name='companyName', id='companyName', value='#{user.company.companyName}')
-									.row.mt
-										.col-md-12
-											.form-group
-												label.col-md-2.control-label(for='companyDescription') Company Description
-												.col-md-4
-													if typeof(user.company.companyDescription)=='undefined'
-														input.form-control(type='companyDescription', name='companyDescription', id='companyDescription', value='')
-													else
-														input.form-control(type='companyDescription', name='companyDescription', id='companyDescription', value='#{user.company.companyDescription}')
-									br
-									br
-									br
-									br
-								.col-md-3
-									.row.mt
-										.col-md-9.col-md-offset-1
-											.form-group
-												.col-md-offset-2.col-md-4
-													button.btn.btn.btn-primary.opt-btn-update(type='submit') Update Profile
-
-						//- .page-header
-							h3 Change Password
-
-						//- form.form-horizontal(action='/account/password', method='POST')
-							.form-group
-								label.col-md-3.control-label(for='password') New Password
-								.col-md-4
-									input.form-control(type='password', name='password', id='password')
-							.form-group
-								label.col-md-3.control-label(for='confirmPassword') Confirm Password
-								.col-md-4
-									input.form-control(type='password', name='confirmPassword', id='confirmPassword')
-							.form-group
-								.col-md-offset-3.col-md-4
-									button.btn.btn.btn-primary(type='submit') Change Password
-
+										label.col-md-3.control-label(for='password') New Password
+										.col-md-4
+											input.form-control(type='password', name='password', id='password')
+									.form-group
+										label.col-md-3.control-label(for='confirmPassword') Confirm Password
+										.col-md-4
+											input.form-control(type='password', name='confirmPassword', id='confirmPassword')
+									.form-group
+										.col-md-offset-3.col-md-4
+											button.btn.btn.btn-primary(type='submit') Change Password
+						//- #messages.tab-pane Messages Tab.
+						//- #settings.tab-pane Settings Tab.
 						//- .page-header
 						//- 	h3 Deactivate Account
 

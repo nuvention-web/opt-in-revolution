@@ -137,6 +137,12 @@ exports.viewSavedJobs = function(req, res) {
 };
 
 exports.postSaveApp = function(req, res, next) {
+	User.findById(req.user.id, function(err, user) {
+		// Save as ObjectID for easier querying when viewing saved jobs
+		user.companiesContacted.push(new ObjectID(req.params.id));
+		user.save();
+	});
+
 	JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function (err, jobApp) {
 		if(jobApp) {
 			jobApp.relevantJobExperience = req.body.relevantJobExperience || '';
@@ -159,6 +165,12 @@ exports.postSaveApp = function(req, res, next) {
 };
 
 exports.postSubmitApp = function(req, res) {
+	User.findById(req.user.id, function(err, user) {
+		// Save as ObjectID for easier querying when viewing saved jobs
+		user.companiesContacted.push(new ObjectID(req.params.id));
+		user.save();
+	});
+	
 	JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function (err, jobApp) {
 		if(jobApp) {
 			jobApp.relevantJobExperience = req.body.relevantJobExperience || '';

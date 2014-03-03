@@ -92,12 +92,13 @@ exports.listJobs = function(req, res) {
 
 exports.applyJob = function(req, res) {
 	Job.findById(req.params.id, function(e, docs) {
-		JobApplication.find({jobID: req.params.id, userID: req.user.id}, function(err, jobApp) {
+		JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function(err, jobApp) {
 			console.log("Loading apply job..");
 			console.log(jobApp);
 			res.render("jobs/applyjob", {
 				"job" : docs,
 				"jobApp" : jobApp,
+				success : req.flash('success'),
 				title: "Apply to this job",
 			});
 		});
@@ -145,6 +146,7 @@ exports.postSaveApp = function(req, res, next) {
 
 		} else {
 			console.log('didnt find a job app');
+			console.log(req.body);
 			var jobApp = new JobApplication({
 				jobID: req.params.id,
 				userID: req.user.id,
@@ -152,7 +154,8 @@ exports.postSaveApp = function(req, res, next) {
 				projectApproach: req.body.projectApproach
 			});
 		}
-
+		console.log("line 156");
+		console.log(jobApp);
 		jobApp.save(function(err) {
 			console.log("saving");
 			if(err) return next(err);

@@ -8,23 +8,39 @@ block content
 				i.fa.fa-check
 				= success		
 		.job-listing-wrapper
-			.row.mt.centered
-				.col-lg-12
-					h1 
-						| Apply to this job!
-			table.table.table-striped
-				thead
-					tr
-						th Company
-						th Job Title
-						th Job Description
-						th Date Submitted
-					tbody
-						tr
-							td #{job.companyName}
-							td #{job.jobName}
-							td #{job.jobDescription}
-							td #{job.dateCreated}
+
+			h2
+				| Project Application
+			.row.mt
+				.row.mt.job-card-heading
+					.col-md-12
+						h4 
+							| #{job.jobName} - #{job.companyName}
+				.row.mt.job-card-description
+					h5 Description
+					.col-md-12
+						| #{job.jobDescription}
+				.row.mt.job-card-other
+					h5 Details
+					.col-md-6
+						b Industry: 
+						| #{job.industry}
+						br
+						b Job Function: 
+						| #{job.jobFunction}
+						br
+						b Skills Needed: 
+						| #{job.skillsNeeded}
+					.col-md-6
+						b Duration: 
+						| #{job.duration}
+						br
+						b Hours per week: 
+						| #{job.hoursPerWeek}
+						br
+						b Pay: 
+						| #{job.pay}
+
 		form.form-horizontal(action='/job/saveApplication-#{job.id}', method='POST')
 			.form-group
 				label.col-md-2.control-label(for='relevantJobExperience') Relevant Experience
@@ -40,6 +56,6 @@ block content
 							| #{jobApp.projectApproach}
 
 			button.btn.btn-primary.opt-btn-update(type='submit') Save
-		//- a.btn.btn-primary.opt-btn-update(href='/job/submitApplication-#{job.id}', role='button') Submit
+			a.btn.btn-primary.opt-btn-update(href='/job/submitApplication-#{job.id}', role='button') Submit
 		br
 		br

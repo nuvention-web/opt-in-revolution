@@ -137,8 +137,9 @@ exports.viewSavedJobs = function(req, res) {
 };
 
 exports.postSaveApp = function(req, res, next) {
-	JobApplication.find({jobID: req.params.id, userID: req.user.id}, function (err, jobApp) {
-		if(jobApp.length) {
+	JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function (err, jobApp) {
+		console.log(jobApp);
+		if(jobApp) {
 			console.log('found a job app...');
 			console.log(jobApp);
 			jobApp.relevantJobExperience = req.body.relevantJobExperience || '';

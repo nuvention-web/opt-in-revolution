@@ -125,6 +125,9 @@ app.get('/job/apply-:id', jobController.applyJob);
 app.get('/job/save-:id', jobController.saveJob);
 app.get('/viewsavedjobs', jobController.viewSavedJobs);
 
+app.get('/job/saveApplication-:id', jobController.postSaveApp);
+app.get('/job/submitApplication-:id', jobController.postSubmitApp);
+
 app.get('/viewcandidates', userController.viewCandidates);
 
 

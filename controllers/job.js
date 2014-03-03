@@ -7,6 +7,7 @@ var mongoose = require('mongoose')
 var passport = require('passport');
 
 var Job = require('../models/Job');
+var JobApplication = require('../models/JobApplication');
 var User = require('../models/User');
 var ObjectID = require('mongoose').Types.ObjectId; 
 var url = require('url');
@@ -90,20 +91,16 @@ exports.listJobs = function(req, res) {
 };
 
 exports.applyJob = function(req, res) {
-	console.log(req.user);
-	User.findById(req.user.id, function(err, user) {
-		if(user.profile.name && user.bio) {
-			Job.findById(req.params.id, function(e, docs) {
-				res.render("jobs/applyjob", {
-					"job" : docs,
-					title: "Apply to this job",
-				});
+	Job.findById(req.params.id, function(e, docs) {
+		JobApplication.find({jobID: req.params.id, userID: req.user.id}, function(err, jobApp) {
+			console.log("Loading apply job..");
+			console.log(jobApp);
+			res.render("jobs/applyjob", {
+				"job" : docs,
+				"jobApp" : jobApp,
+				title: "Apply to this job",
 			});
-		}
-		else {
-  			req.flash('signUp', 'signUp');
-      		res.redirect('/account');
-		}
+		});
 	});
 };
 
@@ -136,4 +133,35 @@ exports.viewSavedJobs = function(req, res) {
 			});
 		});
 	});
+};
+
+exports.postSaveApp = function(req, res, next) {
+	JobApplication.find({jobID: req.params.id, userID: req.user.id}, function (err, jobApp) {
+		if(jobApp.length) {
+			console.log('found a job app...');
+			console.log(jobApp);
+			jobApp.relevantJobExperience = req.body.relevantJobExperience || '';
+			jobApp.projectApproach = req.body.projectApproach || '';
+
+		} else {
+			console.log('didnt find a job app');
+			var jobApp = new JobApplication({
+				jobID: req.params.id,
+				userID: req.user.id,
+				relevantJobExperience: req.body.relevantJobExperience,
+				projectApproach: req.body.projectApproach
+			});
+		}
+
+		jobApp.save(function(err) {
+			console.log("saving");
+			if(err) return next(err);
+			req.flash('success', 'Application saved.');
+			res.redirect("/job/apply-"+req.params.id);
+		});
+	});
+};
+
+exports.postSubmitApp = function(req, res) {
+	res.redirect("/job/apply-"+req.params.id);
 };

@@ -14,10 +14,25 @@ block content
 						th Job Title
 						th Job Description
 						th Date Submitted
-						th Apply
 					tbody
 						tr
 							td #{job.companyName}
 							td #{job.jobName}
 							td #{job.jobDescription}
 							td #{job.dateCreated}
+		form.form-horizontal(method='POST')
+			.form-group
+				label.col-md-2.control-label(for='relevantJobExperience') Relevant Experience
+				.col-md-10
+					textarea.form-control(type='textarea', name='relevantJobExperience', id='relevantJobExperience')
+					| #{jobApp.relevantJobExperience}
+			.form-group
+				label.col-md-2.control-label(for='projectApproach') Project Approach
+				.col-md-10
+					textarea.form-control(type='textarea', name='projectApproach', id='projectApproach')
+						| #{jobApp.projectApproach}
+
+		a.btn.btn-primary.opt-btn-update(href='/job/saveApplication-#{job.id}', role='button') Save
+		a.btn.btn-primary.opt-btn-update(href='/job/submitApplication-#{job.id}', role='button') Submit
+		br
+		br

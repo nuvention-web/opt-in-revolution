@@ -138,16 +138,11 @@ exports.viewSavedJobs = function(req, res) {
 
 exports.postSaveApp = function(req, res, next) {
 	JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function (err, jobApp) {
-		console.log(jobApp);
 		if(jobApp) {
-			console.log('found a job app...');
-			console.log(jobApp);
 			jobApp.relevantJobExperience = req.body.relevantJobExperience || '';
 			jobApp.projectApproach = req.body.projectApproach || '';
 
 		} else {
-			console.log('didnt find a job app');
-			console.log(req.body);
 			var jobApp = new JobApplication({
 				jobID: req.params.id,
 				userID: req.user.id,
@@ -155,10 +150,7 @@ exports.postSaveApp = function(req, res, next) {
 				projectApproach: req.body.projectApproach
 			});
 		}
-		console.log("line 156");
-		console.log(jobApp);
 		jobApp.save(function(err) {
-			console.log("saving");
 			if(err) return next(err);
 			req.flash('success', 'Application saved.');
 			res.redirect("/job/apply-"+req.params.id);
@@ -167,5 +159,24 @@ exports.postSaveApp = function(req, res, next) {
 };
 
 exports.postSubmitApp = function(req, res) {
-	res.redirect("/job/apply-"+req.params.id);
+	JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function (err, jobApp) {
+		if(jobApp) {
+			jobApp.relevantJobExperience = req.body.relevantJobExperience || '';
+			jobApp.projectApproach = req.body.projectApproach || '';
+			jobApp.submitted = 'yes';
+		} else {
+			var jobApp = new JobApplication({
+				jobID: req.params.id,
+				userID: req.user.id,
+				relevantJobExperience: req.body.relevantJobExperience,
+				projectApproach: req.body.projectApproach,
+				submitted: 'yes'
+			});
+		}
+		jobApp.save(function(err) {
+			if(err) return next(err);
+			req.flash('success', 'Application submitted.');
+			res.redirect("/job/apply-"+req.params.id);
+		});
+	});
 };

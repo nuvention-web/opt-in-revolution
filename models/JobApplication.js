@@ -8,6 +8,7 @@ var jobApplicationSchema = new Schema({
 	userID: {type: String},
 	relevantJobExperience: {type: String, default: ''},
 	projectApproach: {type: String, default: ''},
+    submitted: {type: String, default: 'no'}, //yes, no
 	dateCreated: {type: Date, default: Date.now}
 });
 

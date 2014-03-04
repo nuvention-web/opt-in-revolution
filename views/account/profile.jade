@@ -149,114 +149,67 @@ block content
 																		textarea.form-control(type='text', name='interests', id='interests')
 																			| #{user.interests}
 													.row.mt
-														.col-md-12
-															.form-group
-																.row.mt
-																	.col-md-12
-																		label.control-label(for='desiredHoursPerWeek') Desired Hours Per Week (check all that apply)
-																.row.mt
-																	.col-md-12
-																		label < 10
-																			input(type='checkbox', name='desiredHoursPerWeek', value='<10', checked=user.desiredHoursPerWeek.indexOf('<10')!=-1)
-																		label 10-20
-																			input(type='checkbox', name='desiredHoursPerWeek', value='10-20', checked=user.desiredHoursPerWeek.indexOf('10-20')!=-1)
-																		label 20-30
-																			input(type='checkbox', name='desiredHoursPerWeek', value='20-30', checked=user.desiredHoursPerWeek.indexOf('20-30')!=-1)
-																		label 30-40
-																			input(type='checkbox', name='desiredHoursPerWeek', value='30-40', checked=user.desiredHoursPerWeek.indexOf('30-40')!=-1)
-													.row.mt
-														.col-md-12
-															.form-group
-																.row.mt
-																	.col-md-12
-																		label.control-label(for='desiredProjectLength') Desired Project Length (check all that apply)
-																.row.mt
-																	.col-md-12
-																		label < 1 week
-																			input(type='checkbox', name='desiredProjectLength', value='< 1 week', checked=user.desiredProjectLength.indexOf('< 1 week')!=-1)
-																		label 1-2 weeks
-																			input(type='checkbox', name='desiredProjectLength', value='1-2 weeks', checked=user.desiredProjectLength.indexOf('1-2 weeks')!=-1)
-																		label 2-4 weeks
-																			input(type='checkbox', name='desiredProjectLength', value='2-4 weeks', checked=user.desiredProjectLength.indexOf('2-4 weeks')!=-1)
-																		label 1-2 months
-																			input(type='checkbox', name='desiredProjectLength', value='1-2 months',checked=user.desiredProjectLength.indexOf('1-2 months')!=-1)
-																		label 2-3 months
-																			input(type='checkbox', name='desiredProjectLength', value='2-3 months', checked=user.desiredProjectLength.indexOf('2-3 months')!=-1)
-																		label 3+ months
-																			input(type='checkbox', name='desiredProjectLength', value='3+ months', checked=user.desiredProjectLength.indexOf('3+ months')!=-1)
-													.row.mt
-														.col-md-12
-															.form-group
-																.row.mt
-																	.col-md-12
-																		label.control-label(for='primaryComm') Primary Communication Method (check all that apply)
-																.row.mt
-																	.col-md-12
-																		label Email
-																			input(type='checkbox', name='communicationPreferences', value='Email', checked=user.communicationPreferences.indexOf('Email')!=-1)
-																		label Phone
-																			input(type='checkbox', name='communicationPreferences', value='Phone', checked=user.communicationPreferences.indexOf('Phone')!=-1)
-																		label In-Person
-																			input(type='checkbox', name='communicationPreferences', value='In-Person', checked=user.communicationPreferences.indexOf('In-Person')!=-1)
-													.row.mt
-														.col-md-12
-															.form-group
-																.row.mt
-																	.col-md-12
-																		label.control-label(for='checkinFrequency') Check-in Frequency
-																.row.mt
-																	.col-md-12
-																		label Daily
-																			input(type='checkbox', name='checkinFrequency', value='Daily', checked=user.checkinFrequencyPreference.indexOf('Daily')!=-1)
-																		label Twice a week
-																			input(type='checkbox', name='checkinFrequency', value='Twice a week', checked=user.checkinFrequencyPreference.indexOf('Twice a week')!=-1)
-																		label Weekly
-																			input(type='checkbox', name='checkinFrequency', value='Weekly', checked=user.checkinFrequencyPreference.indexOf('Weekly')!=-1)
-																		label Monthly
-																			input(type='checkbox', name='checkinFrequency', value='Monthly', checked=user.checkinFrequencyPreference.indexOf('Monthly')!=-1)
-													.row.mt
-														.col-md-12
-															.form-group
-																.row.mt
-																	.col-md-12
-																		label.control-label(for='industryPreference') Industry
-																.row.mt
-																	.col-md-12
-																		- var industries = ['Accounting','Advertising','Broadcasting','Consulting','Consumer Products','Education','Financial Services','Food & Beverage','Health Care', 'Nonprofit','Pharmaceuticals','Publishing','Retail', 'Technology']
-																		each industry in industries
-																			div
-																				label #{industry}
-																					input(type='checkbox', name='industryPreference', value=industry, checked=user.industryPreference.indexOf(industry)!=-1)
-																		//- label Accounting
-																		//- 	input(type='checkbox', name='industryPreference', value='Accounting', checked=user.industryPreference.indexOf('Accounting')!=-1)
-																		//- label Advertising
-																		//- 	input(type='checkbox', name='industryPreference', value='Advertising', checked=user.industryPreference.indexOf('Advertising')!=-1)
-																		//- label Broadcasting
-																		//- 	input(type='checkbox', name='industryPreference', value='Broadcasting', checked=user.industryPreference.indexOf('Broadcasting')!=-1)
-																		//- label Consulting
-																		//- 	input(type='checkbox', name='industryPreference', value='Consulting', checked=user.industryPreference.indexOf('Consulting')!=-1)
-																		//- label Consumer Products
-																		//- 	input(type='checkbox', name='industryPreference', value='Consumer Products', checked=user.industryPreference.indexOf('Consumer Products')!=-1)
-																		//- label Education
-																		//- 	input(type='checkbox', name='industryPreference', value='Education', checked=user.industryPreference.indexOf('Education')!=-1)
-																		//- label Entertainment & Leisure
-																		//- 	input(type='checkbox', name='industryPreference', value='Entertainment & Leisure', checked=user.industryPreference.indexOf('Entertainment & Leisure')!=-1)
-																		//- label Financial Services
-																		//- 	input(type='checkbox', name='industryPreference', value='Financial Services', checked=user.industryPreference.indexOf('Financial Services')!=-1)
-																		//- label Food & Beverage
-																		//- 	input(type='checkbox', name='industryPreference', value='Food & Beverage', checked=user.industryPreference.indexOf('Food & Beverage')!=-1)
-																		//- label Health Care
-																		//- 	input(type='checkbox', name='industryPreference', value='Health Care', checked=user.industryPreference.indexOf('Health Care')!=-1)
-																		//- label Nonprofit
-																		//- 	input(type='checkbox', name='industryPreference', value='Nonprofit', checked=user.industryPreference.indexOf('Nonprofit')!=-1)
-																		//- label Pharmaceuticals
-																		//- 	input(type='checkbox', name='industryPreference', value='Pharmaceuticals', checked=user.industryPreference.indexOf('Pharmaceuticals')!=-1)
-																		//- label Publishing
-																		//- 	input(type='checkbox', name='industryPreference', value='Publishing', checked=user.industryPreference.indexOf('Publishing')!=-1)
-																		//- label Retail
-																		//- 	input(type='checkbox', name='industryPreference', value='Retail', checked=user.industryPreference.indexOf('Retail')!=-1)
-																		//- label Technology
-																		//- 	input(type='checkbox', name='industryPreference', value='Technology', checked=user.industryPreference.indexOf('Technology')!=-1)
+															.col-md-12
+																.form-group
+																	.row.mt
+																		.col-md-12
+																			label.control-label(for='industryPreference') Industry
+																	.row.mt
+																		.col-md-12
+																			.row.mt
+																				.col-md-4
+																					div
+																						input(type='checkbox', name='industryPreference', value='Accounting', checked=user.industryPreference.indexOf('Accounting')!=-1)
+																						|  Accounting
+																					div
+																						input(type='checkbox', name='industryPreference', value='Advertising', checked=user.industryPreference.indexOf('Advertising')!=-1)
+																						|  Advertising
+																					div
+																						input(type='checkbox', name='industryPreference', value='Broadcasting', checked=user.industryPreference.indexOf('Broadcasting')!=-1)
+																						|  Broadcasting
+																					div
+																						input(type='checkbox', name='industryPreference', value='Consulting', checked=user.industryPreference.indexOf('Consulting')!=-1)
+																						|  Consulting
+																					div
+																						input(type='checkbox', name='industryPreference', value='Consumer Products', checked=user.industryPreference.indexOf('Consumer Products')!=-1)
+																						|  Consumer Products
+																				.col-md-4
+																					div
+																						input(type='checkbox', name='industryPreference', value='Education', checked=user.industryPreference.indexOf('Education')!=-1)
+																						|  Education
+																					div
+																						input(type='checkbox', name='industryPreference', value='Entertainment & Leisure', checked=user.industryPreference.indexOf('Entertainment & Leisure')!=-1)
+																						|  Entertainment & Leisure
+																					div
+																						input(type='checkbox', name='industryPreference', value='Financial Services', checked=user.industryPreference.indexOf('Financial Services')!=-1)
+																						|  Financial Services
+																					div
+																						input(type='checkbox', name='industryPreference', value='Food & Beverage', checked=user.industryPreference.indexOf('Food & Beverage')!=-1)
+																						|  Food & Beverage
+																					div
+																						input(type='checkbox', name='industryPreference', value='Health Care', checked=user.industryPreference.indexOf('Health Care')!=-1)
+																						|  Health Care
+																				.col-md-4
+																					div
+																						input(type='checkbox', name='industryPreference', value='Nonprofit', checked=user.industryPreference.indexOf('Nonprofit')!=-1)
+																						|  Nonprofit
+																					div
+																						input(type='checkbox', name='industryPreference', value='Pharmaceuticals', checked=user.industryPreference.indexOf('Pharmaceuticals')!=-1)
+																						|  Pharmaceuticals
+																					div
+																						input(type='checkbox', name='industryPreference', value='Publishing', checked=user.industryPreference.indexOf('Publishing')!=-1)
+																						|  Publishing
+																					div
+																						input(type='checkbox', name='industryPreference', value='Retail', checked=user.industryPreference.indexOf('Retail')!=-1)
+																						|  Retail
+																					div
+																						input(type='checkbox', name='industryPreference', value='Technology', checked=user.industryPreference.indexOf('Technology')!=-1)
+																						|  Technology
+																			//- - var industries = ['Accounting','Advertising','Broadcasting','Consulting','Consumer Products','Education','Financial Services','Food & Beverage','Health Care', 'Nonprofit','Pharmaceuticals','Publishing','Retail', 'Technology']
+																			//- each industry, i in industries
+																			//- 	div
+																			//- 		input(type='checkbox', name='industryPreference', value=industry, checked=user.industryPreference.indexOf(industry)!=-1)
+																			//- 		|  #{industry
 													.row.mt
 														.col-md-12
 															.form-group
@@ -265,34 +218,133 @@ block content
 																		label.control-label(for='jobFunctionPreference') Job Function
 																.row.mt
 																	.col-md-12
-																		- var jobFunctions = ['Accounting', 'Business Development', 'Cost Reduction', 'Customer Service', 'Finance', 'Human Resources', 'Marketing', 'Operations', 'Other', 'Sales', 'Strategy']
-																		each jobFunc in jobFunctions											
-																			div
-																				label #{jobFunc}
-																					input(type='checkbox', name='jobFunctionPreference', value=jobFunc, checked=user.jobFunctionPreference.indexOf(jobFunc)!=-1)
-																		//- label Accounting
-																		//- 	input(type='checkbox', name='jobFunctionPreference', value='Accounting', checked=user.jobFunctionPreference.indexOf('Accounting')!=-1)
-																		//- label Business Development
-																		//- 	input(type='checkbox', name='jobFunctionPreference', value='Business Development', checked=user.jobFunctionPreference.indexOf('Business Development')!=-1)
-																		//- label Cost Reduction
-																		//- 	input(type='checkbox', name='jobFunctionPreference', value='Cost Reduction', checked=user.jobFunctionPreference.indexOf('Cost Reduction')!=-1)
-																		//- label Customer Service
-																		//- 	input(type='checkbox', name='jobFunctionPreference', value='Customer Service', checked=user.jobFunctionPreference.indexOf('Customer Service')!=-1)
-																		//- label Finance
-																		//- 	input(type='checkbox', name='jobFunctionPreference', value='Finance', checked=user.jobFunctionPreference.indexOf('Finance')!=-1)
-																		//- label Human Resources
-																		//- 	input(type='checkbox', name='jobFunctionPreference', value='Human Resources', checked=user.jobFunctionPreference.indexOf('Human Resources')!=-1)
-																		//- label Marketing
-																		//- 	input(type='checkbox', name='jobFunctionPreference', value='Marketing', checked=user.jobFunctionPreference.indexOf('Marketing')!=-1)
-																		//- label Operations
-																		//- 	input(type='checkbox', name='jobFunctionPreference', value='Operations', checked=user.jobFunctionPreference.indexOf('Operations')!=-1)
-																		//- label Other
-																		//- 	input(type='checkbox', name='jobFunctionPreference', value='Other', checked=user.jobFunctionPreference.indexOf('Other')!=-1)
-																		//- label Sales
-																		//- 	input(type='checkbox', name='jobFunctionPreference', value='Sales', checked=user.jobFunctionPreference.indexOf('Sales')!=-1)
-																		//- label Strategy
-																		//- 	input(type='checkbox', name='jobFunctionPreference', value='Strategy', checked=user.jobFunctionPreference.indexOf('Strategy')!=-1)
-
+																		.row.mt
+																			.col-md-4
+																				div
+																					input(type='checkbox', name='jobFunctionPreference', value='Accounting', checked=user.jobFunctionPreference.indexOf('Accounting')!=-1)
+																					|  Accounting
+																				div
+																					input(type='checkbox', name='jobFunctionPreference', value='Business Development', checked=user.jobFunctionPreference.indexOf('Business Development')!=-1)
+																					|  Business Development
+																				//- div
+																				//- 	input(type='checkbox', name='jobFunctionPreference', value='Cost Reduction', checked=user.jobFunctionPreference.indexOf('Cost Reduction')!=-1)
+																				//- 	|  Cost Reduction
+																				div
+																					input(type='checkbox', name='jobFunctionPreference', value='Customer Service', checked=user.jobFunctionPreference.indexOf('Customer Service')!=-1)
+																					|  Customer Service
+																				div
+																					input(type='checkbox', name='jobFunctionPreference', value='Finance', checked=user.jobFunctionPreference.indexOf('Finance')!=-1)
+																					|  Finance
+																				div
+																					input(type='checkbox', name='jobFunctionPreference', value='Human Resources', checked=user.jobFunctionPreference.indexOf('Human Resources')!=-1)
+																					|  Human Resources
+																			.col-md-4
+																				div
+																					input(type='checkbox', name='jobFunctionPreference', value='Marketing', checked=user.jobFunctionPreference.indexOf('Marketing')!=-1)
+																					|  Marketing
+																				div
+																					input(type='checkbox', name='jobFunctionPreference', value='Operations', checked=user.jobFunctionPreference.indexOf('Operations')!=-1)
+																					|  Operations
+																				div
+																					input(type='checkbox', name='jobFunctionPreference', value='Other', checked=user.jobFunctionPreference.indexOf('Other')!=-1)
+																					|  Other
+																				div
+																					input(type='checkbox', name='jobFunctionPreference', value='Sales', checked=user.jobFunctionPreference.indexOf('Sales')!=-1)
+																					|  Sales
+																				div
+																					input(type='checkbox', name='jobFunctionPreference', value='Strategy', checked=user.jobFunctionPreference.indexOf('Strategy')!=-1)
+																					|  Strategy
+																	//- - var jobFunctions = ['Accounting', 'Business Development', 'Cost Reduction', 'Customer Service', 'Finance', 'Human Resources', 'Marketing', 'Operations', 'Other', 'Sales', 'Strategy']
+																		//- each jobFunc, i in jobFunctions											
+																		//- 	div
+																		//- 		input(type='checkbox', name='jobFunctionPreference', value=jobFunc, checked=user.jobFunctionPreference.indexOf(jobFunc)!=-1)
+																		//- 		|  #{jobFunc}
+													.row.mt
+														.col-md-12
+															.form-group
+																.row.mt
+																	.col-md-12
+																		label.control-label(for='desiredHoursPerWeek') Desired Hours Per Week (check all that apply)
+																.row.mt
+																	.col-md-12
+																		div
+																			input(type='checkbox', name='desiredHoursPerWeek', value='<10', checked=user.desiredHoursPerWeek.indexOf('<10')!=-1)
+																			|  < 10
+																		div
+																			input(type='checkbox', name='desiredHoursPerWeek', value='10-20', checked=user.desiredHoursPerWeek.indexOf('10-20')!=-1)
+																			|  10-20
+																		div
+																			input(type='checkbox', name='desiredHoursPerWeek', value='20-30', checked=user.desiredHoursPerWeek.indexOf('20-30')!=-1)
+																			|  20-30
+																		div
+																			input(type='checkbox', name='desiredHoursPerWeek', value='30-40', checked=user.desiredHoursPerWeek.indexOf('30-40')!=-1)
+																			|  30-40
+													.row.mt
+														.col-md-12
+															.form-group
+																.row.mt
+																	.col-md-12
+																		label.control-label(for='desiredProjectLength') Desired Project Length (check all that apply)
+																.row.mt
+																	.col-md-12
+																		.row.mt
+																			.col-md-4
+																				div
+																					input(type='checkbox', name='desiredProjectLength', value='< 1 week', checked=user.desiredProjectLength.indexOf('< 1 week')!=-1)
+																					|  < 1 week
+																				div
+																					input(type='checkbox', name='desiredProjectLength', value='1-2 weeks', checked=user.desiredProjectLength.indexOf('1-2 weeks')!=-1)
+																					|  1-2 weeks
+																				div																
+																					input(type='checkbox', name='desiredProjectLength', value='2-4 weeks', checked=user.desiredProjectLength.indexOf('2-4 weeks')!=-1)
+																					|  2-4 weeks																		
+																			.col-md-4
+																				div
+																					input(type='checkbox', name='desiredProjectLength', value='1-2 months',checked=user.desiredProjectLength.indexOf('1-2 months')!=-1)
+																					|  1-2 months
+																				div
+																					input(type='checkbox', name='desiredProjectLength', value='2-3 months', checked=user.desiredProjectLength.indexOf('2-3 months')!=-1)
+																					|  2-3 months																		
+																				div
+																					input(type='checkbox', name='desiredProjectLength', value='3+ months', checked=user.desiredProjectLength.indexOf('3+ months')!=-1)
+																					|  > 3 months
+													.row.mt
+														.col-md-12
+															.form-group
+																.row.mt
+																	.col-md-12
+																		label.control-label(for='primaryComm') Primary Communication Method (check all that apply)
+																.row.mt
+																	.col-md-12
+																		div
+																			input(type='checkbox', name='communicationPreferences', value='Email', checked=user.communicationPreferences.indexOf('Email')!=-1)
+																			|  Email
+																		div
+																			input(type='checkbox', name='communicationPreferences', value='Phone', checked=user.communicationPreferences.indexOf('Phone')!=-1)
+																			|  Phone
+																		div
+																			input(type='checkbox', name='communicationPreferences', value='In-Person', checked=user.communicationPreferences.indexOf('In-Person')!=-1)
+																			|  In-Person
+													.row.mt
+														.col-md-12
+															.form-group
+																.row.mt
+																	.col-md-12
+																		label.control-label(for='checkinFrequency') Check-in Frequency
+																.row.mt
+																	.col-md-12
+																		div
+																			input(type='checkbox', name='checkinFrequency', value='Daily', checked=user.checkinFrequencyPreference.indexOf('Daily')!=-1)
+																			|  Daily
+																		div
+																			input(type='checkbox', name='checkinFrequency', value='Twice a week', checked=user.checkinFrequencyPreference.indexOf('Twice a week')!=-1)
+																			|  Twice a week
+																		div
+																			input(type='checkbox', name='checkinFrequency', value='Weekly', checked=user.checkinFrequencyPreference.indexOf('Weekly')!=-1)
+																			|  Weekly
+																		div
+																			input(type='checkbox', name='checkinFrequency', value='Monthly', checked=user.checkinFrequencyPreference.indexOf('Monthly')!=-1)
+																			|  Monthly
 													//- .row.mt
 													//- 	.col-md-12
 													//- 		.form-group

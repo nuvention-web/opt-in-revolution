@@ -90,11 +90,20 @@ exports.listJobs = function(req, res) {
 };
 
 exports.applyJob = function(req, res) {
-	Job.findById(req.params.id, function(e, docs) {
-		res.render("jobs/applyjob", {
-			"job" : docs,
-			title: "Apply to this job",
-		});
+	console.log(req.user);
+	User.findById(req.user.id, function(err, user) {
+		if(user.profile.name && user.bio) {
+			Job.findById(req.params.id, function(e, docs) {
+				res.render("jobs/applyjob", {
+					"job" : docs,
+					title: "Apply to this job",
+				});
+			});
+		}
+		else {
+  			req.flash('signUp', 'signUp');
+      		res.redirect('/account');
+		}
 	});
 };
 

@@ -39,7 +39,8 @@ exports.getAccount = function(req, res) {
     title: 'Account Management',
     success: req.flash('success'),
     error: req.flash('error'),
-    errors: req.flash('errors')
+    errors: req.flash('errors'),
+    signUp: req.flash('signUp')
   });
 };
 

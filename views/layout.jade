@@ -7,7 +7,7 @@ html
     meta(name='description', content='')
     meta(name='author', content='')
 
-    title Opt In Revolution
+    title AthenaHire
 
     link(rel='shortcut icon', href='/images/favicon.ico')
     link(href='/css/lib/font-awesome.min.css', rel='stylesheet')
@@ -32,12 +32,14 @@ html
               span.icon-bar
               span.icon-bar
             a.opt-nav-text.navbar-brand(href='/') 
-              img.opt-logo(src='/images/logo_2.png', alt='Opt-In Logo')
-              | Opt-In Revolution
+              //- img.opt-logo(src='/images/logo_2.png', alt='Opt-In Logo')
+              img.opt-logo(src='/images/owl.png', alt='AthenaHire Logo')
+              | AthenaHire
           .navbar-collapse.collapse
             .cust-navbar
               ul.nav.navbar-nav
-                each nav in [{link: 'about', name: "About"}, {link: 'employ', name: "Employ"}, {link: 'empower', name: "Empower"}, {link: 'engage', name: "Engage"}]
+                //- each nav in [{link: 'about', name: "About"}, {link: 'employ', name: "Employ"}, {link: 'empower', name: "Empower"}, {link: 'engage', name: "Engage"}]
+                each nav in [{link: 'about', name: "How It Works"}, {link: 'employ', name: "Find a Project"}, {link: 'empower', name: "Post a Project"}]
                   li 
                     a.opt-nav-text(href='/#{nav.link}') #{nav.name}
               ul.nav.navbar-nav.navbar-right
@@ -47,13 +49,6 @@ html
                   li(class=title=='Create Account')
                     a(href='/signup') Create Account
                 else if user.userType=='mom'
-                  li.dropdown(class=title=='User Actions')
-                    a.dropdown-toggle(href='#', data-toggle='dropdown') 
-                      | Actions
-                      span.caret
-                    ul.dropdown-menu
-                      li: a(href='/employ') View Listings
-                      li: a(href='/viewsavedjobs') View Saved Jobs
                   li.dropdown(class=title=='Account Management')
                     a.dropdown-toggle(href='#', data-toggle='dropdown')
                       if user.profile.picture
@@ -65,16 +60,11 @@ html
                     ul.dropdown-menu
                       li: a(href='/account') My Account
                       li.divider
+                      li: a(href='/employ') View Listings
+                      li: a(href='/viewsavedjobs') View Saved Jobs
+                      li.divider
                       li: a(href='/logout') Logout
                 else
-                  li.dropdown(class=title=='User Actions')
-                    a.dropdown-toggle(href='#', data-toggle='dropdown') 
-                      | Actions
-                      span.caret
-                    ul.dropdown-menu
-                      li: a(href='/postjob') Post Job
-                      li: a(href='/mylistings') View My Listings
-                      li: a(href='/viewcandidates') Find Candidates
                   li.dropdown(class=title=='Account Management')
                     a.dropdown-toggle(href='#', data-toggle='dropdown')
                       if user.profile.picture
@@ -86,22 +76,40 @@ html
                     ul.dropdown-menu
                       li: a(href='/account') My Account
                       li.divider
+                      li: a(href='/postjob') Post Job
+                      li: a(href='/mylistings') View My Listings
+                      li: a(href='/viewcandidates') Find Candidates
+                      li.divider
                       li: a(href='/logout') Logout
     block content
     .footer
       .container
-        .row.mt.centered
-          .footer-content
-            .col-md-8.col-md-offset-2
-              .row.mt
-                .col-md-3.col-md-offset-1
-                  a(href='/') The Opt In Revolution
-                .col-md-1
-                  | &middot;
-                .col-md-3
+        .footer-content
+          .row.mt
+            .col-md-4
+              p About Us
+              ul
+                li
+                  a(href='/') AthenaHire
+                li 
                   a(href='/team') Our Team 
-                .col-md-1
-                  | &middot;
-                .col-md-3
-                  | &copy; Opt In Revolution 2014
+            .col-md-4
+              p Join Our Mailing List for Updates
+              .form-wrapper
+                form.form-inline.input-form(name="email", role="form", method="post",action="/subscribeEmailPost")
+                  .form-group
+                    label.sr-only(for='emailInput') Email address
+                    input#userEmailInput.form-control(type='email', name="email", placeholder='Enter email')
+                  button.btn.btn-default.opt-subscribe-btn(type='submit') Subscribe
+            .col-md-4
+              p
+                | Contact Us
+                address
+                  | Farley Center - NUvention: Web
+                  br
+                  | 2133 Sheridan Road
+                  br
+                  | Evanston, IL 60208
+              p
+                | &copy; AthenaHire 2014
 

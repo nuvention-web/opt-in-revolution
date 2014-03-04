@@ -86,6 +86,7 @@ app.use(express.errorHandler());
 app.get('/', homeController.index);
 app.get('/about', homeController.about);
 app.get('/team', homeController.team);
+app.post('/subscribeEmailPost', homeController.subscribeEmailPost)
 
 // Account Stuff
 app.get('/login', userController.getLogin);
@@ -98,7 +99,7 @@ app.post('/contact', contactController.postContact);
 app.get('/account', passportConf.isAuthenticated, userController.getAccount);
 app.post('/account/profile', passportConf.isAuthenticated, userController.postUpdateProfile);
 app.post('/account/password', passportConf.isAuthenticated, userController.postUpdatePassword);
-app.post('/account/delete', passportConf.isAuthenticated, userController.postDeleteAccount);
+// app.post('/account/deactivate', passportConf.isAuthenticated, userController.postDeactivateAccount);
 app.get('/account/unlink/:provider', passportConf.isAuthenticated, userController.getOauthUnlink);
 
 // API Related

@@ -55,15 +55,21 @@ block content
 							.row.mt.job-card-other
 								.col-md-10.col-md-offset-1
 									.form-group
-										label.col-md-4.control-label(for='duration') Duration
+										label.col-md-4.control-label(for='hoursPerWeek') Hours/Week
 										.col-md-3
-											input#duration.form-control(type='text', name="duration")
+											input#hoursPerWeek.form-control(type='text', name="hoursPerWeek")
 							.row.mt.job-card-other
 								.col-md-10.col-md-offset-1
 									.form-group
-										label.col-md-4.control-label(for='hoursPerWeek') Primary Communication Method
+										label.col-md-4.control-label(for='totalWeeks') Total Weeks
 										.col-md-3
-											select#hoursPerWeek.form-control.opt-select-form
+											input#totalWeeks.form-control(type='text', name="totalWeeks")
+							.row.mt.job-card-other
+								.col-md-10.col-md-offset-1
+									.form-group
+										label.col-md-4.control-label(for='primaryComm') Primary Communication Method
+										.col-md-3
+											select#primaryComm.form-control.opt-select-form
 												option Email
 												option Phone
 												option In-Person

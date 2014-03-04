@@ -68,7 +68,7 @@ exports.listJobs = function(req, res) {
 	var industry = query.industry;
 	var jobFunction = query.jobfunction;
 
-	if (typeof(jobFunction)==='undefined') {
+	if (typeof(jobFunction)==='undefined' && typeof(industry)==='undefined') {
 		Job.find().
 		sort('-dateCreated').
 		exec(function(e, docs) {
@@ -78,8 +78,28 @@ exports.listJobs = function(req, res) {
 			});
 		});
 	}
-	else {
+	else if (typeof(jobFunction)==='undefined') {
+		Job.find({industry: industry}).
+		sort('-dateCreated').
+		exec(function(e, docs) {
+			res.render("jobs/jobslist", {
+				"joblist" : docs,
+				title: "Job Listing Page",
+			});
+		});
+	}
+	else if (typeof(industry)==='undefined') {
 		Job.find({jobFunction: jobFunction}).
+		sort('-dateCreated').
+		exec(function(e, docs) {
+			res.render("jobs/jobslist", {
+				"joblist" : docs,
+				title: "Job Listing Page",
+			});
+		});
+	}
+	else {
+		Job.find({jobFunction: jobFunction, industry: industry}).
 		sort('-dateCreated').
 		exec(function(e, docs) {
 			res.render("jobs/jobslist", {

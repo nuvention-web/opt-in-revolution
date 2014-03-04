@@ -20,26 +20,34 @@ block content
 					br
 					b
 						| Industry
-					br
-					a(href='/employ?industry=consumer-products', role='button') Consumer products
-					br
-					a(href='/employ?industry=apparel', role='button') Apparel
-					br
-					a(href='/employ?industry=other-retail', role='button') Other retail
-					br
-					a(href='/employ?industry=food-and-beverage', role='button') Food and beverage
-					br
-					a(href='/employ?industry=entertainment-and-leisure', role='button') Entertainment and leisure
+					- var industries = ['Accounting','Advertising','Broadcasting','Consulting','Consumer Products','Education','Financial Services','Food & Beverage','Health Care', 'Nonprofit','Pharmaceuticals','Publishing','Retail', 'Technology']
+						each industry in industries
+							br
+							a(href='/employ?industry=#{industry}', role='button') #{industry}
+					//- br
+					//- a(href='/employ?industry=consumer-products', role='button') Consumer products
+					//- br
+					//- a(href='/employ?industry=apparel', role='button') Apparel
+					//- br
+					//- a(href='/employ?industry=other-retail', role='button') Other retail
+					//- br
+					//- a(href='/employ?industry=food-and-beverage', role='button') Food and beverage
+					//- br
+					//- a(href='/employ?industry=entertainment-and-leisure', role='button') Entertainment and leisure
 					br
 					br
 					b
 						| Job Function
-					br
-					a(href='/employ?jobfunction=public-relations', role='button') Public relations
-					br
-					a(href='/employ?jobfunction=Marketing', role='button') Marketing
-					br
-					a(href='/employ?jobfunction=strategy', role='button') Strategy
+					- var jobFunctions = ['Accounting', 'Business Development', 'Cost Reduction', 'Customer Service', 'Finance', 'Human Resources', 'Marketing', 'Operations', 'Other', 'Sales', 'Strategy']
+						each jobFunc in jobFunctions
+							br
+							a(href='/employ?jobfunction=#{jobFunc}', role='button') #{jobFunc}
+					//- br
+					//- a(href='/employ?jobfunction=public-relations', role='button') Public relations
+					//- br
+					//- a(href='/employ?jobfunction=Marketing', role='button') Marketing
+					//- br
+					//- a(href='/employ?jobfunction=strategy', role='button') Strategy
 					br
 
 			.col-md-10

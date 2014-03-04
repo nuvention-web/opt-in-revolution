@@ -40,7 +40,8 @@ html
             .cust-navbar
               ul.nav.navbar-nav
                 //- each nav in [{link: 'about', name: "About"}, {link: 'employ', name: "Employ"}, {link: 'empower', name: "Empower"}, {link: 'engage', name: "Engage"}]
-                each nav in [{link: 'about', name: "How It Works"}, {link: 'employ', name: "Find a Project"}, {link: 'empower', name: "Post a Project"}]
+                //- each nav in [{link: 'about', name: "How It Works"}, {link: 'employ', name: "Find a Project"}, {link: 'empower', name: "Post a Project"}]
+                each nav in [{link: 'about', name: "How It Works"}, {link: 'employ', name: "Find a Project"}]
                   li 
                     a.opt-nav-text(href='/#{nav.link}') #{nav.name}
               ul.nav.navbar-nav.navbar-right

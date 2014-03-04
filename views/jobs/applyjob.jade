@@ -44,8 +44,22 @@ block content
 							b Pay: 
 							| #{job.pay}
 			if jobApp && jobApp.submitted=='yes'
-				| Relevant Job Experience: #{jobApp.relevantJobExperience}
-				| Project Approach: #{jobApp.projectApproach}
+				.pagebreak
+				.row.mt
+					.col-md-12
+						.page-header
+							b Relevant Experience
+				.row.mt
+					.col-md-10
+						|  #{jobApp.relevantJobExperience}
+				br
+				.row.mt
+					.col-md-12
+						.page-header
+							b Project Approach
+				.row.mt
+					.col-md-10
+						|  #{jobApp.projectApproach}
 			else
 				.pagebreak
 				.row.mt.job-card-other

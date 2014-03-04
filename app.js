@@ -121,8 +121,8 @@ app.post('/postJob', passportConf.isAuthenticated, jobController.postJob);
 app.get('/postjob', jobController.submitJobPost);
 app.get('/mylistings', jobController.viewCompanyPosts);
 // app.get('/jobslist', jobController.listJobs);
-app.get('/job/apply-:id', jobController.applyJob);
-app.get('/job/save-:id', jobController.saveJob);
+app.get('/job/apply-:id', passportConf.isAuthenticated, jobController.applyJob);
+app.get('/job/save-:id', passportConf.isAuthenticated, jobController.saveJob);
 app.get('/viewsavedjobs', jobController.viewSavedJobs);
 
 app.post('/job/saveApplication-:id', jobController.postSaveApp);

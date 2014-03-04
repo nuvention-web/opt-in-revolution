@@ -107,7 +107,7 @@ block content
 																		label.control-label(for='positions') Professional Experience
 																.row.mt
 																	.col-md-12
-																		textarea.form-control(type='text', name='positions', id='positions')
+																		textarea.form-control.prof-experience(type='text', name='positions', id='positions')
 																			if user.positions[0]
 																				if typeof(user.positions[0])==='object'
 																					- var pos = user.positions.pop();

@@ -11,6 +11,7 @@ var JobApplication = require('../models/JobApplication');
 var User = require('../models/User');
 var ObjectID = require('mongoose').Types.ObjectId; 
 var url = require('url');
+var _ = require('underscore');
 
 exports.postJob = function (req, res) {
 	//get form value - based on the name attributes
@@ -117,8 +118,22 @@ exports.saveJob = function(req, res) {
 
 exports.viewCompanyPosts = function(req, res) {
 	Job.find({companyID: req.user.id}, function (e, docs) {
+		jobAppDict = {};
+
+		_.map(docs, function(job) {
+			JobApplication.find({jobID: job._id, submitted: 'yes'}, function(er, jobApps) {
+				jobAppDict[job._id] = jobApps;
+				console.log(jobApps);
+				console.log(job._id);
+				console.log(jobAppDict);
+			});
+		});
+
+		console.log("Pee");
+		console.log(jobAppDict);
 		res.render("jobs/viewlistings", {
 			"joblist": docs,
+			jobAppDict: jobAppDict,
 			title: "Company Listings",
 		});
 	});
@@ -150,7 +165,7 @@ exports.postSaveApp = function(req, res, next) {
 
 		} else {
 			var jobApp = new JobApplication({
-				jobID: req.params.id,
+				jobID: new ObjectID(req.params.id),
 				userID: req.user.id,
 				relevantJobExperience: req.body.relevantJobExperience,
 				projectApproach: req.body.projectApproach
@@ -170,7 +185,7 @@ exports.postSubmitApp = function(req, res) {
 		user.companiesContacted.push(new ObjectID(req.params.id));
 		user.save();
 	});
-	
+
 	JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function (err, jobApp) {
 		if(jobApp) {
 			jobApp.relevantJobExperience = req.body.relevantJobExperience || '';
@@ -178,7 +193,7 @@ exports.postSubmitApp = function(req, res) {
 			jobApp.submitted = 'yes';
 		} else {
 			var jobApp = new JobApplication({
-				jobID: req.params.id,
+				jobID: new ObjectID(req.params.id),
 				userID: req.user.id,
 				relevantJobExperience: req.body.relevantJobExperience,
 				projectApproach: req.body.projectApproach,

@@ -96,17 +96,19 @@ passport.use(new GoogleStrategy(secrets.google, function (req, accessToken, refr
 
 
 passport.use(new LinkedInStrategy(secrets.linkedin, function(req, token, tokenSecret, profile, done) {
-    console.log(req.user.id);
-    console.log(profile);
+    // console.log(req.user.id);
+    // console.log(profile);
     User.findById(req.user.id, function (err, user) {
       user.linkedin = profile.id;
-      console.log(profile);
+      // console.log(profile);
 
       // user.tokens.push({kind: 'linkedin', accessToken: token});
       user.profile.name = profile._json.firstName + " " + profile._json.lastName;
       user.profile.picture = profile._json.pictureUrls.values[0];
 
       user.bio = profile._json.summary;
+      //Clear old skills
+      user.skills = []
       for(var i=0; i<profile._json.skills.values.length; i++) {
         user.skills.push(profile._json.skills.values[i].skill.name);
       }
@@ -117,7 +119,7 @@ passport.use(new LinkedInStrategy(secrets.linkedin, function(req, token, tokenSe
       user.education = []
       for(var i=0; i<profile._json.educations.values.length; i++) {
         userEducation = {}
-        console.log(profile._json.educations.values[i].schoolName);
+        // console.log(profile._json.educations.values[i].schoolName);
         userEducation['schoolName'] = profile._json.educations.values[i].schoolName;
         userEducation['fieldOfStudy'] = profile._json.educations.values[i].fieldOfStudy;
         userEducation['startDate'] = profile._json.educations.values[i].startDate;
@@ -130,11 +132,13 @@ passport.use(new LinkedInStrategy(secrets.linkedin, function(req, token, tokenSe
       user.positions = []
       for(var i=0; i<profile._json.positions.values.length; i++) {
         userPosition = {}
-        console.log(profile._json.positions.values[i].title);
-        userPosition['title'] = profile._json.positions.values[i].title
-        userPosition['summary'] = profile._json.positions.values[i].summary
-        userPosition['startDate'] = profile._json.positions.values[i].startDate
-        userPosition['endDate'] = profile._json.positions.values[i].endDate
+        // console.log(profile._json.positions.values[i].title);
+        userPosition['title'] = profile._json.positions.values[i].title;
+        userPosition['summary'] = profile._json.positions.values[i].summary;
+        userPosition['startDate'] = profile._json.positions.values[i].startDate;
+        userPosition['endDate'] = profile._json.positions.values[i].endDate;
+        userPosition['company'] = profile._json.positions.values[i].company.name;
+        console.log(profile._json.positions.values[i].company.name);
         user.positions.push(userPosition);
       }
 

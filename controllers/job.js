@@ -7,6 +7,7 @@ var mongoose = require('mongoose')
 var passport = require('passport');
 
 var Job = require('../models/Job');
+var JobApplication = require('../models/JobApplication');
 var User = require('../models/User');
 var ObjectID = require('mongoose').Types.ObjectId; 
 var url = require('url');
@@ -52,7 +53,7 @@ exports.postJob = function (req, res) {
 exports.submitJobPost = function(req, res) {
 	User.findById(req.user.id, function(err, user) {
 		if (typeof(user.company.companyName) === 'undefined' || user.company.companyName == null || user.company.companyName.length == 0) { //typeof user.company.companyName==='undefined' || typeof user) {
-			req.flash('errors', { msg: "Please fill in company name " });
+			req.flash('companyError', { msg: "Fill out company information before posting jobs" });
 			return res.redirect('/account');
 		}
 		else{ 
@@ -90,20 +91,17 @@ exports.listJobs = function(req, res) {
 };
 
 exports.applyJob = function(req, res) {
-	console.log(req.user);
-	User.findById(req.user.id, function(err, user) {
-		if(user.profile.name && user.bio) {
-			Job.findById(req.params.id, function(e, docs) {
-				res.render("jobs/applyjob", {
-					"job" : docs,
-					title: "Apply to this job",
-				});
+	Job.findById(req.params.id, function(e, docs) {
+		JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function(err, jobApp) {
+			console.log("Loading apply job..");
+			console.log(jobApp);
+			res.render("jobs/applyjob", {
+				"job" : docs,
+				"jobApp" : jobApp,
+				success : req.flash('success'),
+				title: "Apply to this job",
 			});
-		}
-		else {
-  			req.flash('signUp', 'signUp');
-      		res.redirect('/account');
-		}
+		});
 	});
 };
 
@@ -134,6 +132,63 @@ exports.viewSavedJobs = function(req, res) {
 				"joblist" : docs,
 				title: "Saved Companies",
 			});
+		});
+	});
+};
+
+exports.postSaveApp = function(req, res, next) {
+	User.findById(req.user.id, function(err, user) {
+		// Save as ObjectID for easier querying when viewing saved jobs
+		user.companiesContacted.push(new ObjectID(req.params.id));
+		user.save();
+	});
+
+	JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function (err, jobApp) {
+		if(jobApp) {
+			jobApp.relevantJobExperience = req.body.relevantJobExperience || '';
+			jobApp.projectApproach = req.body.projectApproach || '';
+
+		} else {
+			var jobApp = new JobApplication({
+				jobID: req.params.id,
+				userID: req.user.id,
+				relevantJobExperience: req.body.relevantJobExperience,
+				projectApproach: req.body.projectApproach
+			});
+		}
+		jobApp.save(function(err) {
+			if(err) return next(err);
+			req.flash('success', 'Application saved.');
+			res.redirect("/job/apply-"+req.params.id);
+		});
+	});
+};
+
+exports.postSubmitApp = function(req, res) {
+	User.findById(req.user.id, function(err, user) {
+		// Save as ObjectID for easier querying when viewing saved jobs
+		user.companiesContacted.push(new ObjectID(req.params.id));
+		user.save();
+	});
+	
+	JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function (err, jobApp) {
+		if(jobApp) {
+			jobApp.relevantJobExperience = req.body.relevantJobExperience || '';
+			jobApp.projectApproach = req.body.projectApproach || '';
+			jobApp.submitted = 'yes';
+		} else {
+			var jobApp = new JobApplication({
+				jobID: req.params.id,
+				userID: req.user.id,
+				relevantJobExperience: req.body.relevantJobExperience,
+				projectApproach: req.body.projectApproach,
+				submitted: 'yes'
+			});
+		}
+		jobApp.save(function(err) {
+			if(err) return next(err);
+			req.flash('success', 'Application submitted.');
+			res.redirect("/job/apply-"+req.params.id);
 		});
 	});
 };

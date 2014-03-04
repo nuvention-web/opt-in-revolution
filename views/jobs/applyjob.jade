@@ -2,22 +2,77 @@ extends ../layout
 
 block content
 	.container
-		.job-listing-wrapper
-			.row.mt.centered
-				.col-lg-12
-					h1 
-						| Apply to this job!
-			table.table.table-striped
-				thead
-					tr
-						th Company
-						th Job Title
-						th Job Description
-						th Date Submitted
-						th Apply
-					tbody
-						tr
-							td #{job.companyName}
-							td #{job.jobName}
-							td #{job.jobDescription}
-							td #{job.dateCreated}
+		if success.length
+			.alert.alert-success.animated.fadeInUp.opt-alert
+				button.close(data-dismiss='alert') ×
+				i.fa.fa-check
+				= success
+		.apply-job-wrapper
+			.job-listing-wrapper
+				.page-header
+					h2
+						| Project Application
+				.row.mt
+					.row.mt.job-card-heading
+						.col-md-12
+							h4
+								| #{job.jobName} - #{job.companyName}
+					.row.mt.job-card-description
+						.col-md-12
+							h4 Details
+							| #{job.jobDescription}
+					.row.mt.job-card-other
+						.col-md-12
+							h4 Details
+					.row.mt.job-card-other
+						.col-md-6
+							b Industry: 
+							| #{job.industry}
+							br
+							b Job Function: 
+							| #{job.jobFunction}
+							br
+							b Skills Needed: 
+							| #{job.skillsNeeded}
+						.col-md-6
+							b Duration: 
+							| #{job.duration}
+							br
+							b Hours per week: 
+							| #{job.hoursPerWeek}
+							br
+							b Pay: 
+							| #{job.pay}
+			if jobApp && jobApp.submitted=='yes'
+				| Relevant Job Experience: #{jobApp.relevantJobExperience}
+				| Project Approach: #{jobApp.projectApproach}
+			else
+				.pagebreak
+				.row.mt.job-card-other
+					.col-md-12
+						form.form-horizontal(method='POST')
+							.row.mt
+								.form-group
+									.row.mt.job-card-other
+										.col-md-12
+											.page-header
+												b Relevant Experience
+									.col-md-10
+										textarea.form-control.apply-job-textarea(type='textarea', name='relevantJobExperience', id='relevantJobExperience')
+											if (jobApp)
+												| #{jobApp.relevantJobExperience}
+							.row.mt
+								.form-group
+									.row.mt.job-card-other
+										.col-md-12
+											.page-header
+												b Project Approach
+									.col-md-10
+										textarea.form-control.apply-job-textarea(type='textarea', name='projectApproach', id='projectApproach')
+											if (jobApp)
+												| #{jobApp.projectApproach}
+
+						button.btn.btn-primary.opt-btn-update(type='submit', formaction='/job/saveApplication-#{job.id}') Save
+						button.btn.btn-primary.opt-btn-update(type='submit', formaction='/job/submitApplication-#{job.id}') Submit
+		br
+		br

@@ -39,8 +39,8 @@ exports.getAccount = function(req, res) {
     title: 'Account Management',
     success: req.flash('success'),
     error: req.flash('error'),
-    errors: req.flash('errors'),
-    signUp: req.flash('signUp')
+    signUp: req.flash('signUp'),
+    companyError: req.flash('companyError'),
   });
 };
 
@@ -140,12 +140,17 @@ exports.postUpdateProfile = function(req, res, next) {
     user.positions = req.body.positions || '';
     user.skills = req.body.skills || '';
     user.interests = req.body.interests || '';
-
-    console.log(user.bio)
-    console.log(user.interests)
+    user.yearsOfExperience = req.body.yearsOfExperience || '';
+    user.desiredHoursPerWeek = req.body.desiredHoursPerWeek || '';
 
     user.company.companyName = req.body.companyName || '';
     user.company.companyDescription = req.body.companyDescription || '';
+    user.desiredHoursPerWeek = req.body.desiredHoursPerWeek || '';
+    user.desiredProjectLength = req.body.desiredProjectLength || '';
+    user.communicationPreferences = req.body.communicationPreferences || '';
+    user.checkinFrequencyPreference = req.body.checkinFrequency || '';
+    user.industryPreference = req.body.industryPreference || '';
+    user.jobFunctionPreference = req.body.jobFunctionPreference || '';
     //Need to add company image
 
     user.save(function(err) {

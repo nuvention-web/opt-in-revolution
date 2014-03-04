@@ -30,9 +30,19 @@ var userSchema = new mongoose.Schema({
   education: { type: Array},
 
   positions: {type: Array},
+  yearsOfExperience: {type: String, default: ''},
+  desiredHoursPerWeek: {type: String, default: ''},
   linkedinURL: {type: String, default: ''},
   dateOfBirth: {type:String},
   //Store company IDs in this array
+
+  //project preference profile fields here
+  desiredHoursPerWeek: {type: Array},
+  desiredProjectLength: {type: Array},
+  communicationPreferences: {type: Array},
+  checkinFrequencyPreference: {type: Array},
+  industryPreference: {type: Array},
+  jobFunctionPreference: {type: Array},
 
   companiesContacted: { type : Array },
 

@@ -91,17 +91,25 @@ exports.listJobs = function(req, res) {
 };
 
 exports.applyJob = function(req, res) {
-	Job.findById(req.params.id, function(e, docs) {
-		JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function(err, jobApp) {
-			console.log("Loading apply job..");
-			console.log(jobApp);
-			res.render("jobs/applyjob", {
-				"job" : docs,
-				"jobApp" : jobApp,
-				success : req.flash('success'),
-				title: "Apply to this job",
+	User.findById(req.user.id, function(err, user) {
+		if(user.profile.name) {
+			Job.findById(req.params.id, function(e, docs) {
+				JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function(err, jobApp) {
+					console.log("Loading apply job..");
+					console.log(jobApp);
+					res.render("jobs/applyjob", {
+						"job" : docs,
+						"jobApp" : jobApp,
+						success : req.flash('success'),
+						title: "Apply to this job",
+					});
+				});
 			});
-		});
+		}
+		else {
+   			req.flash('signUp', 'signUp');
+			res.redirect('/account');
+ 		}
 	});
 };
 

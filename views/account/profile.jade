@@ -18,7 +18,7 @@ block content
 		if signUp.length
 			.alert.alert-info.animated.fadeIn.opt-alert
 				button.close(data-dismiss='alert') x
-				= "Please fill out your name and bio before applying to jobs."
+				= "Please fill out your profile before applying to jobs."
 		.row.mt
 			.profile-wrap
 				.col-md-2.col-md-offset-1
@@ -89,16 +89,16 @@ block content
 																						| , #{e.schoolName}
 																				else
 																					| #{user.education}
-													.row.mt
-														.col-md-12
-															.form-group
-																.row.mt
-																	.col-md-12
-																		label.control-label(for='bio') Bio
-																.row.mt
-																	.col-md-12
-																		textarea.form-control(type='textarea', name='bio', id='bio')
-																			| #{user.bio}
+													//- .row.mt
+													//- 	.col-md-12
+													//- 		.form-group
+													//- 			.row.mt
+													//- 				.col-md-12
+													//- 					label.control-label(for='bio') Bio
+													//- 			.row.mt
+													//- 				.col-md-12
+													//- 					textarea.form-control(type='textarea', name='bio', id='bio')
+													//- 						| #{user.bio}
 													.row.mt
 														.col-md-12
 															.form-group
@@ -138,16 +138,16 @@ block content
 																				| #{user.skills.pop()}
 																				each s in user.skills
 																					| , #{s}
-													.row.mt
-														.col-md-12
-															.form-group
-																.row.mt
-																	.col-md-12
-																		label.control-label(for='interests') Interests
-																.row.mt
-																	.col-md-12
-																		textarea.form-control(type='text', name='interests', id='interests')
-																			| #{user.interests}
+													//- .row.mt
+													//- 	.col-md-12
+													//- 		.form-group
+													//- 			.row.mt
+													//- 				.col-md-12
+													//- 					label.control-label(for='interests') Interests
+													//- 			.row.mt
+													//- 				.col-md-12
+													//- 					textarea.form-control(type='text', name='interests', id='interests')
+													//- 						| #{user.interests}
 													.row.mt
 															.col-md-12
 																.form-group

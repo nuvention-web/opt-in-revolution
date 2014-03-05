@@ -41,7 +41,11 @@ html
               ul.nav.navbar-nav
                 //- each nav in [{link: 'about', name: "About"}, {link: 'employ', name: "Employ"}, {link: 'empower', name: "Empower"}, {link: 'engage', name: "Engage"}]
                 //- each nav in [{link: 'about', name: "How It Works"}, {link: 'employ', name: "Find a Project"}, {link: 'empower', name: "Post a Project"}]
-                each nav in [{link: 'about', name: "How It Works"}, {link: 'employ', name: "Find a Project"}]
+                if !user || user.userType == 'employer'
+                  - var navElems = [{link: 'about', name: "How It Works"}, {link: 'employ', name: "Find a Project"}, {link: 'empower', name: "Post a Project"}]
+                else
+                  -var navElems = [{link: 'about', name: "How It Works"}, {link: 'employ', name: "Find a Project"}]
+                each nav in navElems
                   li 
                     a.opt-nav-text(href='/#{nav.link}') #{nav.name}
               ul.nav.navbar-nav.navbar-right

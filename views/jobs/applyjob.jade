@@ -85,8 +85,8 @@ block content
 										textarea.form-control.apply-job-textarea(type='textarea', name='projectApproach', id='projectApproach')
 											if (jobApp)
 												| #{jobApp.projectApproach}
-
-							button.btn.btn-primary.opt-btn-update(type='submit', formaction='/job/saveApplication-#{job.id}') Save
-							button.btn.btn-primary.opt-btn-update(type='submit', formaction='/job/submitApplication-#{job.id}') Submit
+							.row
+								button.btn.btn-primary.apply-job-btn(type='submit', formaction='/job/saveApplication-#{job.id}') Save
+								button.btn.btn-primary.apply-job-btn(type='submit', formaction='/job/submitApplication-#{job.id}') Submit
 		br
 		br

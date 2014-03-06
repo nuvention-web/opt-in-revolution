@@ -68,6 +68,12 @@ exports.listJobs = function(req, res) {
 	var industry = query.industry;
 	var jobFunction = query.jobfunction;
 
+	// Place Holders for now - need to integrate with the biz posting side
+	// var desiredProjectLength = query.desiredProjectLength
+	// var desiredHoursPerWeek = query.desiredHoursPerWeek
+	// var checkinFrequency = query.checkinFrequency
+	// var communicationPreferences = query.communicationPreferences
+
 	if (typeof(jobFunction)==='undefined' && typeof(industry)==='undefined') {
 		Job.find().
 		sort('-dateCreated').

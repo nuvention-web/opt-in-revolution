@@ -457,7 +457,8 @@
             }
 
             // Support the label attribute on options.
-            var label = this.options.label(element);
+            // var label = this.options.label(element);
+            var label = $(element).val();
             var value = $(element).val();
             var inputType = this.options.multiple ? "checkbox" : "radio";
 
@@ -740,7 +741,7 @@
         dataprovider: function(dataprovider) {
             var optionDOM = "";
             dataprovider.forEach(function (option) {
-                optionDOM += '<option value="' + option.value + '">' + option.label + '</option>';
+                optionDOM += '<option value="' + option.value + '">' + option.value + '</option>';
             });
 
             this.$select.html(optionDOM);

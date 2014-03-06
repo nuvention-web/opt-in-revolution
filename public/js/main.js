@@ -27,9 +27,20 @@ $(document).ready(function() {
  	$('.multiselect').multiselect({
       numberDisplayed: 0,
       includeSelectAllOption: true,
-      buttonWidth: '125px'
-      // nonSelectedText: "All Industries",
-      // buttonTitle: "Hi"
+      buttonWidth: '125px',
+      selectAllValue: 'Select all'
     });
 
+
+    $('.update-button').on('click', function() {
+		$('select option:selected').each(function(){  
+			category = this.label
+			val = this.value
+    		console.log(this.label + " - " + this.value) 
+    	});
+    })
+
 });
+
+
+var jobCategories = ['industry','jobFunction','desiredProjectLength','desiredHoursPerWeek','checkinFrequency','communicationPreferences'];

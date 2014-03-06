@@ -16,12 +16,13 @@ exports.postJob = function (req, res) {
 	//get form value - based on the name attributes
 	var jobName = req.body.jobName;
 	var description = req.body.description;
+	var skillsNeeded = req.body.skillsNeeded;
 	var industry = req.body.industry;
 	var jobFunction = req.body.jobFunction;
-	var duration = req.body.duration;
+	var totalWeeks = req.body.totalWeeks;
 	var hoursPerWeek = req.body.hoursPerWeek;
-	var telephoneOnly = req.body.telephoneOnly;
-	var skillsNeeded = req.body.skillsNeeded;
+	var checkinFrequency = req.body.checkinFrequency;
+	var primaryComm = req.body.primaryComm;
 	var pay = req.body.pay;
 
 	User.findById(req.user.id, function(err, user) {
@@ -30,11 +31,12 @@ exports.postJob = function (req, res) {
 								companyName: user.company.companyName, 
 								jobDescription: description, 
 								industry: industry, 
+								skillsNeeded: skillsNeeded,
 								jobFunction: jobFunction, 
-								duration: duration, 
+								totalWeeks: totalWeeks, 
 								hoursPerWeek: hoursPerWeek, 
-								telephoneOnly: telephoneOnly, 
-								skillsNeeded: skillsNeeded, 
+								checkinFrequency: checkinFrequency, 
+								primaryComm: primaryComm, 
 								pay: pay, 
 								companyID: req.user.id});
 		newJob.save(function(err, doc) {
@@ -69,10 +71,10 @@ exports.listJobs = function(req, res) {
 	var jobFunction = query.jobFunction;
 
 	// Place Holders for now - need to integrate with the biz posting side
-	// var desiredProjectLength = query.desiredProjectLength
+	// var totalWeeks = query.totalWeeks
 	// var desiredHoursPerWeek = query.desiredHoursPerWeek
 	// var checkinFrequency = query.checkinFrequency
-	// var communicationPreferences = query.communicationPreferences
+	// var primaryComm = query.primaryComm
 
 	if (typeof(jobFunction)==='undefined' && typeof(industry)==='undefined') {
 		Job.find().

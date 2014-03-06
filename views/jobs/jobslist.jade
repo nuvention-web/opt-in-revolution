@@ -42,19 +42,19 @@ block content
 					b
 						| Project Length
 					br
-					select#desiredProjectLength.joblist.multiselect(multiple='multiple')
-						- var projectLengths = ['< 1 week', '1-2 weeks', '2-3 weeks', '3-4 weeks', '1-2 months', '2-3 months', '3+ months']
-							each project in projectLengths
-								option(label='desiredProjectLength',value='#{project}') #{project}
+					select#totalWeeks.joblist.multiselect(multiple='multiple')
+						- var totalWeeks = ['< 1 week', '1-2 weeks', '2-3 weeks', '3-4 weeks', '1-2 months', '2-3 months', '3+ months']
+							each project in totalWeeks
+								option(label='totalWeeks',value='#{project}') #{project}
 					br
 					br
 					b
 						| Hours Per week
 					br
-					select#desiredHoursPerWeek.joblist.multiselect(multiple='multiple')
-						- var desiredHoursPerWeek = ['< 10', '10-20', '20-30', '30-40']
-							each hour in desiredHoursPerWeek
-								option(label='desiredHoursPerWeek',value='#{hour}') #{hour}
+					select#hoursPerWeek.joblist.multiselect(multiple='multiple')
+						- var hoursPerWeek = ['< 10', '10-20', '20-30', '30-40']
+							each hour in hoursPerWeek
+								option(label='hoursPerWeek',value='#{hour}') #{hour}
 					br
 					br
 					b
@@ -69,16 +69,14 @@ block content
 					b
 						| Contact Method
 					br
-					select#communicationPreferences.joblist.multiselect(multiple='multiple')
-						- var communicationPreferences = ['Email', 'Phone', 'In-Person']
-							each comm in communicationPreferences
-								option(label='communicationPreferences',value='#{comm}') #{comm}
+					select#primaryComm.joblist.multiselect(multiple='multiple')
+						- var primaryComm = ['Email', 'Phone', 'In-Person']
+							each comm in primaryComm
+								option(label='primaryComm',value='#{comm}') #{comm}
 					br
 					br
 					.btn.btn-success.update-button
 						| Update Filters
-
-
 			.col-md-10
 				.row.mt
 					//- .job-listing-filter-wrapper
@@ -109,7 +107,7 @@ block content
 										| #{job.skillsNeeded}
 									.col-md-6
 										b Duration: 
-										| #{job.duration}
+										| #{job.totalWeeks}
 										br
 										b Hours per week: 
 										| #{job.hoursPerWeek}

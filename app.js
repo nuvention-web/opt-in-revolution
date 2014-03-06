@@ -118,17 +118,17 @@ app.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failureRe
 
 // Job Related
 app.post('/postJob', passportConf.isAuthenticated, jobController.postJob);
-app.get('/postjob', jobController.submitJobPost);
-app.get('/mylistings', jobController.viewCompanyPosts);
+app.get('/postjob', passportConf.isAuthenticated, jobController.submitJobPost);
+app.get('/mylistings', passportConf.isAuthenticated, jobController.viewCompanyPosts);
 // app.get('/jobslist', jobController.listJobs);
 app.get('/job/apply-:id', passportConf.isAuthenticated, jobController.applyJob);
 app.get('/job/save-:id', passportConf.isAuthenticated, jobController.saveJob);
 app.get('/viewsavedjobs', jobController.viewSavedJobs);
 
-app.post('/job/saveApplication-:id', jobController.postSaveApp);
-app.post('/job/submitApplication-:id', jobController.postSubmitApp);
+app.post('/job/saveApplication-:id', passportConf.isAuthenticated, jobController.postSaveApp);
+app.post('/job/submitApplication-:id', passportConf.isAuthenticated, jobController.postSubmitApp);
 
-app.get('/viewcandidates', userController.viewCandidates);
+app.get('/viewcandidates', passportConf.isAuthenticated, userController.viewCandidates);
 
 
 // Pillars

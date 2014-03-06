@@ -26,7 +26,6 @@ var userSchema = new mongoose.Schema({
   bio: { type: String, default: '' },
   skills: { type: Array},
   photo: { type: String, default: '' },
-  interests: { type: String, default: '' },
   education: { type: Array},
 
   positions: {type: Array},

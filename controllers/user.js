@@ -139,7 +139,6 @@ exports.postUpdateProfile = function(req, res, next) {
     user.education = req.body.education || '';
     user.positions = req.body.positions || '';
     user.skills = req.body.skills || '';
-    user.interests = req.body.interests || '';
     user.yearsOfExperience = req.body.yearsOfExperience || '';
     user.desiredHoursPerWeek = req.body.desiredHoursPerWeek || '';
 

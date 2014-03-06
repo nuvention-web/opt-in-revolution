@@ -2,6 +2,10 @@ extends ../layout
 
 block content
 	.container
+		if errors && errors.length
+			.alert.alert-danger.animated.fadeIn.opt-alert
+				for error in errors
+					div= error.msg
 		.row.mt
 			.col-md-10.col-md-offset-1
 				.post-job-wrapper
@@ -45,58 +49,55 @@ block content
 									.form-group
 										label.col-md-4.control-label(for='industry') Industry
 										.col-md-3
-											select#industry.postjob.multiselect(multiple='multiple')
+											select#industry.postjob.multiselect(multiple='multiple',name='industry')
 												- var industries = ['Accounting','Advertising','Broadcasting','Consulting','Consumer Products','Education','Entertainment and Leisure','Financial Services','Food & Beverage','Health Care', 'Nonprofit','Pharmaceuticals','Publishing','Retail', 'Technology']
 													each industry in industries
-														option(label='industry',value='#{industry}') #{industry}
+														option(name='industry',label='industry',value='#{industry}') #{industry}
 							.row.mt.job-card-other
 								.col-md-10.col-md-offset-1
 									.form-group
 										label.col-md-4.control-label(for='jobFunction') Job Function
 										.col-md-8
-											select#jobFunction.postjob.multiselect(multiple='multiple')
-												- var jobFunctions = ['Accounting', 'Business Development', 'Customer Service', 'Finance', 'Human Resources', 'Marketing', 'Operations', 'Other', 'Sales', 'Strategy']
-													each jobFunc in jobFunctions
-														option(label='jobFunctions',value='#{jobFunc}') #{jobFunc}
-														//- a(href='/employ?jobfunction=#{jobFunc}', role='button') #{jobFunc}
+											select#jobFunction.postjob.multiselect(multiple='multiple',name='jobFunction')
+												- var jobFunction = ['Accounting', 'Business Development', 'Customer Service', 'Finance', 'Human Resources', 'Marketing', 'Operations', 'Other', 'Sales', 'Strategy']
+													each jobFunc in jobFunction
+														option(name='jobFunction',label='jobFunction',value='#{jobFunc}') #{jobFunc}
 							.row.mt.job-card-other
 								.col-md-10.col-md-offset-1
 									.form-group
 										label.col-md-4.control-label(for='totalWeeks') Project Length
 										.col-md-3
-											select#totalWeeks.postjob.multiselect(multiple='multiple')
+											select#totalWeeks.postjob.multiselect(multiple='multiple',name='totalWeeks')
 												- var projectLengths = ['< 1 week', '1-2 weeks', '2-3 weeks', '3-4 weeks', '1-2 months', '2-3 months', '3+ months']
 													each project in projectLengths
-														option(label='totalWeeks',value='#{project}') #{project}
+														option(name='totalWeeks',label='totalWeeks',value='#{project}') #{project}
 							.row.mt.job-card-other
 								.col-md-10.col-md-offset-1
 									.form-group
 										label.col-md-4.control-label(for='hoursPerWeek') Hours per week
 										.col-md-3
-											select#hoursPerWeek.postjob.multiselect(multiple='multiple')
+											select#hoursPerWeek.postjob.multiselect(multiple='multiple',name='hoursPerWeek')
 												- var hoursPerWeek = ['< 10', '10-20', '20-30', '30-40']
 													each hour in hoursPerWeek
-														option(label='hoursPerWeek',value='#{hour}') #{hour}
+														option(name='hoursPerWeek',label='hoursPerWeek',value='#{hour}') #{hour}
 							.row.mt.job-card-other
 								.col-md-10.col-md-offset-1
 									.form-group
 										label.col-md-4.control-label(for='checkinFrequency') Check-in Frequency
 										.col-md-3
-											select#checkinFrequency.postjob.multiselect(multiple='multiple')
+											select#checkinFrequency.postjob.multiselect(multiple='multiple',name='checkinFrequency')
 												- var checkinFrequency = ['Daily', 'Twice a week', 'Weekly', 'Monthly']
 													each check in checkinFrequency
-														option(label='checkinFrequency',value='#{check}') #{check}
-											//- input#hoursPerWeek.form-control(type='text', name="hoursPerWeek")
+														option(name='checkinFrequency',label='checkinFrequency',value='#{check}') #{check}
 							.row.mt.job-card-other
 								.col-md-10.col-md-offset-1
 									.form-group
 										label.col-md-4.control-label(for='primaryComm') Primary Communication Method
 										.col-md-3
-											select#primaryComm.postjob.multiselect(multiple='multiple')
+											select#primaryComm.postjob.multiselect(multiple='multiple',name='primaryComm')
 												- var primaryComm = ['Email', 'Phone', 'In-Person']
 													each comm in primaryComm
-														option(label='primaryComm',value='#{comm}') #{comm}
-											//- input#hoursPerWeek.form-control(type='text', name="hoursPerWeek")
+														option(name='primaryComm', label='primaryComm',value='#{comm}') #{comm}
 							.row.mt.job-card-other
 								.col-md-10.col-md-offset-1
 									.form-group

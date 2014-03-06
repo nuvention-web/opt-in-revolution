@@ -12,17 +12,52 @@ var User = require('../models/User');
 var ObjectID = require('mongoose').Types.ObjectId; 
 var url = require('url');
 
+
+function strToArray(input) {
+	if ((typeof input) == 'object') {
+		// Already is an array, just return it as is
+		return input
+	} else {
+		// Create array and return it 
+		inputArray = [input]
+		return inputArray
+	}
+};
+
+
 exports.postJob = function (req, res) {
+
+	// Error checking
+	req.assert('jobName', 'Job Title cannot be blank').notEmpty();
+	req.assert('description', 'Description cannot be blank').notEmpty()
+	req.assert('skillsNeeded', 'Skills Needed cannot be blank').notEmpty()
+	req.assert('industry', 'Industry cannot be blank').notEmpty()
+	req.assert('jobFunction', 'Job Function cannot be blank').notEmpty()
+	req.assert('totalWeeks', 'Total Weeks cannot be blank').notEmpty()
+	req.assert('hoursPerWeek', 'Hours per week cannot be blank').notEmpty()
+	req.assert('checkinFrequency', 'Check-in Frequency cannot be blank').notEmpty()
+	req.assert('primaryComm', 'Contact Method cannot be blank').notEmpty()
+	req.assert('pay', 'Pay cannot be blank').notEmpty()
+
+	var errors = req.validationErrors();
+
+	if (errors) {
+		req.flash('errors', errors);
+		return res.render('jobs/postjob', {title: "Post a job", errors: errors});
+	}
+
 	//get form value - based on the name attributes
 	var jobName = req.body.jobName;
 	var description = req.body.description;
 	var skillsNeeded = req.body.skillsNeeded;
-	var industry = req.body.industry;
-	var jobFunction = req.body.jobFunction;
-	var totalWeeks = req.body.totalWeeks;
-	var hoursPerWeek = req.body.hoursPerWeek;
-	var checkinFrequency = req.body.checkinFrequency;
-	var primaryComm = req.body.primaryComm;
+
+	var industry = strToArray(req.body.industry);
+	var jobFunction = strToArray(req.body.jobFunction);
+	var totalWeeks = strToArray(req.body.totalWeeks);
+	var hoursPerWeek = strToArray(req.body.hoursPerWeek);
+	var checkinFrequency = strToArray(req.body.checkinFrequency);
+	var primaryComm = strToArray(req.body.primaryComm);
+
 	var pay = req.body.pay;
 
 	User.findById(req.user.id, function(err, user) {

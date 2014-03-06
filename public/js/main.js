@@ -43,7 +43,7 @@ $(document).ready(function() {
 		$('select option:selected').each(function(){  
 			category = this.label
 			val = this.value
-    		console.log(this.label + " - " + this.value) 
+    		console.log(category + " - " + val) 
     	});
     })
 

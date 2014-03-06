@@ -1,8 +1,6 @@
 $(document).ready(function() {
 
 	// NavBar 
-
-
 	// About Page
 	// For fading out other tabs
 	$('#employ').stop().hover(function() {
@@ -26,6 +24,12 @@ $(document).ready(function() {
 		$('#empower').stop().fadeTo("fast",0.5)
 	});
 
-
+ 	$('.multiselect').multiselect({
+      numberDisplayed: 0,
+      includeSelectAllOption: true,
+      buttonWidth: '125px'
+      // nonSelectedText: "All Industries",
+      // buttonTitle: "Hi"
+    });
 
 });

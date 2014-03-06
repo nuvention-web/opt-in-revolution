@@ -20,10 +20,12 @@ block content
 					br
 					b
 						| Industry
-					- var industries = ['Accounting','Advertising','Broadcasting','Consulting','Consumer Products','Education','Financial Services','Food & Beverage','Health Care', 'Nonprofit','Pharmaceuticals','Publishing','Retail', 'Technology']
-						each industry in industries
-							br
-							a(href='/employ?industry=#{industry}', role='button') #{industry}
+					br
+					select.industry.multiselect(multiple='multiple')
+						- var industries = ['Accounting','Advertising','Broadcasting','Consulting','Consumer Products','Education','Financial Services','Food & Beverage','Health Care', 'Nonprofit','Pharmaceuticals','Publishing','Retail', 'Technology']
+							each industry in industries
+								option(value='#{industry}') #{industry}
+							//- a(href='/employ?industry=#{industry}', role='button') #{industry}
 					//- br
 					//- a(href='/employ?industry=consumer-products', role='button') Consumer products
 					//- br
@@ -38,10 +40,12 @@ block content
 					br
 					b
 						| Job Function
-					- var jobFunctions = ['Accounting', 'Business Development', 'Cost Reduction', 'Customer Service', 'Finance', 'Human Resources', 'Marketing', 'Operations', 'Other', 'Sales', 'Strategy']
-						each jobFunc in jobFunctions
-							br
-							a(href='/employ?jobfunction=#{jobFunc}', role='button') #{jobFunc}
+					br
+					select.jobFunction.multiselect(multiple='multiple')
+						- var jobFunctions = ['Accounting', 'Business Development', 'Cost Reduction', 'Customer Service', 'Finance', 'Human Resources', 'Marketing', 'Operations', 'Other', 'Sales', 'Strategy']
+							each jobFunc in jobFunctions
+								option(value='#{jobFunc}') #{jobFunc}
+								//- a(href='/employ?jobfunction=#{jobFunc}', role='button') #{jobFunc}
 					//- br
 					//- a(href='/employ?jobfunction=public-relations', role='button') Public relations
 					//- br
@@ -49,10 +53,46 @@ block content
 					//- br
 					//- a(href='/employ?jobfunction=strategy', role='button') Strategy
 					br
+					br
+					b
+						| Project Length
+					br
+					select.projectLength.multiselect(multiple='multiple')
+						- var projectLengths = ['< 1 week', '1 - 2 weeks', '2 - 3 weeks', '3 - 4 weeks', '1 - 2 months', '2 - 3 months', '> 3 months']
+							each project in projectLengths
+								option(value='#{project}') #{project}
+					br
+					br
+					b
+						| Hours Per week
+					br
+					select.hoursPerWeek.multiselect(multiple='multiple')
+						- var hoursPerWeeks = ['< 10', '10 - 20', '20 - 30', '30 - 40']
+							each hour in hoursPerWeeks
+								option(value='#{hour}') #{hour}
+					br
+					br
+					b
+						| Check-in Frequency
+					br
+					select.checkinFrequency.multiselect(multiple='multiple')
+						- var checkinFrequency = ['Daily', 'Twice a week', 'Weekly', 'Monthly']
+							each check in checkinFrequency
+								option(value='#{check}') #{check}
+					br
+					br
+					b
+						| Contact Method
+					br
+					select.communicationPreferences.multiselect(multiple='multiple')
+						- var communicationPreferences = ['Email', 'Phone', 'In-Person']
+							each comm in communicationPreferences
+								option(value='#{comm}') #{comm}
+					br
 
 			.col-md-10
 				.row.mt
-					.job-listing-filter-wrapper
+					//- .job-listing-filter-wrapper
 						b
 							| Viewing all jobs
 				.job-listing-wrapper

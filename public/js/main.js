@@ -24,11 +24,18 @@ $(document).ready(function() {
 		$('#empower').stop().fadeTo("fast",0.5)
 	});
 
- 	$('.multiselect').multiselect({
+ 	$('.joblist.multiselect').multiselect({
       numberDisplayed: 0,
       includeSelectAllOption: true,
       buttonWidth: '125px',
       selectAllValue: 'Select all'
+    });
+
+
+    $('.postjob.multiselect').multiselect({
+      numberDisplayed: 0,
+      buttonWidth: '200px',
+      nonSelectedText: 'Click to select'
     });
 
 

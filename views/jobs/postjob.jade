@@ -43,46 +43,59 @@ block content
 							.row.mt.job-card-other
 								.col-md-10.col-md-offset-1
 									.form-group
-										label.col-md-4.control-label(for='jobFunction') Job Function
-										.col-md-8
-											input#jobFunction.form-control(type='text', name="jobFunction")
-							.row.mt.job-card-other
-								.col-md-10.col-md-offset-1
-									.form-group
 										label.col-md-4.control-label(for='industry') Industry
 										.col-md-3
-											input#industry.form-control(type='text', name="industry")
+											select#industry.postjob.multiselect(multiple='multiple')
+												- var industries = ['Accounting','Advertising','Broadcasting','Consulting','Consumer Products','Education','Entertainment and Leisure','Financial Services','Food & Beverage','Health Care', 'Nonprofit','Pharmaceuticals','Publishing','Retail', 'Technology']
+													each industry in industries
+														option(label='industry',value='#{industry}') #{industry}
 							.row.mt.job-card-other
 								.col-md-10.col-md-offset-1
 									.form-group
-										label.col-md-4.control-label(for='hoursPerWeek') Hours/Week
-										.col-md-3
-											input#hoursPerWeek.form-control(type='text', name="hoursPerWeek")
+										label.col-md-4.control-label(for='jobFunction') Job Function
+										.col-md-8
+											select#jobFunction.postjob.multiselect(multiple='multiple')
+												- var jobFunctions = ['Accounting', 'Business Development', 'Customer Service', 'Finance', 'Human Resources', 'Marketing', 'Operations', 'Other', 'Sales', 'Strategy']
+													each jobFunc in jobFunctions
+														option(label='jobFunctions',value='#{jobFunc}') #{jobFunc}
+														//- a(href='/employ?jobfunction=#{jobFunc}', role='button') #{jobFunc}
 							.row.mt.job-card-other
 								.col-md-10.col-md-offset-1
 									.form-group
-										label.col-md-4.control-label(for='totalWeeks') Total Weeks
+										label.col-md-4.control-label(for='totalWeeks') Project Length
 										.col-md-3
-											input#totalWeeks.form-control(type='text', name="totalWeeks")
+											select#totalWeeks.postjob.multiselect(multiple='multiple')
+												- var projectLengths = ['< 1 week', '1-2 weeks', '2-3 weeks', '3-4 weeks', '1-2 months', '2-3 months', '3+ months']
+													each project in projectLengths
+														option(label='totalWeeks',value='#{project}') #{project}
+							.row.mt.job-card-other
+								.col-md-10.col-md-offset-1
+									.form-group
+										label.col-md-4.control-label(for='hoursPerWeek') Hours per week
+										.col-md-3
+											select#hoursPerWeek.postjob.multiselect(multiple='multiple')
+												- var hoursPerWeek = ['< 10', '10-20', '20-30', '30-40']
+													each hour in hoursPerWeek
+														option(label='hoursPerWeek',value='#{hour}') #{hour}
+							.row.mt.job-card-other
+								.col-md-10.col-md-offset-1
+									.form-group
+										label.col-md-4.control-label(for='checkinFrequency') Check-in Frequency
+										.col-md-3
+											select#checkinFrequency.postjob.multiselect(multiple='multiple')
+												- var checkinFrequency = ['Daily', 'Twice a week', 'Weekly', 'Monthly']
+													each check in checkinFrequency
+														option(label='checkinFrequency',value='#{check}') #{check}
+											//- input#hoursPerWeek.form-control(type='text', name="hoursPerWeek")
 							.row.mt.job-card-other
 								.col-md-10.col-md-offset-1
 									.form-group
 										label.col-md-4.control-label(for='primaryComm') Primary Communication Method
 										.col-md-3
-											select#primaryComm.form-control.opt-select-form
-												option Email
-												option Phone
-												option In-Person
-											//- input#hoursPerWeek.form-control(type='text', name="hoursPerWeek")
-							.row.mt.job-card-other
-								.col-md-10.col-md-offset-1
-									.form-group
-										label.col-md-4.control-label(for='hoursPerWeek') Check-in Frequency
-										.col-md-3
-											select#hoursPerWeek.form-control.opt-select-form
-												option Daily
-												option 3-5 times / week
-												option Weekly
+											select#primaryComm.postjob.multiselect(multiple='multiple')
+												- var primaryComm = ['Email', 'Phone', 'In-Person']
+													each comm in primaryComm
+														option(label='primaryComm',value='#{comm}') #{comm}
 											//- input#hoursPerWeek.form-control(type='text', name="hoursPerWeek")
 							.row.mt.job-card-other
 								.col-md-10.col-md-offset-1
@@ -90,11 +103,6 @@ block content
 										label.col-md-4.control-label(for='pay') Pay
 										.col-md-3
 											input#pay.form-control(type='text', name="pay")
-							//- .row.mt.job-card-other
-							//- 	.form-group
-							//- 		label.col-md-4.control-label(for='telephoneOnly') Telephone Only
-							//- 		.col-md-8
-							//- 			input#telephoneOnly.form-control(type='text', name="telephoneOnly")
 							.row.mt.job-card-buttons.centered
 								.col-md-8.col-md-offset-2
 									button.btn.btn-default.opt-about-btn(type='submit') Submit

@@ -21,43 +21,28 @@ block content
 					b
 						| Industry
 					br
-					select#industry.multiselect(multiple='multiple')
-						- var industries = ['Accounting','Advertising','Broadcasting','Consulting','Consumer Products','Education','Financial Services','Food & Beverage','Health Care', 'Nonprofit','Pharmaceuticals','Publishing','Retail', 'Technology']
+					select#industry.joblist.multiselect(multiple='multiple')
+						- var industries = ['Accounting','Advertising','Broadcasting','Consulting','Consumer Products','Education','Entertainment and Leisure','Financial Services','Food & Beverage','Health Care', 'Nonprofit','Pharmaceuticals','Publishing','Retail', 'Technology']
 							each industry in industries
 								option(label='industry',value='#{industry}') #{industry}
 							//- a(href='/employ?industry=#{industry}', role='button') #{industry}
-					//- br
-					//- a(href='/employ?industry=consumer-products', role='button') Consumer products
-					//- br
-					//- a(href='/employ?industry=apparel', role='button') Apparel
-					//- br
-					//- a(href='/employ?industry=other-retail', role='button') Other retail
-					//- br
-					//- a(href='/employ?industry=food-and-beverage', role='button') Food and beverage
-					//- br
 					//- a(href='/employ?industry=entertainment-and-leisure', role='button') Entertainment and leisure
 					br
 					br
 					b
 						| Job Function
 					br
-					select#jobFunction.multiselect(multiple='multiple')
-						- var jobFunctions = ['Accounting', 'Business Development', 'Cost Reduction', 'Customer Service', 'Finance', 'Human Resources', 'Marketing', 'Operations', 'Other', 'Sales', 'Strategy']
+					select#jobFunction.joblist.multiselect(multiple='multiple')
+						- var jobFunctions = ['Accounting', 'Business Development', 'Customer Service', 'Finance', 'Human Resources', 'Marketing', 'Operations', 'Other', 'Sales', 'Strategy']
 							each jobFunc in jobFunctions
 								option(label='jobFunctions',value='#{jobFunc}') #{jobFunc}
 								//- a(href='/employ?jobfunction=#{jobFunc}', role='button') #{jobFunc}
-					//- br
-					//- a(href='/employ?jobfunction=public-relations', role='button') Public relations
-					//- br
-					//- a(href='/employ?jobfunction=Marketing', role='button') Marketing
-					//- br
-					//- a(href='/employ?jobfunction=strategy', role='button') Strategy
 					br
 					br
 					b
 						| Project Length
 					br
-					select#desiredProjectLength.multiselect(multiple='multiple')
+					select#desiredProjectLength.joblist.multiselect(multiple='multiple')
 						- var projectLengths = ['< 1 week', '1-2 weeks', '2-3 weeks', '3-4 weeks', '1-2 months', '2-3 months', '3+ months']
 							each project in projectLengths
 								option(label='desiredProjectLength',value='#{project}') #{project}
@@ -66,7 +51,7 @@ block content
 					b
 						| Hours Per week
 					br
-					select#desiredHoursPerWeek.multiselect(multiple='multiple')
+					select#desiredHoursPerWeek.joblist.multiselect(multiple='multiple')
 						- var desiredHoursPerWeek = ['< 10', '10-20', '20-30', '30-40']
 							each hour in desiredHoursPerWeek
 								option(label='desiredHoursPerWeek',value='#{hour}') #{hour}
@@ -75,7 +60,7 @@ block content
 					b
 						| Check-in Frequency
 					br
-					select#checkinFrequency.multiselect(multiple='multiple')
+					select#checkinFrequency.joblist.multiselect(multiple='multiple')
 						- var checkinFrequency = ['Daily', 'Twice a week', 'Weekly', 'Monthly']
 							each check in checkinFrequency
 								option(label='checkinFrequency',value='#{check}') #{check}
@@ -84,7 +69,7 @@ block content
 					b
 						| Contact Method
 					br
-					select#communicationPreferences.multiselect(multiple='multiple')
+					select#communicationPreferences.joblist.multiselect(multiple='multiple')
 						- var communicationPreferences = ['Email', 'Phone', 'In-Person']
 							each comm in communicationPreferences
 								option(label='communicationPreferences',value='#{comm}') #{comm}

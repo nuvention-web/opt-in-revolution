@@ -16,11 +16,29 @@ var url = require('url');
 function strToArray(input) {
 	if ((typeof input) == 'object') {
 		// Already is an array, just return it as is
+
+		// Chop off 'Select all' if it is there, not really necessary but is cleaner
+		// if (input[0] == 'Select all') {
+			// input.shift()
+		// }
+		console.log("object case")
+		// console.log(input)
 		return input
-	} else {
+	} 
+	else if ((typeof input) == 'undefined') {
 		// Create array and return it 
-		inputArray = [input]
+		console.log("undefined case")
+		inputArray = ['']
+
+		// console.log(inputArray)
 		return inputArray
+	}
+	else {
+		console.log("string case")
+		inputArray = [input]
+
+		// console.log(inputArray)
+		return inputArray	
 	}
 };
 
@@ -33,7 +51,7 @@ exports.postJob = function (req, res) {
 	req.assert('skillsNeeded', 'Skills Needed cannot be blank').notEmpty()
 	req.assert('industry', 'Industry cannot be blank').notEmpty()
 	req.assert('jobFunction', 'Job Function cannot be blank').notEmpty()
-	req.assert('totalWeeks', 'Total Weeks cannot be blank').notEmpty()
+	req.assert('totalWeeks', 'Project Length cannot be blank').notEmpty()
 	req.assert('hoursPerWeek', 'Hours per week cannot be blank').notEmpty()
 	req.assert('checkinFrequency', 'Check-in Frequency cannot be blank').notEmpty()
 	req.assert('primaryComm', 'Contact Method cannot be blank').notEmpty()
@@ -152,6 +170,32 @@ exports.listJobs = function(req, res) {
 		});
 	}
 };
+
+exports.postFilterJobs = function (req,res) {
+
+	var industry = strToArray(req.body.industry);
+	var jobFunction = strToArray(req.body.jobFunction);
+	var totalWeeks = strToArray(req.body.totalWeeks);
+	var hoursPerWeek = strToArray(req.body.hoursPerWeek);
+	var checkinFrequency = strToArray(req.body.checkinFrequency);
+	var primaryComm = strToArray(req.body.primaryComm);
+
+	Job.find({industry: {$in: industry},
+				jobFunction: {$in: jobFunction},
+				totalWeeks: {$in: totalWeeks},
+				hoursPerWeek: {$in: hoursPerWeek},
+				checkinFrequency: {$in: checkinFrequency},
+				primaryComm: {$in: primaryComm}
+				}).
+		sort('-dateCreated').
+		exec(function(e, docs) {
+			// console.log(docs)
+			res.render("jobs/jobslist", {
+				"joblist" : docs,
+				title: "Job Listing Page",
+			});
+		});
+}
 
 exports.applyJob = function(req, res) {
 	User.findById(req.user.id, function(err, user) {

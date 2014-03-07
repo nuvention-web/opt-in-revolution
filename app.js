@@ -115,7 +115,6 @@ app.get('/auth/google/callback', passport.authenticate('google', { successRedire
 app.get('/auth/linkedin', passport.authenticate('linkedin'));
 app.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failureRedirect: '/', successRedirect: '/account', scope: ['r_basicprofile', 'r_fullprofile', 'r_emailaddress']  }));
 
-
 // Job Related
 app.post('/postJob', passportConf.isAuthenticated, jobController.postJob);
 app.get('/postjob', passportConf.isAuthenticated, jobController.submitJobPost);
@@ -130,9 +129,12 @@ app.post('/job/submitApplication-:id', passportConf.isAuthenticated, jobControll
 
 app.get('/viewcandidates', passportConf.isAuthenticated, userController.viewCandidates);
 
+app.get('/applyfilters', jobController.postJob)
 
 // Pillars
 app.get('/employ', jobController.listJobs);
+app.post('/employ', jobController.postFilterJobs);
+
 app.get('/empower', homeController.empower);
 app.get('/engage', homeController.engage);
 

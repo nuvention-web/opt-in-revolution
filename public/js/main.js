@@ -39,13 +39,13 @@ $(document).ready(function() {
     });
 
 
-    $('.update-button').on('click', function() {
-		$('select option:selected').each(function(){  
-			category = this.label
-			val = this.value
-    		console.log(category + " - " + val) 
-    	});
-    })
+  //   $('.update-button').on('click', function() {
+		// $('select option:selected').each(function(){  
+		// 	category = this.label
+		// 	val = this.value
+  //   		console.log(category + " - " + val) 
+  //   	});
+  //   })
 
 });
 

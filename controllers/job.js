@@ -12,32 +12,35 @@ var User = require('../models/User');
 var ObjectID = require('mongoose').Types.ObjectId; 
 var url = require('url');
 
+var default_industries = ['Accounting','Advertising','Broadcasting','Consulting','Consumer Products','Education','Entertainment and Leisure','Financial Services','Food & Beverage','Health Care', 'Nonprofit','Pharmaceuticals','Publishing','Retail', 'Technology'];
+var default_jobFunction = ['Accounting', 'Business Development', 'Customer Service', 'Finance', 'Human Resources', 'Marketing', 'Operations', 'Other', 'Sales', 'Strategy'];
+var default_totalWeeks = ['< 1 week', '1-2 weeks', '2-3 weeks', '3-4 weeks', '1-2 months', '2-3 months', '3+ months'];
+var default_hoursPerWeek = ['< 10', '10-20', '20-30', '30-40'];
+var default_checkinFrequency = ['Daily', 'Twice a week', 'Weekly', 'Monthly'];
+var default_primaryComm = ['Email', 'Phone', 'In-Person'];
 
 function strToArray(input) {
 	if ((typeof input) == 'object') {
 		// Already is an array, just return it as is
 
 		// Chop off 'Select all' if it is there, not really necessary but is cleaner
-		// if (input[0] == 'Select all') {
-			// input.shift()
-		// }
+		if (input[0] == 'Select all') {
+			input.shift()
+		}
+		
 		console.log("object case")
-		// console.log(input)
 		return input
 	} 
 	else if ((typeof input) == 'undefined') {
 		// Create array and return it 
 		console.log("undefined case")
 		inputArray = ['']
-
-		// console.log(inputArray)
 		return inputArray
 	}
 	else {
 		console.log("string case")
 		inputArray = [input]
 
-		// console.log(inputArray)
 		return inputArray	
 	}
 };
@@ -120,55 +123,24 @@ exports.submitJobPost = function(req, res) {
 exports.listJobs = function(req, res) {
 	var url_parts = url.parse(req.url, true);
 	var query = url_parts.query;
-	var industry = query.industry;
-	var jobFunction = query.jobFunction;
 
-	// Place Holders for now - need to integrate with the biz posting side
-	// var totalWeeks = query.totalWeeks
-	// var desiredHoursPerWeek = query.desiredHoursPerWeek
-	// var checkinFrequency = query.checkinFrequency
-	// var primaryComm = query.primaryComm
+	selectedFilters = {"industry": default_industries,
+						"jobFunction": default_jobFunction,
+						"totalWeeks": default_totalWeeks,
+						"hoursPerWeek": default_hoursPerWeek,
+						"checkinFrequency": default_checkinFrequency,
+						"primaryComm": default_primaryComm}
 
-	if (typeof(jobFunction)==='undefined' && typeof(industry)==='undefined') {
-		Job.find().
+	Job.find().
 		sort('-dateCreated').
 		exec(function(e, docs) {
 			res.render("jobs/jobslist", {
-				"joblist" : docs,
-				title: "Job Listing Page",
-			});
+			"joblist" : docs,
+			"selectedFilters": selectedFilters,
+			title: "Job Listing Page",
 		});
-	}
-	else if (typeof(jobFunction)==='undefined') {
-		Job.find({industry: industry}).
-		sort('-dateCreated').
-		exec(function(e, docs) {
-			res.render("jobs/jobslist", {
-				"joblist" : docs,
-				title: "Job Listing Page",
-			});
-		});
-	}
-	else if (typeof(industry)==='undefined') {
-		Job.find({jobFunction: jobFunction}).
-		sort('-dateCreated').
-		exec(function(e, docs) {
-			res.render("jobs/jobslist", {
-				"joblist" : docs,
-				title: "Job Listing Page",
-			});
-		});
-	}
-	else {
-		Job.find({jobFunction: jobFunction, industry: industry}).
-		sort('-dateCreated').
-		exec(function(e, docs) {
-			res.render("jobs/jobslist", {
-				"joblist" : docs,
-				title: "Job Listing Page",
-			});
-		});
-	}
+	});
+
 };
 
 exports.postFilterJobs = function (req,res) {
@@ -179,6 +151,13 @@ exports.postFilterJobs = function (req,res) {
 	var hoursPerWeek = strToArray(req.body.hoursPerWeek);
 	var checkinFrequency = strToArray(req.body.checkinFrequency);
 	var primaryComm = strToArray(req.body.primaryComm);
+
+	selectedFilters = {"industry": industry,
+						"jobFunction": jobFunction,
+						"totalWeeks": totalWeeks,
+						"hoursPerWeek": hoursPerWeek,
+						"checkinFrequency": checkinFrequency,
+						"primaryComm": primaryComm}
 
 	Job.find({industry: {$in: industry},
 				jobFunction: {$in: jobFunction},
@@ -192,6 +171,7 @@ exports.postFilterJobs = function (req,res) {
 			// console.log(docs)
 			res.render("jobs/jobslist", {
 				"joblist" : docs,
+				"selectedFilters" : selectedFilters,
 				title: "Job Listing Page",
 			});
 		});

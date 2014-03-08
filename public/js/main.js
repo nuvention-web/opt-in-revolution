@@ -38,7 +38,7 @@ $(document).ready(function() {
       nonSelectedText: 'Click to select'
     });
 
-
+    // $('a.multiselect-all')
   //   $('.update-button').on('click', function() {
 		// $('select option:selected').each(function(){  
 		// 	category = this.label

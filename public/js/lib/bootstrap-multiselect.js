@@ -80,22 +80,41 @@
              * @param {jQuery} select
              * @returns {String}
              */
-            buttonText: function(options, select) {
+            buttonText: function(options, select,isSelectAllOption) {
+
+                if(typeof(isSelectAllOption) === 'undefined') isSelectAllOption = false
+
+                if (isSelectAllOption) {
+                    return 'Showing all <b class="caret"></b>';
+                }
+
+                console.log(options.length)
+
                 if (options.length === 0) {
                     return this.nonSelectedText + ' <b class="caret"></b>';
                 }
                 else {
                     if (options.length > this.numberDisplayed) {
+                        console.log("length > numberDisplayed")
                         return options.length + ' ' + this.nSelectedText + ' <b class="caret"></b>';
                     }
                     else {
                         var selected = '';
+                        var count = 0
                         options.each(function() {
                             var label = ($(this).attr('label') !== undefined) ? $(this).attr('label') : $(this).html();
 
                             selected += label + ', ';
                         });
-                        return selected.substr(0, selected.length - 2) + ' <b class="caret"></b>';
+
+
+                        // console.log("selected length: " + selected.length.toString())
+                        // if (options.length == selected.length) {
+                        //     return "Showing all" + ' <b class="caret"></b>';
+                        // }
+                        // else {
+                            return selected.substr(0, selected.length - 2) + ' <b class="caret"></b>';
+                        // }
                     }
                 }
             },
@@ -354,8 +373,8 @@
                 this.$select.change();
                 this.options.onChange($option, checked);
                 
-                this.updateButtonText();
-                this.updateSelectAll();
+                this.updateButtonText(isSelectAllOption);
+                this.updateSelectAll(isSelectAllOption);
 
                 if(this.options.preventInputChangeEvent) {
                     return false;
@@ -680,7 +699,7 @@
                 $option.prop('selected', true);
             }
 
-            this.updateButtonText();
+            this.updateButtonText(true);
         },
 
         /**
@@ -813,11 +832,14 @@
         /**
          * Update the button text and its title base don the currenty selected options.
          */
-        updateButtonText: function() {
+        updateButtonText: function(isSelectAllOption) {
+
+            if(typeof(isSelectAllOption) === 'undefined') isSelectAllOption = false
+
             var options = this.getSelected();
             
             // First update the displayed button text.
-            $('button', this.$container).html(this.options.buttonText(options, this.$select));
+            $('button', this.$container).html(this.options.buttonText(options, this.$select, isSelectAllOption));
             
             // Now update the title attribute of the button.
             $('button', this.$container).attr('title', this.options.buttonTitle(options, this.$select));

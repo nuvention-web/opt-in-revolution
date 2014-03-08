@@ -25,7 +25,7 @@ block content
 						select#industry.joblist.multiselect(multiple='multiple',name='industry')
 							- var industries = ['Accounting','Advertising','Broadcasting','Consulting','Consumer Products','Education','Entertainment and Leisure','Financial Services','Food & Beverage','Health Care', 'Nonprofit','Pharmaceuticals','Publishing','Retail', 'Technology']
 								each industry in industries
-									option(name='industry',label='industry',value='#{industry}') #{industry}
+									option(name='industry',label='industry',value='#{industry}', selected=selectedFilters['industry'].indexOf(industry)!=-1) #{industry}
 						br
 						br
 						b
@@ -34,7 +34,7 @@ block content
 						select#jobFunction.joblist.multiselect(multiple='multiple',name='jobFunction')
 							- var jobFunction = ['Accounting', 'Business Development', 'Customer Service', 'Finance', 'Human Resources', 'Marketing', 'Operations', 'Other', 'Sales', 'Strategy']
 								each jobFunc in jobFunction
-									option(name='jobFunction',label='jobFunction',value='#{jobFunc}') #{jobFunc}
+									option(name='jobFunction',label='jobFunction',value='#{jobFunc}', selected=selectedFilters['jobFunction'].indexOf(jobFunc)!=-1) #{jobFunc}
 						br
 						br
 						b
@@ -43,7 +43,7 @@ block content
 						select#totalWeeks.joblist.multiselect(multiple='multiple',name='totalWeeks')
 							- var totalWeeks = ['< 1 week', '1-2 weeks', '2-3 weeks', '3-4 weeks', '1-2 months', '2-3 months', '3+ months']
 								each project in totalWeeks
-									option(name='totalWeeks',label='totalWeeks',value='#{project}') #{project}
+									option(name='totalWeeks',label='totalWeeks',value='#{project}', selected=selectedFilters['totalWeeks'].indexOf(project)!=-1) #{project}
 						br
 						br
 						b
@@ -52,7 +52,7 @@ block content
 						select#hoursPerWeek.joblist.multiselect(multiple='multiple',name='hoursPerWeek')
 							- var hoursPerWeek = ['< 10', '10-20', '20-30', '30-40']
 								each hour in hoursPerWeek
-									option(name='hoursPerWeek',label='hoursPerWeek',value='#{hour}') #{hour}
+									option(name='hoursPerWeek',label='hoursPerWeek',value='#{hour}', selected=selectedFilters['hoursPerWeek'].indexOf(hour)!=-1) #{hour}
 						br
 						br
 						b
@@ -61,7 +61,7 @@ block content
 						select#checkinFrequency.joblist.multiselect(multiple='multiple',name='checkinFrequency')
 							- var checkinFrequency = ['Daily', 'Twice a week', 'Weekly', 'Monthly']
 								each check in checkinFrequency
-									option(name='checkinFrequency',label='checkinFrequency',value='#{check}') #{check}
+									option(name='checkinFrequency',label='checkinFrequency',value='#{check}', selected=selectedFilters['checkinFrequency'].indexOf(check)!=-1) #{check}
 						br
 						br
 						b
@@ -70,7 +70,7 @@ block content
 						select#primaryComm.joblist.multiselect(multiple='multiple',name='primaryComm')
 							- var primaryComm = ['Email', 'Phone', 'In-Person']
 								each comm in primaryComm
-									option(name='primaryComm', label='primaryComm',value='#{comm}') #{comm}
+									option(name='primaryComm', label='primaryComm',value='#{comm}', selected=selectedFilters['primaryComm'].indexOf(comm)!=-1) #{comm}
 						br
 						br
 						//- button.btn.btn-default.opt-about-btn(type='submit') Submit

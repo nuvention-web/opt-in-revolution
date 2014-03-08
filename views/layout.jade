@@ -45,7 +45,7 @@ html
                 //- each nav in [{link: 'about', name: "About"}, {link: 'employ', name: "Employ"}, {link: 'empower', name: "Empower"}, {link: 'engage', name: "Engage"}]
                 //- each nav in [{link: 'about', name: "How It Works"}, {link: 'employ', name: "Find a Project"}, {link: 'empower', name: "Post a Project"}]
                 if !user || user.userType == 'employer'
-                  - var navElems = [{link: 'about', name: "How It Works"}, {link: 'employ', name: "Find a Project"}, {link: 'empower', name: "Post a Project"}]
+                  - var navElems = [{link: 'about', name: "How It Works"}, {link: 'employ', name: "Find a Project"}, {link: 'postjob', name: "Post a Project"}]
                 else
                   -var navElems = [{link: 'about', name: "How It Works"}, {link: 'employ', name: "Find a Project"}]
                 each nav in navElems
@@ -85,7 +85,7 @@ html
                     ul.dropdown-menu
                       li: a(href='/account') My Account
                       li.divider
-                      li: a(href='/postjob') Post Job
+                      li: a(href='/postjob') Post a Project
                       li: a(href='/mylistings') View My Listings
                       li: a(href='/viewcandidates') Find Candidates
                       li.divider

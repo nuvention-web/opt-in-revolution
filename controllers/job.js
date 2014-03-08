@@ -11,18 +11,71 @@ var JobApplication = require('../models/JobApplication');
 var User = require('../models/User');
 var ObjectID = require('mongoose').Types.ObjectId; 
 var url = require('url');
-var _ = require('underscore');
+var async = require('async');
+
+function strToArray(input) {
+	if ((typeof input) == 'object') {
+		// Already is an array, just return it as is
+
+		// Chop off 'Select all' if it is there, not really necessary but is cleaner
+		// if (input[0] == 'Select all') {
+			// input.shift()
+		// }
+		console.log("object case")
+		// console.log(input)
+		return input
+	} 
+	else if ((typeof input) == 'undefined') {
+		// Create array and return it 
+		console.log("undefined case")
+		inputArray = ['']
+
+		// console.log(inputArray)
+		return inputArray
+	}
+	else {
+		console.log("string case")
+		inputArray = [input]
+
+		// console.log(inputArray)
+		return inputArray	
+	}
+};
+
 
 exports.postJob = function (req, res) {
+
+	// Error checking
+	req.assert('jobName', 'Job Title cannot be blank').notEmpty();
+	req.assert('description', 'Description cannot be blank').notEmpty()
+	req.assert('skillsNeeded', 'Skills Needed cannot be blank').notEmpty()
+	req.assert('industry', 'Industry cannot be blank').notEmpty()
+	req.assert('jobFunction', 'Job Function cannot be blank').notEmpty()
+	req.assert('totalWeeks', 'Project Length cannot be blank').notEmpty()
+	req.assert('hoursPerWeek', 'Hours per week cannot be blank').notEmpty()
+	req.assert('checkinFrequency', 'Check-in Frequency cannot be blank').notEmpty()
+	req.assert('primaryComm', 'Contact Method cannot be blank').notEmpty()
+	req.assert('pay', 'Pay cannot be blank').notEmpty()
+
+	var errors = req.validationErrors();
+
+	if (errors) {
+		req.flash('errors', errors);
+		return res.render('jobs/postjob', {title: "Post a job", errors: errors});
+	}
+
 	//get form value - based on the name attributes
 	var jobName = req.body.jobName;
 	var description = req.body.description;
-	var industry = req.body.industry;
-	var jobFunction = req.body.jobFunction;
-	var duration = req.body.duration;
-	var hoursPerWeek = req.body.hoursPerWeek;
-	var telephoneOnly = req.body.telephoneOnly;
 	var skillsNeeded = req.body.skillsNeeded;
+
+	var industry = strToArray(req.body.industry);
+	var jobFunction = strToArray(req.body.jobFunction);
+	var totalWeeks = strToArray(req.body.totalWeeks);
+	var hoursPerWeek = strToArray(req.body.hoursPerWeek);
+	var checkinFrequency = strToArray(req.body.checkinFrequency);
+	var primaryComm = strToArray(req.body.primaryComm);
+
 	var pay = req.body.pay;
 
 	User.findById(req.user.id, function(err, user) {
@@ -31,11 +84,12 @@ exports.postJob = function (req, res) {
 								companyName: user.company.companyName, 
 								jobDescription: description, 
 								industry: industry, 
+								skillsNeeded: skillsNeeded,
 								jobFunction: jobFunction, 
-								duration: duration, 
+								totalWeeks: totalWeeks, 
 								hoursPerWeek: hoursPerWeek, 
-								telephoneOnly: telephoneOnly, 
-								skillsNeeded: skillsNeeded, 
+								checkinFrequency: checkinFrequency, 
+								primaryComm: primaryComm, 
 								pay: pay, 
 								companyID: req.user.id});
 		newJob.save(function(err, doc) {
@@ -67,9 +121,15 @@ exports.listJobs = function(req, res) {
 	var url_parts = url.parse(req.url, true);
 	var query = url_parts.query;
 	var industry = query.industry;
-	var jobFunction = query.jobfunction;
+	var jobFunction = query.jobFunction;
 
-	if (typeof(jobFunction)==='undefined') {
+	// Place Holders for now - need to integrate with the biz posting side
+	// var totalWeeks = query.totalWeeks
+	// var desiredHoursPerWeek = query.desiredHoursPerWeek
+	// var checkinFrequency = query.checkinFrequency
+	// var primaryComm = query.primaryComm
+
+	if (typeof(jobFunction)==='undefined' && typeof(industry)==='undefined') {
 		Job.find().
 		sort('-dateCreated').
 		exec(function(e, docs) {
@@ -79,8 +139,28 @@ exports.listJobs = function(req, res) {
 			});
 		});
 	}
-	else {
+	else if (typeof(jobFunction)==='undefined') {
+		Job.find({industry: industry}).
+		sort('-dateCreated').
+		exec(function(e, docs) {
+			res.render("jobs/jobslist", {
+				"joblist" : docs,
+				title: "Job Listing Page",
+			});
+		});
+	}
+	else if (typeof(industry)==='undefined') {
 		Job.find({jobFunction: jobFunction}).
+		sort('-dateCreated').
+		exec(function(e, docs) {
+			res.render("jobs/jobslist", {
+				"joblist" : docs,
+				title: "Job Listing Page",
+			});
+		});
+	}
+	else {
+		Job.find({jobFunction: jobFunction, industry: industry}).
 		sort('-dateCreated').
 		exec(function(e, docs) {
 			res.render("jobs/jobslist", {
@@ -91,18 +171,52 @@ exports.listJobs = function(req, res) {
 	}
 };
 
-exports.applyJob = function(req, res) {
-	Job.findById(req.params.id, function(e, docs) {
-		JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function(err, jobApp) {
-			console.log("Loading apply job..");
-			console.log(jobApp);
-			res.render("jobs/applyjob", {
-				"job" : docs,
-				"jobApp" : jobApp,
-				success : req.flash('success'),
-				title: "Apply to this job",
+exports.postFilterJobs = function (req,res) {
+
+	var industry = strToArray(req.body.industry);
+	var jobFunction = strToArray(req.body.jobFunction);
+	var totalWeeks = strToArray(req.body.totalWeeks);
+	var hoursPerWeek = strToArray(req.body.hoursPerWeek);
+	var checkinFrequency = strToArray(req.body.checkinFrequency);
+	var primaryComm = strToArray(req.body.primaryComm);
+
+	Job.find({industry: {$in: industry},
+				jobFunction: {$in: jobFunction},
+				totalWeeks: {$in: totalWeeks},
+				hoursPerWeek: {$in: hoursPerWeek},
+				checkinFrequency: {$in: checkinFrequency},
+				primaryComm: {$in: primaryComm}
+				}).
+		sort('-dateCreated').
+		exec(function(e, docs) {
+			// console.log(docs)
+			res.render("jobs/jobslist", {
+				"joblist" : docs,
+				title: "Job Listing Page",
 			});
 		});
+}
+
+exports.applyJob = function(req, res) {
+	User.findById(req.user.id, function(err, user) {
+		if(user.profile.name) {
+			Job.findById(req.params.id, function(e, docs) {
+				JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function(err, jobApp) {
+					console.log("Loading apply job..");
+					console.log(jobApp);
+					res.render("jobs/applyjob", {
+						"job" : docs,
+						"jobApp" : jobApp,
+						success : req.flash('success'),
+						title: "Apply to this job",
+					});
+				});
+			});
+		}
+		else {
+   			req.flash('signUp', 'signUp');
+			res.redirect('/account');
+ 		}
 	});
 };
 
@@ -117,25 +231,35 @@ exports.saveJob = function(req, res) {
 };
 
 exports.viewCompanyPosts = function(req, res) {
+	jobAppArray = []
 	Job.find({companyID: req.user.id}, function (e, docs) {
-		jobAppDict = {};
+		async.each(docs,
+			function(item, callback) {
+				JobApplication.find({jobID:item._id}, function(er, jobApps) {
+					for (var i=0; i<jobApps.length; i++) {
+						newObj = {}
+						newObj['jobID'] = jobApps[i].jobID;
+						newObj['userID'] = jobApps[i].userID;
+						newObj['relevantJobExperience'] = jobApps[i].relevantJobExperience;
+						newObj['projectApproach'] = jobApps[i].projectApproach;
+						newObj['submitted'] = jobApps[i].submitted;
+						newObj['dateCreated'] = jobApps[i].dateCreated;
+						newObj['id'] = jobApps[i]._id;
 
-		_.map(docs, function(job) {
-			JobApplication.find({jobID: job._id, submitted: 'yes'}, function(er, jobApps) {
-				jobAppDict[job._id] = jobApps;
-				console.log(jobApps);
-				console.log(job._id);
-				console.log(jobAppDict);
-			});
-		});
+						jobAppArray.push(newObj);
+					}
 
-		console.log("Pee");
-		console.log(jobAppDict);
-		res.render("jobs/viewlistings", {
-			"joblist": docs,
-			jobAppDict: jobAppDict,
-			title: "Company Listings",
-		});
+					callback();
+				});
+			},
+			function(err) {
+				res.render("jobs/viewlistings", {
+					"joblist": docs,
+					jobAppArr: jobAppArray,
+					title: "Company Listings",
+				});
+			}
+		);
 	});
 };
 
@@ -165,7 +289,7 @@ exports.postSaveApp = function(req, res, next) {
 
 		} else {
 			var jobApp = new JobApplication({
-				jobID: new ObjectID(req.params.id),
+				jobID: req.params.id,
 				userID: req.user.id,
 				relevantJobExperience: req.body.relevantJobExperience,
 				projectApproach: req.body.projectApproach
@@ -185,7 +309,7 @@ exports.postSubmitApp = function(req, res) {
 		user.companiesContacted.push(new ObjectID(req.params.id));
 		user.save();
 	});
-
+	
 	JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function (err, jobApp) {
 		if(jobApp) {
 			jobApp.relevantJobExperience = req.body.relevantJobExperience || '';
@@ -193,7 +317,7 @@ exports.postSubmitApp = function(req, res) {
 			jobApp.submitted = 'yes';
 		} else {
 			var jobApp = new JobApplication({
-				jobID: new ObjectID(req.params.id),
+				jobID: req.params.id,
 				userID: req.user.id,
 				relevantJobExperience: req.body.relevantJobExperience,
 				projectApproach: req.body.projectApproach,

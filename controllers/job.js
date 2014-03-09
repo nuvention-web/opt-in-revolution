@@ -13,36 +13,6 @@ var ObjectID = require('mongoose').Types.ObjectId;
 var url = require('url');
 var async = require('async');
 
-function strToArray(input) {
-	if ((typeof input) == 'object') {
-		// Already is an array, just return it as is
-
-		// Chop off 'Select all' if it is there, not really necessary but is cleaner
-		// if (input[0] == 'Select all') {
-			// input.shift()
-		// }
-		console.log("object case")
-		// console.log(input)
-		return input
-	} 
-	else if ((typeof input) == 'undefined') {
-		// Create array and return it 
-		console.log("undefined case")
-		inputArray = ['']
-
-		// console.log(inputArray)
-		return inputArray
-	}
-	else {
-		console.log("string case")
-		inputArray = [input]
-
-		// console.log(inputArray)
-		return inputArray	
-	}
-};
-
-
 var default_industries = ['Accounting','Advertising','Broadcasting','Consulting','Consumer Products','Education','Entertainment and Leisure','Financial Services','Food & Beverage','Health Care', 'Nonprofit','Pharmaceuticals','Publishing','Retail', 'Technology'];
 var default_jobFunction = ['Accounting', 'Business Development', 'Customer Service', 'Finance', 'Human Resources', 'Marketing', 'Operations', 'Other', 'Sales', 'Strategy'];
 var default_totalWeeks = ['< 1 week', '1-2 weeks', '2-3 weeks', '3-4 weeks', '1-2 months', '2-3 months', '3+ months'];
@@ -154,7 +124,6 @@ exports.submitJobPost = function(req, res) {
 exports.listJobs = function(req, res) {
 	var url_parts = url.parse(req.url, true);
 	var query = url_parts.query;
-<<<<<<< HEAD
 
 	selectedFilters = {"industry": default_industries,
 						"jobFunction": default_jobFunction,
@@ -164,19 +133,6 @@ exports.listJobs = function(req, res) {
 						"primaryComm": default_primaryComm}
 
 	Job.find().
-=======
-	var industry = query.industry;
-	var jobFunction = query.jobFunction;
-
-	// Place Holders for now - need to integrate with the biz posting side
-	// var totalWeeks = query.totalWeeks
-	// var desiredHoursPerWeek = query.desiredHoursPerWeek
-	// var checkinFrequency = query.checkinFrequency
-	// var primaryComm = query.primaryComm
-
-	if (typeof(jobFunction)==='undefined' && typeof(industry)==='undefined') {
-		Job.find().
->>>>>>> find_applications
 		sort('-dateCreated').
 		exec(function(e, docs) {
 			res.render("jobs/jobslist", {
@@ -184,7 +140,6 @@ exports.listJobs = function(req, res) {
 			"selectedFilters": selectedFilters,
 			title: "Job Listing Page",
 		});
-<<<<<<< HEAD
 	});
 
 };
@@ -212,21 +167,6 @@ exports.postFilterJobs = function (req,res) {
 				checkinFrequency: {$in: checkinFrequency},
 				primaryComm: {$in: primaryComm}
 				}).
-=======
-	}
-	else if (typeof(jobFunction)==='undefined') {
-		Job.find({industry: industry}).
-		sort('-dateCreated').
-		exec(function(e, docs) {
-			res.render("jobs/jobslist", {
-				"joblist" : docs,
-				title: "Job Listing Page",
-			});
-		});
-	}
-	else if (typeof(industry)==='undefined') {
-		Job.find({jobFunction: jobFunction}).
->>>>>>> find_applications
 		sort('-dateCreated').
 		exec(function(e, docs) {
 			// console.log(docs)
@@ -236,8 +176,7 @@ exports.postFilterJobs = function (req,res) {
 				title: "Job Listing Page",
 			});
 		});
-<<<<<<< HEAD
-}
+};
 
 exports.applyJob = function(req, res) {
 	User.findById(req.user.id, function(err, user) {
@@ -254,18 +193,12 @@ exports.applyJob = function(req, res) {
 					});
 				});
 			});
-=======
-	}
-	else {
-		Job.find({jobFunction: jobFunction, industry: industry}).
-		sort('-dateCreated').
-		exec(function(e, docs) {
-			res.render("jobs/jobslist", {
-				"joblist" : docs,
-				title: "Job Listing Page",
-			});
-		});
-	}
+		}
+		else {
+   			req.flash('signUp', 'signUp');
+			res.redirect('/account');
+ 		}
+	});
 };
 
 exports.postFilterJobs = function (req,res) {
@@ -293,30 +226,6 @@ exports.postFilterJobs = function (req,res) {
 			});
 		});
 }
-
-exports.applyJob = function(req, res) {
-	User.findById(req.user.id, function(err, user) {
-		if(user.profile.name) {
-			Job.findById(req.params.id, function(e, docs) {
-				JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function(err, jobApp) {
-					console.log("Loading apply job..");
-					console.log(jobApp);
-					res.render("jobs/applyjob", {
-						"job" : docs,
-						"jobApp" : jobApp,
-						success : req.flash('success'),
-						title: "Apply to this job",
-					});
-				});
-			});
->>>>>>> find_applications
-		}
-		else {
-   			req.flash('signUp', 'signUp');
-			res.redirect('/account');
- 		}
-	});
-};
 
 exports.saveJob = function(req, res) {
 	User.findById(req.user.id, function(err, user) {

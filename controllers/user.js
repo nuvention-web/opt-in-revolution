@@ -166,33 +166,35 @@ exports.postUpdateProfile = function(req, res, next) {
     //Need to add company image
 
     if (user.userType=='mom') {
-      var errors = [];
-      var fileGood = true;
-      var acceptableFileTypes = ['application/pdf'];//, 'text/plain', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+      if(req.files.resume.size>0) {
+        var errors = [];
+        var fileGood = true;
+        var acceptableFileTypes = ['application/pdf'];//, 'text/plain', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
 
-      if(req.files.resume.size > (500 * 1024)) {
-        errors.push({param:"size", msg:"File size must be less than 500 kb.", value: req.files.resume.size});
-        fileGood = false;
-      }
-      if(acceptableFileTypes.indexOf(req.files.resume.type)==-1) {
-        errors.push({param:"type", "msg":"Resume file type must be pdf.", value: req.files.resume.type});
-        fileGood = false;
-      }
-      if (errors.length>0) {
-        req.flash('errors', errors);
-      }
+        if(req.files.resume.size > (500 * 1024)) {
+          errors.push({param:"size", msg:"File size must be less than 500 kb.", value: req.files.resume.size});
+          fileGood = false;
+        }
+        if(acceptableFileTypes.indexOf(req.files.resume.type)==-1) {
+          errors.push({param:"type", "msg":"Resume file type must be pdf.", value: req.files.resume.type});
+          fileGood = false;
+        }
+        if (errors.length>0) {
+          req.flash('errors', errors);
+        }
 
-      if (fileGood) {
-        if (user.resume.path!='')
-          fs.unlink(user.resume.path);
-        user.resume.name = req.files.resume.originalFilename;
-        user.resume.path = req.files.resume.path;  
-      }
-      else {
-        fs.unlink(req.files.resume.path);
+        if (fileGood) {
+          if (user.resume.path!='')
+            fs.unlink(user.resume.path);
+          user.resume.name = req.files.resume.originalFilename;
+          user.resume.path = req.files.resume.path;  
+        }
+        else {
+          fs.unlink(req.files.resume.path);
+        }
       }
     }
-    
+
     user.save(function(err) {
       if (err) return next(err);
       req.flash('success', 'Profile information updated.');

@@ -50,6 +50,10 @@ var userSchema = new mongoose.Schema({
     companyDescription: {type: String},
     companyPhoto: {type:String},
   },
+  resume: {
+    name: {type: String},
+    path: {type: String},
+  },
 });
 
 userSchema.pre('save', function(next) {

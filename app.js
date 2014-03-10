@@ -11,7 +11,6 @@ var mongodb = require('mongodb')
 var mongoose = require('mongoose');
 var passport = require('passport');
 var expressValidator = require('express-validator');
-
 /**
  * Load controllers.
  */
@@ -58,6 +57,7 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use(expressValidator());
 app.use(express.methodOverride());
+app.use(express.bodyParser({uploadDir: './public/resumes'}));
 // app.use(express.cookieSession());
 app.use(express.session({ secret: 'your secret code' }));
 app.use(passport.initialize());
@@ -101,6 +101,7 @@ app.post('/account/profile', passportConf.isAuthenticated, userController.postUp
 app.post('/account/password', passportConf.isAuthenticated, userController.postUpdatePassword);
 // app.post('/account/deactivate', passportConf.isAuthenticated, userController.postDeactivateAccount);
 app.get('/account/unlink/:provider', passportConf.isAuthenticated, userController.getOauthUnlink);
+// app.post('/account/postResume', passportConf.isAuthenticated, userController.postResumeProfile);
 
 // API Related
 app.get('/api', apiController.getApi);

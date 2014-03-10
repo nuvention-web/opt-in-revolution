@@ -6,6 +6,10 @@ block content
 			.alert.alert-danger.animated.fadeIn.opt-alert
 				button.close(data-dismiss='alert') ×
 				= error
+		if errors && errors.length
+			.alert.alert-danger.animated.fadeIn.opt-alert
+				for err in errors
+					div= err.msg
 		if success.length
 			.alert.alert-success.animated.fadeInUp.opt-alert
 				button.close(data-dismiss='alert') ×
@@ -36,7 +40,7 @@ block content
 						#home.tab-pane.active 
 							.col-md-10
 								if user.userType=='mom'
-									form.form-horizontal(action='/account/profile', method='POST')
+									form.form-horizontal(action='/account/profile', method='POST', enctype="multipart/form-data")
 										.page-header
 											.prof-label-header
 												.row.mt
@@ -338,6 +342,16 @@ block content
 																		div
 																			input(type='checkbox', name='communicationPreferences', value='In-Person', checked=user.communicationPreferences.indexOf('In-Person')!=-1)
 																			|  In-Person
+													.row.mt
+														.col-md-12
+															.form-group
+																.row.mt
+																	.col-md-12
+																		label.control-label(for='resume') Resume Upload | #{user.resume.name}
+																.row.mt
+																	.col-md-12
+																		input(type="file", name="resume")
+
 													//- .row.mt
 													//- 	.col-md-12
 													//- 		.form-group
@@ -409,6 +423,19 @@ block content
 														.form-group
 															.col-md-offset-2.col-md-4
 																button.btn.btn.btn-primary.opt-btn-update(type='submit') Update Profile
+
+								//- form.form-horizontal(action='/account/postResume', method='POST', enctype="multipart/form-data")
+								//- 	.row.mt
+								//- 		.col-md-12
+								//- 			.form-group
+								//- 				.row.mt
+								//- 					.col-md-12
+								//- 						label.control-label(for='resume') Resume Upload | #{user.resume.name}
+												//- .row.mt
+												//- 	.col-md-12
+												//- 		input(type="file", name="resume")
+								//- 					button.btn.btn.btn-primary.opt-btn-update(type='submit') Upload Resume
+
 						#settings.tab-pane 
 							.opt-login-wrapper
 								.page-header

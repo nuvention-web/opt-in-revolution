@@ -28,4 +28,9 @@ module.exports = {
     passReqToCallback: true
   },
 
+  dropbox: {
+    key: "8044774gaw64duf",
+    secret: "p3vmfn0i86460w8"
+  },
+
 };

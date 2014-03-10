@@ -22,6 +22,9 @@
     "passport-oauth": "~1.0.0",
     "request": "~2.33.0",
     "sendgrid": "~0.4.6",
-    "underscore": "~1.5.2"
+    "underscore": "~1.5.2",
+    "formidable": "~1.0.14",
+    "dropbox": "~0.10.2",
+    "connect-multiparty": "~1.0.3"
   }
 }

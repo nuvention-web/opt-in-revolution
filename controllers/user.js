@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var _ = require('underscore');
 var User = require('../models/User');
-
+var fs = require('fs');
 /**
  * GET /login
  * Login page.
@@ -39,6 +39,7 @@ exports.getAccount = function(req, res) {
     title: 'Account Management',
     success: req.flash('success'),
     error: req.flash('error'),
+    errors: req.flash('errors'),
     signUp: req.flash('signUp'),
     companyError: req.flash('companyError'),
   });
@@ -94,7 +95,7 @@ exports.postSignup = function(req, res, next) {
   req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
 
   var errors = req.validationErrors();
-
+  console.log(errors);
   if (errors) {
     req.flash('errors', errors);
     return res.redirect('/signup');
@@ -120,6 +121,19 @@ exports.postSignup = function(req, res, next) {
   });
 };
 
+exports.postResumeProfile = function(req, res, next) {
+  User.findById(req.user.id, function(err, user) {
+    if(err) return next(err);
+    user.resume.name = req.files.resume.originalFilename;
+    user.resume.path = req.files.resume.path;
+
+    user.save(function(err) {
+      if (err) return next(err);
+      req.flash('success', 'Resume uploaded.')
+      res.redirect('/account');
+    });
+  });
+};
 
 /**
  * POST /account/profile
@@ -128,9 +142,22 @@ exports.postSignup = function(req, res, next) {
 exports.postUpdateProfile = function(req, res, next) {
   User.findById(req.user.id, function(err, user) {
     if (err) return next(err);
+    var errors = [];
+    var fileGood = true;
+    var acceptableFileTypes = ['application/pdf'];//, 'text/plain', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
 
-    console.log(req.body)
-
+    if(req.files.resume.size > (500 * 1024)) {
+      errors.push({param:"size", msg:"File size must be less than 500 kb.", value: req.files.resume.size});
+      fileGood = false;
+    }
+    if(acceptableFileTypes.indexOf(req.files.resume.type)==-1) {
+      errors.push({param:"type", "msg":"Resume file type must be pdf.", value: req.files.resume.type});
+      fileGood = false;
+    }
+    if (errors.length>0) {
+      req.flash('errors', errors);
+    }
+    // console.log(req.files.resume);
     user.profile.name = req.body.name || '';
     user.profile.email = req.body.email || '';
     user.profile.location = req.body.location || '';
@@ -151,6 +178,14 @@ exports.postUpdateProfile = function(req, res, next) {
     user.industryPreference = req.body.industryPreference || '';
     user.jobFunctionPreference = req.body.jobFunctionPreference || '';
     //Need to add company image
+    if (fileGood) {
+      fs.unlink(user.resume.path);
+      user.resume.name = req.files.resume.originalFilename;
+      user.resume.path = req.files.resume.path;  
+    }
+    else {
+      fs.unlink(req.files.resume.path);
+    }
 
     user.save(function(err) {
       if (err) return next(err);

@@ -195,6 +195,15 @@ exports.postUpdateProfile = function(req, res, next) {
   });
 };
 
+exports.downloadResume = function(req, res) {
+  User.findById(req.params.id, function(err, user) {
+    var filename = user.resume.path;
+    console.log("File name: ");
+    console.log(filename);
+    res.download(filename);
+  });
+};
+
 /**
  * POST /account/password
  * Update current password.

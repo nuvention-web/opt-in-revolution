@@ -102,6 +102,7 @@ app.post('/account/password', passportConf.isAuthenticated, userController.postU
 // app.post('/account/deactivate', passportConf.isAuthenticated, userController.postDeactivateAccount);
 app.get('/account/unlink/:provider', passportConf.isAuthenticated, userController.getOauthUnlink);
 // app.post('/account/postResume', passportConf.isAuthenticated, userController.postResumeProfile);
+app.get('/account/resume-download?id=:id', passportConf.isAuthenticated, userController.downloadResume);
 
 // API Related
 app.get('/api', apiController.getApi);

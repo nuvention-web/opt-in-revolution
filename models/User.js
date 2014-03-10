@@ -51,8 +51,8 @@ var userSchema = new mongoose.Schema({
     companyPhoto: {type:String},
   },
   resume: {
-    name: {type: String},
-    path: {type: String},
+    name: {type: String, default: ''},
+    path: {type: String, default: ''},
   },
 });
 

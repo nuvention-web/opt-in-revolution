@@ -179,7 +179,8 @@ exports.postUpdateProfile = function(req, res, next) {
     user.jobFunctionPreference = req.body.jobFunctionPreference || '';
     //Need to add company image
     if (fileGood) {
-      fs.unlink(user.resume.path);
+      if (user.resume.path!=''):
+        fs.unlink(user.resume.path);
       user.resume.name = req.files.resume.originalFilename;
       user.resume.path = req.files.resume.path;  
     }

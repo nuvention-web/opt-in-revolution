@@ -131,7 +131,8 @@ exports.listJobs = function(req, res) {
 						"hoursPerWeek": default_hoursPerWeek,
 						"checkinFrequency": default_checkinFrequency,
 						"primaryComm": default_primaryComm}
-
+	console.log("listjobs")
+	console.log(selectedFilters)
 	Job.find().
 		sort('-dateCreated').
 		exec(function(e, docs) {
@@ -142,40 +143,6 @@ exports.listJobs = function(req, res) {
 		});
 	});
 
-};
-
-exports.postFilterJobs = function (req,res) {
-
-	var industry = strToArray(req.body.industry);
-	var jobFunction = strToArray(req.body.jobFunction);
-	var totalWeeks = strToArray(req.body.totalWeeks);
-	var hoursPerWeek = strToArray(req.body.hoursPerWeek);
-	var checkinFrequency = strToArray(req.body.checkinFrequency);
-	var primaryComm = strToArray(req.body.primaryComm);
-
-	selectedFilters = {"industry": industry,
-						"jobFunction": jobFunction,
-						"totalWeeks": totalWeeks,
-						"hoursPerWeek": hoursPerWeek,
-						"checkinFrequency": checkinFrequency,
-						"primaryComm": primaryComm}
-
-	Job.find({industry: {$in: industry},
-				jobFunction: {$in: jobFunction},
-				totalWeeks: {$in: totalWeeks},
-				hoursPerWeek: {$in: hoursPerWeek},
-				checkinFrequency: {$in: checkinFrequency},
-				primaryComm: {$in: primaryComm}
-				}).
-		sort('-dateCreated').
-		exec(function(e, docs) {
-			// console.log(docs)
-			res.render("jobs/jobslist", {
-				"joblist" : docs,
-				"selectedFilters" : selectedFilters,
-				title: "Job Listing Page",
-			});
-		});
 };
 
 exports.applyJob = function(req, res) {
@@ -210,6 +177,14 @@ exports.postFilterJobs = function (req,res) {
 	var checkinFrequency = strToArray(req.body.checkinFrequency);
 	var primaryComm = strToArray(req.body.primaryComm);
 
+	selectedFilters = {"industry": industry,
+					"jobFunction": jobFunction,
+					"totalWeeks": totalWeeks,
+					"hoursPerWeek": hoursPerWeek,
+					"checkinFrequency": checkinFrequency,
+					"primaryComm": primaryComm}
+
+
 	Job.find({industry: {$in: industry},
 				jobFunction: {$in: jobFunction},
 				totalWeeks: {$in: totalWeeks},
@@ -221,6 +196,7 @@ exports.postFilterJobs = function (req,res) {
 		exec(function(e, docs) {
 			// console.log(docs)
 			res.render("jobs/jobslist", {
+				"selectedFilters": selectedFilters,
 				"joblist" : docs,
 				title: "Job Listing Page",
 			});

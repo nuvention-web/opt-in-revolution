@@ -142,9 +142,10 @@ block content
 														.row.mt.prof-row
 															.col-md-12
 																b
-																	| Years of Professional Experience: 
-																| #{user.yearsOfExperience}
-												br
+																	| Years of Professional Experience:
+																ul
+																	li 
+																		| #{user.yearsOfExperience}
 												.row.mt
 													.col-md-12
 														.row.mt.prof-row
@@ -154,11 +155,13 @@ block content
 														.row.mt.prof-row
 															.col-md-12
 																ul
-																	- var industries = ['Accounting','Advertising','Broadcasting','Consulting','Consumer Products','Education','Entertainment and Leisure','Financial Services','Food & Beverage','Health Care', 'Nonprofit','Pharmaceuticals','Publishing','Retail', 'Technology']
-																		li
-																			each industry in industries
-																				if user.industryPreference.indexOf(industry)!=-1
-																					| #{industry}, 
+																	li
+																		if user.industryPreference.length > 0
+																			| #{user.industryPreference[0]}
+																			each industry in user.industryPreference.slice(1,user.industryPreference.length)
+																				| , #{industry}
+																		else
+																			| Not filled out
 												.row.mt
 													.col-md-12
 														.row.mt.prof-row
@@ -168,11 +171,13 @@ block content
 														.row.mt.prof-row
 															.col-md-12
 																ul
-																	- var jobFunctions = ['Accounting', 'Business Development', 'Customer Service', 'Finance', 'Human Resources', 'Marketing', 'Operations', 'Other', 'Sales', 'Strategy']
-																		li
-																			each jobFunc in jobFunctions
-																				if user.jobFunctionPreference.indexOf(jobFunc)!=-1
-																					| #{jobFunc}, 
+																	li
+																		if user.jobFunctionPreference.length > 0
+																			| #{user.jobFunctionPreference[0]}
+																			each jobFunc in user.jobFunctionPreference.slice(1,user.jobFunctionPreference.length)
+																				| , #{jobFunc}
+																		else
+																			| Not filled out
 												.row.mt
 													.col-md-12
 														.row.mt.prof-row
@@ -182,11 +187,13 @@ block content
 														.row.mt.prof-row
 															.col-md-12
 																ul
-																	- var projectLengths = ['< 1 week', '1-2 weeks', '2-3 weeks', '3-4 weeks', '1-2 months', '2-3 months', '3+ months']
-																		li
-																			each projLen in projectLengths
-																				if user.desiredProjectLength.indexOf(projLen)!=-1
-																					| #{projLen}, 
+																	li
+																		if user.desiredProjectLength.length > 0
+																			| #{user.desiredProjectLength[0]}
+																			each projLen in user.desiredProjectLength.slice(1,user.desiredProjectLength.length)
+																				| , #{projLen}
+																		else
+																			| Not filled out
 												.row.mt
 													.col-md-12
 														.row.mt.prof-row
@@ -196,11 +203,13 @@ block content
 														.row.mt.prof-row
 															.col-md-12
 																ul
-																	- var hoursPerWeek = ['< 10', '10-20', '20-30', '30-40']
-																		li
-																			each hours in hoursPerWeek
-																				if user.desiredHoursPerWeek.indexOf(hours)!=-1
-																					| #{hours}, 
+																	li
+																		if user.desiredHoursPerWeek.length > 0
+																			| #{user.desiredHoursPerWeek[0]}
+																			each hours in user.desiredHoursPerWeek.slice(1,user.desiredHoursPerWeek.length)
+																				| , #{hours}
+																		else
+																			| Not filled out
 												.row.mt
 													.col-md-12
 														.row.mt.prof-row
@@ -210,11 +219,13 @@ block content
 														.row.mt.prof-row
 															.col-md-12
 																ul
-																	- var checkinFrequency = ['Daily', 'Twice a week', 'Weekly', 'Monthly']
-																		li
-																			each checkin in checkinFrequency
-																				if user.checkinFrequencyPreference.indexOf(checkin)!=-1
-																					| #{checkin}, 
+																	li
+																		if user.checkinFrequencyPreference.length > 0
+																			| #{user.checkinFrequencyPreference[0]}
+																			each checkin in user.checkinFrequencyPreference.slice(1,user.checkinFrequencyPreference.length)
+																				| , #{checkin}
+																		else
+																			| Not filled out
 												.row.mt
 													.col-md-12
 														.row.mt.prof-row
@@ -224,11 +235,13 @@ block content
 														.row.mt.prof-row
 															.col-md-12
 																ul
-																	- var primaryComm = ['Email', 'Phone', 'In-Person']
-																		li
-																			each comm in primaryComm
-																				if user.communicationPreferences.indexOf(comm)!=-1
-																					| #{comm}, 
+																	li
+																		if user.communicationPreferences.length > 0
+																			| #{user.communicationPreferences[0]}
+																			each comm in user.communicationPreferences.slice(1, user.communicationPreferences.length)
+																				| , #{comm}
+																		else
+																			| Not filled out
 												//- .row.mt
 													.col-md-12
 														.row.mt.prof-row

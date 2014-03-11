@@ -161,7 +161,7 @@ exports.postUpdateProfile = function(req, res, next) {
     user.profile.website = req.body.website || '';
     user.bio = req.body.bio || '';
     user.education = req.body.education || '';
-    user.positions = req.body.positions || '';
+    // user.positions = req.body.positions || '';
     user.skills = req.body.skills || '';
     user.yearsOfExperience = req.body.yearsOfExperience || '';
     user.desiredHoursPerWeek = req.body.desiredHoursPerWeek || '';
@@ -175,6 +175,30 @@ exports.postUpdateProfile = function(req, res, next) {
     user.industryPreference = req.body.industryPreference || '';
     user.jobFunctionPreference = req.body.jobFunctionPreference || '';
     //Need to add company image
+
+    formPositions = req.body.positions.replace(/[\r]/g, '').split("\n")
+    // console.log(formPositions)
+
+    user.positions = []
+    if (formPositions.length != 0) {
+      // -1 because the last one is blank -- FIX THIS ANOTHER TIME
+      for(var i=0; i<formPositions.length-1; i++) {
+          userPosition = {}
+          
+          positionArray = formPositions[i].split(",")
+          title = positionArray[0]
+          company = positionArray[1]
+
+          if (title != '') {
+            userPosition['title'] = title
+            userPosition['company'] = company
+            // console.log(userPosition)
+            user.positions.push(userPosition);
+          }
+      }
+    } else {
+      user.positions = ''
+    }
 
     if (user.userType=='mom') {
       if(req.files.resume.size>0) {

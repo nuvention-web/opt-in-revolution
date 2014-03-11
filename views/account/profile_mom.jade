@@ -99,21 +99,10 @@ block content
 																	textarea.form-control.prof-experience(type='text', name='positions', id='positions')
 																		if user.positions[0]
 																			if typeof(user.positions[0])==='object'
-																				- var pos = user.positions.pop();
-																				| #{pos.title}, #{pos.company}#{"\n"}
 																				each p in user.positions
-																					| #{p.title}, #{p.company}#{"\n"}
+																					| #{p.title},#{p.company}#{"\n"}
 																			else
 																				| #{user.positions}
-												.row.mt
-													.col-md-12
-														.form-group
-															.row.mt
-																.col-md-12
-																	label.control-label(for='yearsOfExperience') Years of Professional Experience
-															.row.mt
-																.col-md-12
-																	input.form-control(type='text', name='yearsOfExperience', id='yearsOfExperience', value='#{user.yearsOfExperience}')
 												.row.mt
 													.col-md-12
 														.form-group
@@ -127,6 +116,15 @@ block content
 																			| #{user.skills.pop()}
 																			each s in user.skills
 																				| , #{s}
+												.row.mt
+													.col-md-12
+														.form-group
+															.row.mt
+																.col-md-12
+																	label.control-label(for='yearsOfExperience') Years of Professional Experience
+															.row.mt
+																.col-md-12
+																	input.form-control.years-input(type='text', name='yearsOfExperience', id='yearsOfExperience', value='#{user.yearsOfExperience}')
 												.row.mt
 														.col-md-12
 															.form-group
@@ -243,7 +241,7 @@ block content
 														.form-group
 															.row.mt
 																.col-md-12
-																	label.control-label(for='desiredProjectLength') Desired Project Length (check all that apply)
+																	label.control-label(for='desiredProjectLength') Desired Project Length
 															.row.mt
 																.col-md-12
 																	.row.mt
@@ -275,7 +273,7 @@ block content
 														.form-group
 															.row.mt
 																.col-md-12
-																	label.control-label(for='desiredHoursPerWeek') Desired Hours Per Week (check all that apply)
+																	label.control-label(for='desiredHoursPerWeek') Desired Hours Per Week
 															.row.mt
 																.col-md-12
 																	div
@@ -315,7 +313,7 @@ block content
 														.form-group
 															.row.mt
 																.col-md-12
-																	label.control-label(for='primaryComm') Primary Communication Method (check all that apply)
+																	label.control-label(for='primaryComm') Primary Communication Method
 															.row.mt
 																.col-md-12
 																	div

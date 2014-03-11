@@ -146,20 +146,103 @@ block content
 																| #{user.yearsOfExperience}
 												br
 												.row.mt
-														.col-md-12
-															.form-group
-																.row.mt.prof-row
-																	.col-md-12
-																		b
-																			| Industry
-																.row.mt.prof-row
-																	.col-md-12
-																		ul
-																			- var industries = ['Accounting','Advertising','Broadcasting','Consulting','Consumer Products','Education','Entertainment and Leisure','Financial Services','Food & Beverage','Health Care', 'Nonprofit','Pharmaceuticals','Publishing','Retail', 'Technology']
-																				each industry in industries
-																					//- if user.industryPreference.indexOf(industry)!=-1
-																					li
-																						| industry
+													.col-md-12
+														.row.mt.prof-row
+															.col-md-12
+																b
+																	| Industry
+														.row.mt.prof-row
+															.col-md-12
+																ul
+																	- var industries = ['Accounting','Advertising','Broadcasting','Consulting','Consumer Products','Education','Entertainment and Leisure','Financial Services','Food & Beverage','Health Care', 'Nonprofit','Pharmaceuticals','Publishing','Retail', 'Technology']
+																		li
+																			each industry in industries
+																				if user.industryPreference.indexOf(industry)!=-1
+																					| #{industry}, 
+												.row.mt
+													.col-md-12
+														.row.mt.prof-row
+															.col-md-12
+																b
+																	| Job Function
+														.row.mt.prof-row
+															.col-md-12
+																ul
+																	- var jobFunctions = ['Accounting', 'Business Development', 'Customer Service', 'Finance', 'Human Resources', 'Marketing', 'Operations', 'Other', 'Sales', 'Strategy']
+																		li
+																			each jobFunc in jobFunctions
+																				if user.jobFunctionPreference.indexOf(jobFunc)!=-1
+																					| #{jobFunc}, 
+												.row.mt
+													.col-md-12
+														.row.mt.prof-row
+															.col-md-12
+																b
+																	| Desired Project Length
+														.row.mt.prof-row
+															.col-md-12
+																ul
+																	- var projectLengths = ['< 1 week', '1-2 weeks', '2-3 weeks', '3-4 weeks', '1-2 months', '2-3 months', '3+ months']
+																		li
+																			each projLen in projectLengths
+																				if user.desiredProjectLength.indexOf(projLen)!=-1
+																					| #{projLen}, 
+												.row.mt
+													.col-md-12
+														.row.mt.prof-row
+															.col-md-12
+																b
+																	| Desired Hours Per Week
+														.row.mt.prof-row
+															.col-md-12
+																ul
+																	- var hoursPerWeek = ['< 10', '10-20', '20-30', '30-40']
+																		li
+																			each hours in hoursPerWeek
+																				if user.desiredHoursPerWeek.indexOf(hours)!=-1
+																					| #{hours}, 
+												.row.mt
+													.col-md-12
+														.row.mt.prof-row
+															.col-md-12
+																b
+																	| Check-in Frequency
+														.row.mt.prof-row
+															.col-md-12
+																ul
+																	- var checkinFrequency = ['Daily', 'Twice a week', 'Weekly', 'Monthly']
+																		li
+																			each checkin in checkinFrequency
+																				if user.checkinFrequencyPreference.indexOf(checkin)!=-1
+																					| #{checkin}, 
+												.row.mt
+													.col-md-12
+														.row.mt.prof-row
+															.col-md-12
+																b
+																	| Primary Communication Method
+														.row.mt.prof-row
+															.col-md-12
+																ul
+																	- var primaryComm = ['Email', 'Phone', 'In-Person']
+																		li
+																			each comm in primaryComm
+																				if user.communicationPreferences.indexOf(comm)!=-1
+																					| #{comm}, 
+												//- .row.mt
+													.col-md-12
+														.row.mt.prof-row
+															.col-md-12
+																b
+																	| Resume
+														.row.mt.prof-row
+															.col-md-12
+																a(href="/account/resume-download-id=#{user._id}") #{user.resume.name} fsf
+												br
+												br
+												br
+												br
+												br
 						#edit.tab-pane
 							.col-md-10
 								form.form-horizontal(action='/account/profile', method='POST', enctype="multipart/form-data")

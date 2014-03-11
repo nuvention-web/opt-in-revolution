@@ -37,13 +37,13 @@ exports.getSignup = function(req, res) {
 exports.getAccount = function(req, res) {
   if (req.user.userType == 'mom') {
 
-    console.log("user")
-    console.log(req.user)
-    console.log("getAccount")
-    console.log(req.user.education)
+    // console.log("user")
+    // console.log(req.user)
+    // console.log("getAccount")
+    // console.log(req.user.education)
 
-    console.log("getAccount [0]")
-    console.log(req.user.education[0])
+    // console.log("getAccount [0]")
+    // console.log(req.user.education[0])
 
 
     res.render('account/profile_mom', {
@@ -202,8 +202,8 @@ exports.postUpdateProfile = function(req, res, next) {
           userSchool['schoolName'] = schoolName
           userSchool['degree'] = degree
 
-          console.log("userSchool")
-          console.log(userSchool)
+          // console.log("userSchool")
+          // console.log(userSchool)
           user.education.push(userSchool);
       }
     } else {
@@ -235,19 +235,24 @@ exports.postUpdateProfile = function(req, res, next) {
       user.positions = ''
     }
 
+    console.log(req.body.skills)
     formSkills = req.body.skills.replace(/[\r\n]/g, '').split(",")
+    console.log(formSkills)
 
     user.skills = []
     if (formSkills.length != 0) {
-      // -1 because the last one is blank -- FIX THIS ANOTHER TIME
-      for(var i=0; i<formSkills.length-1; i++) {
+      count = 1
+      for(var i=0; i<formSkills.length; i++) {
           userSkill = {}
           
           skill = formSkills[i]
 
           if (skill != '') {
-            // console.log(userPosition)
+            
             userSkill['skill'] = skill
+            console.log(count)
+            console.log(userSkill)
+            count += 1 
             user.skills.push(userSkill);
           }
       }

@@ -89,13 +89,11 @@ block content
 																ul
 																	if user.education[0]
 																		if typeof(user.education[0])==='object'
-																			- var edu = user.education.pop();
-																			li
-																				| #{edu.schoolName} - #{edu.degree}
-																			//- each e in user.education
-																				| , #{e.schoolName}
+																			each e in user.education
+																				li
+																					| #{e.schoolName} - #{e.degree}
 																		else
-																			li 
+																			li
 																				| #{user.education}
 																	else
 																		li
@@ -117,6 +115,9 @@ block content
 																		else
 																			li
 																				| #{user.positions}
+																	else
+																			li 
+																				| Not filled out
 												.row.mt
 													.col-md-12
 														.row.mt.prof-row
@@ -127,10 +128,15 @@ block content
 															.col-md-12
 																ul
 																	li
-																		if user.skills[0]																		
-																			| #{user.skills.pop().skill}
-																			each s in user.skills
-																					| , #{s.skill}
+																		if user.skills[0]							
+																			- var length = user.skills.length - 1
+																				each s,i in user.skills
+																					| #{s.skill}
+																					if i != (length)
+																						| ,
+																		else
+																			li 
+																				| Not filled out
 												.row.mt
 													.col-md-12
 														.row.mt.prof-row
@@ -201,25 +207,16 @@ block content
 															.row.mt
 																.col-md-12
 																	textarea.form-control(type='text', name='education', id='education')
-																		ul
-																			if user.education[0]
-																				if typeof(user.education[0])==='object'
-																					each e in user.education
-																						li
-																							| #{e.schoolName} - #{e.degree}
-																				else
-																					li 
-																						| #{user.education}
+																		if user.education[0]
+																			if typeof(user.education[0])==='object'
+																				each e in user.education
+																					| #{e.schoolName} - #{e.degree}
 																			else
-																				li
-																					| Not filled out
-																		//- | #{user.education}
-																		//- if user.education[0]
-																		//- 	if typeof(user.education[0])==='object'
-																		//- 		each e in user.education
-																		//- 			| #{edu.schoolName} - #{edu.degree}
-																		//- 	else
-																		//- 		| #{user.education}
+																				li 
+																					| #{user.education}
+																		else
+																			li
+																				| Not filled out
 												.row.mt
 													.col-md-12
 														.form-group
@@ -245,9 +242,11 @@ block content
 																.col-md-12
 																	textarea.form-control(type='text', name='skills', id='skills')
 																		if user.skills[0]
-																			| #{user.skills.pop().skill}
-																			each s in user.skills
-																				| , #{s.skill}
+																			- var length = user.skills.length - 1
+																				each s,i in user.skills
+																					| #{s.skill}
+																					if i != (length)
+																						| ,
 												.row.mt
 													.col-md-12
 														.form-group

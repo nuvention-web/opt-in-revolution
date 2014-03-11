@@ -36,6 +36,16 @@ exports.getSignup = function(req, res) {
 
 exports.getAccount = function(req, res) {
   if (req.user.userType == 'mom') {
+
+    console.log("user")
+    console.log(req.user)
+    console.log("getAccount")
+    console.log(req.user.education)
+
+    console.log("getAccount [0]")
+    console.log(req.user.education[0])
+
+
     res.render('account/profile_mom', {
       title: 'Account Management',
       success: req.flash('success'),
@@ -161,6 +171,10 @@ exports.postUpdateProfile = function(req, res, next) {
     user.profile.website = req.body.website || '';
     user.bio = req.body.bio || '';
     user.education = req.body.education || '';
+
+    console.log("postUpdateProfile")
+    console.log(user.education)
+
     // user.positions = req.body.positions || '';
     user.skills = req.body.skills || '';
     user.yearsOfExperience = req.body.yearsOfExperience || '';

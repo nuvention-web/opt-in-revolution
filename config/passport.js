@@ -126,6 +126,8 @@ passport.use(new LinkedInStrategy(secrets.linkedin, function(req, token, tokenSe
         userEducation['endDate'] = profile._json.educations.values[i].endDate;
         userEducation['degree'] = profile._json.educations.values[i].degree;
         user.education.push(userEducation);
+        console.log("passport.js")
+        console.log(userEducation)
       }
 
       // Clear old positions

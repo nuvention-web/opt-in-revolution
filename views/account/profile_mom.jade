@@ -26,6 +26,8 @@ block content
 						li.active
 							a(href='#home', data-toggle='tab') Profile
 						li
+							a(href='#edit', data-toggle='tab') Edit	
+						li
 							a(href='#settings', data-toggle='tab') Account Settings
 						//- li
 							a(href='#messages', data-toggle='tab') Messages
@@ -33,7 +35,123 @@ block content
 							a(href='#settings', data-toggle='tab') Settings
 				.col-md-9
 					.tab-content
-						#home.tab-pane.active 
+						#home.tab-pane.active
+							.col-md-10
+								.page-header
+									.prof-label-header
+										.row.mt
+											.col-md-7
+												.fg-h2-special
+													h2 Profile
+											.col-md-5
+												.row.mt
+													.col-md-6
+														.edit
+															a.btn.btn-primary.opt-btn-prof.edit(href='#edit', data-toggle='tab') Edit Profile
+													.col-md-6
+														a.btn.btn-primary.opt-btn-prof(href="/auth/linkedin") Sync with Linkedin
+								.row.mt
+										.col-md-12
+											.row.mt.prof-column
+												.col-md-3
+													if user.profile.picture
+														img.prof-pic.pagination-centered(src='#{user.profile.picture}', height='130px')
+													else
+														img.prof-pic.pagination-centered(src='/images/linkedin-default.jpg', height='130px')
+												.col-md-9
+													.row.mt
+														.col-md-2
+															b
+																| Name:
+														.col-md-10
+															| #{user.profile.name}
+													.row.mt
+														.col-md-2
+															b
+																| Email
+														.col-md-10
+															| #{user.email}
+													.row.mt
+														.col-md-2
+															b
+																| Location
+														.col-md-10
+															| #{user.profile.location}
+											.prof-bottom-wrapper
+												.row.mt
+													.col-md-12
+														.row.mt
+															.col-md-12
+																b
+																	| Education
+														.row.mt
+															.col-md-12
+																ul
+																	if user.education[0]
+																		if typeof(user.education[0])==='object'
+																			- var edu = user.education.pop();
+																			li
+																				| #{edu.schoolName} - #{edu.degree}
+																			//- each e in user.education
+																				| , #{e.schoolName}
+																	else
+																		li
+																			| Not filled out
+												.row.mt
+													.col-md-12
+														.row.mt
+															.col-md-12
+																b 
+																	| Professional Experience
+														.row.mt
+															.col-md-12
+																ul
+																	if user.positions[0]
+																		if typeof(user.positions[0])==='object'
+																			each p in user.positions
+																				li
+																					| #{p.title}, #{p.company}
+																		else
+																			li
+																				| #{user.positions}
+												.row.mt
+													.col-md-12
+														.row.mt
+															.col-md-12
+																b
+																	| Skills
+														.row.mt
+															.col-md-12
+																ul
+																	li
+																		if user.skills[0]																		
+																			| #{user.skills.pop()}
+																			each s in user.skills
+																					| , #{s}
+												.row.mt
+													.col-md-12
+														.row.mt
+															.col-md-12
+																b
+																	| Years of Professional Experience: 
+																| #{user.yearsOfExperience}
+												br
+												.row.mt
+														.col-md-12
+															.form-group
+																.row.mt
+																	.col-md-12
+																		b
+																			| Industry
+																.row.mt
+																	.col-md-12
+																		ul
+																			- var industries = ['Accounting','Advertising','Broadcasting','Consulting','Consumer Products','Education','Entertainment and Leisure','Financial Services','Food & Beverage','Health Care', 'Nonprofit','Pharmaceuticals','Publishing','Retail', 'Technology']
+																				each industry in industries
+																					//- if user.industryPreference.indexOf(industry)!=-1
+																					li
+																						| industry
+						#edit.tab-pane
 							.col-md-10
 								form.form-horizontal(action='/account/profile', method='POST', enctype="multipart/form-data")
 									.page-header
@@ -46,9 +164,9 @@ block content
 													.form-group.fg-special
 														.row.mt
 															.col-md-6
-																button.btn.btn.btn-primary.opt-btn-prof(type='submit') Update Profile
+																button.btn.btn-primary.opt-btn-prof(type='submit') Update Profile
 															.col-md-6
-																a.btn.btn.btn-primary.opt-btn-prof(href="/auth/linkedin") Sync with Linkedin
+																a.btn.btn-primary.opt-btn-prof(href="/auth/linkedin") Sync with Linkedin
 									.row.mt
 										.col-md-12
 											.row.mt.prof-column
@@ -82,12 +200,12 @@ block content
 																	textarea.form-control(type='text', name='education', id='education')
 																		if user.education[0]
 																			if typeof(user.education[0])==='object'
-																				- var edu = user.education.pop();
-																				| #{edu.schoolName} - #{edu.degree}
-																				each e in user.education
-																					| , #{e.schoolName}
-																			else
-																				| #{user.education}
+																				- var edu = user.education.pop()
+																					| #{edu.schoolName} - #{edu.degree}
+																					each e in user.education
+																						| , #{e.schoolName}
+																		else
+																			| #{user.education}
 												.row.mt
 													.col-md-12
 														.form-group
@@ -203,9 +321,6 @@ block content
 																			div
 																				input(type='checkbox', name='jobFunctionPreference', value='Business Development', checked=user.jobFunctionPreference.indexOf('Business Development')!=-1)
 																				|  Business Development
-																			//- div
-																			//- 	input(type='checkbox', name='jobFunctionPreference', value='Cost Reduction', checked=user.jobFunctionPreference.indexOf('Cost Reduction')!=-1)
-																			//- 	|  Cost Reduction
 																			div
 																				input(type='checkbox', name='jobFunctionPreference', value='Customer Service', checked=user.jobFunctionPreference.indexOf('Customer Service')!=-1)
 																				|  Customer Service

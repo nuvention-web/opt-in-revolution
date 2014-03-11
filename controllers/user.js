@@ -35,14 +35,25 @@ exports.getSignup = function(req, res) {
  */
 
 exports.getAccount = function(req, res) {
-  res.render('account/profile', {
-    title: 'Account Management',
-    success: req.flash('success'),
-    error: req.flash('error'),
-    errors: req.flash('errors'),
-    signUp: req.flash('signUp'),
-    companyError: req.flash('companyError'),
-  });
+  if (req.user.userType == 'mom') {
+    res.render('account/profile_mom', {
+      title: 'Account Management',
+      success: req.flash('success'),
+      error: req.flash('error'),
+      errors: req.flash('errors'),
+      signUp: req.flash('signUp'),
+    });
+  }
+  else {
+    res.render('account/profile_employer', {
+      title: 'Account Management',
+      success: req.flash('success'),
+      error: req.flash('error'),
+      errors: req.flash('errors'),
+      signUp: req.flash('signUp'),
+      companyError: req.flash('companyError'),
+    });
+  }
 };
 
 /**

@@ -9,101 +9,102 @@ block content
 		.row.mt
 			.col-md-10.col-md-offset-1
 				.post-job-wrapper
-					.job-card
-						form.form-horizontal(name="JobPost", role="form", method="post",action="postJob")
-							.row.mt.job-card-other.centered
-								.col-md-12
+					form.form-horizontal(name="JobPost", role="form", method="post",action="postJob")
+						.row.mt.job-card-other.centered
+							.col-md-12
+								legend
 									h2.centered Post a Project
-							.row.mt.job-card-other
-								.col-md-10.col-md-offset-1
-									.form-group
-										label.col-md-4.control-label(for='companyName') Company Name
-										.col-md-8
-											input#companyName.form-control(type='text', name='companyName', value='#{user.company.companyName}') 
-							.row.mt.job-card-other
-								.col-md-10.col-md-offset-1
-									.form-group
-										label.col-md-4.control-label(for='website') Company Website
-										.col-md-8
-											input#website.form-control(type='text', name='website') 
-							.row.mt.job-card-other
-								.col-md-10.col-md-offset-1
-									.form-group
-										label.col-md-4.control-label(for='jobName') Project Title
-										.col-md-8
-											input#jobName.form-control(type='text', name='jobName')
-							.row.mt.job-card-other
-								.col-md-10.col-md-offset-1
-									.form-group
-										label.col-md-4.control-label(for='description') Project Description
-										.col-md-8
-											textarea#description.form-control(type='text', name="description")
-							.row.mt.job-card-other
-								.col-md-10.col-md-offset-1
-									.form-group
-										label.col-md-4.control-label(for='skillsNeeded') Skills Needed
-										.col-md-8
-											textarea#skillsNeeded.form-control(type='text', name="skillsNeeded")
-							.row.mt.job-card-other
-								.col-md-10.col-md-offset-1
-									.form-group
-										label.col-md-4.control-label(for='industry') Industry
-										.col-md-3
-											select#industry.postjob.multiselect(multiple='multiple',name='industry')
-												- var industries = ['Accounting','Advertising','Broadcasting','Consulting','Consumer Products','Education','Entertainment and Leisure','Financial Services','Food & Beverage','Health Care', 'Nonprofit','Pharmaceuticals','Publishing','Retail', 'Technology']
-													each industry in industries
-														option(name='industry',label='industry',value='#{industry}') #{industry}
-							.row.mt.job-card-other
-								.col-md-10.col-md-offset-1
-									.form-group
-										label.col-md-4.control-label(for='jobFunction') Job Function
-										.col-md-8
-											select#jobFunction.postjob.multiselect(multiple='multiple',name='jobFunction')
-												- var jobFunction = ['Accounting', 'Business Development', 'Customer Service', 'Finance', 'Human Resources', 'Marketing', 'Operations', 'Other', 'Sales', 'Strategy']
-													each jobFunc in jobFunction
-														option(name='jobFunction',label='jobFunction',value='#{jobFunc}') #{jobFunc}
-							.row.mt.job-card-other
-								.col-md-10.col-md-offset-1
-									.form-group
-										label.col-md-4.control-label(for='totalWeeks') Project Length
-										.col-md-3
-											select#totalWeeks.postjob.multiselect(multiple='multiple',name='totalWeeks')
-												- var projectLengths = ['< 1 week', '1-2 weeks', '2-3 weeks', '3-4 weeks', '1-2 months', '2-3 months', '3+ months']
-													each project in projectLengths
-														option(name='totalWeeks',label='totalWeeks',value='#{project}') #{project}
-							.row.mt.job-card-other
-								.col-md-10.col-md-offset-1
-									.form-group
-										label.col-md-4.control-label(for='hoursPerWeek') Hours per week
-										.col-md-3
-											select#hoursPerWeek.postjob.multiselect(multiple='multiple',name='hoursPerWeek')
-												- var hoursPerWeek = ['< 10', '10-20', '20-30', '30-40']
-													each hour in hoursPerWeek
-														option(name='hoursPerWeek',label='hoursPerWeek',value='#{hour}') #{hour}
-							.row.mt.job-card-other
-								.col-md-10.col-md-offset-1
-									.form-group
-										label.col-md-4.control-label(for='checkinFrequency') Check-in Frequency
-										.col-md-3
-											select#checkinFrequency.postjob.multiselect(multiple='multiple',name='checkinFrequency')
-												- var checkinFrequency = ['Daily', 'Twice a week', 'Weekly', 'Monthly']
-													each check in checkinFrequency
-														option(name='checkinFrequency',label='checkinFrequency',value='#{check}') #{check}
-							.row.mt.job-card-other
-								.col-md-10.col-md-offset-1
-									.form-group
-										label.col-md-4.control-label(for='primaryComm') Primary Communication Method
-										.col-md-3
-											select#primaryComm.postjob.multiselect(multiple='multiple',name='primaryComm')
-												- var primaryComm = ['Email', 'Phone', 'In-Person']
-													each comm in primaryComm
-														option(name='primaryComm', label='primaryComm',value='#{comm}') #{comm}
-							.row.mt.job-card-other
-								.col-md-10.col-md-offset-1
-									.form-group
-										label.col-md-4.control-label(for='pay') Pay
-										.col-md-3
-											input#pay.form-control(type='text', name="pay")
-							.row.mt.job-card-buttons.centered
-								.col-md-8.col-md-offset-2
-									button.btn.btn-default.opt-about-btn(type='submit') Submit
+						.row.mt.job-card-other
+							.col-md-10.col-md-offset-1
+								.form-group
+									label.col-md-4.control-label(for='companyName') Company Name
+									.col-md-8
+										input#companyName.form-control(type='text', name='companyName', value='#{user.company.companyName}') 
+						.row.mt.job-card-other
+							.col-md-10.col-md-offset-1
+								.form-group
+									label.col-md-4.control-label(for='website') Company Website
+									.col-md-8
+										input#website.form-control(type='text', name='website') 
+						.row.mt.job-card-other
+							.col-md-10.col-md-offset-1
+								.form-group
+									label.col-md-4.control-label(for='jobName') Project Title
+									.col-md-8
+										input#jobName.form-control(type='text', name='jobName')
+						.row.mt.job-card-other
+							.col-md-10.col-md-offset-1
+								.form-group
+									label.col-md-4.control-label(for='description') Project Description
+									.col-md-8
+										textarea#description.form-control(type='text', name="description")
+						.row.mt.job-card-other
+							.col-md-10.col-md-offset-1
+								.form-group
+									label.col-md-4.control-label(for='skillsNeeded') Skills Needed
+									.col-md-8
+										textarea#skillsNeeded.form-control(type='text', name="skillsNeeded")
+						.row.mt.job-card-other
+							.col-md-10.col-md-offset-1
+								.form-group
+									label.col-md-4.control-label(for='industry') Industry
+									.col-md-3
+										select#industry.postjob.multiselect(multiple='multiple',name='industry')
+											- var industries = ['Accounting','Advertising','Broadcasting','Consulting','Consumer Products','Education','Entertainment and Leisure','Financial Services','Food & Beverage','Health Care', 'Nonprofit','Pharmaceuticals','Publishing','Retail', 'Technology']
+												each industry in industries
+													option(name='industry',label='industry',value='#{industry}') #{industry}
+						.row.mt.job-card-other
+							.col-md-10.col-md-offset-1
+								.form-group
+									label.col-md-4.control-label(for='jobFunction') Job Function
+									.col-md-8
+										select#jobFunction.postjob.multiselect(multiple='multiple',name='jobFunction')
+											- var jobFunction = ['Accounting', 'Business Development', 'Customer Service', 'Finance', 'Human Resources', 'Marketing', 'Operations', 'Other', 'Sales', 'Strategy']
+												each jobFunc in jobFunction
+													option(name='jobFunction',label='jobFunction',value='#{jobFunc}') #{jobFunc}
+						.row.mt.job-card-other
+							.col-md-10.col-md-offset-1
+								.form-group
+									label.col-md-4.control-label(for='totalWeeks') Project Length
+									.col-md-3
+										select#totalWeeks.postjob.multiselect(multiple='multiple',name='totalWeeks')
+											- var projectLengths = ['< 1 week', '1-2 weeks', '2-3 weeks', '3-4 weeks', '1-2 months', '2-3 months', '3+ months']
+												each project in projectLengths
+													option(name='totalWeeks',label='totalWeeks',value='#{project}') #{project}
+						.row.mt.job-card-other
+							.col-md-10.col-md-offset-1
+								.form-group
+									label.col-md-4.control-label(for='hoursPerWeek') Hours per week
+									.col-md-3
+										select#hoursPerWeek.postjob.multiselect(multiple='multiple',name='hoursPerWeek')
+											- var hoursPerWeek = ['< 10', '10-20', '20-30', '30-40']
+												each hour in hoursPerWeek
+													option(name='hoursPerWeek',label='hoursPerWeek',value='#{hour}') #{hour}
+						.row.mt.job-card-other
+							.col-md-10.col-md-offset-1
+								.form-group
+									label.col-md-4.control-label(for='checkinFrequency') Check-in Frequency
+									.col-md-3
+										select#checkinFrequency.postjob.multiselect(multiple='multiple',name='checkinFrequency')
+											- var checkinFrequency = ['Daily', 'Twice a week', 'Weekly', 'Monthly']
+												each check in checkinFrequency
+													option(name='checkinFrequency',label='checkinFrequency',value='#{check}') #{check}
+						.row.mt.job-card-other
+							.col-md-10.col-md-offset-1
+								.form-group
+									label.col-md-4.control-label(for='primaryComm') Primary Communication Method
+									.col-md-3
+										select#primaryComm.postjob.multiselect(multiple='multiple',name='primaryComm')
+											- var primaryComm = ['Email', 'Phone', 'In-Person']
+												each comm in primaryComm
+													option(name='primaryComm', label='primaryComm',value='#{comm}') #{comm}
+						.row.mt.job-card-other
+							.col-md-10.col-md-offset-1
+								.form-group
+									label.col-md-4.control-label(for='pay') Pay
+									.col-md-3
+										input#pay.form-control(type='text', name="pay")
+						.row.mt.job-card-buttons.centered
+							.col-md-10.col-md-offset-1
+								.col-md-3.col-md-offset-4
+									button.btn.btn-default.opt-post-job-btn(type='submit') Submit

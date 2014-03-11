@@ -61,14 +61,10 @@ exports.subscribeEmailPost = function(req,res) {
   });
 
   email.save(function(err) {
-    // console.log("saving....");
     if (err) {
       if (err.code === 11000) {
         console.log("Duplicate email")  
       }
-      // Do this because we can just ignore duplicate emails, db won't add it anyways
-      req.flash('success','Successfully subscribed to updates.');
-      return res.redirect('/');
     }
 
     // console.log("success")

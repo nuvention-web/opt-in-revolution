@@ -170,13 +170,10 @@ exports.postUpdateProfile = function(req, res, next) {
     user.profile.location = req.body.location || '';
     user.profile.website = req.body.website || '';
     user.bio = req.body.bio || '';
-    user.education = req.body.education || '';
-
-    console.log("postUpdateProfile")
-    console.log(user.education)
+    // user.education = req.body.education || '';
 
     // user.positions = req.body.positions || '';
-    user.skills = req.body.skills || '';
+    // user.skills = req.body.skills || '';
     user.yearsOfExperience = req.body.yearsOfExperience || '';
     user.desiredHoursPerWeek = req.body.desiredHoursPerWeek || '';
 
@@ -189,6 +186,30 @@ exports.postUpdateProfile = function(req, res, next) {
     user.industryPreference = req.body.industryPreference || '';
     user.jobFunctionPreference = req.body.jobFunctionPreference || '';
     //Need to add company image
+
+    formEducation = req.body.education.replace(/[\r]/g, '').split("\n")
+    console.log(formEducation)
+
+    user.education = []
+    if (formEducation.length != 0) {
+      for(var i=0; i<formEducation.length; i++) {
+          userSchool = {}
+          
+          positionArray = formEducation[i].split(" - ")
+          schoolName = positionArray[0]
+          degree = positionArray[1]
+
+          userSchool['schoolName'] = schoolName
+          userSchool['degree'] = degree
+
+          console.log("userSchool")
+          console.log(userSchool)
+          user.education.push(userSchool);
+      }
+    } else {
+      user.education = ''
+    }
+
 
     formPositions = req.body.positions.replace(/[\r]/g, '').split("\n")
     // console.log(formPositions)
@@ -213,6 +234,27 @@ exports.postUpdateProfile = function(req, res, next) {
     } else {
       user.positions = ''
     }
+
+    formSkills = req.body.skills.replace(/[\r\n]/g, '').split(",")
+
+    user.skills = []
+    if (formSkills.length != 0) {
+      // -1 because the last one is blank -- FIX THIS ANOTHER TIME
+      for(var i=0; i<formSkills.length-1; i++) {
+          userSkill = {}
+          
+          skill = formSkills[i]
+
+          if (skill != '') {
+            // console.log(userPosition)
+            userSkill['skill'] = skill
+            user.skills.push(userSkill);
+          }
+      }
+    } else {
+      user.skills = ''
+    }
+
 
     if (user.userType=='mom') {
       if(req.files.resume.size>0) {

@@ -23,11 +23,11 @@ block content
 			.profile-wrap
 				.col-md-2.col-md-offset-1
 					ul.nav.nav-tabs.tabs-left
-						li.active
+						li.homelink.active
 							a(href='#home', data-toggle='tab') Profile
-						li
+						li.editlink
 							a(href='#edit', data-toggle='tab') Edit	
-						li
+						li.acctlink
 							a(href='#settings', data-toggle='tab') Account Settings
 						//- li
 							a(href='#messages', data-toggle='tab') Messages
@@ -46,8 +46,7 @@ block content
 											.col-md-5
 												.row.mt
 													.col-md-6
-														.edit
-															a.btn.btn-primary.opt-btn-prof.edit(href='#edit', data-toggle='tab') Edit Profile
+														a.btn.btn-primary.opt-btn-prof.edit(href='#edit', data-toggle='tab') Edit Profile
 													.col-md-6
 														a.btn.btn-primary.opt-btn-prof(href="/auth/linkedin") Sync with Linkedin
 								.row.mt
@@ -59,32 +58,33 @@ block content
 													else
 														img.prof-pic.pagination-centered(src='/images/linkedin-default.jpg', height='130px')
 												.col-md-9
+													.first-row
+														.row.mt
+															.col-md-2
+																b.prof-top
+																	| Name:
+															.col-md-10
+																| #{user.profile.name}
 													.row.mt
 														.col-md-2
-															b
-																| Name:
-														.col-md-10
-															| #{user.profile.name}
-													.row.mt
-														.col-md-2
-															b
-																| Email
+															b.prof-top
+																| Email:
 														.col-md-10
 															| #{user.email}
 													.row.mt
 														.col-md-2
-															b
-																| Location
+															b.prof-top
+																| Location:
 														.col-md-10
 															| #{user.profile.location}
-											.prof-bottom-wrapper
+											.prof-bottom-wrapper.special
 												.row.mt
 													.col-md-12
-														.row.mt
+														.row.mt.prof-row
 															.col-md-12
 																b
 																	| Education
-														.row.mt
+														.row.mt.prof-row
 															.col-md-12
 																ul
 																	if user.education[0]
@@ -94,16 +94,19 @@ block content
 																				| #{edu.schoolName} - #{edu.degree}
 																			//- each e in user.education
 																				| , #{e.schoolName}
+																		else
+																			li 
+																				| #{user.education}
 																	else
 																		li
 																			| Not filled out
 												.row.mt
 													.col-md-12
-														.row.mt
+														.row.mt.prof-row
 															.col-md-12
 																b 
 																	| Professional Experience
-														.row.mt
+														.row.mt.prof-row
 															.col-md-12
 																ul
 																	if user.positions[0]
@@ -116,21 +119,21 @@ block content
 																				| #{user.positions}
 												.row.mt
 													.col-md-12
-														.row.mt
+														.row.mt.prof-row
 															.col-md-12
 																b
 																	| Skills
-														.row.mt
+														.row.mt.prof-row
 															.col-md-12
 																ul
 																	li
 																		if user.skills[0]																		
-																			| #{user.skills.pop()}
+																			| #{user.skills.pop().skill}
 																			each s in user.skills
-																					| , #{s}
+																					| , #{s.skill}
 												.row.mt
 													.col-md-12
-														.row.mt
+														.row.mt.prof-row
 															.col-md-12
 																b
 																	| Years of Professional Experience: 
@@ -139,11 +142,11 @@ block content
 												.row.mt
 														.col-md-12
 															.form-group
-																.row.mt
+																.row.mt.prof-row
 																	.col-md-12
 																		b
 																			| Industry
-																.row.mt
+																.row.mt.prof-row
 																	.col-md-12
 																		ul
 																			- var industries = ['Accounting','Advertising','Broadcasting','Consulting','Consumer Products','Education','Entertainment and Leisure','Financial Services','Food & Beverage','Health Care', 'Nonprofit','Pharmaceuticals','Publishing','Retail', 'Technology']
@@ -198,14 +201,25 @@ block content
 															.row.mt
 																.col-md-12
 																	textarea.form-control(type='text', name='education', id='education')
-																		if user.education[0]
-																			if typeof(user.education[0])==='object'
-																				- var edu = user.education.pop()
-																					| #{edu.schoolName} - #{edu.degree}
+																		ul
+																			if user.education[0]
+																				if typeof(user.education[0])==='object'
 																					each e in user.education
-																						| , #{e.schoolName}
-																		else
-																			| #{user.education}
+																						li
+																							| #{e.schoolName} - #{e.degree}
+																				else
+																					li 
+																						| #{user.education}
+																			else
+																				li
+																					| Not filled out
+																		//- | #{user.education}
+																		//- if user.education[0]
+																		//- 	if typeof(user.education[0])==='object'
+																		//- 		each e in user.education
+																		//- 			| #{edu.schoolName} - #{edu.degree}
+																		//- 	else
+																		//- 		| #{user.education}
 												.row.mt
 													.col-md-12
 														.form-group
@@ -231,9 +245,9 @@ block content
 																.col-md-12
 																	textarea.form-control(type='text', name='skills', id='skills')
 																		if user.skills[0]
-																			| #{user.skills.pop()}
+																			| #{user.skills.pop().skill}
 																			each s in user.skills
-																				| , #{s}
+																				| , #{s.skill}
 												.row.mt
 													.col-md-12
 														.form-group

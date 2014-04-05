@@ -176,13 +176,13 @@ h1.opt-title-header {
 }
 
 .opt-about-header-section {
-    background:transparent url('../images/landingpage.jpg') center no-repeat;
-    background-size:cover;
-    min-height: 30%;
-      -webkit-box-shadow: 0 4px 4px -2px #777;
-   -moz-box-shadow: 0 4px 4px -2px #777;
-        box-shadow: 0 4px 4px -2px #777;
-        color:white;
+   //  background:transparent url('../images/landingpage.jpg') center no-repeat;
+   //  background-size:cover;
+   //  min-height: 30%;
+   //    -webkit-box-shadow: 0 4px 4px -2px #777;
+   // -moz-box-shadow: 0 4px 4px -2px #777;
+   //      box-shadow: 0 4px 4px -2px #777;
+        color:black;
 }
 
 .opt-about-header-section-biz {
@@ -195,6 +195,33 @@ h1.opt-title-header {
         color:white;
 }
 
+p.number {
+  font-size: 20pt;
+}
+
+p.step {
+  padding-top: 5px;
+}
+
+@media (max-width: 990px) { 
+   p.step {
+       text-align: center;
+   }
+   .pillar > h4 {
+      text-align: center;
+   }
+}
+
+.opt-btn-about {
+  margin-top:50px;
+  width:350px;
+  font-size: 16pt;
+  background-color: #FEE000;
+  color:black;
+  text-align: center;
+  border: none;
+}
+
 .opt-about-header-content {
   padding-bottom:10px;
   padding-top: 50px;
@@ -205,7 +232,7 @@ span.caret.d-text {
   margin-left: 5px;
 }
 
-#opt-about-pillars {
+#opt-how-it-works {
   padding-top:25px;
 }
 
@@ -234,11 +261,15 @@ span.caret.d-text {
 }
 
 .opt-quote blockquote small {
-  color:white
+  color:black
 }
 
 .opt-about-desc {
   font-size: 15px;
+}
+
+blockquote.special {
+  border-left:none;
 }
 
 p.opt-pillar-desc {
@@ -251,7 +282,7 @@ a.pillar-link {
 }
 
 .pillar:hover {
-   border-bottom: 2px solid #777; 
+   // border-bottom: 2px solid #777; 
 }
 
 #employ {

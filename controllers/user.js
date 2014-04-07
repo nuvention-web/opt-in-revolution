@@ -52,6 +52,7 @@ exports.getAccount = function(req, res) {
       error: req.flash('error'),
       errors: req.flash('errors'),
       signUp: req.flash('signUp'),
+      first: req.flash('first'),
     });
   }
   else {
@@ -62,6 +63,7 @@ exports.getAccount = function(req, res) {
       errors: req.flash('errors'),
       signUp: req.flash('signUp'),
       companyError: req.flash('companyError'),
+      first: req.flash('first'),
     });
   }
 };
@@ -122,6 +124,8 @@ exports.postSignup = function(req, res, next) {
     return res.redirect('/signup');
   }
 
+  req.flash('first', {msg:'Fill out your profile.'});
+
   var user = new User({
     email: req.body.email,
     password: req.body.password,
@@ -137,7 +141,7 @@ exports.postSignup = function(req, res, next) {
     }
     req.logIn(user, function(err) {
       if (err) return next(err);
-      res.redirect('/employ');
+      res.redirect('/account');
     });
   });
 };

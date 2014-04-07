@@ -23,6 +23,10 @@ block content
 			.alert.alert-info.animated.fadeIn.opt-alert
 				button.close(data-dismiss='alert') x
 				= "Please fill out your profile before applying to jobs."
+		if first && first.length
+			.alert.alert-info.animated.fadeIn.opt-alert
+				button.close(data-dismiss='alert') x
+				= "Fill out your profile."
 		.row.mt
 			.profile-wrap
 				.col-md-2.col-md-offset-1

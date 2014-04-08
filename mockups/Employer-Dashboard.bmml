@@ -1,0 +1,58 @@
+<mockup version="1.0" skin="sketch" measuredW="842" measuredH="506" mockupW="641" mockupH="480">
+  <controls>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="202" y="26" w="640" h="480" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Athena%20Hire%0Ahttp%3A//athenahire.co/viewlistings</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::MenuBar" x="203" y="96" w="639" h="32" measuredW="588" measuredH="29" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>AthenaHire%2C%20How%20It%20Works%2C%20Find%20a%20Project%2C%20Post%20a%20Project%2C%20%2C%20%2C%20%2C%20%2C%20%5B%20O%20%5D%20Profile</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::Canvas" x="201" y="121" w="641" h="87" measuredW="100" measuredH="70" zOrder="2" locked="false" isInGroup="-1"/>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="438" y="152" w="168" h="24" measuredW="101" measuredH="28" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>center</align>
+        <size>20</size>
+        <text>My%20Listings</text>
+        <textOrientation>right</textOrientation>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::Canvas" x="289" y="218" w="466" h="126" measuredW="100" measuredH="70" zOrder="4" locked="false" isInGroup="-1"/>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::Button" x="304" y="306" w="-1" h="-1" measuredW="66" measuredH="27" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Update</text>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::Button" x="385" y="305" w="-1" h="-1" measuredW="63" measuredH="27" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Delete</text>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::Label" x="289" y="225" w="201" h="24" measuredW="201" measuredH="22" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>center</align>
+        <size>14</size>
+        <text>Project%20Name%20-%20Company%20Name</text>
+        <textOrientation>right</textOrientation>
+      </controlProperties>
+    </control>
+    <control controlID="9" controlTypeID="com.balsamiq.mockups::Label" x="289" y="240" w="73" h="24" measuredW="64" measuredH="20" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>center</align>
+        <size>12</size>
+        <text>Description</text>
+        <textOrientation>right</textOrientation>
+      </controlProperties>
+    </control>
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::Label" x="289" y="264" w="52" h="24" measuredW="42" measuredH="20" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>center</align>
+        <size>12</size>
+        <text>Details</text>
+        <textOrientation>right</textOrientation>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

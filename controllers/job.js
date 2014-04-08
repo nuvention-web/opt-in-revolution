@@ -484,25 +484,3 @@ exports.postSubmitApp = function(req, res) {
 		}
 	});
 };
-
-
-// 		else { // if the job wasn't saved yet
-// 			var jobApp = new JobApplication({
-// 				jobID: req.params.id,
-// 				userID: req.user.id,
-// 				relevantJobExperience: req.body.relevantJobExperience,
-// 				projectApproach: req.body.projectApproach,
-// 				submitted: 'yes'
-
-// 				//Save all of the user information
-
-// 				//Save all of the job information
-// 			});
-// 		}
-// 		jobApp.save(function(err) {
-// 			if(err) return next(err);
-// 			req.flash('success', 'Application submitted.');
-// 			res.redirect("/job/apply-"+req.params.id);
-// 		});
-// 	});
-// };

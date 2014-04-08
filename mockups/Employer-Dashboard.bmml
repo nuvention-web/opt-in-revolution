@@ -19,39 +19,92 @@
         <textOrientation>right</textOrientation>
       </controlProperties>
     </control>
-    <control controlID="5" controlTypeID="com.balsamiq.mockups::Canvas" x="289" y="218" w="466" h="126" measuredW="100" measuredH="70" zOrder="4" locked="false" isInGroup="-1"/>
-    <control controlID="6" controlTypeID="com.balsamiq.mockups::Button" x="304" y="306" w="-1" h="-1" measuredW="66" measuredH="27" zOrder="5" locked="false" isInGroup="-1">
+    <control controlID="11" controlTypeID="__group__" x="289" y="218" w="466" h="115" measuredW="466" measuredH="115" zOrder="4" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="0" w="466" h="115" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="11"/>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Button" x="15" y="80" w="66" h="25" measuredW="66" measuredH="27" zOrder="1" locked="false" isInGroup="11">
+          <controlProperties>
+            <text>Update</text>
+          </controlProperties>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Button" x="96" y="79" w="63" h="25" measuredW="63" measuredH="27" zOrder="2" locked="false" isInGroup="11">
+          <controlProperties>
+            <text>Delete</text>
+          </controlProperties>
+        </control>
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="0" y="6" w="201" h="22" measuredW="201" measuredH="22" zOrder="3" locked="false" isInGroup="11">
+          <controlProperties>
+            <align>center</align>
+            <size>14</size>
+            <text>Project%20Name%20-%20Company%20Name</text>
+            <textOrientation>right</textOrientation>
+          </controlProperties>
+        </control>
+        <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="0" y="20" w="73" h="22" measuredW="64" measuredH="20" zOrder="4" locked="false" isInGroup="11">
+          <controlProperties>
+            <align>center</align>
+            <size>12</size>
+            <text>Description</text>
+            <textOrientation>right</textOrientation>
+          </controlProperties>
+        </control>
+        <control controlID="5" controlTypeID="com.balsamiq.mockups::Label" x="0" y="42" w="52" h="22" measuredW="42" measuredH="20" zOrder="5" locked="false" isInGroup="11">
+          <controlProperties>
+            <align>center</align>
+            <size>12</size>
+            <text>Details</text>
+            <textOrientation>right</textOrientation>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="13" controlTypeID="com.balsamiq.mockups::Link" x="632" y="302" w="-1" h="-1" measuredW="111" measuredH="21" zOrder="5" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Update</text>
+        <text>See%204%20applications</text>
       </controlProperties>
     </control>
-    <control controlID="7" controlTypeID="com.balsamiq.mockups::Button" x="385" y="305" w="-1" h="-1" measuredW="63" measuredH="27" zOrder="6" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>Delete</text>
-      </controlProperties>
+    <control controlID="14" controlTypeID="__group__" x="289" y="348" w="466" h="115" measuredW="466" measuredH="115" zOrder="6" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="0" w="466" h="115" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="14"/>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Button" x="15" y="80" w="66" h="25" measuredW="66" measuredH="27" zOrder="1" locked="false" isInGroup="14">
+          <controlProperties>
+            <text>Update</text>
+          </controlProperties>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Button" x="96" y="79" w="63" h="25" measuredW="63" measuredH="27" zOrder="2" locked="false" isInGroup="14">
+          <controlProperties>
+            <text>Delete</text>
+          </controlProperties>
+        </control>
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="0" y="6" w="201" h="22" measuredW="201" measuredH="22" zOrder="3" locked="false" isInGroup="14">
+          <controlProperties>
+            <align>center</align>
+            <size>14</size>
+            <text>Project%20Name%20-%20Company%20Name</text>
+            <textOrientation>right</textOrientation>
+          </controlProperties>
+        </control>
+        <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="0" y="20" w="73" h="22" measuredW="64" measuredH="20" zOrder="4" locked="false" isInGroup="14">
+          <controlProperties>
+            <align>center</align>
+            <size>12</size>
+            <text>Description</text>
+            <textOrientation>right</textOrientation>
+          </controlProperties>
+        </control>
+        <control controlID="5" controlTypeID="com.balsamiq.mockups::Label" x="0" y="42" w="52" h="22" measuredW="42" measuredH="20" zOrder="5" locked="false" isInGroup="14">
+          <controlProperties>
+            <align>center</align>
+            <size>12</size>
+            <text>Details</text>
+            <textOrientation>right</textOrientation>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
     </control>
-    <control controlID="8" controlTypeID="com.balsamiq.mockups::Label" x="289" y="225" w="201" h="24" measuredW="201" measuredH="22" zOrder="7" locked="false" isInGroup="-1">
+    <control controlID="15" controlTypeID="com.balsamiq.mockups::Link" x="632" y="432" w="-1" h="-1" measuredW="111" measuredH="21" zOrder="7" locked="false" isInGroup="-1">
       <controlProperties>
-        <align>center</align>
-        <size>14</size>
-        <text>Project%20Name%20-%20Company%20Name</text>
-        <textOrientation>right</textOrientation>
-      </controlProperties>
-    </control>
-    <control controlID="9" controlTypeID="com.balsamiq.mockups::Label" x="289" y="240" w="73" h="24" measuredW="64" measuredH="20" zOrder="8" locked="false" isInGroup="-1">
-      <controlProperties>
-        <align>center</align>
-        <size>12</size>
-        <text>Description</text>
-        <textOrientation>right</textOrientation>
-      </controlProperties>
-    </control>
-    <control controlID="10" controlTypeID="com.balsamiq.mockups::Label" x="289" y="264" w="52" h="24" measuredW="42" measuredH="20" zOrder="9" locked="false" isInGroup="-1">
-      <controlProperties>
-        <align>center</align>
-        <size>12</size>
-        <text>Details</text>
-        <textOrientation>right</textOrientation>
+        <text>See%202%20applications</text>
       </controlProperties>
     </control>
   </controls>

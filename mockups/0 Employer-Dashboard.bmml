@@ -60,6 +60,8 @@
     </control>
     <control controlID="13" controlTypeID="com.balsamiq.mockups::Link" x="632" y="302" w="-1" h="-1" measuredW="111" measuredH="21" zOrder="5" locked="false" isInGroup="-1">
       <controlProperties>
+        <href>Employer-Contact%26bm%3BEmployer-Contact.bmml%26bm%3BEmployer-Contact.bmml%26bm%3BEmployer-Contact.bmml</href>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22431%2C276%2C542%2C297%22%20href%3D%22Employer-Contact.bmml%22%20alt%3D%22Employer-Contact%22%20id%3D%2213%22/%3E</map>
         <text>See%204%20applications</text>
       </controlProperties>
     </control>
@@ -104,6 +106,8 @@
     </control>
     <control controlID="15" controlTypeID="com.balsamiq.mockups::Link" x="632" y="432" w="-1" h="-1" measuredW="111" measuredH="21" zOrder="7" locked="false" isInGroup="-1">
       <controlProperties>
+        <href>Employer-Contact%26bm%3BEmployer-Contact.bmml%26bm%3BEmployer-Contact.bmml%26bm%3BEmployer-Contact.bmml</href>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22431%2C406%2C542%2C427%22%20href%3D%22Employer-Contact.bmml%22%20alt%3D%22Employer-Contact%22%20id%3D%2215%22/%3E</map>
         <text>See%202%20applications</text>
       </controlProperties>
     </control>

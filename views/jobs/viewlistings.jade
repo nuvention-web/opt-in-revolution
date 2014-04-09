@@ -57,9 +57,9 @@ block content
 								.col-md-2.col-md-offset-10
 									a.btn.btn-success.btn-md.job-btn(href='/job/update-#{job.id}', role='button') Update
 									a.btn.btn-success.btn-md.job-btn(href='/job/delete-#{job.id}', role='button') Delete
-						each app in jobAppArr
-							if app.jobID==job.id
-								div #{app.jobID}
-								div #{app.relevantJobExperience}
-								div #{app.projectApproach}
-								br
+							-var counter = 0;
+							each app in jobAppArr
+								if app.jobID==job.id
+									| #{app.user}
+									-counter = counter + 1;
+							a(href='/', role='button') See #{counter} applications

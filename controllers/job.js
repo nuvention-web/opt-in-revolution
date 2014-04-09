@@ -258,6 +258,29 @@ exports.viewSavedJobs = function(req, res) {
 	});
 };
 
+function copyUserInformation(jobApplication, user) {
+		jobApplication.user.email = user.email || '';
+		jobApplication.user.profile.name = user.profile.name || '';
+		jobApplication.user.profile.gender = user.profile.gender || '';
+		jobApplication.user.profile.location = user.profile.location || '';
+		jobApplication.user.profile.website = user.profile.website || '';
+		jobApplication.user.profile.picture = user.profile.picture || '';
+
+		jobApplication.user.skills = user.skills || '';
+		jobApplication.user.education = user.education || '';
+
+		jobApplication.user.positions = user.positions || '';
+		jobApplication.user.yearsOfExperience = user.yearsOfExperience || '';
+		jobApplication.user.desiredHoursPerWeek = user.desiredHoursPerWeek || '';
+		jobApplication.user.linkedinURL = user.linkedinURL || '';
+		jobApplication.user.desiredHoursPerWeek = user.desiredHoursPerWeek || '';
+		jobApplication.user.desiredProjectLength = user.desiredProjectLength || '';
+		jobApplication.user.communicationPreferences = user.communicationPreferences || '';
+		jobApplication.user.checkinFrequencyPreference = user.checkinFrequencyPreference || '';
+		jobApplication.user.industryPreference = user.industryPreference || '';
+		jobApplication.user.jobFunctionPreference = user.jobFunctionPreference || '';
+}
+
 exports.postSaveApp = function(req, res, next) {
 	User.findById(req.user.id, function(err, user) {
 		// Save as ObjectID for easier querying when viewing saved jobs
@@ -267,107 +290,41 @@ exports.postSaveApp = function(req, res, next) {
 
 	JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function (err, jobApp) {
 		if(jobApp) { // if the job app exists
-			jobApp.relevantJobExperience = req.body.relevantJobExperience || '';
-			jobApp.projectApproach = req.body.projectApproach || '';
-
-			//Save all of the user information
-			jobApp.user.email = req.user.email || '';
-			jobApp.user.profile.name = req.user.profile.name || '';
-			jobApp.user.profile.gender = req.user.profile.gender || '';
-			jobApp.user.profile.location = req.user.profile.location || '';
-			jobApp.user.profile.website = req.user.profile.website || '';
-			jobApp.user.profile.picture = req.user.profile.picture || '';
-
-			jobApp.user.skills = req.user.skills || '';
-			jobApp.user.education = req.user.education || '';
-
-			jobApp.user.positions = req.user.positions || '';
-			jobApp.user.yearsOfExperience = req.user.yearsOfExperience || '';
-			jobApp.user.desiredHoursPerWeek = req.user.desiredHoursPerWeek || '';
-			jobApp.user.linkedinURL = req.user.linkedinURL || '';
-			jobApp.user.desiredHoursPerWeek = req.user.desiredHoursPerWeek || '';
-			jobApp.user.desiredProjectLength = req.user.desiredProjectLength || '';
-			jobApp.user.communicationPreferences = req.user.communicationPreferences || '';
-			jobApp.user.checkinFrequencyPreference = req.user.checkinFrequencyPreference || '';
-			jobApp.user.industryPreference = req.user.industryPreference || '';
-			jobApp.user.jobFunctionPreference = req.user.jobFunctionPreference || '';
-
-			//Save all of the job information
-			Job.findById(req.params.id, function(erro, thisJob) {
-				jobApp.job.jobName = thisJob.jobName;
-				jobApp.job.companyName = thisJob.companyName;
-				jobApp.job.jobDescription = thisJob.jobDescription;
-				jobApp.job.industry = thisJob.industry;
-				jobApp.job.jobFunction = thisJob.jobFunction;
-				jobApp.job.totalWeeks = thisJob.totalWeeks;
-				jobApp.job.hoursPerWeek = thisJob.hoursPerWeek;
-				jobApp.job.checkinFrequency = thisJob.checkinFrequency;
-				jobApp.job.primaryComm = thisJob.primaryComm;
-				jobApp.job.skillsNeeded = thisJob.skillsNeeded;
-				jobApp.job.pay = thisJob.pay;
-				jobApp.job.companyID = thisJob.companyID;
-
-				jobApp.save(function(err) {
-					if(err) return next(err);
-					req.flash('success', 'Application saved.');
-					res.redirect("/job/apply-"+req.params.id);
-				});
-
-			});
-
+			console.log("Do nothing here");
 		} else { // job app doesn't exist yet
 			var jobApp = new JobApplication({
 				jobID: req.params.id,
 				userID: req.user.id,
 				relevantJobExperience: req.body.relevantJobExperience,
-				projectApproach: req.body.projectApproach,
-			});
-
-			//Save all of the user information
-			jobApp.user.email = req.user.email || '';
-			jobApp.user.profile.name = req.user.profile.name || '';
-			jobApp.user.profile.gender = req.user.profile.gender || '';
-			jobApp.user.profile.location = req.user.profile.location || '';
-			jobApp.user.profile.website = req.user.profile.website || '';
-			jobApp.user.profile.picture = req.user.profile.picture || '';
-
-			jobApp.user.skills = req.user.skills || '';
-			jobApp.user.education = req.user.education || '';
-
-			jobApp.user.positions = req.user.positions || '';
-			jobApp.user.yearsOfExperience = req.user.yearsOfExperience || '';
-			jobApp.user.desiredHoursPerWeek = req.user.desiredHoursPerWeek || '';
-			jobApp.user.linkedinURL = req.user.linkedinURL || '';
-			jobApp.user.desiredHoursPerWeek = req.user.desiredHoursPerWeek || '';
-			jobApp.user.desiredProjectLength = req.user.desiredProjectLength || '';
-			jobApp.user.communicationPreferences = req.user.communicationPreferences || '';
-			jobApp.user.checkinFrequencyPreference = req.user.checkinFrequencyPreference || '';
-			jobApp.user.industryPreference = req.user.industryPreference || '';
-			jobApp.user.jobFunctionPreference = req.user.jobFunctionPreference || '';
-
-			//Save all of the job information
-			Job.findById(req.params.id, function(erro, thisJob) {
-				jobApp.job.jobName = thisJob.jobName;
-				jobApp.job.companyName = thisJob.companyName;
-				jobApp.job.jobDescription = thisJob.jobDescription;
-				jobApp.job.industry = thisJob.industry;
-				jobApp.job.jobFunction = thisJob.jobFunction;
-				jobApp.job.totalWeeks = thisJob.totalWeeks;
-				jobApp.job.hoursPerWeek = thisJob.hoursPerWeek;
-				jobApp.job.checkinFrequency = thisJob.checkinFrequency;
-				jobApp.job.primaryComm = thisJob.primaryComm;
-				jobApp.job.skillsNeeded = thisJob.skillsNeeded;
-				jobApp.job.pay = thisJob.pay;
-				jobApp.job.companyID = thisJob.companyID;
-
-				jobApp.save(function(err) {
-					if(err) return next(err);
-					req.flash('success', 'Application saved.');
-					res.redirect("/job/apply-"+req.params.id);
-				});
-
+				projectApproach: req.body.projectApproach
 			});
 		}
+
+		//Save all of the user information
+		copyUserInformation(jobApp, req.user);
+
+		//Save all of the job information
+		Job.findById(req.params.id, function(erro, thisJob) {
+			jobApp.job.jobName = thisJob.jobName;
+			jobApp.job.companyName = thisJob.companyName;
+			jobApp.job.jobDescription = thisJob.jobDescription;
+			jobApp.job.industry = thisJob.industry;
+			jobApp.job.jobFunction = thisJob.jobFunction;
+			jobApp.job.totalWeeks = thisJob.totalWeeks;
+			jobApp.job.hoursPerWeek = thisJob.hoursPerWeek;
+			jobApp.job.checkinFrequency = thisJob.checkinFrequency;
+			jobApp.job.primaryComm = thisJob.primaryComm;
+			jobApp.job.skillsNeeded = thisJob.skillsNeeded;
+			jobApp.job.pay = thisJob.pay;
+			jobApp.job.companyID = thisJob.companyID;
+
+			jobApp.save(function(err) {
+				if(err) return next(err);
+				req.flash('success', 'Application saved.');
+				res.redirect("/job/apply-"+req.params.id);
+			});
+
+		});
 	});
 };
 
@@ -380,54 +337,7 @@ exports.postSubmitApp = function(req, res) {
 	
 	JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function (err, jobApp) {
 		if(jobApp) { // if the job app exists
-			jobApp.relevantJobExperience = req.body.relevantJobExperience || '';
-			jobApp.projectApproach = req.body.projectApproach || '';
-			jobApp.submitted = 'yes';
-			
-			//Save all of the user information
-			jobApp.user.email = req.user.email || '';
-			jobApp.user.profile.name = req.user.profile.name || '';
-			jobApp.user.profile.gender = req.user.profile.gender || '';
-			jobApp.user.profile.location = req.user.profile.location || '';
-			jobApp.user.profile.website = req.user.profile.website || '';
-			jobApp.user.profile.picture = req.user.profile.picture || '';
-
-			jobApp.user.skills = req.user.skills || '';
-			jobApp.user.education = req.user.education || '';
-
-			jobApp.user.positions = req.user.positions || '';
-			jobApp.user.yearsOfExperience = req.user.yearsOfExperience || '';
-			jobApp.user.desiredHoursPerWeek = req.user.desiredHoursPerWeek || '';
-			jobApp.user.linkedinURL = req.user.linkedinURL || '';
-			jobApp.user.desiredHoursPerWeek = req.user.desiredHoursPerWeek || '';
-			jobApp.user.desiredProjectLength = req.user.desiredProjectLength || '';
-			jobApp.user.communicationPreferences = req.user.communicationPreferences || '';
-			jobApp.user.checkinFrequencyPreference = req.user.checkinFrequencyPreference || '';
-			jobApp.user.industryPreference = req.user.industryPreference || '';
-			jobApp.user.jobFunctionPreference = req.user.jobFunctionPreference || '';
-
-			//Save all of the job information
-			Job.findById(req.params.id, function(erro, thisJob) {
-				jobApp.job.jobName = thisJob.jobName;
-				jobApp.job.companyName = thisJob.companyName;
-				jobApp.job.jobDescription = thisJob.jobDescription;
-				jobApp.job.industry = thisJob.industry;
-				jobApp.job.jobFunction = thisJob.jobFunction;
-				jobApp.job.totalWeeks = thisJob.totalWeeks;
-				jobApp.job.hoursPerWeek = thisJob.hoursPerWeek;
-				jobApp.job.checkinFrequency = thisJob.checkinFrequency;
-				jobApp.job.primaryComm = thisJob.primaryComm;
-				jobApp.job.skillsNeeded = thisJob.skillsNeeded;
-				jobApp.job.pay = thisJob.pay;
-				jobApp.job.companyID = thisJob.companyID;
-
-				jobApp.save(function(err) {
-					if(err) return next(err);
-					req.flash('success', 'Application saved.');
-					res.redirect("/job/apply-"+req.params.id);
-				});
-
-			});
+			console.log("Do nothing here");
 		} else { // job app doesn't exist yet
 			var jobApp = new JobApplication({
 				jobID: req.params.id,
@@ -436,51 +346,32 @@ exports.postSubmitApp = function(req, res) {
 				projectApproach: req.body.projectApproach,
 				submitted: 'yes'
 			});
-
-			//Save all of the user information
-			jobApp.user.email = req.user.email || '';
-			jobApp.user.profile.name = req.user.profile.name || '';
-			jobApp.user.profile.gender = req.user.profile.gender || '';
-			jobApp.user.profile.location = req.user.profile.location || '';
-			jobApp.user.profile.website = req.user.profile.website || '';
-			jobApp.user.profile.picture = req.user.profile.picture || '';
-
-			jobApp.user.skills = req.user.skills || '';
-			jobApp.user.education = req.user.education || '';
-
-			jobApp.user.positions = req.user.positions || '';
-			jobApp.user.yearsOfExperience = req.user.yearsOfExperience || '';
-			jobApp.user.desiredHoursPerWeek = req.user.desiredHoursPerWeek || '';
-			jobApp.user.linkedinURL = req.user.linkedinURL || '';
-			jobApp.user.desiredHoursPerWeek = req.user.desiredHoursPerWeek || '';
-			jobApp.user.desiredProjectLength = req.user.desiredProjectLength || '';
-			jobApp.user.communicationPreferences = req.user.communicationPreferences || '';
-			jobApp.user.checkinFrequencyPreference = req.user.checkinFrequencyPreference || '';
-			jobApp.user.industryPreference = req.user.industryPreference || '';
-			jobApp.user.jobFunctionPreference = req.user.jobFunctionPreference || '';
-
-			//Save all of the job information
-			Job.findById(req.params.id, function(erro, thisJob) {
-				jobApp.job.jobName = thisJob.jobName;
-				jobApp.job.companyName = thisJob.companyName;
-				jobApp.job.jobDescription = thisJob.jobDescription;
-				jobApp.job.industry = thisJob.industry;
-				jobApp.job.jobFunction = thisJob.jobFunction;
-				jobApp.job.totalWeeks = thisJob.totalWeeks;
-				jobApp.job.hoursPerWeek = thisJob.hoursPerWeek;
-				jobApp.job.checkinFrequency = thisJob.checkinFrequency;
-				jobApp.job.primaryComm = thisJob.primaryComm;
-				jobApp.job.skillsNeeded = thisJob.skillsNeeded;
-				jobApp.job.pay = thisJob.pay;
-				jobApp.job.companyID = thisJob.companyID;
-
-				jobApp.save(function(err) {
-					if(err) return next(err);
-					req.flash('success', 'Application saved.');
-					res.redirect("/job/apply-"+req.params.id);
-				});
-
-			});
 		}
+
+		//Save all of the user information
+		copyUserInformation(jobApp, req.user);
+
+		//Save all of the job information
+		Job.findById(req.params.id, function(erro, thisJob) {
+			jobApp.job.jobName = thisJob.jobName;
+			jobApp.job.companyName = thisJob.companyName;
+			jobApp.job.jobDescription = thisJob.jobDescription;
+			jobApp.job.industry = thisJob.industry;
+			jobApp.job.jobFunction = thisJob.jobFunction;
+			jobApp.job.totalWeeks = thisJob.totalWeeks;
+			jobApp.job.hoursPerWeek = thisJob.hoursPerWeek;
+			jobApp.job.checkinFrequency = thisJob.checkinFrequency;
+			jobApp.job.primaryComm = thisJob.primaryComm;
+			jobApp.job.skillsNeeded = thisJob.skillsNeeded;
+			jobApp.job.pay = thisJob.pay;
+			jobApp.job.companyID = thisJob.companyID;
+
+			jobApp.save(function(err) {
+				if(err) return next(err);
+				req.flash('success', 'Application saved.');
+				res.redirect("/job/apply-"+req.params.id);
+			});
+
+		});
 	});
 };

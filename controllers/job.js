@@ -259,26 +259,41 @@ exports.viewSavedJobs = function(req, res) {
 };
 
 function copyUserInformation(jobApplication, user) {
-		jobApplication.user.email = user.email || '';
-		jobApplication.user.profile.name = user.profile.name || '';
-		jobApplication.user.profile.gender = user.profile.gender || '';
-		jobApplication.user.profile.location = user.profile.location || '';
-		jobApplication.user.profile.website = user.profile.website || '';
-		jobApplication.user.profile.picture = user.profile.picture || '';
+	jobApplication.user.email = user.email || '';
+	jobApplication.user.profile.name = user.profile.name || '';
+	jobApplication.user.profile.gender = user.profile.gender || '';
+	jobApplication.user.profile.location = user.profile.location || '';
+	jobApplication.user.profile.website = user.profile.website || '';
+	jobApplication.user.profile.picture = user.profile.picture || '';
 
-		jobApplication.user.skills = user.skills || '';
-		jobApplication.user.education = user.education || '';
+	jobApplication.user.skills = user.skills || '';
+	jobApplication.user.education = user.education || '';
 
-		jobApplication.user.positions = user.positions || '';
-		jobApplication.user.yearsOfExperience = user.yearsOfExperience || '';
-		jobApplication.user.desiredHoursPerWeek = user.desiredHoursPerWeek || '';
-		jobApplication.user.linkedinURL = user.linkedinURL || '';
-		jobApplication.user.desiredHoursPerWeek = user.desiredHoursPerWeek || '';
-		jobApplication.user.desiredProjectLength = user.desiredProjectLength || '';
-		jobApplication.user.communicationPreferences = user.communicationPreferences || '';
-		jobApplication.user.checkinFrequencyPreference = user.checkinFrequencyPreference || '';
-		jobApplication.user.industryPreference = user.industryPreference || '';
-		jobApplication.user.jobFunctionPreference = user.jobFunctionPreference || '';
+	jobApplication.user.positions = user.positions || '';
+	jobApplication.user.yearsOfExperience = user.yearsOfExperience || '';
+	jobApplication.user.desiredHoursPerWeek = user.desiredHoursPerWeek || '';
+	jobApplication.user.linkedinURL = user.linkedinURL || '';
+	jobApplication.user.desiredHoursPerWeek = user.desiredHoursPerWeek || '';
+	jobApplication.user.desiredProjectLength = user.desiredProjectLength || '';
+	jobApplication.user.communicationPreferences = user.communicationPreferences || '';
+	jobApplication.user.checkinFrequencyPreference = user.checkinFrequencyPreference || '';
+	jobApplication.user.industryPreference = user.industryPreference || '';
+	jobApplication.user.jobFunctionPreference = user.jobFunctionPreference || '';
+}
+
+function copyJobInformation(jobApplication, job) {
+	jobApplication.job.jobName = job.jobName;
+	jobApplication.job.companyName = job.companyName;
+	jobApplication.job.jobDescription = job.jobDescription;
+	jobApplication.job.industry = job.industry;
+	jobApplication.job.jobFunction = job.jobFunction;
+	jobApplication.job.totalWeeks = job.totalWeeks;
+	jobApplication.job.hoursPerWeek = job.hoursPerWeek;
+	jobApplication.job.checkinFrequency = job.checkinFrequency;
+	jobApplication.job.primaryComm = job.primaryComm;
+	jobApplication.job.skillsNeeded = job.skillsNeeded;
+	jobApplication.job.pay = job.pay;
+	jobApplication.job.companyID = job.companyID;
 }
 
 exports.postSaveApp = function(req, res, next) {
@@ -305,18 +320,7 @@ exports.postSaveApp = function(req, res, next) {
 
 		//Save all of the job information
 		Job.findById(req.params.id, function(erro, thisJob) {
-			jobApp.job.jobName = thisJob.jobName;
-			jobApp.job.companyName = thisJob.companyName;
-			jobApp.job.jobDescription = thisJob.jobDescription;
-			jobApp.job.industry = thisJob.industry;
-			jobApp.job.jobFunction = thisJob.jobFunction;
-			jobApp.job.totalWeeks = thisJob.totalWeeks;
-			jobApp.job.hoursPerWeek = thisJob.hoursPerWeek;
-			jobApp.job.checkinFrequency = thisJob.checkinFrequency;
-			jobApp.job.primaryComm = thisJob.primaryComm;
-			jobApp.job.skillsNeeded = thisJob.skillsNeeded;
-			jobApp.job.pay = thisJob.pay;
-			jobApp.job.companyID = thisJob.companyID;
+			copyJobInformation(jobApp, thisJob);
 
 			jobApp.save(function(err) {
 				if(err) return next(err);
@@ -353,18 +357,7 @@ exports.postSubmitApp = function(req, res) {
 
 		//Save all of the job information
 		Job.findById(req.params.id, function(erro, thisJob) {
-			jobApp.job.jobName = thisJob.jobName;
-			jobApp.job.companyName = thisJob.companyName;
-			jobApp.job.jobDescription = thisJob.jobDescription;
-			jobApp.job.industry = thisJob.industry;
-			jobApp.job.jobFunction = thisJob.jobFunction;
-			jobApp.job.totalWeeks = thisJob.totalWeeks;
-			jobApp.job.hoursPerWeek = thisJob.hoursPerWeek;
-			jobApp.job.checkinFrequency = thisJob.checkinFrequency;
-			jobApp.job.primaryComm = thisJob.primaryComm;
-			jobApp.job.skillsNeeded = thisJob.skillsNeeded;
-			jobApp.job.pay = thisJob.pay;
-			jobApp.job.companyID = thisJob.companyID;
+			copyJobInformation(jobApp, thisJob);
 
 			jobApp.save(function(err) {
 				if(err) return next(err);

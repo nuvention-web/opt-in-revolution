@@ -228,6 +228,8 @@ exports.viewCompanyPosts = function(req, res) {
 						newObj['submitted'] = jobApps[i].submitted;
 						newObj['dateCreated'] = jobApps[i].dateCreated;
 						newObj['id'] = jobApps[i]._id;
+						newObj['user'] = jobApps[i].user;
+						newObj['job'] = jobApps[i].job;
 
 						jobAppArray.push(newObj);
 					}
@@ -243,6 +245,15 @@ exports.viewCompanyPosts = function(req, res) {
 				});
 			}
 		);
+	});
+};
+
+exports.viewApplication = function(req, res) {
+	JobApplication.findById(req.params.id, function(err, jobApp) {
+		res.render("jobs/viewapplication", {
+			"jobApp": jobApp,
+			title: "View Application",
+		});
 	});
 };
 
@@ -305,7 +316,6 @@ exports.postSaveApp = function(req, res, next) {
 
 	JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function (err, jobApp) {
 		if(jobApp) { // if the job app exists
-			console.log("Do nothing here");
 		} else { // job app doesn't exist yet
 			var jobApp = new JobApplication({
 				jobID: req.params.id,
@@ -341,7 +351,6 @@ exports.postSubmitApp = function(req, res) {
 	
 	JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function (err, jobApp) {
 		if(jobApp) { // if the job app exists
-			console.log("Do nothing here");
 		} else { // job app doesn't exist yet
 			var jobApp = new JobApplication({
 				jobID: req.params.id,
@@ -352,6 +361,7 @@ exports.postSubmitApp = function(req, res) {
 			});
 		}
 
+		
 		//Save all of the user information
 		copyUserInformation(jobApp, req.user);
 

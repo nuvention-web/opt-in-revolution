@@ -1,0 +1,121 @@
+extends ../layout
+
+block content
+	.tile-job
+		.container
+			.row.mt.centered
+				.col-lg-12
+					.job-header
+						big
+							h1 My Applicants
+	if jobApp.length==0
+		.container
+			.job-listing-wrapper
+				.row.mt
+						h4 There are no applications yet.
+	else
+		.container
+			.job-listing-wrapper
+				-var user = jobApp.user
+					.row.mt
+						.job-card
+							.row.mt.job-card-heading
+								.col-md-12
+									h2 #{user.profile.name}
+								.row.mt
+										.col-md-12
+											.row.mt.prof-column
+												.col-md-3
+													if user.profile.picture
+														img.prof-pic.pagination-centered(src='#{user.profile.picture}', height='130px')
+													else
+														img.prof-pic.pagination-centered(src='/images/linkedin-default.jpg', height='130px')
+												.col-md-9
+													.first-row
+														.row.mt
+															.col-md-2
+																b.prof-top
+																	| Name:
+															.col-md-10
+																| #{user.profile.name}
+													.row.mt
+														.col-md-2
+															b.prof-top
+																| Email:
+														.col-md-10
+															| #{user.email}
+													.row.mt
+														.col-md-2
+															b.prof-top
+																| Location:
+														.col-md-10
+															| #{user.profile.location}
+											.prof-bottom-wrapper.special
+												.row.mt
+													.col-md-12
+														.row.mt.prof-row
+															.col-md-12
+																b
+																	| Education
+														.row.mt.prof-row
+															.col-md-12
+																ul
+																	if user.education[0]
+																		if typeof(user.education[0])==='object'
+																			each e in user.education
+																				li
+																					| #{e.schoolName} - #{e.degree}
+																		else
+																			li
+																				| #{user.education}
+																	else
+																		li
+																			| Not filled out
+												.row.mt
+													.col-md-12
+														.row.mt.prof-row
+															.col-md-12
+																b 
+																	| Professional Experience
+														.row.mt.prof-row
+															.col-md-12
+																ul
+																	if user.positions[0]
+																		if typeof(user.positions[0])==='object'
+																			each p in user.positions
+																				li
+																					| #{p.title}, #{p.company}
+																		else
+																			li
+																				| #{user.positions}
+																	else
+																			li 
+																				| Not filled out
+												.row.mt
+													.col-md-12
+														.row.mt.prof-row
+															.col-md-12
+																b
+																	| Skills
+														.row.mt.prof-row
+															.col-md-12
+																ul
+																	li
+																		if user.skills[0]							
+																			- var length = user.skills.length - 1
+																				each s,i in user.skills
+																					| #{s.skill}
+																					if i != (length)
+																						| , 
+																		else
+																			li 
+																				| Not filled out
+												.row.mt
+													.col-md-12
+														.row.mt.prof-row
+															.col-md-12
+																b
+																	| Years of Professional Experience:
+																ul
+																	li 
+																		| #{user.yearsOfExperience}

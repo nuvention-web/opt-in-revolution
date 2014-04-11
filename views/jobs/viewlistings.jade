@@ -58,8 +58,18 @@ block content
 									a.btn.btn-success.btn-md.job-btn(href='/job/update-#{job.id}', role='button') Update
 									a.btn.btn-success.btn-md.job-btn(href='/job/delete-#{job.id}', role='button') Delete
 							-var counter = 0;
-							each app in jobAppArr
-								if app.jobID==job.id
-									| #{app.user}
-									-counter = counter + 1;
-							a(href='/', role='button') See #{counter} applications
+							-var appJobMatchArr = [];
+								each app in jobAppArr
+									if app.jobID==job.id
+										-appJobMatchArr.push(app);
+										-counter = counter + 1;
+							div(id="accordion_#{i}", class="panel-group")
+								.panel.panel-default
+									.panel-heading
+										h4.panel-title
+											a(data-toggle='collapse', data-parent='#accordion_#{i}', href='#collapse_#{i}') See #{counter} applications
+										div(id="collapse_#{i}", class="panel-collapse collapse")
+											.panel-body
+												each application in appJobMatchArr
+													div
+														a(href='/job/viewapplication-#{application.id}', role='button') #{application.user.profile.name} application

@@ -39,6 +39,7 @@ html
               //- img.opt-logo(src='/images/logo_2.png', alt='Opt-In Logo')
               img.opt-logo(src='/images/owl.png', alt='AthenaHire Logo')
               | AthenaHire
+              sup.beta Beta
           .navbar-collapse.collapse
             .cust-navbar
               ul.nav.navbar-nav
@@ -96,12 +97,21 @@ html
         .footer-content
           .row.mt
             .col-md-4
-              p About Us
-              ul
-                li
-                  a(href='/') AthenaHire
-                li 
-                  a(href='/team') Our Team 
+              .footer-1
+                p About Us
+                ul
+                  li
+                    a(href='/') AthenaHire
+                  li 
+                    a(href='/team') Our Team
+                p 
+                  a(href="https://www.facebook.com/athenahire" target="_blank").icon-link
+                    span.fa.fa-facebook-square.fa-icon-text
+                  a(href="https://twitter.com/athenahire" target="_blank").icon-link
+                    span.fa.fa-twitter-square.fa-icon-text 
+                  a(href="https://www.linkedin.com/company/3682281" target="_blank").icon-link
+                    span.fa.fa-linkedin-square.fa-icon-text 
+
             .col-md-4
               p Join Our Mailing List for Updates
               .form-wrapper
@@ -113,6 +123,8 @@ html
             .col-md-4
               p
                 | Contact Us
+                br
+                a(href="mailto:contact@athenahire.co") contact@athenahire.co
                 address
                   | Farley Center - NUvention: Web
                   br

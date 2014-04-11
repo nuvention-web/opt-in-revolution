@@ -27,11 +27,17 @@ block content
 									a(href='/about?view=biz') Business
 			.row.mt.centered.opt-about-header-content
 				.col-md-6.opt-about-desc
+					iframe(src='http://www.slideshare.net/slideshow/embed_code/32551765?rel=0', width='95%', height='300px', frameborder='0', marginwidth='0', marginheight='0', scrolling='no', style='border: 1px solid #CCC; border-width: 1px 1px 0; margin-bottom: 5px; max-width: 100%;', allowfullscreen='allowfullscreen')  
+				.col-md-6.opt-about-desc
 					blockquote.special
 						p
 							| AthenaHire is dedicated to finding viable work solutions for mothers and companies by providing a dynamic online marketplace, extensive resources and meaningful networks. 
 						br
-				.col-md-6.opt-quote
+						br
+						p
+							| Sign Up Today
+						a.btn.btn-primary.opt-btn-about-top(href='/signup') Create an account
+				//- .col-md-6.opt-quote
 					blockquote
 						p
 							| Forty-three percent of women drop out of the workforce at some point in their life, yet they have the skills, experience, and knowledge that can still make them competitive.
@@ -39,62 +45,51 @@ block content
 							b
 								| Sheryl Sandberg,
 								cite(title='Source Title')  Lean In
-	.container
-		#opt-how-it-works
-			.row.mt.centered
-				.col-md-12
-					//- p video is here
-					iframe(src='http://www.slideshare.net/slideshow/embed_code/32551765?rel=0', width='95%', height='550px', frameborder='0', marginwidth='0', marginheight='0', scrolling='no', style='border: 1px solid #CCC; border-width: 1px 1px 0; margin-bottom: 5px; max-width: 100%;', allowfullscreen='allowfullscreen')  
-						div(style='margin-bottom: 5px;')
-							strong
-								a(href='https://www.slideshare.net/farleycenter/athena-hire-32551765', title='Athena Hire', target='_blank') Athena Hire
-								| from
-							strong
-								a(href='http://www.slideshare.net/farleycenter', target='_blank') Mike Marasco
-			.row.mt
-				.col-md-6
-					.pillar#employ
-						h4 How we help Moms
-						p.opt-pillar-desc
-							.row.mt
-								.col-md-2.centered
-									p.number 1.
-								.col-md-10
-									p.step Moms sign up and look for part-time work that matches their skill set.
-							.row.mt
-								.col-md-2.centered
-									p.number 2.
-								.col-md-10
-									p.step Moms and business work out hours per week and project deadlines.
-							.row.mt
-								.col-md-2.centered
-									p.number 3.
-								.col-md-10
-									p.step Mom completes work on her schedule, gets paid and keeps her skills sharp.
-				.col-md-6
-					.pillar#empower
-						h4 How we help Businesses
-						p.opt-pillar-desc
-							.row.mt
-								.col-md-2.centered
-									p.number 1.
-								.col-md-10
-									p.step Business posts jobs it needs completed with details about expectations.
-							.row.mt
-								.col-md-2.centered
-									p.number 2.
-								.col-md-10
-									p.step Moms and business work out hours per week and project deadlines.
-							.row.mt
-								.col-md-2.centered
-									p.number 3.
-								.col-md-10
-									p.step Business gets a high-end consultant it otherwise couldn't afford.
-			.row.mt.centered
-				.col-md-12
-					a.btn.btn-primary.opt-btn-about(href='/signup') Create an account
-		br
-		br
-		br
-		br
-		br
+			#opt-how-it-works
+				.row.mt
+					.col-md-6
+						.pillar#employ
+							h4 How we help Moms
+							p.opt-pillar-desc
+								.row.mt
+									.col-md-2.centered
+										p.number 1.
+									.col-md-10
+										p.step Moms sign up and look for part-time work that matches their skill set.
+								.row.mt
+									.col-md-2.centered
+										p.number 2.
+									.col-md-10
+										p.step Moms and business work out hours per week and project deadlines.
+								.row.mt
+									.col-md-2.centered
+										p.number 3.
+									.col-md-10
+										p.step Mom completes work on her schedule, gets paid and keeps her skills sharp.
+					.col-md-6
+						.pillar#empower
+							h4 How we help Businesses
+							p.opt-pillar-desc
+								.row.mt
+									.col-md-2.centered
+										p.number 1.
+									.col-md-10
+										p.step Business posts jobs it needs completed with details about expectations.
+								.row.mt
+									.col-md-2.centered
+										p.number 2.
+									.col-md-10
+										p.step Moms and business work out hours per week and project deadlines.
+								.row.mt
+									.col-md-2.centered
+										p.number 3.
+									.col-md-10
+										p.step Business gets a high-end consultant it otherwise couldn't afford.
+				.row.mt.centered
+					.col-md-12
+						a.btn.btn-primary.opt-btn-about(href='/signup') Create an account
+			br
+			br
+			br
+			br
+			br

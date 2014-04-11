@@ -47,6 +47,10 @@ i {
   padding-top:5px;
 }
 
+.beta {
+  font-size: 70%;
+}
+
 .cust-navbar {
   padding-top: 5px;
   font-size: 15px;
@@ -68,13 +72,11 @@ i {
 
 .page-header {
   margin-top: 0px;
-  // margin-top: 10px;
   padding-bottom: 0px;
 }
 
 .opt-btn-prof {
   width:150px;
-  // margin-right: -20px;
   background-color: #FEE000;
   color:black;
   border: none;
@@ -131,7 +133,7 @@ i {
 }
 
 .opt-call-to-action {
-  padding-top: 40%;
+  padding-top: 20%;
 }
 
 h1.opt-title-header {
@@ -176,13 +178,7 @@ h1.opt-title-header {
 }
 
 .opt-about-header-section {
-   //  background:transparent url('../images/landingpage.jpg') center no-repeat;
-   //  background-size:cover;
-   //  min-height: 30%;
-   //    -webkit-box-shadow: 0 4px 4px -2px #777;
-   // -moz-box-shadow: 0 4px 4px -2px #777;
-   //      box-shadow: 0 4px 4px -2px #777;
-        color:black;
+  color:black;
 }
 
 .opt-about-header-section-biz {
@@ -203,14 +199,6 @@ p.step {
   padding-top: 5px;
 }
 
-@media (max-width: 990px) { 
-   p.step {
-       text-align: center;
-   }
-   .pillar > h4 {
-      text-align: center;
-   }
-}
 
 .opt-btn-about {
   margin-top:50px;
@@ -220,6 +208,25 @@ p.step {
   color:black;
   text-align: center;
   border: none;
+}
+
+.opt-btn-about:hover {
+  color: #9975b9;
+  background-color: #FEE000;
+}
+.opt-btn-about-top {
+  // margin-top:30px;
+  width:300px;
+  font-size: 13pt;
+  background-color: #FEE000;
+  color:black;
+  text-align: center;
+  border: none;
+}
+
+.opt-btn-about-top:hover {
+  color: #9975b9;
+  background-color: #FEE000;
 }
 
 .opt-about-header-content {
@@ -269,7 +276,13 @@ span.caret.d-text {
 }
 
 blockquote.special {
+  padding-top:20px;
   border-left:none;
+  
+}
+
+blockquote.special > p{
+  font-size: 130%;
 }
 
 p.opt-pillar-desc {
@@ -279,10 +292,6 @@ p.opt-pillar-desc {
 a.pillar-link {
   color:black;
   text-decoration:none; 
-}
-
-.pillar:hover {
-   // border-bottom: 2px solid #777; 
 }
 
 #employ {
@@ -397,7 +406,6 @@ input.form-control.years-input {
 .job-listing-filter-wrapper {
   margin-top: 15px;
   margin-bottom: 15px;
-// border-right: 1px solid #777; 
 }
 
 .job-filter-breadcrumbs {
@@ -446,9 +454,7 @@ input.form-control.years-input {
 .job-btn {
   margin-right: 5px;
   background-color: #FEE000;
-  // background-color: #581830;
   color:black;
-  // color:white;
 }
 
 .job-btn.btn-success:hover {
@@ -544,6 +550,9 @@ textarea.apply-job-textarea {
 /****************************************************************
   Footer Styles
 *****************************************************************/
+.icon-link {
+  padding-right:20px;
+}
 
 .footer {
    height: auto;
@@ -553,6 +562,10 @@ textarea.apply-job-textarea {
   padding-bottom:20px;
   bottom: 0;
     width: 100%;
+}
+
+.footer-1 {
+  padding-left:50px;
 }
 
 .footer-content {
@@ -569,4 +582,21 @@ textarea.apply-job-textarea {
 .opt-subscribe-btn:hover {
   color: #9975b9;
   background-color: #FEE000;
+}
+
+.fa-icon-text {
+  font-size: 18pt;
+}
+
+@media (max-width: 990px) { 
+   p.step {
+       text-align: center;
+   }
+   .pillar > h4 {
+      text-align: center;
+   }
+
+   .footer-1 {
+    padding-left: 0px;
+   }
 }

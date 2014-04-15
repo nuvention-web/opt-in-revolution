@@ -44,13 +44,13 @@ block content
 								.page-header
 									.prof-label-header
 										.row.mt
-											.col-md-7
+											.col-md-6
 												.fg-h2-special
 													h2 Profile
-											.col-md-5
+											.col-md-6
 												.row.mt
 													.col-md-6
-														a.btn.btn-primary.opt-btn-prof.edit(href='#edit', data-toggle='tab') Edit Profile
+														a.btn.btn-primary.opt-btn-prof(href='#edit', data-toggle='tab') Edit Profile
 													.col-md-6
 														a.btn.btn-primary.opt-btn-prof(href="/auth/linkedin") Import from LinkedIn
 								.row.mt
@@ -260,22 +260,25 @@ block content
 												br
 												br
 												br
+												//- a.btn.btn-primary.opt-btn-prof(href='#edit', data-toggle='tab') Edit Profile
+												//- .col-md-6
+												//- a.btn.btn-primary.opt-btn-prof(href="/auth/linkedin") Import from LinkedIn													
 						#edit.tab-pane
 							.col-md-10
 								form.form-horizontal(action='/account/profile', method='POST', enctype="multipart/form-data")
 									.page-header
 										.prof-label-header
 											.row.mt
-												.col-md-7
+												.col-md-6
 													.fg-h2-special
 														h2 Profile
-												.col-md-5
+												.col-md-6
 													.form-group.fg-special
 														.row.mt
 															.col-md-6
-																button.btn.btn-primary.opt-btn-prof(type='submit') Update Profile
+																button.btn.btn-primary.opt-btn-prof.edit(type='submit') Update Profile
 															.col-md-6
-																a.btn.btn-primary.opt-btn-prof(href="/auth/linkedin") Import from LinkedIn
+																a.btn.btn-primary.opt-btn-prof.edit(href="/auth/linkedin") Import from LinkedIn
 									.row.mt
 										.col-md-12
 											.row.mt.prof-column
@@ -619,16 +622,3 @@ block content
 						//- p You can deactivate your account.
 						//- form(action='/account/deactivate', method='POST')
 						//- 	button.btn.btn-danger(type='submit') Deactivate my account
-
-				//- .page-header
-				//-   h3 Linked Accounts
-
-				//- if user.google
-				//-   p: a.text-danger(href='/account/unlink/google') Unlink your Google account
-				//- else
-				//-   p: a(href='/auth/google') Link your Google account
-
-				//- if user.facebook
-				//-   p: a.text-danger(href='/account/unlink/facebook') Unlink your Facebook account
-				//- else
-				//-   p: a(href='/auth/facebook') Link your Facebook account

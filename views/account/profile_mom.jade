@@ -62,9 +62,14 @@ block content
 											.row.mt.prof-column
 												.col-md-3
 													if user.profile.picture
-														img.prof-pic.pagination-centered(src='#{user.profile.picture}', height='130px')
+														if (user.profile.picture.indexOf('http')!=-1)
+															img.prof-pic.pagination-centered(src='#{user.profile.picture}')
+														else
+															-var profLink = user.profile.picture;
+															-profLink = profLink.split("public").pop();
+															img.prof-pic.pagination-centered(src='#{profLink}')
 													else
-														img.prof-pic.pagination-centered(src='/images/linkedin-default.jpg', height='130px')
+														img.prof-pic.pagination-centered(src='/images/linkedin-default.jpg')
 												.col-md-9
 													.first-row
 														.row.mt
@@ -288,12 +293,12 @@ block content
 											.row.mt.prof-column
 												.col-md-3
 													if user.profile.picture
-														if (false)
+														if (user.profile.picture.indexOf('http')!=-1)
 															img.prof-pic.pagination-centered(src='#{user.profile.picture}', height='130px')
 														else
 															-var profLink = user.profile.picture;
 															-profLink = profLink.split("public").pop();
-															img.prof-pic.pagination-centered(src='#{profLink}', height='130px')
+															img.prof-pic.pagination-centered(src='#{profLink}', height='130px', width='130px')
 													else
 														img.prof-pic.pagination-centered(src='/images/linkedin-default.jpg', height='130px')
 													.row.mt

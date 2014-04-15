@@ -182,6 +182,43 @@ exports.postUpdateProfile = function(req, res, next) {
     user.jobFunctionPreference = req.body.jobFunctionPreference || '';
     //Need to add company image
 
+    //profile picture upload 
+    if(req.files.profilePicture.size>0) {
+      var picErrors = [];
+      var fileGood = true;
+      var acceptableFileTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+
+      if(req.files.profilePicture.size > (5000 * 1024)) {
+        picErrors.push({param:"size", msg:"File size must be less than 5mb.", value:req.files.profilePicture.size});
+        fileGood = false;
+      }
+      if(acceptableFileTypes.indexOf(req.files.profilePicture.type)==-1) {
+        picErrors.push({param:"type", "msg":"Please upload an image.", value: req.files.profilePicture.type});
+        fileGood = false;
+      }
+      if(picErrors.length>0) {
+        req.flash('picErrors', picErrors);
+      }
+
+      if(fileGood) {
+        if (user.profile.picture!='') //if there is an old pic
+          fs.unlink(user.profile.picture); //delete it
+        user.profile.picture = req.files.profilePicture.path;   //set pic path to uploaded file path
+      }
+      else {
+        fs.unlink(req.files.profilePicture.path); //file was not good, delete it
+      }
+        // imgur.upload(req.files.profilePicture.path, function(err, profPic) {
+        //   console.log(err);
+        //   if (err) {}
+        //   else { //file uploaded successfully
+        //     user.profile.picture = profPic;
+        //     fs.unlink(req.files.profilePicture.path);
+        //     console.log(profPic);
+        //   }
+        // });
+    }
+
     if (user.userType=='mom') {
       formEducation = req.body.education.replace(/[\r]/g, '').split("\n")
 
@@ -249,42 +286,6 @@ exports.postUpdateProfile = function(req, res, next) {
         }
       } else {
         user.skills = ''
-      }
-      //profile picture upload 
-      if(req.files.profilePicture.size>0) {
-        var picErrors = [];
-        var fileGood = true;
-        var acceptableFileTypes = ['image/png', 'image/jpeg', 'image/jpg'];
-
-        if(req.files.profilePicture.size > (5000 * 1024)) {
-          picErrors.push({param:"size", msg:"File size must be less than 5mb.", value:req.files.profilePicture.size});
-          fileGood = false;
-        }
-        if(acceptableFileTypes.indexOf(req.files.profilePicture.type)==-1) {
-          picErrors.push({param:"type", "msg":"Please upload an image.", value: req.files.profilePicture.type});
-          fileGood = false;
-        }
-        if(picErrors.length>0) {
-          req.flash('picErrors', picErrors);
-        }
-
-        if(fileGood) {
-          if (user.profile.picture!='') //if there is an old pic
-            fs.unlink(user.profile.picture); //delete it
-          user.profile.picture = req.files.profilePicture.path;   //set pic path to uploaded file path
-        }
-        else {
-          fs.unlink(req.files.profilePicture.path); //file was not good, delete it
-        }
-          // imgur.upload(req.files.profilePicture.path, function(err, profPic) {
-          //   console.log(err);
-          //   if (err) {}
-          //   else { //file uploaded successfully
-          //     user.profile.picture = profPic;
-          //     fs.unlink(req.files.profilePicture.path);
-          //     console.log(profPic);
-          //   }
-          // });
       }
 
       //resume upload 

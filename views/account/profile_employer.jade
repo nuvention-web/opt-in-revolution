@@ -61,9 +61,23 @@ block content
 											.row.mt.prof-column
 												.col-md-3
 													if user.profile.picture
-														img.prof-pic.pagination-centered(src='#{user.profile.picture}', height='130px')
+														if (user.profile.picture.indexOf('http')!=-1)
+															img.prof-pic.pagination-centered(src='#{user.profile.picture}')
+														else
+															-var profLink = user.profile.picture;
+															-profLink = profLink.split("public").pop();
+															img.prof-pic.pagination-centered(src='#{profLink}')
 													else
-														img.prof-pic.pagination-centered(src='/images/business_profile.jpg', height='130px')
+														img.prof-pic.pagination-centered(src='/images/business_profile.jpg')
+													.row.mt
+														.col-md-12
+															.form-group
+																.row.mt
+																	.col-md-12
+																		label.control-label(for='profilePicture') Profile Picture Upload
+																.row.mt
+																	.col-md-12
+																		input(type="file", name="profilePicture")
 												.col-md-9
 													.form-group
 														label.col-md-2.control-label(for='companyName') Name

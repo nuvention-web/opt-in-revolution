@@ -16,18 +16,18 @@ block content
 	else
 		.container
 			.job-listing-wrapper
-				-var user = jobApp.user
+				-var jobApplicant = jobApp.user
 					.row.mt
 						.job-card
 							.row.mt.job-card-heading
 								.col-md-12
-									h2 #{user.profile.name}
+									h2 #{jobApplicant.profile.name}
 								.row.mt
 										.col-md-12
 											.row.mt.prof-column
 												.col-md-3
-													if user.profile.picture
-														img.prof-pic.pagination-centered(src='#{user.profile.picture}', height='130px')
+													if jobApplicant.profile.picture
+														img.prof-pic.pagination-centered(src='#{jobApplicant.profile.picture}', height='130px')
 													else
 														img.prof-pic.pagination-centered(src='/images/linkedin-default.jpg', height='130px')
 												.col-md-9
@@ -37,19 +37,19 @@ block content
 																b.prof-top
 																	| Name:
 															.col-md-10
-																| #{user.profile.name}
+																| #{jobApplicant.profile.name}
 													.row.mt
 														.col-md-2
 															b.prof-top
 																| Email:
 														.col-md-10
-															| #{user.email}
+															| #{jobApplicant.email}
 													.row.mt
 														.col-md-2
 															b.prof-top
 																| Location:
 														.col-md-10
-															| #{user.profile.location}
+															| #{jobApplicant.profile.location}
 											.prof-bottom-wrapper.special
 												.row.mt
 													.col-md-12
@@ -60,14 +60,14 @@ block content
 														.row.mt.prof-row
 															.col-md-12
 																ul
-																	if user.education[0]
-																		if typeof(user.education[0])==='object'
-																			each e in user.education
+																	if jobApplicant.education[0]
+																		if typeof(jobApplicant.education[0])==='object'
+																			each e in jobApplicant.education
 																				li
 																					| #{e.schoolName} - #{e.degree}
 																		else
 																			li
-																				| #{user.education}
+																				| #{jobApplicant.education}
 																	else
 																		li
 																			| Not filled out
@@ -80,14 +80,14 @@ block content
 														.row.mt.prof-row
 															.col-md-12
 																ul
-																	if user.positions[0]
-																		if typeof(user.positions[0])==='object'
-																			each p in user.positions
+																	if jobApplicant.positions[0]
+																		if typeof(jobApplicant.positions[0])==='object'
+																			each p in jobApplicant.positions
 																				li
 																					| #{p.title}, #{p.company}
 																		else
 																			li
-																				| #{user.positions}
+																				| #{jobApplicant.positions}
 																	else
 																			li 
 																				| Not filled out
@@ -101,9 +101,9 @@ block content
 															.col-md-12
 																ul
 																	li
-																		if user.skills[0]							
-																			- var length = user.skills.length - 1
-																				each s,i in user.skills
+																		if jobApplicant.skills[0]							
+																			- var length = jobApplicant.skills.length - 1
+																				each s,i in jobApplicant.skills
 																					| #{s.skill}
 																					if i != (length)
 																						| , 
@@ -118,7 +118,7 @@ block content
 																	| Years of Professional Experience:
 																ul
 																	li 
-																		| #{user.yearsOfExperience}
+																		| #{jobApplicant.yearsOfExperience}
 												.row.mt
 													.col-md-12
 														.row.mt.prof-row

@@ -220,18 +220,19 @@ exports.viewCompanyPosts = function(req, res) {
 			function(item, callback) {
 				JobApplication.find({jobID:item._id}, function(er, jobApps) {
 					for (var i=0; i<jobApps.length; i++) {
-						newObj = {}
-						newObj['jobID'] = jobApps[i].jobID;
-						newObj['userID'] = jobApps[i].userID;
-						newObj['relevantJobExperience'] = jobApps[i].relevantJobExperience;
-						newObj['projectApproach'] = jobApps[i].projectApproach;
-						newObj['submitted'] = jobApps[i].submitted;
-						newObj['dateCreated'] = jobApps[i].dateCreated;
-						newObj['id'] = jobApps[i]._id;
-						newObj['user'] = jobApps[i].user;
-						newObj['job'] = jobApps[i].job;
+						if (jobApps[i].submitted == "yes") {
+							newObj = {}
+							newObj['jobID'] = jobApps[i].jobID;
+							newObj['userID'] = jobApps[i].userID;
+							newObj['relevantJobExperience'] = jobApps[i].relevantJobExperience;
+							newObj['projectApproach'] = jobApps[i].projectApproach;
+							newObj['dateCreated'] = jobApps[i].dateCreated;
+							newObj['id'] = jobApps[i]._id;
+							newObj['user'] = jobApps[i].user;
+							newObj['job'] = jobApps[i].job;
 
-						jobAppArray.push(newObj);
+							jobAppArray.push(newObj);
+						}
 					}
 
 					callback();

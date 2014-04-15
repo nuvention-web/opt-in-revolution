@@ -317,6 +317,8 @@ exports.postSaveApp = function(req, res, next) {
 
 	JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function (err, jobApp) {
 		if(jobApp) { // if the job app exists
+			jobApp.relevantJobExperience =req.body.relevantJobExperience;
+			jobApp.projectApproach =req.body.projectApproach;
 		} else { // job app doesn't exist yet
 			var jobApp = new JobApplication({
 				jobID: req.params.id,
@@ -352,6 +354,9 @@ exports.postSubmitApp = function(req, res) {
 	
 	JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function (err, jobApp) {
 		if(jobApp) { // if the job app exists
+			jobApp.submitted = "yes";
+			jobApp.relevantJobExperience =req.body.relevantJobExperience;
+			jobApp.projectApproach =req.body.projectApproach;
 		} else { // job app doesn't exist yet
 			var jobApp = new JobApplication({
 				jobID: req.params.id,

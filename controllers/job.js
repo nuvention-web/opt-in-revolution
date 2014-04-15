@@ -147,7 +147,7 @@ exports.listJobs = function(req, res) {
 
 exports.applyJob = function(req, res) {
 	User.findById(req.user.id, function(err, user) {
-		if(user.profile.name) {
+		if((user.profile.name) && (user.userType == 'mom')) {
 			Job.findById(req.params.id, function(e, docs) {
 				JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function(err, jobApp) {
 					console.log("Loading apply job..");
@@ -206,10 +206,16 @@ exports.postFilterJobs = function (req,res) {
 exports.saveJob = function(req, res) {
 	User.findById(req.user.id, function(err, user) {
 		// Save as ObjectID for easier querying when viewing saved jobs
-		user.companiesContacted.push(new ObjectID(req.params.id));
-		user.save(function(err, user, count) {
-			res.redirect("/employ");
-		});
+		if((user.profile.name) && (user.userType == 'mom')) {
+			user.companiesContacted.push(new ObjectID(req.params.id));
+			user.save(function(err, user, count) {
+				res.redirect("/employ");
+			});
+		}
+		else {
+   			req.flash('signUp', 'signUp');
+			res.redirect('/account');
+		}
 	});
 };
 

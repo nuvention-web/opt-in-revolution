@@ -125,8 +125,12 @@ block content
 											if typeof(user)==='undefined'
 												a.btn.btn-success.btn-md.job-btn(href='/signup', role='button') Sign Up
 											else
-												a.btn.btn-success.btn-md.job-btn(href='/job/apply-#{job.id}', role='button') Apply
-												a.btn.btn-success.btn-md.job-btn(href='/job/save-#{job.id}', role='button') Save
+												if (user.userType == 'mom')
+													a.btn.btn-success.btn-md.job-btn(href='/job/apply-#{job.id}', role='button') Apply
+													a.btn.btn-success.btn-md.job-btn(href='/job/save-#{job.id}', role='button') Save
+												else
+													br
+													br
 					else 
 						.row.mt
 							p 

@@ -81,7 +81,7 @@ html
                         img(src='#{user.profile.picture}')
                       else 
                         img.header-prof-pic(src='/images/business_profile.jpg')
-                      | #{user.profile.name || 'Profile'}&nbsp;
+                      | #{user.company.companyName || 'Profile'}&nbsp;
                       span.caret
                     ul.dropdown-menu
                       li: a(href='/account') My Account

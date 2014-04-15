@@ -2,6 +2,11 @@ extends ../layout
 
 block content
 	.container
+		if success.length
+			.alert.alert-success.animated.fadeInUp.opt-alert
+				button.close(data-dismiss='alert') ×
+				i.fa.fa-check
+				= success
 		if error.length
 			.alert.alert-danger.animated.fadeIn.opt-alert
 				button.close(data-dismiss='alert') ×
@@ -10,11 +15,10 @@ block content
 			.alert.alert-danger.animated.fadeIn.opt-alert
 				for err in errors
 					div= err.msg
-		if success.length
-			.alert.alert-success.animated.fadeInUp.opt-alert
-				button.close(data-dismiss='alert') ×
-				i.fa.fa-check
-				= success
+		if picErrors && picErrors.length
+			.alert.alert-danger.animated.fadeIn.opt-alert
+				for err in picErrors
+					div= err.msg
 		if signUp.length
 			.alert.alert-info.animated.fadeIn.opt-alert
 				button.close(data-dismiss='alert') x
@@ -284,9 +288,23 @@ block content
 											.row.mt.prof-column
 												.col-md-3
 													if user.profile.picture
-														img.prof-pic.pagination-centered(src='#{user.profile.picture}', height='130px')
+														if (false)
+															img.prof-pic.pagination-centered(src='#{user.profile.picture}', height='130px')
+														else
+															-var profLink = user.profile.picture;
+															-profLink = profLink.split("public").pop();
+															img.prof-pic.pagination-centered(src='#{profLink}', height='130px')
 													else
 														img.prof-pic.pagination-centered(src='/images/linkedin-default.jpg', height='130px')
+													.row.mt
+														.col-md-12
+															.form-group
+																.row.mt
+																	.col-md-12
+																		label.control-label(for='profilePicture') Profile Picture Upload
+																.row.mt
+																	.col-md-12
+																		input(type="file", name="profilePicture")
 												.col-md-9
 													.form-group
 														label.col-md-2.control-label(for='name') Name

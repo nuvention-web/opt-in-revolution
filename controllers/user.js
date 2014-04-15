@@ -3,6 +3,7 @@ var passport = require('passport');
 var _ = require('underscore');
 var User = require('../models/User');
 var fs = require('fs');
+var imgur=require('node-imgur').createClient('d5975d94776362d')
 /**
  * GET /login
  * Login page.
@@ -36,16 +37,6 @@ exports.getSignup = function(req, res) {
 
 exports.getAccount = function(req, res) {
   if (req.user.userType == 'mom') {
-
-    // console.log("user")
-    // console.log(req.user)
-    // console.log("getAccount")
-    // console.log(req.user.education)
-
-    // console.log("getAccount [0]")
-    // console.log(req.user.education[0])
-
-
     res.render('account/profile_mom', {
       title: 'Account Management',
       success: req.flash('success'),
@@ -53,6 +44,7 @@ exports.getAccount = function(req, res) {
       errors: req.flash('errors'),
       signUp: req.flash('signUp'),
       first: req.flash('first'),
+      picErrors: req.flash('picErrors'),
     });
   }
   else {
@@ -118,7 +110,6 @@ exports.postSignup = function(req, res, next) {
   req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
 
   var errors = req.validationErrors();
-  console.log(errors);
   if (errors) {
     req.flash('errors', errors);
     return res.redirect('/signup');
@@ -191,9 +182,45 @@ exports.postUpdateProfile = function(req, res, next) {
     user.jobFunctionPreference = req.body.jobFunctionPreference || '';
     //Need to add company image
 
+    //profile picture upload 
+    if(req.files.profilePicture.size>0) {
+      var picErrors = [];
+      var fileGood = true;
+      var acceptableFileTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+
+      if(req.files.profilePicture.size > (5000 * 1024)) {
+        picErrors.push({param:"size", msg:"File size must be less than 5mb.", value:req.files.profilePicture.size});
+        fileGood = false;
+      }
+      if(acceptableFileTypes.indexOf(req.files.profilePicture.type)==-1) {
+        picErrors.push({param:"type", "msg":"Please upload an image.", value: req.files.profilePicture.type});
+        fileGood = false;
+      }
+      if(picErrors.length>0) {
+        req.flash('picErrors', picErrors);
+      }
+
+      if(fileGood) {
+        if (user.profile.picture!='') //if there is an old pic
+          fs.unlink(user.profile.picture); //delete it
+        user.profile.picture = req.files.profilePicture.path;   //set pic path to uploaded file path
+      }
+      else {
+        fs.unlink(req.files.profilePicture.path); //file was not good, delete it
+      }
+        // imgur.upload(req.files.profilePicture.path, function(err, profPic) {
+        //   console.log(err);
+        //   if (err) {}
+        //   else { //file uploaded successfully
+        //     user.profile.picture = profPic;
+        //     fs.unlink(req.files.profilePicture.path);
+        //     console.log(profPic);
+        //   }
+        // });
+    }
+
     if (user.userType=='mom') {
       formEducation = req.body.education.replace(/[\r]/g, '').split("\n")
-      console.log(formEducation)
 
       user.education = []
       if (formEducation.length != 0) {
@@ -240,9 +267,7 @@ exports.postUpdateProfile = function(req, res, next) {
         user.positions = ''
       }
 
-      console.log(req.body.skills)
       formSkills = req.body.skills.replace(/[\r\n]/g, '').split(",")
-      console.log(formSkills)
 
       user.skills = []
       if (formSkills.length != 0) {
@@ -255,8 +280,6 @@ exports.postUpdateProfile = function(req, res, next) {
             if (skill != '') {
               
               userSkill['skill'] = skill
-              console.log(count)
-              console.log(userSkill)
               count += 1 
               user.skills.push(userSkill);
             }
@@ -265,6 +288,7 @@ exports.postUpdateProfile = function(req, res, next) {
         user.skills = ''
       }
 
+      //resume upload 
       if(req.files.resume.size>0) {
         var errors = [];
         var fileGood = true;
@@ -283,13 +307,13 @@ exports.postUpdateProfile = function(req, res, next) {
         }
 
         if (fileGood) {
-          if (user.resume.path!='')
-            fs.unlink(user.resume.path);
-          user.resume.name = req.files.resume.originalFilename;
-          user.resume.path = req.files.resume.path;  
+          if (user.resume.path!='') //if there is an old resume
+            fs.unlink(user.resume.path); //delete it
+          user.resume.name = req.files.resume.originalFilename; //set resume name to file name
+          user.resume.path = req.files.resume.path;   //set resume path to uploaded file path
         }
         else {
-          fs.unlink(req.files.resume.path);
+          fs.unlink(req.files.resume.path); //file was not good, delete it
         }
       }
     }
@@ -305,8 +329,6 @@ exports.postUpdateProfile = function(req, res, next) {
 exports.downloadResume = function(req, res) {
   User.findById(req.params.id, function(err, user) {
     var filename = user.resume.path;
-    console.log("File name: ");
-    console.log(filename);
     res.download(filename);
   });
 };

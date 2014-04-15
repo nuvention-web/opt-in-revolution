@@ -18,72 +18,118 @@ block content
 						a(href='/employ', role='button') All Jobs
 					br
 					br
-					b
-						| Industry
-					br
-					a(href='/employ?industry=consumer-products', role='button') Consumer products
-					br
-					a(href='/employ?industry=apparel', role='button') Apparel
-					br
-					a(href='/employ?industry=other-retail', role='button') Other retail
-					br
-					a(href='/employ?industry=food-and-beverage', role='button') Food and beverage
-					br
-					a(href='/employ?industry=entertainment-and-leisure', role='button') Entertainment and leisure
-					br
-					br
-					b
-						| Job Function
-					br
-					a(href='/employ?jobfunction=public-relations', role='button') Public relations
-					br
-					a(href='/employ?jobfunction=Marketing', role='button') Marketing
-					br
-					a(href='/employ?jobfunction=strategy', role='button') Strategy
-					br
-
+					form.form-horizontal(name="JobFilter", role="form", method="post",action="employ")
+						b
+							| Industry
+						br
+						select#industry.joblist.multiselect(multiple='multiple',name='industry')
+							- var industries = ['Accounting','Advertising','Broadcasting','Consulting','Consumer Products','Education','Entertainment and Leisure','Financial Services','Food & Beverage','Health Care', 'Nonprofit','Pharmaceuticals','Publishing','Retail', 'Technology']
+								each industry in industries
+									option(name='industry',label='industry',value='#{industry}', selected=selectedFilters['industry'].indexOf(industry)!=-1) #{industry}
+						br
+						br
+						b
+							| Job Function
+						br
+						select#jobFunction.joblist.multiselect(multiple='multiple',name='jobFunction')
+							- var jobFunction = ['Accounting', 'Business Development', 'Customer Service', 'Finance', 'Human Resources', 'Marketing', 'Operations', 'Other', 'Sales', 'Strategy']
+								each jobFunc in jobFunction
+									option(name='jobFunction',label='jobFunction',value='#{jobFunc}', selected=selectedFilters['jobFunction'].indexOf(jobFunc)!=-1) #{jobFunc}
+						br
+						br
+						b
+							| Project Length
+						br
+						select#totalWeeks.joblist.multiselect(multiple='multiple',name='totalWeeks')
+							- var totalWeeks = ['< 1 week', '1-2 weeks', '2-3 weeks', '3-4 weeks', '1-2 months', '2-3 months', '3+ months']
+								each project in totalWeeks
+									option(name='totalWeeks',label='totalWeeks',value='#{project}', selected=selectedFilters['totalWeeks'].indexOf(project)!=-1) #{project}
+						br
+						br
+						b
+							| Hours Per week
+						br
+						select#hoursPerWeek.joblist.multiselect(multiple='multiple',name='hoursPerWeek')
+							- var hoursPerWeek = ['< 10', '10-20', '20-30', '30-40']
+								each hour in hoursPerWeek
+									option(name='hoursPerWeek',label='hoursPerWeek',value='#{hour}', selected=selectedFilters['hoursPerWeek'].indexOf(hour)!=-1) #{hour}
+						br
+						br
+						b
+							| Check-in Frequency
+						br
+						select#checkinFrequency.joblist.multiselect(multiple='multiple',name='checkinFrequency')
+							- var checkinFrequency = ['Daily', 'Twice a week', 'Weekly', 'Monthly']
+								each check in checkinFrequency
+									option(name='checkinFrequency',label='checkinFrequency',value='#{check}', selected=selectedFilters['checkinFrequency'].indexOf(check)!=-1) #{check}
+						br
+						br
+						b
+							| Contact Method
+						br
+						select#primaryComm.joblist.multiselect(multiple='multiple',name='primaryComm')
+							- var primaryComm = ['Email', 'Phone', 'In-Person']
+								each comm in primaryComm
+									option(name='primaryComm', label='primaryComm',value='#{comm}', selected=selectedFilters['primaryComm'].indexOf(comm)!=-1) #{comm}
+						br
+						br
+						//- button.btn.btn-default.opt-about-btn(type='submit') Submit
+						button.btn.btn-success.update-button(type='submit')
+							| Update Filters
 			.col-md-10
 				.row.mt
-					.job-listing-filter-wrapper
+					//- .job-listing-filter-wrapper
 						b
 							| Viewing all jobs
 				.job-listing-wrapper
-					each job, i in joblist
+					if joblist.length > 0
+						each job, i in joblist
+							.row.mt
+								.job-card
+									.row.mt.job-card-heading
+										.col-md-12
+											h4 
+												| #{job.jobName} - #{job.companyName}
+									.row.mt.job-card-description
+										h5 Description
+										.col-md-12
+											| #{job.jobDescription}
+									.row.mt.job-card-other
+										h5 Details
+										.col-md-6
+											b Industry: 
+											| #{job.industry}
+											br
+											b Job Function: 
+											| #{job.jobFunction}
+											br
+											b Skills Needed: 
+											| #{job.skillsNeeded}
+											br
+											b Contact Method: 
+											| #{job.primaryComm}
+										.col-md-6
+											b Project Length: 
+											| #{job.totalWeeks}
+											br
+											b Hours per week: 
+											| #{job.hoursPerWeek}
+											br
+											b Check-in Frequency: 
+											| #{job.checkinFrequency}
+											br
+											b Pay: 
+											| #{job.pay}
+									.row.mt.job-card-buttons
+										.col-md-2.col-md-offset-10
+											if typeof(user)==='undefined'
+												a.btn.btn-success.btn-md.job-btn(href='/signup', role='button') Sign Up
+											else
+												a.btn.btn-success.btn-md.job-btn(href='/job/apply-#{job.id}', role='button') Apply
+												a.btn.btn-success.btn-md.job-btn(href='/job/save-#{job.id}', role='button') Save
+					else 
 						.row.mt
-							.job-card
-								.row.mt.job-card-heading
-									.col-md-12
-										h4 
-											| #{job.jobName} - #{job.companyName}
-								.row.mt.job-card-description
-									h5 Description
-									.col-md-12
-										| #{job.jobDescription}
-								.row.mt.job-card-other
-									h5 Details
-									.col-md-6
-										b Industry: 
-										| #{job.industry}
-										br
-										b Job Function: 
-										| #{job.jobFunction}
-										br
-										b Skills Needed: 
-										| #{job.skillsNeeded}
-									.col-md-6
-										b Duration: 
-										| #{job.duration}
-										br
-										b Hours per week: 
-										| #{job.hoursPerWeek}
-										br
-										b Pay: 
-										| #{job.pay}
-								.row.mt.job-card-buttons
-									.col-md-2.col-md-offset-10
-										if typeof(user)==='undefined'
-											a.btn.btn-success.btn-md.job-btn(href='/signup', role='button') Sign Up
-										else
-											a.btn.btn-success.btn-md.job-btn(href='/job/apply-#{job.id}', role='button') Apply
-											a.btn.btn-success.btn-md.job-btn(href='/job/save-#{job.id}', role='button') Save
+							p 
+								b 
+									|No jobs found, please broaden your search!
 							

@@ -15,12 +15,15 @@ html
 
     link(href='/css/styles.css', rel='stylesheet')
     link(href='/css/lib/bootstrap.vertical-tabs.css', rel='stylesheet')
+    link(href='/css/lib/bootstrap-multiselect.css', rel='stylesheet')
 
     script(src='/js/lib/jquery.js')
     script(src='/js/lib/jquery_custom.js')
     script(src='/js/lib/bootstrap.js')
+    script(src='/js/lib/bootstrap-multiselect.js')
     script(src='/js/google_analytics.js')  
     script(src='/js/main.js')
+      
   body
     .opt-navbar-wrapper
       .navbar.navbar-default.navbar-fixed-top.opt-header(role='navigation')
@@ -40,7 +43,12 @@ html
             .cust-navbar
               ul.nav.navbar-nav
                 //- each nav in [{link: 'about', name: "About"}, {link: 'employ', name: "Employ"}, {link: 'empower', name: "Empower"}, {link: 'engage', name: "Engage"}]
-                each nav in [{link: 'about', name: "How It Works"}, {link: 'employ', name: "Find a Project"}, {link: 'empower', name: "Post a Project"}]
+                //- each nav in [{link: 'about', name: "How It Works"}, {link: 'employ', name: "Find a Project"}, {link: 'empower', name: "Post a Project"}]
+                if !user || user.userType == 'employer'
+                  - var navElems = [{link: 'about', name: "How It Works"}, {link: 'employ', name: "Find a Project"}, {link: 'postjob', name: "Post a Project"}]
+                else
+                  -var navElems = [{link: 'about', name: "How It Works"}, {link: 'employ', name: "Find a Project"}]
+                each nav in navElems
                   li 
                     a.opt-nav-text(href='/#{nav.link}') #{nav.name}
               ul.nav.navbar-nav.navbar-right
@@ -77,9 +85,9 @@ html
                     ul.dropdown-menu
                       li: a(href='/account') My Account
                       li.divider
-                      li: a(href='/postjob') Post Job
+                      li: a(href='/postjob') Post a Project
                       li: a(href='/mylistings') View My Listings
-                      li: a(href='/viewcandidates') Find Candidates
+                      //- li: a(href='/viewcandidates') Find Candidates
                       li.divider
                       li: a(href='/logout') Logout
     block content

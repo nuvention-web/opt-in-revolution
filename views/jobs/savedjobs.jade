@@ -34,16 +34,21 @@ block content
 								br
 								b Skills Needed: 
 								| #{job.skillsNeeded}
+								br
+								b Contact Method: 
+								| #{job.primaryComm}
 							.col-md-6
-								b Duration: 
-								| #{job.duration}
+								b Project Length: 
+								| #{job.totalWeeks}
 								br
 								b Hours per week: 
 								| #{job.hoursPerWeek}
+								br
+								b Check-in Frequency: 
+								| #{job.checkinFrequency}
 								br
 								b Pay: 
 								| #{job.pay}
 						.row.mt.job-card-buttons
 							.col-md-2.col-md-offset-10
 								a.btn.btn-success.btn-md.job-btn(href='/job/apply-#{job.id}', role='button') Apply
-								//- a.btn.btn-success.btn-md.job-btn(href='/job/save-#{job.id}', role='button') Save

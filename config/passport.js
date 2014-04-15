@@ -110,7 +110,10 @@ passport.use(new LinkedInStrategy(secrets.linkedin, function(req, token, tokenSe
       //Clear old skills
       user.skills = []
       for(var i=0; i<profile._json.skills.values.length; i++) {
-        user.skills.push(profile._json.skills.values[i].skill.name);
+        userSkill = {}
+
+        userSkill['skill'] = profile._json.skills.values[i].skill.name
+        user.skills.push(userSkill);
       }
 
       //user.interests = ;
@@ -126,6 +129,8 @@ passport.use(new LinkedInStrategy(secrets.linkedin, function(req, token, tokenSe
         userEducation['endDate'] = profile._json.educations.values[i].endDate;
         userEducation['degree'] = profile._json.educations.values[i].degree;
         user.education.push(userEducation);
+        console.log("passport.js")
+        console.log(userEducation)
       }
 
       // Clear old positions
@@ -138,7 +143,7 @@ passport.use(new LinkedInStrategy(secrets.linkedin, function(req, token, tokenSe
         userPosition['startDate'] = profile._json.positions.values[i].startDate;
         userPosition['endDate'] = profile._json.positions.values[i].endDate;
         userPosition['company'] = profile._json.positions.values[i].company.name;
-        console.log(profile._json.positions.values[i].company.name);
+        // console.log(profile._json.positions.values[i].company.name);
         user.positions.push(userPosition);
       }
 

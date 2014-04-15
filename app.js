@@ -11,7 +11,6 @@ var mongodb = require('mongodb')
 var mongoose = require('mongoose');
 var passport = require('passport');
 var expressValidator = require('express-validator');
-
 /**
  * Load controllers.
  */
@@ -58,6 +57,7 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use(expressValidator());
 app.use(express.methodOverride());
+app.use(express.bodyParser({uploadDir: './public/resumes'}));
 // app.use(express.cookieSession());
 app.use(express.session({ secret: 'your secret code' }));
 app.use(passport.initialize());
@@ -101,6 +101,8 @@ app.post('/account/profile', passportConf.isAuthenticated, userController.postUp
 app.post('/account/password', passportConf.isAuthenticated, userController.postUpdatePassword);
 // app.post('/account/deactivate', passportConf.isAuthenticated, userController.postDeactivateAccount);
 app.get('/account/unlink/:provider', passportConf.isAuthenticated, userController.getOauthUnlink);
+// app.post('/account/postResume', passportConf.isAuthenticated, userController.postResumeProfile);
+app.get('/account/resume-download-id=:id', passportConf.isAuthenticated, userController.downloadResume);
 
 // API Related
 app.get('/api', apiController.getApi);
@@ -115,24 +117,26 @@ app.get('/auth/google/callback', passport.authenticate('google', { successRedire
 app.get('/auth/linkedin', passport.authenticate('linkedin'));
 app.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failureRedirect: '/', successRedirect: '/account', scope: ['r_basicprofile', 'r_fullprofile', 'r_emailaddress']  }));
 
-
 // Job Related
 app.post('/postJob', passportConf.isAuthenticated, jobController.postJob);
-app.get('/postjob', jobController.submitJobPost);
-app.get('/mylistings', jobController.viewCompanyPosts);
+app.get('/postjob', passportConf.isAuthenticated, jobController.submitJobPost);
+app.get('/mylistings', passportConf.isAuthenticated, jobController.viewCompanyPosts);
 // app.get('/jobslist', jobController.listJobs);
-app.get('/job/apply-:id', jobController.applyJob);
-app.get('/job/save-:id', jobController.saveJob);
-app.get('/viewsavedjobs', jobController.viewSavedJobs);
+app.get('/job/apply-:id', passportConf.isAuthenticated, jobController.applyJob);
+app.get('/job/save-:id', passportConf.isAuthenticated, jobController.saveJob);
+app.get('/viewsavedjobs', passportConf.isAuthenticated, jobController.viewSavedJobs);
 
-app.post('/job/saveApplication-:id', jobController.postSaveApp);
-app.post('/job/submitApplication-:id', jobController.postSubmitApp);
+app.post('/job/saveApplication-:id', passportConf.isAuthenticated, jobController.postSaveApp);
+app.post('/job/submitApplication-:id', passportConf.isAuthenticated, jobController.postSubmitApp);
 
-app.get('/viewcandidates', userController.viewCandidates);
+// app.get('/viewcandidates', passportConf.isAuthenticated, userController.viewCandidates);
 
+app.get('/applyfilters', jobController.postJob)
 
 // Pillars
 app.get('/employ', jobController.listJobs);
+app.post('/employ', jobController.postFilterJobs);
+
 app.get('/empower', homeController.empower);
 app.get('/engage', homeController.engage);
 

@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var _ = require('underscore');
 var User = require('../models/User');
-
+var fs = require('fs');
 /**
  * GET /login
  * Login page.
@@ -35,13 +35,35 @@ exports.getSignup = function(req, res) {
  */
 
 exports.getAccount = function(req, res) {
-  res.render('account/profile', {
-    title: 'Account Management',
-    success: req.flash('success'),
-    error: req.flash('error'),
-    signUp: req.flash('signUp'),
-    companyError: req.flash('companyError'),
-  });
+  if (req.user.userType == 'mom') {
+
+    // console.log("user")
+    // console.log(req.user)
+    // console.log("getAccount")
+    // console.log(req.user.education)
+
+    // console.log("getAccount [0]")
+    // console.log(req.user.education[0])
+
+
+    res.render('account/profile_mom', {
+      title: 'Account Management',
+      success: req.flash('success'),
+      error: req.flash('error'),
+      errors: req.flash('errors'),
+      signUp: req.flash('signUp'),
+    });
+  }
+  else {
+    res.render('account/profile_employer', {
+      title: 'Account Management',
+      success: req.flash('success'),
+      error: req.flash('error'),
+      errors: req.flash('errors'),
+      signUp: req.flash('signUp'),
+      companyError: req.flash('companyError'),
+    });
+  }
 };
 
 /**
@@ -94,7 +116,7 @@ exports.postSignup = function(req, res, next) {
   req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
 
   var errors = req.validationErrors();
-
+  console.log(errors);
   if (errors) {
     req.flash('errors', errors);
     return res.redirect('/signup');
@@ -120,6 +142,19 @@ exports.postSignup = function(req, res, next) {
   });
 };
 
+exports.postResumeProfile = function(req, res, next) {
+  User.findById(req.user.id, function(err, user) {
+    if(err) return next(err);
+    user.resume.name = req.files.resume.originalFilename;
+    user.resume.path = req.files.resume.path;
+
+    user.save(function(err) {
+      if (err) return next(err);
+      req.flash('success', 'Resume uploaded.')
+      res.redirect('/account');
+    });
+  });
+};
 
 /**
  * POST /account/profile
@@ -129,17 +164,16 @@ exports.postUpdateProfile = function(req, res, next) {
   User.findById(req.user.id, function(err, user) {
     if (err) return next(err);
 
-    console.log(req.body)
-
+    // console.log(req.files.resume);
     user.profile.name = req.body.name || '';
     user.profile.email = req.body.email || '';
     user.profile.location = req.body.location || '';
     user.profile.website = req.body.website || '';
     user.bio = req.body.bio || '';
-    user.education = req.body.education || '';
-    user.positions = req.body.positions || '';
-    user.skills = req.body.skills || '';
-    user.interests = req.body.interests || '';
+    // user.education = req.body.education || '';
+
+    // user.positions = req.body.positions || '';
+    // user.skills = req.body.skills || '';
     user.yearsOfExperience = req.body.yearsOfExperience || '';
     user.desiredHoursPerWeek = req.body.desiredHoursPerWeek || '';
 
@@ -153,11 +187,124 @@ exports.postUpdateProfile = function(req, res, next) {
     user.jobFunctionPreference = req.body.jobFunctionPreference || '';
     //Need to add company image
 
+    formEducation = req.body.education.replace(/[\r]/g, '').split("\n")
+    console.log(formEducation)
+
+    user.education = []
+    if (formEducation.length != 0) {
+      for(var i=0; i<formEducation.length; i++) {
+          userSchool = {}
+          
+          positionArray = formEducation[i].split(" - ")
+          schoolName = positionArray[0]
+          degree = positionArray[1]
+
+          userSchool['schoolName'] = schoolName
+          userSchool['degree'] = degree
+
+          // console.log("userSchool")
+          // console.log(userSchool)
+          user.education.push(userSchool);
+      }
+    } else {
+      user.education = ''
+    }
+
+
+    formPositions = req.body.positions.replace(/[\r]/g, '').split("\n")
+    // console.log(formPositions)
+
+    user.positions = []
+    if (formPositions.length != 0) {
+      // -1 because the last one is blank -- FIX THIS ANOTHER TIME
+      for(var i=0; i<formPositions.length-1; i++) {
+          userPosition = {}
+          
+          positionArray = formPositions[i].split(",")
+          title = positionArray[0]
+          company = positionArray[1]
+
+          if (title != '') {
+            userPosition['title'] = title
+            userPosition['company'] = company
+            // console.log(userPosition)
+            user.positions.push(userPosition);
+          }
+      }
+    } else {
+      user.positions = ''
+    }
+
+    console.log(req.body.skills)
+    formSkills = req.body.skills.replace(/[\r\n]/g, '').split(",")
+    console.log(formSkills)
+
+    user.skills = []
+    if (formSkills.length != 0) {
+      count = 1
+      for(var i=0; i<formSkills.length; i++) {
+          userSkill = {}
+          
+          skill = formSkills[i]
+
+          if (skill != '') {
+            
+            userSkill['skill'] = skill
+            console.log(count)
+            console.log(userSkill)
+            count += 1 
+            user.skills.push(userSkill);
+          }
+      }
+    } else {
+      user.skills = ''
+    }
+
+
+    if (user.userType=='mom') {
+      if(req.files.resume.size>0) {
+        var errors = [];
+        var fileGood = true;
+        var acceptableFileTypes = ['application/pdf'];//, 'text/plain', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+
+        if(req.files.resume.size > (500 * 1024)) {
+          errors.push({param:"size", msg:"File size must be less than 500 kb.", value: req.files.resume.size});
+          fileGood = false;
+        }
+        if(acceptableFileTypes.indexOf(req.files.resume.type)==-1) {
+          errors.push({param:"type", "msg":"Resume file type must be pdf.", value: req.files.resume.type});
+          fileGood = false;
+        }
+        if (errors.length>0) {
+          req.flash('errors', errors);
+        }
+
+        if (fileGood) {
+          if (user.resume.path!='')
+            fs.unlink(user.resume.path);
+          user.resume.name = req.files.resume.originalFilename;
+          user.resume.path = req.files.resume.path;  
+        }
+        else {
+          fs.unlink(req.files.resume.path);
+        }
+      }
+    }
+
     user.save(function(err) {
       if (err) return next(err);
       req.flash('success', 'Profile information updated.');
       res.redirect('/account');
     });
+  });
+};
+
+exports.downloadResume = function(req, res) {
+  User.findById(req.params.id, function(err, user) {
+    var filename = user.resume.path;
+    console.log("File name: ");
+    console.log(filename);
+    res.download(filename);
   });
 };
 

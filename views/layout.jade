@@ -52,12 +52,14 @@ html
                 each nav in navElems
                   li 
                     a.opt-nav-text(href='/#{nav.link}') #{nav.name}
+                li
+                  a.opt-nav-text(href='http://blog.athenahire.co' target="_blank") Blog
               ul.nav.navbar-nav.navbar-right
                 if !user
                   li(class=title=='Login')
                     a(href='/login') Login
                   li(class=title=='Create Account')
-                    a(href='/signup') Create Account
+                    a(href='/signup') Sign Up
                 else if user.userType=='mom'
                   li.dropdown(class=title=='Account Management')
                     a.dropdown-toggle(href='#', data-toggle='dropdown')
@@ -113,7 +115,9 @@ html
                   li
                     a(href='/') AthenaHire
                   li 
-                    a(href='/team') Our Team
+                    a(href='http://blog.athenahire.co' target="_blank") Blog                    
+                  li 
+                    a(href='/team') Team
                 p
                   | &copy; AthenaHire 2014                    
             .col-md-4

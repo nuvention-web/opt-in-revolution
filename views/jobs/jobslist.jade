@@ -123,7 +123,7 @@ block content
 									.row.mt.job-card-buttons
 										.col-md-2.col-md-offset-10
 											if typeof(user)==='undefined'
-												a.btn.btn-success.btn-md.job-btn(href='/signup', role='button') Sign Up
+												a.btn.btn-success.btn-md.job-btn(href='/login', role='button') Sign in to apply
 											else
 												if (user.userType == 'mom')
 													a.btn.btn-success.btn-md.job-btn(href='/job/apply-#{job.id}', role='button') Apply

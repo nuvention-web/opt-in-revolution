@@ -189,7 +189,7 @@ exports.postUpdateProfile = function(req, res, next) {
       var acceptableFileTypes = ['image/png', 'image/jpeg', 'image/jpg'];
 
       if(req.files.profilePicture.size > (5000 * 1024)) {
-        picErrors.push({param:"size", msg:"File size must be less than 5mb.", value:req.files.profilePicture.size});
+        picErrors.push({param:"size", msg:"Image file sizes must be less than 5mb.", value:req.files.profilePicture.size});
         fileGood = false;
       }
       if(acceptableFileTypes.indexOf(req.files.profilePicture.type)==-1) {
@@ -295,7 +295,7 @@ exports.postUpdateProfile = function(req, res, next) {
         var acceptableFileTypes = ['application/pdf'];//, 'text/plain', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
 
         if(req.files.resume.size > (500 * 1024)) {
-          errors.push({param:"size", msg:"File size must be less than 500 kb.", value: req.files.resume.size});
+          errors.push({param:"size", msg:"Resume file size must be less than 500 kb.", value: req.files.resume.size});
           fileGood = false;
         }
         if(acceptableFileTypes.indexOf(req.files.resume.type)==-1) {

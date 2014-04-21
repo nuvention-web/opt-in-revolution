@@ -39,9 +39,11 @@ $(document).ready(function() {
     });
 
     
+    
     $('.opt-btn-prof.edit').on("click", function() {
-    	$('li.homelink').removeClass('active')
-    	$('li.editlink').addClass('active')
+    	// console.log("pressed")
+    	// $('li.homelink').removeClass('active')
+    	// $('li.editlink').addClass('active')
     });
 
 });

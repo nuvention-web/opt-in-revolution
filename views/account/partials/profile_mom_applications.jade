@@ -1,3 +1,44 @@
-.opt-login-wrapper
-	.container
-		p Saved and Applied to jobs will show up here
+.col-md-12
+	p Saved and Applied to jobs will show up here
+	.job-listing-wrapper
+		if joblist
+			each job, i in joblist
+				.row.mt
+					.job-card
+						.row.mt.job-card-heading
+							.col-md-12
+								h4
+									| #{job.jobName} - #{job.companyName}
+						.row.mt.job-card-description
+							h5 Description
+							.col-md-12
+								| #{job.jobDescription}
+						.row.mt.job-card-other
+							h5 Details
+							.col-md-6
+								b Industry: 
+								| #{job.industry}
+								br
+								b Job Function: 
+								| #{job.jobFunction}
+								br
+								b Skills Needed: 
+								| #{job.skillsNeeded}
+								br
+								b Contact Method: 
+								| #{job.primaryComm}
+							.col-md-6
+								b Project Length: 
+								| #{job.totalWeeks}
+								br
+								b Hours per week: 
+								| #{job.hoursPerWeek}
+								br
+								b Check-in Frequency: 
+								| #{job.checkinFrequency}
+								br
+								b Pay: 
+								| #{job.pay}
+						.row.mt.job-card-buttons
+							.col-md-2.col-md-offset-10
+								a.btn.btn-success.btn-md.job-btn(href='/job/apply-#{job.id}', role='button') Apply

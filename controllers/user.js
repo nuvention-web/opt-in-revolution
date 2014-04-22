@@ -3,6 +3,7 @@ var passport = require('passport');
 var _ = require('underscore');
 var User = require('../models/User');
 var Job = require('../models/Job');
+var JobApplication = require('../models/JobApplication');
 var fs = require('fs');
 var imgur=require('node-imgur').createClient('d5975d94776362d')
 /**
@@ -39,7 +40,7 @@ exports.getSignup = function(req, res) {
 exports.getAccount = function(req, res) {
   if (req.user.userType == 'mom') {
     User.findById(req.user.id, function(err, user) {
-      Job.find({_id: {$in: user.companiesContacted}}, function (e, docs) {
+      JobApplication.find({userID: req.user.id}, function (e, docs) {
         // console.log(docs)
         res.render('account/profile_mom', {
           title: 'Account Management',

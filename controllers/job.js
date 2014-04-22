@@ -151,7 +151,7 @@ exports.applyJob = function(req, res) {
 			Job.findById(req.params.id, function(e, docs) {
 				JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function(err, jobApp) {
 					// console.log("Loading apply job..");
-					// console.log(jobApp);
+					console.log(jobApp);
 					res.render("jobs/applyjob", {
 						"job" : docs,
 						"jobApp" : jobApp,
@@ -216,9 +216,41 @@ exports.saveJob = function(req, res) {
 	User.findById(req.user.id, function(err, user) {
 		// Save as ObjectID for easier querying when viewing saved jobs
 		if((user.profile.name) && (user.userType == 'mom')) {
-			user.companiesContacted.push(new ObjectID(req.params.id));
-			user.save(function(err, user, count) {
-				res.redirect("/employ");
+			// user.companiesContacted.push(new ObjectID(req.params.id));
+			// user.save(function(err, user, count) {
+			// 	res.redirect("/employ");
+			// });
+			JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function (err, jobApp) {
+				if(jobApp) { // if the job app exists
+					// console.log("jobapp exists")
+					// console.log(jobApp)
+					jobApp.relevantJobExperience =req.body.relevantJobExperience;
+					jobApp.projectApproach =req.body.projectApproach;
+				} else { // job app doesn't exist yet
+				// console.log("jobapp DOESN'T exist")
+					var jobApp = new JobApplication({
+						jobID: req.params.id,
+						userID: req.user.id,
+						relevantJobExperience: req.body.relevantJobExperience,
+						projectApproach: req.body.projectApproach
+					});
+				}
+
+				//Save all of the user information
+				copyUserInformation(jobApp, req.user);
+
+				jobApp.submitted = "saved";
+				//Save all of the job information
+				Job.findById(req.params.id, function(erro, thisJob) {
+					copyJobInformation(jobApp, thisJob);
+
+					jobApp.save(function(err) {
+						if(err) return next(err);
+						req.flash('success', 'Application saved.');
+						res.redirect("/account");
+					});
+
+				});
 			});
 		}
 		else {

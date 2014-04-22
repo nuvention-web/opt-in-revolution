@@ -1,0 +1,48 @@
+extends ../layout
+
+block content
+	.container
+		.apply-job-wrapper
+			.job-listing-wrapper
+				.page-header
+					h2
+						| Project Description
+				.row.mt
+					.row.mt.job-card-heading
+						.col-md-12
+							h4
+								| #{job.jobName} - #{job.companyName}
+					.row.mt.job-card-description
+						.col-md-12
+							h4 Details
+							| #{job.jobDescription}
+					.row.mt.job-card-other
+						.col-md-12
+							h4 Details
+					.row.mt.job-card-other
+						.col-md-6
+							b Industry: 
+							| #{job.industry}
+							br
+							b Job Function: 
+							| #{job.jobFunction}
+							br
+							b Skills Needed: 
+							| #{job.skillsNeeded}
+							br
+							b Contact Method: 
+							| #{job.primaryComm}
+						.col-md-6
+							b Project Length: 
+							| #{job.totalWeeks}
+							br
+							b Hours per week: 
+							| #{job.hoursPerWeek}
+							br
+							b Check-in Frequency: 
+							| #{job.checkinFrequency}
+							br
+							b Pay: 
+							| #{job.pay}
+		br
+		br

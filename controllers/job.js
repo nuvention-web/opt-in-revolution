@@ -156,7 +156,7 @@ exports.applyJob = function(req, res) {
 						"job" : docs,
 						"jobApp" : jobApp,
 						success : req.flash('success'),
-						title: "Apply to this job",
+						title: "Apply to this project",
 					});
 				});
 			});
@@ -165,6 +165,15 @@ exports.applyJob = function(req, res) {
    			req.flash('signUp', 'signUp');
 			res.redirect('/account');
  		}
+	});
+};
+
+exports.viewProject = function(req, res) {
+	Job.findById(req.params.id, function(e, docs) {
+		res.render("jobs/viewproject", {
+			"job":docs,
+			title: "View this project"
+		});
 	});
 };
 

@@ -151,7 +151,7 @@ exports.applyJob = function(req, res) {
 			Job.findById(req.params.id, function(e, docs) {
 				JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function(err, jobApp) {
 					// console.log("Loading apply job..");
-					console.log(jobApp);
+					// console.log(jobApp);
 					res.render("jobs/applyjob", {
 						"job" : docs,
 						"jobApp" : jobApp,

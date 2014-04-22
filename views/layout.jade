@@ -23,7 +23,17 @@ html
     script(src='/js/lib/bootstrap-multiselect.js')
     script(src='/js/google_analytics.js')  
     script(src='/js/main.js')
-      
+
+    if title 
+      if title == 'Create Account'
+        script.
+          var fb_param = {};
+          fb_param.pixel_id = '6017494117063';
+          fb_param.value = '0.01';
+          fb_param.currency = 'USD';
+          (function(){var fpw = document.createElement('script');fpw.async = true;fpw.src = '//connect.facebook.net/en_US/fp.js';var ref = document.getElementsByTagName('script')[0];ref.parentNode.insertBefore(fpw, ref);})();
+        noscript
+          img(height='1', width='1', alt='', style='display: none;', src='https://www.facebook.com/offsite_event.php?id=6017494117063&value=0.01&currency=USD')
   body
     .opt-navbar-wrapper
       .navbar.navbar-default.navbar-fixed-top.opt-header(role='navigation')

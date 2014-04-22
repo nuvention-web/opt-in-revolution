@@ -12,9 +12,6 @@ block content
 		.container
 			.apply-job-wrapper
 				.job-listing-wrapper
-					//- .page-header
-					//- 	h2
-					//- 		| Project Description
 					.row.mt
 						.row.mt.job-card-heading
 							.col-md-12
@@ -52,7 +49,10 @@ block content
 								br
 								b Pay: 
 								| #{job.pay}
-				| Interested? 
-				a.btn.btn-success.btn-md.job-btn(href='/login', role='button') Login to apply
+					.row.mt
+						.col-md-12
+							br
+							| Interested? 
+							a.btn.btn-success.btn-md.job-btn(href='/login', role='button') Login to apply
 			br
 			br

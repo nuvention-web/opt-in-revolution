@@ -438,31 +438,47 @@ button.btn.btn-primary.opt-btn-prof.edit:focus
 }
 
 .big-wrapper {
-  padding-left: 250px;
+  padding-left: 18%;
 }
 
 .sidebar-wrapper {
-  margin-left: -250px;
-  left: 250px;
-  width: 250px;
-  background-color: red;
+  margin-left: -18%;
+  left: 18%;
+  width: 18%;
+  background-color: #777;
   position: fixed;
   height: 100%;
-  overflow-y: auto;
+  // overflow-y: auto;
   // z-index: -10;
+  // bottom: 200px;
 }
 
-.sidebar-wrapper-go-to-top {
-  // position: relative;
-  // z-index: 1000;
-  // padding-left: 100px;
-}
 .page-content-wrapper {
   width: 100%;
 }
 
 .tab-content {
   padding-left: 20px;
+}
+
+.tabs-left {
+  padding-left: 60px;
+}
+
+ul.nav.nav-tabs.tabs-left {
+  border-right: none;
+}
+
+.tabs-left>li>a {
+  border-radius: none;
+}
+
+.nav>li>a:hover, .nav>li>a:focus {
+  background-color: #777;
+}
+
+li.sidenav > a {
+  color: white;
 }
 
 /****************************************************************
@@ -646,13 +662,13 @@ textarea.apply-job-textarea {
 }
 
 .footer {
-   height: auto;
+   height: 200px;
    color:white;
    font-size: 15px;
   background-color: #b5b5b5;
-  padding-bottom:20px;
+  // padding-bottom:20px;
   bottom: 0;
-    width: 100%;
+  width: 100%;
 }
 
 .footer-1 {
@@ -724,5 +740,22 @@ textarea.apply-job-textarea {
 
   .opt-call-to-action {
     text-align: center;
+  }
+
+  .tabs-left {
+    padding-left: 20px;
+  }
+
+  .sidebar-wrapper {
+    margin-left: -150px;
+    left: 150px;
+    width: 150px;
+  }
+  .big-wrapper {
+    padding-left: 150px;
+  }
+
+  .tab-content {
+    padding-left: 10px;
   }
 }

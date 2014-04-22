@@ -437,18 +437,32 @@ button.btn.btn-primary.opt-btn-prof.edit:focus
   font-size: 13px;
 }
 
-.fixed-left {
-  min-height: 100%;
-  position: fixed;
-  margin-left:-200px;
-  left:200px;
-  width: 200px;
-  background-color: red;
+.big-wrapper {
+  padding-left: 250px;
 }
 
-.relative-right {
+.sidebar-wrapper {
+  margin-left: -250px;
+  left: 250px;
+  width: 250px;
+  background-color: red;
+  position: fixed;
+  height: 100%;
+  overflow-y: auto;
+  // z-index: -10;
+}
+
+.sidebar-wrapper-go-to-top {
   // position: relative;
-  margin-left:200px;
+  // z-index: 1000;
+  // padding-left: 100px;
+}
+.page-content-wrapper {
+  width: 100%;
+}
+
+.tab-content {
+  padding-left: 20px;
 }
 
 /****************************************************************

@@ -242,6 +242,8 @@ exports.saveJob = function(req, res) {
 				Job.findById(req.params.id, function(erro, thisJob) {
 					copyJobInformation(jobApp, thisJob);
 
+					jobApp.lastModified = Date();
+
 					jobApp.save(function(err) {
 						if(err) return next(err);
 						req.flash('success', 'Application saved.');
@@ -379,7 +381,8 @@ exports.postSaveApp = function(req, res, next) {
 		//Save all of the job information
 		Job.findById(req.params.id, function(erro, thisJob) {
 			copyJobInformation(jobApp, thisJob);
-
+			jobApp.lastModified = Date();
+			jobApp.submitted = "no";
 			jobApp.save(function(err) {
 				if(err) return next(err);
 				req.flash('success', 'Application saved.');
@@ -419,7 +422,7 @@ exports.postSubmitApp = function(req, res) {
 		//Save all of the job information
 		Job.findById(req.params.id, function(erro, thisJob) {
 			copyJobInformation(jobApp, thisJob);
-
+			jobApp.lastModified = Date();
 			jobApp.save(function(err) {
 				if(err) return next(err);
 				req.flash('success', 'Application saved.');

@@ -46,7 +46,8 @@ var jobApplicationSchema = new Schema({
 	relevantJobExperience: {type: String, default: ''},
 	projectApproach: {type: String, default: ''},
 	submitted: {type: String, default: 'no'}, //yes, no, saved
-	dateCreated: {type: Date, default: Date.now}
+	dateCreated: {type: Date, default: Date.now},
+	lastModified: {type: Date, default: Date.now}
 });
 
 // jobApplicationSchema.pre('save', function(next) {

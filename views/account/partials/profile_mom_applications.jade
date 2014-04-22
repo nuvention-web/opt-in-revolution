@@ -22,7 +22,7 @@
 						each jobApp, i in joblist
 							tr
 								td.proj-title #{jobApp.job.jobName}
-								td Date
+								td #{jobApp.lastModified}
 								td 
 									if jobApp.submitted == "yes"
 										| Submitted

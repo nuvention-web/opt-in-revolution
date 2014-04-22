@@ -29,7 +29,7 @@ block content
 				= "Thanks for signing up, please fill out your profile before applying to jobs!"
 		.row.mt
 			.profile-wrap
-				.col-md-2
+				.col-md-2.fixed-left
 					ul.nav.nav-tabs.tabs-left
 						li.homelink.active
 							a(href='#home', data-toggle='tab') Profile
@@ -37,7 +37,7 @@ block content
 							a(href='#applications', data-toggle='tab') My Applications
 						li.acctlink
 							a(href='#settings', data-toggle='tab') Account Settings
-				.col-md-10
+				.col-md-10.relative-right
 					.tab-content
 						#home.tab-pane.active
 							include partials/profile_mom_home.jade												

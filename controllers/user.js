@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var _ = require('underscore');
 var User = require('../models/User');
+var Job = require('../models/Job');
 var fs = require('fs');
 var imgur=require('node-imgur').createClient('d5975d94776362d')
 /**
@@ -37,15 +38,26 @@ exports.getSignup = function(req, res) {
 
 exports.getAccount = function(req, res) {
   if (req.user.userType == 'mom') {
-    res.render('account/profile_mom', {
-      title: 'Account Management',
-      success: req.flash('success'),
-      error: req.flash('error'),
-      errors: req.flash('errors'),
-      signUp: req.flash('signUp'),
-      first: req.flash('first'),
-      picErrors: req.flash('picErrors'),
-    });
+    User.findById(req.user.id, function(err, user) {
+      Job.find({_id: {$in: user.companiesContacted}}, function (e, docs) {
+        // console.log(docs)
+        res.render('account/profile_mom', {
+          title: 'Account Management',
+          success: req.flash('success'),
+          error: req.flash('error'),
+          errors: req.flash('errors'),
+          signUp: req.flash('signUp'),
+          first: req.flash('first'),
+          picErrors: req.flash('picErrors'),
+          "joblist" : docs
+        });
+        // res.render("jobs/savedjobs", {
+        //   "joblist" : docs,
+        //   title: "Saved Companies",
+        // });
+      });
+  });
+    
   }
   else {
     res.render('account/profile_employer', {

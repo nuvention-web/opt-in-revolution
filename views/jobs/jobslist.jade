@@ -126,7 +126,7 @@ block content
 									.row.mt.job-card-buttons
 										.col-md-2.col-md-offset-10
 											if typeof(user)==='undefined'
-												a.btn.btn-success.btn-md.job-btn(href='/signup', role='button') Sign in to apply
+												a.btn.btn-success.btn-md.job-btn(href='/login', role='button') Login to apply
 												a.btn.btn-success.btn-md.job-btn(href='/job/viewproject-#{job.id}', role='button') View job
 											else
 												if (user.userType == 'mom')

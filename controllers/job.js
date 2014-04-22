@@ -224,22 +224,20 @@ exports.saveJob = function(req, res) {
 				if(jobApp) { // if the job app exists
 					// console.log("jobapp exists")
 					// console.log(jobApp)
-					jobApp.relevantJobExperience =req.body.relevantJobExperience;
-					jobApp.projectApproach =req.body.projectApproach;
 				} else { // job app doesn't exist yet
 				// console.log("jobapp DOESN'T exist")
 					var jobApp = new JobApplication({
 						jobID: req.params.id,
 						userID: req.user.id,
 						relevantJobExperience: req.body.relevantJobExperience,
-						projectApproach: req.body.projectApproach
+						projectApproach: req.body.projectApproach,
+						submitted: "saved"
 					});
 				}
 
 				//Save all of the user information
 				copyUserInformation(jobApp, req.user);
 
-				jobApp.submitted = "saved";
 				//Save all of the job information
 				Job.findById(req.params.id, function(erro, thisJob) {
 					copyJobInformation(jobApp, thisJob);

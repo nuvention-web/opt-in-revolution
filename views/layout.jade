@@ -23,7 +23,17 @@ html
     script(src='/js/lib/bootstrap-multiselect.js')
     script(src='/js/google_analytics.js')  
     script(src='/js/main.js')
-      
+
+    if title 
+      if title == 'Create Account'
+        script.
+          var fb_param = {};
+          fb_param.pixel_id = '6017494117063';
+          fb_param.value = '0.01';
+          fb_param.currency = 'USD';
+          (function(){var fpw = document.createElement('script');fpw.async = true;fpw.src = '//connect.facebook.net/en_US/fp.js';var ref = document.getElementsByTagName('script')[0];ref.parentNode.insertBefore(fpw, ref);})();
+        noscript
+          img(height='1', width='1', alt='', style='display: none;', src='https://www.facebook.com/offsite_event.php?id=6017494117063&value=0.01&currency=USD')
   body
     .opt-navbar-wrapper
       .navbar.navbar-default.navbar-fixed-top.opt-header(role='navigation')
@@ -39,6 +49,7 @@ html
               //- img.opt-logo(src='/images/logo_2.png', alt='Opt-In Logo')
               img.opt-logo(src='/images/owl.png', alt='AthenaHire Logo')
               | AthenaHire
+              sup.beta Beta
           .navbar-collapse.collapse
             .cust-navbar
               ul.nav.navbar-nav
@@ -51,17 +62,24 @@ html
                 each nav in navElems
                   li 
                     a.opt-nav-text(href='/#{nav.link}') #{nav.name}
+                li
+                  a.opt-nav-text(href='http://blog.athenahire.co' target="_blank") Blog
               ul.nav.navbar-nav.navbar-right
                 if !user
                   li(class=title=='Login')
                     a(href='/login') Login
                   li(class=title=='Create Account')
-                    a(href='/signup') Create Account
+                    a(href='/signup') Sign Up
                 else if user.userType=='mom'
                   li.dropdown(class=title=='Account Management')
                     a.dropdown-toggle(href='#', data-toggle='dropdown')
                       if user.profile.picture
-                        img.header-prof-pic(src='#{user.profile.picture}')
+                        if (user.profile.picture.indexOf('http')!=-1)
+                          img.header-prof-pic(src='#{user.profile.picture}')
+                        else
+                          -var profLink = user.profile.picture;
+                          -profLink = profLink.split("public").pop();
+                          img.header-prof-pic(src='#{profLink}')
                       else
                         img.header-prof-pic(src='/images/linkedin-default.jpg')
                       | #{user.profile.name || 'Profile'}&nbsp;
@@ -77,9 +95,14 @@ html
                   li.dropdown(class=title=='Account Management')
                     a.dropdown-toggle(href='#', data-toggle='dropdown')
                       if user.profile.picture
-                        img(src='#{user.profile.picture}')
-                      else 
-                        img.header-prof-pic(src='/images/linkedin-default.jpg')
+                        if (user.profile.picture.indexOf('http')!=-1)
+                          img.header-prof-pic(src='#{user.profile.picture}')
+                        else
+                          -var profLink = user.profile.picture;
+                          -profLink = profLink.split("public").pop();
+                          img.header-prof-pic(src='#{profLink}')
+                      else
+                        img.header-prof-pic(src='/images/business-profile.jpg')
                       | #{user.profile.name || 'Profile'}&nbsp;
                       span.caret
                     ul.dropdown-menu
@@ -96,12 +119,17 @@ html
         .footer-content
           .row.mt
             .col-md-4
-              p About Us
-              ul
-                li
-                  a(href='/') AthenaHire
-                li 
-                  a(href='/team') Our Team 
+              .footer-1
+                p About Us
+                ul
+                  li
+                    a(href='/') AthenaHire
+                  li 
+                    a(href='http://blog.athenahire.co' target="_blank") Blog                    
+                  li 
+                    a(href='/team') Team
+                p
+                  | &copy; AthenaHire 2014                    
             .col-md-4
               p Join Our Mailing List for Updates
               .form-wrapper
@@ -113,12 +141,14 @@ html
             .col-md-4
               p
                 | Contact Us
-                address
-                  | Farley Center - NUvention: Web
-                  br
-                  | 2133 Sheridan Road
-                  br
-                  | Evanston, IL 60208
-              p
-                | &copy; AthenaHire 2014
+                br
+                a(href="mailto:contact@athenahire.co") contact@athenahire.co
+                p
+                  a(href="https://www.facebook.com/athenahire" target="_blank").icon-link
+                    span.fa.fa-facebook-square.fa-icon-text
+                  a(href="https://twitter.com/athenahire" target="_blank").icon-link
+                    span.fa.fa-twitter-square.fa-icon-text 
+                  a(href="https://www.linkedin.com/company/3682281" target="_blank").icon-link
+                    span.fa.fa-linkedin-square.fa-icon-text 
+
 

@@ -47,6 +47,10 @@ i {
   padding-top:5px;
 }
 
+.beta {
+  font-size: 70%;
+}
+
 .cust-navbar {
   padding-top: 5px;
   font-size: 15px;
@@ -59,6 +63,7 @@ i {
 
 .header-prof-pic {
   height: 22px;
+  width: 22px;
   margin-right: 5px;
 }
 
@@ -68,20 +73,22 @@ i {
 
 .page-header {
   margin-top: 0px;
-  // margin-top: 10px;
   padding-bottom: 0px;
 }
 
 .opt-btn-prof {
-  width:142px;
-  // margin-right: -20px;
+  width:150px;
   background-color: #FEE000;
   color:black;
   border: none;
 }
 
-.opt-btn-prof.edit {
-  margin-left:-15px;
+button.opt-btn-prof.edit {
+  margin-left: 15px;
+}
+
+button.opt-btn-prof.edit.special {
+  margin-left: 0px;
 }
 
 .first-row {
@@ -123,19 +130,31 @@ i {
   position:relative;
   color:#777;
   margin-top:25px;
-  text-align:center;
+  // text-align:center;
 }
 
 .opt-title-header {
   font-size: 40pt;
 }
 
+.landing-content-wrapper {
+  // margin-left:20px;
+}
+.opt-title-push-right {
+  text-align: right;
+}
+
 .opt-call-to-action {
-  padding-top: 40%;
+  padding-top: 15%;
+  text-align: right;
 }
 
 h1.opt-title-header {
   font-size: 50pt;
+}
+
+h3.custom-h3 {
+  font-size: 22px;
 }
 
 .opt-about-btn {
@@ -176,13 +195,7 @@ h1.opt-title-header {
 }
 
 .opt-about-header-section {
-    background:transparent url('../images/landingpage.jpg') center no-repeat;
-    background-size:cover;
-    min-height: 30%;
-      -webkit-box-shadow: 0 4px 4px -2px #777;
-   -moz-box-shadow: 0 4px 4px -2px #777;
-        box-shadow: 0 4px 4px -2px #777;
-        color:white;
+  color:black;
 }
 
 .opt-about-header-section-biz {
@@ -195,6 +208,44 @@ h1.opt-title-header {
         color:white;
 }
 
+p.number {
+  font-size: 20pt;
+}
+
+p.step {
+  padding-top: 5px;
+}
+
+
+.opt-btn-about {
+  margin-top:50px;
+  width:350px;
+  font-size: 16pt;
+  background-color: #FEE000;
+  color:black;
+  text-align: center;
+  border: none;
+}
+
+.opt-btn-about:hover {
+  color: #9975b9;
+  background-color: #FEE000;
+}
+.opt-btn-about-top {
+  // margin-top:30px;
+  width:300px;
+  font-size: 13pt;
+  background-color: #FEE000;
+  color:black;
+  text-align: center;
+  border: none;
+}
+
+.opt-btn-about-top:hover {
+  color: #9975b9;
+  background-color: #FEE000;
+}
+
 .opt-about-header-content {
   padding-bottom:10px;
   padding-top: 50px;
@@ -205,7 +256,7 @@ span.caret.d-text {
   margin-left: 5px;
 }
 
-#opt-about-pillars {
+#opt-how-it-works {
   padding-top:25px;
 }
 
@@ -234,11 +285,31 @@ span.caret.d-text {
 }
 
 .opt-quote blockquote small {
-  color:white
+  color:black
 }
 
 .opt-about-desc {
   font-size: 15px;
+}
+
+
+
+blockquote.special {
+  padding-top:20px;
+  border-left:none;
+  
+}
+
+blockquote.special > p{
+  font-size: 130%;
+}
+
+.step-column {
+  margin-top: 3em;
+}
+
+.step-row {
+  height: 70px;
 }
 
 p.opt-pillar-desc {
@@ -248,10 +319,6 @@ p.opt-pillar-desc {
 a.pillar-link {
   color:black;
   text-decoration:none; 
-}
-
-.pillar:hover {
-   border-bottom: 2px solid #777; 
 }
 
 #employ {
@@ -299,6 +366,11 @@ a.pillar-link {
   margin-top: 50px;
 }
 
+.signup-prompt {
+  padding-left: 15px;
+  font-size: 12px;
+}
+
 /****************************************************************
   Profile Page Styles
 *****************************************************************/
@@ -329,6 +401,8 @@ a.pillar-link {
 
 .prof-pic {
   border-radius: 10px; 
+  height: 130px;
+  width: 130px;
 }
 
 textarea.form-control.prof-experience {
@@ -339,9 +413,28 @@ input.form-control.years-input {
   width: 75px;
 }
 
+textarea#companyDescription {
+  height: 100px;
+}
+
+button.btn.btn-primary.opt-btn-prof.edit:active,
+button.btn.btn-primary.opt-btn-prof.edit:focus
+ {
+  background-color: #FEE000;
+  color:black;
+}
+
 .prof-label-header {
   margin-left: 15px;
   // text-align: left;
+}
+
+.proj-title {
+  width: 65%;
+}
+
+.job-table {
+  font-size: 13px;
 }
 
 /****************************************************************
@@ -366,7 +459,6 @@ input.form-control.years-input {
 .job-listing-filter-wrapper {
   margin-top: 15px;
   margin-bottom: 15px;
-// border-right: 1px solid #777; 
 }
 
 .job-filter-breadcrumbs {
@@ -415,9 +507,7 @@ input.form-control.years-input {
 .job-btn {
   margin-right: 5px;
   background-color: #FEE000;
-  // background-color: #581830;
   color:black;
-  // color:white;
 }
 
 .job-btn.btn-success:hover {
@@ -454,6 +544,16 @@ input#pay {
 .pagebreak {
   border-bottom: 3px solid #777; 
   margin-bottom: 20px;
+}
+
+/****************************************************************
+  View Project Styles
+*****************************************************************/
+.tile-project-detail {
+    min-height: 15%;
+    color: white;
+    background:transparent url('../images/project-detail-banner.jpg') center center no-repeat;
+    background-size:cover;
 }
 
 /****************************************************************
@@ -502,6 +602,7 @@ textarea.apply-job-textarea {
   color:black;
   width:142px;
   margin-right: 10px;
+  border: none;
 }
 
 .apply-job-btn:hover {
@@ -512,6 +613,9 @@ textarea.apply-job-textarea {
 /****************************************************************
   Footer Styles
 *****************************************************************/
+.icon-link {
+  padding-right:20px;
+}
 
 .footer {
    height: auto;
@@ -521,6 +625,10 @@ textarea.apply-job-textarea {
   padding-bottom:20px;
   bottom: 0;
     width: 100%;
+}
+
+.footer-1 {
+  padding-left:50px;
 }
 
 .footer-content {
@@ -537,4 +645,56 @@ textarea.apply-job-textarea {
 .opt-subscribe-btn:hover {
   color: #9975b9;
   background-color: #FEE000;
+}
+
+.fa-icon-text {
+  font-size: 18pt;
+}
+
+@media (max-width: 990px) { 
+   p.step {
+       text-align: center;
+   }
+   .pillar > h4 {
+      text-align: center;
+   }
+
+   .footer-1 {
+    padding-left: 0px;
+   }
+
+   h4.about-h4 {
+    text-align: center;
+   }
+   .step-column {
+    display:none;
+   }
+
+   .pillar {
+    margin-top: 20px;
+   }
+
+   button.opt-btn-prof.edit.linkedin {
+    margin-left: 15px;
+    }
+
+  a.btn.btn-primary.opt-btn-prof.edit.linkedin {
+    margin-left: 15px;
+  }
+
+  a.btn.btn-primary.opt-btn-prof.update {
+    margin-left:10px;
+  }
+
+  .linkedin {
+    margin-top:5px;
+  }
+
+  .opt-title-push-right {
+    text-align: center;
+  }
+
+  .opt-call-to-action {
+    text-align: center;
+  }
 }

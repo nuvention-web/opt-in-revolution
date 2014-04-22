@@ -1,0 +1,233 @@
+.col-md-12
+	.page-header
+		.prof-label-header
+			.row.mt
+				.col-md-6
+					.fg-h2-special
+						h2 Profile
+				.col-md-6
+					.row.mt
+						.form-group.fg-special
+							.col-md-2
+							.col-md-10
+								a.btn.btn-primary.opt-btn-prof.edit(href='#edit',data-toggle='tab') Edit Profile
+								a.btn.btn-primary.opt-btn-prof.linkedin(href="/auth/linkedin") Import from LinkedIn
+	.row.mt
+			.col-md-12
+				.row.mt.prof-column
+					.col-md-3
+						if user.profile.picture
+							if (user.profile.picture.indexOf('http')!=-1)
+								img.prof-pic.pagination-centered(src='#{user.profile.picture}')
+							else
+								-var profLink = user.profile.picture;
+								-profLink = profLink.split("public").pop();
+								img.prof-pic.pagination-centered(src='#{profLink}')
+						else
+							img.prof-pic.pagination-centered(src='/images/linkedin-default.jpg')
+					.col-md-9
+						.first-row
+							.row.mt
+								.col-md-2
+									b.prof-top
+										| Name:
+								.col-md-10
+									| #{user.profile.name}
+						.row.mt
+							.col-md-2
+								b.prof-top
+									| Email:
+							.col-md-10
+								| #{user.email}
+						.row.mt
+							.col-md-2
+								b.prof-top
+									| Location:
+							.col-md-10
+								| #{user.profile.location}
+				.prof-bottom-wrapper.special
+					.row.mt
+						.col-md-12
+							.row.mt.prof-row
+								.col-md-12
+									b
+										| Education
+							.row.mt.prof-row
+								.col-md-12
+									ul
+										if user.education[0]
+											if typeof(user.education[0])==='object'
+												each e in user.education
+													li
+														| #{e.schoolName} - #{e.degree}
+											else
+												li
+													| #{user.education}
+										else
+											li
+												| Not filled out
+					.row.mt
+						.col-md-12
+							.row.mt.prof-row
+								.col-md-12
+									b 
+										| Professional Experience
+							.row.mt.prof-row
+								.col-md-12
+									ul
+										if user.positions[0]
+											if typeof(user.positions[0])==='object'
+												each p in user.positions
+													li
+														| #{p.title}, #{p.company}
+											else
+												li
+													| #{user.positions}
+										else
+												li 
+													| Not filled out
+					.row.mt
+						.col-md-12
+							.row.mt.prof-row
+								.col-md-12
+									b
+										| Skills
+							.row.mt.prof-row
+								.col-md-12
+									ul
+										li
+											if user.skills[0]							
+												- var length = user.skills.length - 1
+													each s,i in user.skills
+														| #{s.skill}
+														if i != (length)
+															| , 
+											else
+												| Not filled out
+					.row.mt
+						.col-md-12
+							.row.mt.prof-row
+								.col-md-12
+									b
+										| Years of Professional Experience:
+									ul
+										li 
+											| #{user.yearsOfExperience}
+					.row.mt
+						.col-md-12
+							.row.mt.prof-row
+								.col-md-12
+									b
+										| Industry
+							.row.mt.prof-row
+								.col-md-12
+									ul
+										li
+											if user.industryPreference.length > 0
+												| #{user.industryPreference[0]}
+												each industry in user.industryPreference.slice(1,user.industryPreference.length)
+													| , #{industry}
+											else
+												| Not filled out
+					.row.mt
+						.col-md-12
+							.row.mt.prof-row
+								.col-md-12
+									b
+										| Job Function
+							.row.mt.prof-row
+								.col-md-12
+									ul
+										li
+											if user.jobFunctionPreference.length > 0
+												| #{user.jobFunctionPreference[0]}
+												each jobFunc in user.jobFunctionPreference.slice(1,user.jobFunctionPreference.length)
+													| , #{jobFunc}
+											else
+												| Not filled out
+					.row.mt
+						.col-md-12
+							.row.mt.prof-row
+								.col-md-12
+									b
+										| Desired Project Length
+							.row.mt.prof-row
+								.col-md-12
+									ul
+										li
+											if user.desiredProjectLength.length > 0
+												| #{user.desiredProjectLength[0]}
+												each projLen in user.desiredProjectLength.slice(1,user.desiredProjectLength.length)
+													| , #{projLen}
+											else
+												| Not filled out
+					.row.mt
+						.col-md-12
+							.row.mt.prof-row
+								.col-md-12
+									b
+										| Desired Hours Per Week
+							.row.mt.prof-row
+								.col-md-12
+									ul
+										li
+											if user.desiredHoursPerWeek.length > 0
+												| #{user.desiredHoursPerWeek[0]}
+												each hours in user.desiredHoursPerWeek.slice(1,user.desiredHoursPerWeek.length)
+													| , #{hours}
+											else
+												| Not filled out
+					.row.mt
+						.col-md-12
+							.row.mt.prof-row
+								.col-md-12
+									b
+										| Check-in Frequency
+							.row.mt.prof-row
+								.col-md-12
+									ul
+										li
+											if user.checkinFrequencyPreference.length > 0
+												| #{user.checkinFrequencyPreference[0]}
+												each checkin in user.checkinFrequencyPreference.slice(1,user.checkinFrequencyPreference.length)
+													| , #{checkin}
+											else
+												| Not filled out
+					.row.mt
+						.col-md-12
+							.row.mt.prof-row
+								.col-md-12
+									b
+										| Primary Communication Method
+							.row.mt.prof-row
+								.col-md-12
+									ul
+										li
+											if user.communicationPreferences.length > 0
+												| #{user.communicationPreferences[0]}
+												each comm in user.communicationPreferences.slice(1, user.communicationPreferences.length)
+													| , #{comm}
+											else
+												| Not filled out
+					.row.mt
+						.col-md-12
+							.row.mt.prof-row
+								.col-md-12
+									label Resume 
+							.row.mt.prof-row
+								.col-md-12
+									a(href="/account/resume-download-id=#{user._id}") #{user.resume.name}
+					//- .row.mt
+						.col-md-12
+							.row.mt.prof-row
+								.col-md-12
+									b
+										| Resume
+							.row.mt.prof-row
+								.col-md-12
+									a(href="/account/resume-download-id=#{user._id}") #{user.resume.name} fsf
+					br
+					br
+					br
+					br
+					br

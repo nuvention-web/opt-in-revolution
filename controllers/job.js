@@ -131,7 +131,8 @@ exports.listJobs = function(req, res) {
 						"hoursPerWeek": default_hoursPerWeek,
 						"checkinFrequency": default_checkinFrequency,
 						"primaryComm": default_primaryComm}
-
+	// console.log("listjobs")
+	// console.log(selectedFilters)
 	Job.find().
 		sort('-dateCreated').
 		exec(function(e, docs) {
@@ -144,52 +145,18 @@ exports.listJobs = function(req, res) {
 
 };
 
-exports.postFilterJobs = function (req,res) {
-
-	var industry = strToArray(req.body.industry);
-	var jobFunction = strToArray(req.body.jobFunction);
-	var totalWeeks = strToArray(req.body.totalWeeks);
-	var hoursPerWeek = strToArray(req.body.hoursPerWeek);
-	var checkinFrequency = strToArray(req.body.checkinFrequency);
-	var primaryComm = strToArray(req.body.primaryComm);
-
-	selectedFilters = {"industry": industry,
-						"jobFunction": jobFunction,
-						"totalWeeks": totalWeeks,
-						"hoursPerWeek": hoursPerWeek,
-						"checkinFrequency": checkinFrequency,
-						"primaryComm": primaryComm}
-
-	Job.find({industry: {$in: industry},
-				jobFunction: {$in: jobFunction},
-				totalWeeks: {$in: totalWeeks},
-				hoursPerWeek: {$in: hoursPerWeek},
-				checkinFrequency: {$in: checkinFrequency},
-				primaryComm: {$in: primaryComm}
-				}).
-		sort('-dateCreated').
-		exec(function(e, docs) {
-			// console.log(docs)
-			res.render("jobs/jobslist", {
-				"joblist" : docs,
-				"selectedFilters" : selectedFilters,
-				title: "Job Listing Page",
-			});
-		});
-};
-
 exports.applyJob = function(req, res) {
 	User.findById(req.user.id, function(err, user) {
-		if(user.profile.name) {
+		if((user.profile.name) && (user.userType == 'mom')) {
 			Job.findById(req.params.id, function(e, docs) {
 				JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function(err, jobApp) {
-					console.log("Loading apply job..");
-					console.log(jobApp);
+					// console.log("Loading apply job..");
+					// console.log(jobApp);
 					res.render("jobs/applyjob", {
 						"job" : docs,
 						"jobApp" : jobApp,
 						success : req.flash('success'),
-						title: "Apply to this job",
+						title: "Apply to this project",
 					});
 				});
 			});
@@ -201,6 +168,15 @@ exports.applyJob = function(req, res) {
 	});
 };
 
+exports.viewProject = function(req, res) {
+	Job.findById(req.params.id, function(e, docs) {
+		res.render("jobs/viewproject", {
+			"job":docs,
+			title: "View this project"
+		});
+	});
+};
+
 exports.postFilterJobs = function (req,res) {
 
 	var industry = strToArray(req.body.industry);
@@ -209,6 +185,14 @@ exports.postFilterJobs = function (req,res) {
 	var hoursPerWeek = strToArray(req.body.hoursPerWeek);
 	var checkinFrequency = strToArray(req.body.checkinFrequency);
 	var primaryComm = strToArray(req.body.primaryComm);
+
+	selectedFilters = {"industry": industry,
+					"jobFunction": jobFunction,
+					"totalWeeks": totalWeeks,
+					"hoursPerWeek": hoursPerWeek,
+					"checkinFrequency": checkinFrequency,
+					"primaryComm": primaryComm}
+
 
 	Job.find({industry: {$in: industry},
 				jobFunction: {$in: jobFunction},
@@ -221,6 +205,7 @@ exports.postFilterJobs = function (req,res) {
 		exec(function(e, docs) {
 			// console.log(docs)
 			res.render("jobs/jobslist", {
+				"selectedFilters": selectedFilters,
 				"joblist" : docs,
 				title: "Job Listing Page",
 			});
@@ -230,10 +215,48 @@ exports.postFilterJobs = function (req,res) {
 exports.saveJob = function(req, res) {
 	User.findById(req.user.id, function(err, user) {
 		// Save as ObjectID for easier querying when viewing saved jobs
-		user.companiesContacted.push(new ObjectID(req.params.id));
-		user.save(function(err, user, count) {
-			res.redirect("/employ");
-		});
+		if((user.profile.name) && (user.userType == 'mom')) {
+			// user.companiesContacted.push(new ObjectID(req.params.id));
+			// user.save(function(err, user, count) {
+			// 	res.redirect("/employ");
+			// });
+			JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function (err, jobApp) {
+				if(jobApp) { // if the job app exists
+					// console.log("jobapp exists")
+					// console.log(jobApp)
+				} else { // job app doesn't exist yet
+				// console.log("jobapp DOESN'T exist")
+					var jobApp = new JobApplication({
+						jobID: req.params.id,
+						userID: req.user.id,
+						relevantJobExperience: req.body.relevantJobExperience,
+						projectApproach: req.body.projectApproach,
+						submitted: "saved"
+					});
+				}
+
+				//Save all of the user information
+				copyUserInformation(jobApp, req.user);
+
+				//Save all of the job information
+				Job.findById(req.params.id, function(erro, thisJob) {
+					copyJobInformation(jobApp, thisJob);
+
+					jobApp.lastModified = Date();
+
+					jobApp.save(function(err) {
+						if(err) return next(err);
+						req.flash('success', 'Application saved.');
+						res.redirect("/account");
+					});
+
+				});
+			});
+		}
+		else {
+   			req.flash('signUp', 'signUp');
+			res.redirect('/account');
+		}
 	});
 };
 
@@ -244,16 +267,19 @@ exports.viewCompanyPosts = function(req, res) {
 			function(item, callback) {
 				JobApplication.find({jobID:item._id}, function(er, jobApps) {
 					for (var i=0; i<jobApps.length; i++) {
-						newObj = {}
-						newObj['jobID'] = jobApps[i].jobID;
-						newObj['userID'] = jobApps[i].userID;
-						newObj['relevantJobExperience'] = jobApps[i].relevantJobExperience;
-						newObj['projectApproach'] = jobApps[i].projectApproach;
-						newObj['submitted'] = jobApps[i].submitted;
-						newObj['dateCreated'] = jobApps[i].dateCreated;
-						newObj['id'] = jobApps[i]._id;
+						if (jobApps[i].submitted == "yes") {
+							newObj = {}
+							newObj['jobID'] = jobApps[i].jobID;
+							newObj['userID'] = jobApps[i].userID;
+							newObj['relevantJobExperience'] = jobApps[i].relevantJobExperience;
+							newObj['projectApproach'] = jobApps[i].projectApproach;
+							newObj['dateCreated'] = jobApps[i].dateCreated;
+							newObj['id'] = jobApps[i]._id;
+							newObj['user'] = jobApps[i].user;
+							newObj['job'] = jobApps[i].job;
 
-						jobAppArray.push(newObj);
+							jobAppArray.push(newObj);
+						}
 					}
 
 					callback();
@@ -270,6 +296,15 @@ exports.viewCompanyPosts = function(req, res) {
 	});
 };
 
+exports.viewApplication = function(req, res) {
+	JobApplication.findById(req.params.id, function(err, jobApp) {
+		res.render("jobs/viewapplication", {
+			"jobApp": jobApp,
+			title: "View Application",
+		});
+	});
+};
+
 exports.viewSavedJobs = function(req, res) {
 	User.findById(req.user.id, function(err, user) {
 		Job.find({_id: {$in: user.companiesContacted}}, function (e, docs) {
@@ -282,6 +317,44 @@ exports.viewSavedJobs = function(req, res) {
 	});
 };
 
+function copyUserInformation(jobApplication, user) {
+	jobApplication.user.email = user.email || '';
+	jobApplication.user.profile.name = user.profile.name || '';
+	jobApplication.user.profile.gender = user.profile.gender || '';
+	jobApplication.user.profile.location = user.profile.location || '';
+	jobApplication.user.profile.website = user.profile.website || '';
+	jobApplication.user.profile.picture = user.profile.picture || '';
+
+	jobApplication.user.skills = user.skills || '';
+	jobApplication.user.education = user.education || '';
+
+	jobApplication.user.positions = user.positions || '';
+	jobApplication.user.yearsOfExperience = user.yearsOfExperience || '';
+	jobApplication.user.desiredHoursPerWeek = user.desiredHoursPerWeek || '';
+	jobApplication.user.linkedinURL = user.linkedinURL || '';
+	jobApplication.user.desiredHoursPerWeek = user.desiredHoursPerWeek || '';
+	jobApplication.user.desiredProjectLength = user.desiredProjectLength || '';
+	jobApplication.user.communicationPreferences = user.communicationPreferences || '';
+	jobApplication.user.checkinFrequencyPreference = user.checkinFrequencyPreference || '';
+	jobApplication.user.industryPreference = user.industryPreference || '';
+	jobApplication.user.jobFunctionPreference = user.jobFunctionPreference || '';
+}
+
+function copyJobInformation(jobApplication, job) {
+	jobApplication.job.jobName = job.jobName;
+	jobApplication.job.companyName = job.companyName;
+	jobApplication.job.jobDescription = job.jobDescription;
+	jobApplication.job.industry = job.industry;
+	jobApplication.job.jobFunction = job.jobFunction;
+	jobApplication.job.totalWeeks = job.totalWeeks;
+	jobApplication.job.hoursPerWeek = job.hoursPerWeek;
+	jobApplication.job.checkinFrequency = job.checkinFrequency;
+	jobApplication.job.primaryComm = job.primaryComm;
+	jobApplication.job.skillsNeeded = job.skillsNeeded;
+	jobApplication.job.pay = job.pay;
+	jobApplication.job.companyID = job.companyID;
+}
+
 exports.postSaveApp = function(req, res, next) {
 	User.findById(req.user.id, function(err, user) {
 		// Save as ObjectID for easier querying when viewing saved jobs
@@ -290,11 +363,10 @@ exports.postSaveApp = function(req, res, next) {
 	});
 
 	JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function (err, jobApp) {
-		if(jobApp) {
-			jobApp.relevantJobExperience = req.body.relevantJobExperience || '';
-			jobApp.projectApproach = req.body.projectApproach || '';
-
-		} else {
+		if(jobApp) { // if the job app exists
+			jobApp.relevantJobExperience =req.body.relevantJobExperience;
+			jobApp.projectApproach =req.body.projectApproach;
+		} else { // job app doesn't exist yet
 			var jobApp = new JobApplication({
 				jobID: req.params.id,
 				userID: req.user.id,
@@ -302,10 +374,21 @@ exports.postSaveApp = function(req, res, next) {
 				projectApproach: req.body.projectApproach
 			});
 		}
-		jobApp.save(function(err) {
-			if(err) return next(err);
-			req.flash('success', 'Application saved.');
-			res.redirect("/job/apply-"+req.params.id);
+
+		//Save all of the user information
+		copyUserInformation(jobApp, req.user);
+
+		//Save all of the job information
+		Job.findById(req.params.id, function(erro, thisJob) {
+			copyJobInformation(jobApp, thisJob);
+			jobApp.lastModified = Date();
+			jobApp.submitted = "no";
+			jobApp.save(function(err) {
+				if(err) return next(err);
+				req.flash('success', 'Application saved.');
+				res.redirect("/job/apply-"+req.params.id);
+			});
+
 		});
 	});
 };
@@ -318,11 +401,11 @@ exports.postSubmitApp = function(req, res) {
 	});
 	
 	JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function (err, jobApp) {
-		if(jobApp) {
-			jobApp.relevantJobExperience = req.body.relevantJobExperience || '';
-			jobApp.projectApproach = req.body.projectApproach || '';
-			jobApp.submitted = 'yes';
-		} else {
+		if(jobApp) { // if the job app exists
+			jobApp.submitted = "yes";
+			jobApp.relevantJobExperience =req.body.relevantJobExperience;
+			jobApp.projectApproach =req.body.projectApproach;
+		} else { // job app doesn't exist yet
 			var jobApp = new JobApplication({
 				jobID: req.params.id,
 				userID: req.user.id,
@@ -331,10 +414,21 @@ exports.postSubmitApp = function(req, res) {
 				submitted: 'yes'
 			});
 		}
-		jobApp.save(function(err) {
-			if(err) return next(err);
-			req.flash('success', 'Application submitted.');
-			res.redirect("/job/apply-"+req.params.id);
+
+		
+		//Save all of the user information
+		copyUserInformation(jobApp, req.user);
+
+		//Save all of the job information
+		Job.findById(req.params.id, function(erro, thisJob) {
+			copyJobInformation(jobApp, thisJob);
+			jobApp.lastModified = Date();
+			jobApp.save(function(err) {
+				if(err) return next(err);
+				req.flash('success', 'Application saved.');
+				res.redirect("/job/apply-"+req.params.id);
+			});
+
 		});
 	});
 };

@@ -2,6 +2,9 @@ extends ../layout
 
 block content
 	.tile-job
+		.alert.alert-success.animated.fadeIn.opt-alert
+			button.close(data-dismiss='alert') ×
+			= "Note: We are currently in the process of curating jobs! Please check back soon for more opportunities!"
 		.container
 			.row.mt.centered
 				.col-lg-12
@@ -121,12 +124,18 @@ block content
 											b Pay: 
 											| #{job.pay}
 									.row.mt.job-card-buttons
-										.col-md-2.col-md-offset-10
-											if typeof(user)==='undefined'
-												a.btn.btn-success.btn-md.job-btn(href='/signup', role='button') Sign Up
-											else
-												a.btn.btn-success.btn-md.job-btn(href='/job/apply-#{job.id}', role='button') Apply
-												a.btn.btn-success.btn-md.job-btn(href='/job/save-#{job.id}', role='button') Save
+										if typeof(user)==='undefined'
+											.col-md-3.col-md-offset-9
+												a.btn.btn-success.btn-md.job-btn(href='/login', role='button') Login to apply
+												a.btn.btn-success.btn-md.job-btn(href='/job/viewproject-#{job.id}', role='button') View job
+										else
+											.col-md-2.col-md-offset-10
+												if (user.userType == 'mom')
+													a.btn.btn-success.btn-md.job-btn(href='/job/apply-#{job.id}', role='button') Apply
+													a.btn.btn-success.btn-md.job-btn(href='/job/save-#{job.id}', role='button') Save
+												else
+													br
+													br
 					else 
 						.row.mt
 							p 

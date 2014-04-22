@@ -3,26 +3,26 @@ $(document).ready(function() {
 	// NavBar 
 	// About Page
 	// For fading out other tabs
-	$('#employ').stop().hover(function() {
-		$('#employ').stop().fadeTo("fast",1)
+	// $('#employ').stop().hover(function() {
+	// 	$('#employ').stop().fadeTo("fast",1)
 
-		$('#empower').stop().fadeTo("fast",0.5)
-		$('#engage').stop().fadeTo("fast",0.5)
-	});
+	// 	$('#empower').stop().fadeTo("fast",0.5)
+	// 	$('#engage').stop().fadeTo("fast",0.5)
+	// });
 
-	$('#empower').stop().hover(function() {
-		$('#empower').stop().fadeTo("fast",1)
+	// $('#empower').stop().hover(function() {
+	// 	$('#empower').stop().fadeTo("fast",1)
 
-		$('#employ').stop().fadeTo("fast",0.5)
-		$('#engage').stop().fadeTo("fast",0.5)
-	});
+	// 	$('#employ').stop().fadeTo("fast",0.5)
+	// 	$('#engage').stop().fadeTo("fast",0.5)
+	// });
 
-	$('#engage').stop().hover(function() {
-		$('#engage').stop().fadeTo("fast",1)
+	// $('#engage').stop().hover(function() {
+	// 	$('#engage').stop().fadeTo("fast",1)
 
-		$('#employ').stop().fadeTo("fast",0.5)
-		$('#empower').stop().fadeTo("fast",0.5)
-	});
+	// 	$('#employ').stop().fadeTo("fast",0.5)
+	// 	$('#empower').stop().fadeTo("fast",0.5)
+	// });
 
  	$('.joblist.multiselect').multiselect({
       numberDisplayed: 0,
@@ -39,9 +39,11 @@ $(document).ready(function() {
     });
 
     
+    
     $('.opt-btn-prof.edit').on("click", function() {
-    	$('li.homelink').removeClass('active')
-    	$('li.editlink').addClass('active')
+    	// console.log("pressed")
+    	// $('li.homelink').removeClass('active')
+    	// $('li.editlink').addClass('active')
     });
 
 });

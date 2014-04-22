@@ -6,12 +6,16 @@ var Emails = require('../models/Emails');
  var url = require('url');
 
 exports.index = function(req, res) {
-
-  res.render('home', {
-    title: 'Home',
-    errors: req.flash('errors'),
-    success: req.flash('success')
-  });
+  if (req.user) {
+    res.redirect('/account');
+  }
+  else {
+    res.render('home', {
+      title: 'Home',
+      errors: req.flash('errors'),
+      success: req.flash('success')
+    });
+  }
 };
 
 exports.about = function(req, res) {

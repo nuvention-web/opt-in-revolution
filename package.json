@@ -25,6 +25,7 @@
     "underscore": "~1.5.2",
     "formidable": "~1.0.14",
     "dropbox": "~0.10.2",
-    "connect-multiparty": "~1.0.3"
+    "connect-multiparty": "~1.0.3",
+    "node-imgur": "~0.1.2"
   }
 }

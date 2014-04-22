@@ -6,10 +6,48 @@ var mongoose = require('mongoose')
 var jobApplicationSchema = new Schema({
 	jobID: {type: String},
 	userID: {type: String},
+	user: {
+		email: {type: String},
+		profile: {
+			name: { type: String, default: '' },
+			gender: { type: String, default: '' },
+			location: { type: String, default: '' },
+			website: { type: String, default: '' },
+			picture: { type: String, default: '' }
+		},
+		skills: { type: Array },
+		education: { type: Array },
+		positions: {type: Array},
+		yearsOfExperience: {type: String, default: ''},
+		desiredHoursPerWeek: {type: String, default: ''},
+		linkedinURL: {type: String, default: ''},
+		desiredHoursPerWeek: {type: Array},
+		desiredProjectLength: {type: Array},
+		communicationPreferences: {type: Array},
+		checkinFrequencyPreference: {type: Array},
+		industryPreference: {type: Array},
+		jobFunctionPreference: {type: Array},
+	},
+
+	job: {
+		jobName: {type: String},
+		companyName: {type: String},
+		jobDescription: {type: String},
+		industry: {type: Array},
+		jobFunction: {type: Array},
+		totalWeeks: {type: Array},
+		hoursPerWeek: {type: Array},
+		checkinFrequency: {type: Array},
+		primaryComm: {type: Array},
+		skillsNeeded: {type: String},
+		pay: {type: String},
+		companyID: {type: String},
+	},
 	relevantJobExperience: {type: String, default: ''},
 	projectApproach: {type: String, default: ''},
-	submitted: {type: String, default: 'no'}, //yes, no
-	dateCreated: {type: Date, default: Date.now}
+	submitted: {type: String, default: 'no'}, //yes, no, saved
+	dateCreated: {type: Date, default: Date.now},
+	lastModified: {type: Date, default: Date.now}
 });
 
 // jobApplicationSchema.pre('save', function(next) {

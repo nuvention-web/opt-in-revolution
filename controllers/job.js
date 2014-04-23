@@ -265,6 +265,7 @@ exports.viewCompanyPosts = function(req, res) {
 	Job.find({companyID: req.user.id}, function (e, docs) {
 		async.each(docs,
 			function(item, callback) {
+				console.log(item._id)
 				JobApplication.find({jobID:item._id}, function(er, jobApps) {
 					for (var i=0; i<jobApps.length; i++) {
 						if (jobApps[i].submitted == "yes") {
@@ -278,6 +279,7 @@ exports.viewCompanyPosts = function(req, res) {
 							newObj['user'] = jobApps[i].user;
 							newObj['job'] = jobApps[i].job;
 
+							console.log(newObj)
 							jobAppArray.push(newObj);
 						}
 					}
@@ -286,9 +288,10 @@ exports.viewCompanyPosts = function(req, res) {
 				});
 			},
 			function(err) {
+				console.log(jobAppArray)
 				res.render("jobs/viewlistings", {
 					"joblist": docs,
-					jobAppArr: jobAppArray,
+					"jobAppArr": jobAppArray,
 					title: "Company Listings",
 				});
 			}

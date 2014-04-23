@@ -60,17 +60,14 @@ block content
 							-var counter = 0;
 							-var appJobMatchArr = [];
 								each app in jobAppArr
-									p | app.JobID: #{app.jobID}, job.id #{job.id}
 									if app.jobID==job.id
 										-appJobMatchArr.push(app);
 										-counter = counter + 1;
-										p | #{counter}
-										p | #{appJobMatchArr}
 								div(id="accordion_#{i}", class="panel-group")
 									.panel.panel-default
 										.panel-heading
 											h4.panel-title
-												if counter > 2
+												if counter >= 2
 													a(data-toggle='collapse', data-parent='#accordion_#{i}', href='#collapse_#{i}') See #{counter} applications
 												else if counter == 1
 													a(data-toggle='collapse', data-parent='#accordion_#{i}', href='#collapse_#{i}') See #{counter} application

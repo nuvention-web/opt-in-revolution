@@ -1,0 +1,66 @@
+.col-md-12
+	form.form-horizontal(action='/account/profile', method='POST', enctype="multipart/form-data")
+		.page-header
+			.prof-label-header
+				.row.mt
+					.col-md-6
+						.fg-h2-special
+							h2 Company Profile
+					.col-md-6
+						.form-group.fg-special
+							.row.mt
+								.col-md-6
+								.col-md-6
+									button.btn.btn.btn-primary.opt-btn-prof(type='submit') Update Profile
+		.row.mt
+			.col-md-12
+				.row.mt.prof-column
+					.col-md-3
+						if user.profile.picture
+							if (user.profile.picture.indexOf('http')!=-1)
+								img.prof-pic.pagination-centered(src='#{user.profile.picture}')
+							else
+								-var profLink = user.profile.picture;
+								-profLink = profLink.split("public").pop();
+								img.prof-pic.pagination-centered(src='#{profLink}')
+						else
+							img.prof-pic.pagination-centered(src='/images/business_profile.jpg')
+						.row.mt
+							.col-md-12
+								.form-group
+									.row.mt
+										.col-md-12
+											label.control-label(for='profilePicture') Profile Picture Upload
+									.row.mt
+										.col-md-12
+											input(type="file", name="profilePicture")
+					.col-md-9
+						.form-group
+							label.col-md-2.control-label(for='companyName') Name
+							.col-md-10
+								if typeof(user.company.companyName)=='undefined'
+									input.form-control(type='companyName', name='companyName', id='companyName', value='')
+								else
+									input.form-control(type='companyName', name='companyName', id='companyName', value='#{user.company.companyName}')
+						.form-group
+							label.col-md-2.control-label(for='email') Email
+							.col-md-10
+								input.form-control(type='email', name='email', id='email', value='#{user.email}')
+				.prof-bottom-wrapper
+					.row.mt
+						.col-md-12
+							.form-group
+								.row.mt
+									.col-md-12
+										label.control-label(for='companyDescription') Company Description
+								.row.mt
+									.col-md-12
+										if typeof(user.company.companyDescription)=='undefined'
+											textarea.form-control(type='companyDescription', name='companyDescription', id='companyDescription')
+										else
+											textarea.form-control(type='companyDescription', name='companyDescription', id='companyDescription')
+												| #{user.company.companyDescription}
+					br
+					br
+					br
+					br

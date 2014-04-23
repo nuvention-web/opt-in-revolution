@@ -39,14 +39,11 @@ $(document).ready(function() {
     });
 
     
-    
-    $('.opt-btn-prof.edit').on("click", function() {
-    	// console.log("pressed")
-    	// $('li.homelink').removeClass('active')
-    	// $('li.editlink').addClass('active')
+    // Scroll to top when any of the sidenav links are clicked
+    $('li.sidenav').on("click", function() {
+    	$('body').scrollTop(0);
     });
 
 });
-
 
 var jobCategories = ['industry','jobFunction','desiredProjectLength','desiredHoursPerWeek','checkinFrequency','communicationPreferences'];

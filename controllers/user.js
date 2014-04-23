@@ -52,10 +52,6 @@ exports.getAccount = function(req, res) {
           picErrors: req.flash('picErrors'),
           "joblist" : docs
         });
-        // res.render("jobs/savedjobs", {
-        //   "joblist" : docs,
-        //   title: "Saved Companies",
-        // });
       });
   });
     

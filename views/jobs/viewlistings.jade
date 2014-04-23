@@ -60,6 +60,7 @@ block content
 							-var counter = 0;
 							-var appJobMatchArr = [];
 								each app in jobAppArr
+									p | app.JobID: #{app.jobID}, job.id #{job.id}
 									if app.jobID==job.id
 										-appJobMatchArr.push(app);
 										-counter = counter + 1;

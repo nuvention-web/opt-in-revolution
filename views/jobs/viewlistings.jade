@@ -64,6 +64,8 @@ block content
 									if app.jobID==job.id
 										-appJobMatchArr.push(app);
 										-counter = counter + 1;
+										p | #{counter}
+										p | #{appJobMatchArr}
 								div(id="accordion_#{i}", class="panel-group")
 									.panel.panel-default
 										.panel-heading

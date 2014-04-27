@@ -18,6 +18,12 @@ exports.index = function(req, res) {
   }
 };
 
+exports.chat = function(req, res) {
+  res.render('chat', {
+    title: "Chat",
+  });
+};
+
 exports.about = function(req, res) {
 	var url_parts = url.parse(req.url, true);
 	var query = url_parts.query;

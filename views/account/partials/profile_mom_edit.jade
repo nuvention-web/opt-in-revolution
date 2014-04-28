@@ -14,7 +14,7 @@
 									button.btn.btn-primary.opt-btn-prof.edit(type='submit') Update Profile
 									a.btn.btn-primary.opt-btn-prof.edit.linkedin(href="/auth/linkedin") Import from LinkedIn
 		.row.mt
-			.col-md-12
+			.col-md-11
 				.row.mt.prof-column
 					.col-md-3
 						if user.profile.picture
@@ -26,15 +26,11 @@
 								img.prof-pic.pagination-centered(src='#{profLink}', height='130px', width='130px')
 						else
 							img.prof-pic.pagination-centered(src='/images/linkedin-default.jpg', height='130px')
-						.row.mt
-							.col-md-12
-								.form-group
-									.row.mt
-										.col-md-12
-											label.control-label(for='profilePicture') Profile Picture Upload
-									.row.mt
-										.col-md-12
-											input(type="file", name="profilePicture")
+						br
+						.form-group.prof-pic-upload
+							label.control-label(for='profilePicture') Profile Picture Upload
+							br
+							input(type="file", name="profilePicture")
 					.col-md-9
 						.form-group
 							label.col-md-2.control-label(for='name') Name

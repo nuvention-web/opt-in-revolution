@@ -65,6 +65,8 @@ block content
 																			each e in jobApplicant.education
 																				li
 																					| #{e.schoolName} - #{e.degree}
+																					if e.startDate && e.endDate
+																						| #{e.startDate} - #{e.endDate}
 																		else
 																			li
 																				| #{jobApplicant.education}

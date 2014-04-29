@@ -63,21 +63,21 @@ exports.getChat = function(req, res) {
 
 exports.getAccount = function(req, res) {
   if (req.user.userType == 'mom') {
-    User.findById(req.user.id, function(err, user) {
-      JobApplication.find({userID: req.user.id}, function (e, docs) {
-        console.log(docs)
-        console.log("at 69");
-        res.render('account/profile_mom', {
-          title: 'Account Management',
-          success: req.flash('success'),
-          error: req.flash('error'),
-          errors: req.flash('errors'),
-          signUp: req.flash('signUp'),
-          first: req.flash('first'),
-          picErrors: req.flash('picErrors'),
-          "joblist" : docs
-        });
+    // User.findById(req.user.id, function(err, user) {
+    JobApplication.find({userID: req.user.id}, function (e, docs) {
+      console.log(docs)
+      console.log("at 69");
+      res.render('account/profile_mom', {
+        title: 'Account Management',
+        success: req.flash('success'),
+        error: req.flash('error'),
+        errors: req.flash('errors'),
+        signUp: req.flash('signUp'),
+        first: req.flash('first'),
+        picErrors: req.flash('picErrors'),
+        "joblist" : docs
       });
+      // });
   });
     
   }

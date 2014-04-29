@@ -38,22 +38,46 @@ exports.getSignup = function(req, res) {
  * Profile page.
  */
 
+
+exports.initiateChat = function(req, res, next) {
+  JobApplication.findById(req.params.id, function(e, jobApp) {
+    jobApp.chatRequested = true;
+    jobApp.save(function(e, next){
+      res.render('chat', {
+        title: "Chat",
+        jobApp: jobApp,
+      });
+    });
+  });
+};
+
+exports.getChat = function(req, res) {
+  JobApplication.findById(req.params.id, function(e, jobApp) {
+    console.log(jobApp);
+    res.render('account/partials/profile-chat', {
+      title: 'Chat',
+      jobApps: jobApp,
+    });
+  });
+};
+
 exports.getAccount = function(req, res) {
   if (req.user.userType == 'mom') {
-    User.findById(req.user.id, function(err, user) {
-      JobApplication.find({userID: req.user.id}, function (e, docs) {
-        // console.log(docs)
-        res.render('account/profile_mom', {
-          title: 'Account Management',
-          success: req.flash('success'),
-          error: req.flash('error'),
-          errors: req.flash('errors'),
-          signUp: req.flash('signUp'),
-          first: req.flash('first'),
-          picErrors: req.flash('picErrors'),
-          "joblist" : docs
-        });
+    // User.findById(req.user.id, function(err, user) {
+    JobApplication.find({userID: req.user.id}, function (e, docs) {
+      console.log(docs)
+      console.log("at 69");
+      res.render('account/profile_mom', {
+        title: 'Account Management',
+        success: req.flash('success'),
+        error: req.flash('error'),
+        errors: req.flash('errors'),
+        signUp: req.flash('signUp'),
+        first: req.flash('first'),
+        picErrors: req.flash('picErrors'),
+        "jobApps" : docs
       });
+      // });
   });
     
   }
@@ -74,6 +98,7 @@ exports.getAccount = function(req, res) {
                   newObj['id'] = jobApps[i]._id;
                   newObj['user'] = jobApps[i].user;
                   newObj['job'] = jobApps[i].job;
+                  newObj['chatRequested'] = jobApps[i].chatRequested;
 
                   jobAppArray.push(newObj);
                 }

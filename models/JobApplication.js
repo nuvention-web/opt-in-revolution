@@ -6,6 +6,7 @@ var mongoose = require('mongoose')
 var jobApplicationSchema = new Schema({
 	jobID: {type: String},
 	userID: {type: String},
+	chatRequested: {type: Boolean, default: false},
 	user: {
 		email: {type: String},
 		profile: {

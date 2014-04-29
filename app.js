@@ -120,7 +120,7 @@ app.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failureRe
 // Job Related
 app.post('/postJob', passportConf.isAuthenticated, jobController.postJob);
 app.get('/postjob', passportConf.isAuthenticated, jobController.submitJobPost);
-app.get('/mylistings', passportConf.isAuthenticated, jobController.viewCompanyPosts);
+// app.get('/mylistings', passportConf.isAuthenticated, jobController.viewCompanyPosts);
 // app.get('/jobslist', jobController.listJobs);
 app.get('/job/apply-:id', passportConf.isAuthenticated, jobController.applyJob);
 app.get('/job/save-:id', passportConf.isAuthenticated, jobController.saveJob);

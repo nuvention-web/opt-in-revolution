@@ -36,17 +36,21 @@ block content
 							li.sidenav.active
 								a(href='#home', data-toggle='tab') Profile
 							li.sidenav
+								a(href='#mylistings', data-toggle='tab') My Listings
+							li.sidenav
 								a(href='#settings', data-toggle='tab') Account Settings
 							//- li
 								a(href='#messages', data-toggle='tab') Messages
 							//- li
 								a(href='#settings', data-toggle='tab') Settings
-		.page-content-wrapper								
+		.page-content-wrapper
 			.col-md-12
 				.profile-wrap
 					.tab-content
 						#home.tab-pane.active
-							include partials/profile_employer_home.jade		
+							include partials/profile_employer_home.jade
+						#mylistings.tab-pane.active
+							include partials/profile_employer_listings.jade								
 						#settings.tab-pane 
 							.opt-login-wrapper
 								.page-header

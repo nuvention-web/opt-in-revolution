@@ -124,7 +124,7 @@ app.get('/mylistings', passportConf.isAuthenticated, jobController.viewCompanyPo
 // app.get('/jobslist', jobController.listJobs);
 app.get('/job/apply-:id', passportConf.isAuthenticated, jobController.applyJob);
 app.get('/job/save-:id', passportConf.isAuthenticated, jobController.saveJob);
-app.get('/viewsavedjobs', passportConf.isAuthenticated, jobController.viewSavedJobs);
+// app.get('/viewsavedjobs', passportConf.isAuthenticated, jobController.viewSavedJobs);
 app.get('/job/viewapplication-:id', passportConf.isAuthenticated, jobController.viewApplication);
 
 app.get('/job/viewproject-:id', jobController.viewProject);

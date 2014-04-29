@@ -13,7 +13,7 @@
 								.col-md-6
 									button.btn.btn.btn-primary.opt-btn-prof(type='submit') Update Profile
 		.row.mt
-			.col-md-12
+			.col-md-11
 				.row.mt.prof-column
 					.col-md-3
 						if user.profile.picture
@@ -25,15 +25,11 @@
 								img.prof-pic.pagination-centered(src='#{profLink}')
 						else
 							img.prof-pic.pagination-centered(src='/images/business_profile.jpg')
-						.row.mt
-							.col-md-12
-								.form-group
-									.row.mt
-										.col-md-12
-											label.control-label(for='profilePicture') Profile Picture Upload
-									.row.mt
-										.col-md-12
-											input(type="file", name="profilePicture")
+						br
+						.form-group.prof-pic-upload
+							label.control-label(for='profilePicture') Profile Picture Upload
+							br
+							input(type="file", name="profilePicture")
 					.col-md-9
 						.form-group
 							label.col-md-2.control-label(for='companyName') Name

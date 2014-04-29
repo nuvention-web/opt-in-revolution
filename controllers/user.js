@@ -98,6 +98,7 @@ exports.getAccount = function(req, res) {
                   newObj['id'] = jobApps[i]._id;
                   newObj['user'] = jobApps[i].user;
                   newObj['job'] = jobApps[i].job;
+                  newObj['chatRequested'] = jobApps[i].chatRequested;
 
                   jobAppArray.push(newObj);
                 }

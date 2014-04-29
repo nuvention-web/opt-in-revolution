@@ -37,12 +37,10 @@ block content
 								a(href='#home', data-toggle='tab') Profile
 							li.sidenav
 								a(href='#mylistings', data-toggle='tab') My Listings
+							li.sidenav.messages
+								a(href='#inbox', data-toggle='tab') My Messages
 							li.sidenav
 								a(href='#settings', data-toggle='tab') Account Settings
-							//- li
-								a(href='#messages', data-toggle='tab') Messages
-							//- li
-								a(href='#settings', data-toggle='tab') Settings
 		.page-content-wrapper
 			.col-md-12
 				.profile-wrap
@@ -50,7 +48,9 @@ block content
 						#home.tab-pane.active
 							include partials/profile_employer_home.jade
 						#mylistings.tab-pane
-							include partials/profile_employer_listings.jade								
+							include partials/profile_employer_listings.jade
+						#inbox.tab-pane
+							include partials/profile_employer_inbox.jade													
 						#settings.tab-pane 
 							.opt-login-wrapper
 								.page-header

@@ -1,9 +1,9 @@
 extends layout
 
 block content
-    | #{jobApp.chatRequested}
+    | #{jobApp.chatRequested} -- #{jobApp.id}
     #messagesDiv
-    input#nameInput(type='text', placeholder='Name')
+    input#nameInput(type='hidden', placeholder='Name', value='#{user.company.companyName}')
     input#messageInput(type='text', placeholder='Message')
 
     script(type='text/javascript').

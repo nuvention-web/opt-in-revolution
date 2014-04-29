@@ -1,0 +1,63 @@
+.col-md-12
+	.page-header
+		.prof-label-header
+			.row.mt
+				.col-md-6
+					.fg-h2-special
+						h2 My Messages
+				.col-md-6
+	-var counter = 0;
+	-var jobChats = [];
+	each jobApp in joblist
+		if jobApp.chatRequested
+			-jobChats.push(jobApp);
+			-counter +=1;
+	.opt-login-wrapper
+		.table-responsive
+			table.table.table-hover
+				thead
+					tr
+						th.proj-title Project Title
+						th Company Name
+						th
+				tbody.job-table
+					if (jobChats.length == 0)
+						td You have no messages.
+					else
+						each jobApp, i in jobChats
+							tr(type='button', data-toggle='collapse', data-target='#msg-#{i}', class='jobapp-row')
+								td.proj-title
+									| Chat for #{jobApp.job.jobName}
+								td #{jobApp.job.companyName}
+								td 
+									.btn.btn-success.btn-md.job-btn View Messages
+							tr(id="msg-#{i}").collapse.out
+								td
+									#chat.tab-pane
+										div(id='#{jobApp.id}')
+										input(type='hidden', placeholder='Name', value='#{user.profile.name}',id="nameInput-#{jobApp.id}")
+										input(type='text', placeholder='Message', id="messageInput-#{jobApp.id}")
+										script(type='text/javascript').
+											var myDataRef = new Firebase('https://athenahire.firebaseio.com/#{jobApp.id}');
+											var jobAppID = '#{jobApp.id}';
+											$('#messageInput-' + jobAppID).keypress(function (e) {
+												if (e.keyCode == 13) {
+													var name = $('#nameInput-' + jobAppID).val();
+													var text = $('#messageInput-' + jobAppID).val();
+													myDataRef.push({name: name, text: text});
+													$('#messageInput-' + jobAppID).val('');
+												}
+											});
+
+											myDataRef.on('child_added', function(snapshot) {
+												var message = snapshot.val();
+												displayChatMessage(message.name, message.text);
+											});
+
+											function displayChatMessage(name, text) {
+												var identifier = "#{jobApp.id}";
+												$('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#'+identifier));
+												$('#'+identifier)[0].scrollTop = $('#'+identifier)[0].scrollHeight;
+											};
+								td
+								td

@@ -41,21 +41,17 @@ block content
 								a(href='#inbox', data-toggle='tab') My Messages
 							li.sidenav.acctlink
 								a(href='#settings', data-toggle='tab') Account Settings
-							li.sidenav.chat
-								a(href='#chat', data-toggle='tab')
 		.page-content-wrapper
 			.row.mt
 				.profile-wrap
 					.col-md-12
 						.tab-content
 							#home.tab-pane.active
-								include partials/profile_mom_home.jade	
-							#chat.tab-pane
-								include partials/profile-chat.jade											
+								include partials/profile_mom_home.jade										
 							#edit.tab-pane
 								include partials/profile_mom_edit.jade
 							#inbox.tab-pane
-								include partials/profile_inbox.jade
+								include partials/profile_mom_inbox.jade
 							#applications.tab-pane
 								include partials/profile_mom_applications.jade
 							#settings.tab-pane 

@@ -136,7 +136,8 @@ app.post('/job/submitApplication-:id', passportConf.isAuthenticated, jobControll
 
 app.get('/applyfilters', jobController.postJob);
 
-app.get('/initiate-chat-:id', userController.initiateChat);
+app.get('/initiate-chat-:id', passportConf.isAuthenticated, userController.initiateChat);
+app.get('/chat-:id', passportConf.isAuthenticated, userController.getChat);
 
 // Pillars
 app.get('/employ', jobController.listJobs);

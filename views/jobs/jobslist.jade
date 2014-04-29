@@ -35,7 +35,7 @@ block content
 							| Job Function
 						br
 						select#jobFunction.joblist.multiselect(multiple='multiple',name='jobFunction')
-							- var jobFunction = ['Accounting', 'Business Development', 'Customer Service', 'Finance', 'Human Resources', 'Marketing', 'Operations', 'Other', 'Sales', 'Strategy']
+							- var jobFunction = ['Accounting', 'Business Development', 'Customer Service', 'Finance', 'Human Resources', 'Legal', 'Marketing', 'Operations', 'Other', 'Sales', 'Strategy']
 								each jobFunc in jobFunction
 									option(name='jobFunction',label='jobFunction',value='#{jobFunc}', selected=selectedFilters['jobFunction'].indexOf(jobFunc)!=-1) #{jobFunc}
 						br
@@ -44,7 +44,7 @@ block content
 							| Project Length
 						br
 						select#totalWeeks.joblist.multiselect(multiple='multiple',name='totalWeeks')
-							- var totalWeeks = ['< 1 week', '1-2 weeks', '2-3 weeks', '3-4 weeks', '1-2 months', '2-3 months', '3+ months']
+							- var totalWeeks = ['< 1 week', '1-2 weeks', '2-3 weeks', '3-4 weeks', '1-2 months', '2-3 months', '3+ months','To Be Determined']
 								each project in totalWeeks
 									option(name='totalWeeks',label='totalWeeks',value='#{project}', selected=selectedFilters['totalWeeks'].indexOf(project)!=-1) #{project}
 						br
@@ -53,7 +53,7 @@ block content
 							| Hours Per week
 						br
 						select#hoursPerWeek.joblist.multiselect(multiple='multiple',name='hoursPerWeek')
-							- var hoursPerWeek = ['< 10', '10-20', '20-30', '30-40']
+							- var hoursPerWeek = ['< 10', '10-20', '20-30', '30-40','To Be Determined']
 								each hour in hoursPerWeek
 									option(name='hoursPerWeek',label='hoursPerWeek',value='#{hour}', selected=selectedFilters['hoursPerWeek'].indexOf(hour)!=-1) #{hour}
 						br

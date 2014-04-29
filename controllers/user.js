@@ -95,11 +95,6 @@ exports.getAccount = function(req, res) {
             "joblist": docs,
             "jobAppArr": jobAppArray
           });
-            // res.render("jobs/viewlistings", {
-            //   "joblist": docs,
-            //   "jobAppArr": jobAppArray,
-            //   title: "Company Listings",
-            // });
           }
         );
       });

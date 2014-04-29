@@ -25,6 +25,11 @@ i {
 .opt-alert {
   margin-top: 10px;
 }
+
+.collapsing {   
+  -webkit-transition:height 0.4s ease;
+  transition:height 0.4s ease 
+}
 /****************************************************************
   Header Styles
 *****************************************************************/
@@ -434,11 +439,19 @@ button.btn.btn-primary.opt-btn-prof.edit:focus
 }
 
 .proj-title {
-  width: 65%;
+  width: 50%;
 }
 
 .job-table {
   font-size: 13px;
+}
+
+tr.jobapp-row {
+  cursor: pointer;
+}
+
+.jobapp-table {
+  padding-left:20px;
 }
 
 .big-wrapper {
@@ -517,6 +530,10 @@ li.sidenav > a {
 .job-listing-wrapper {
   margin-top: 15px;
   margin-bottom: 15px;
+}
+
+.view-project-wrapper {
+  margin-top: 30px;
 }
 
 .job-card {

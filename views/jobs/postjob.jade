@@ -59,7 +59,7 @@ block content
 									label.col-md-4.control-label(for='jobFunction') Job Function
 									.col-md-8
 										select#jobFunction.postjob.multiselect(multiple='multiple',name='jobFunction')
-											- var jobFunction = ['Accounting', 'Business Development', 'Customer Service', 'Finance', 'Human Resources', 'Marketing', 'Operations', 'Other', 'Sales', 'Strategy']
+											- var jobFunction = ['Accounting', 'Business Development', 'Customer Service', 'Finance', 'Human Resources', 'Legal', 'Marketing', 'Operations', 'Other', 'Sales', 'Strategy']
 												each jobFunc in jobFunction
 													option(name='jobFunction',label='jobFunction',value='#{jobFunc}') #{jobFunc}
 						.row.mt.job-card-other
@@ -68,7 +68,7 @@ block content
 									label.col-md-4.control-label(for='totalWeeks') Project Length
 									.col-md-3
 										select#totalWeeks.postjob.multiselect(multiple='multiple',name='totalWeeks')
-											- var projectLengths = ['< 1 week', '1-2 weeks', '2-3 weeks', '3-4 weeks', '1-2 months', '2-3 months', '3+ months']
+											- var projectLengths = ['< 1 week', '1-2 weeks', '2-3 weeks', '3-4 weeks', '1-2 months', '2-3 months', '3+ months','To Be Determined']
 												each project in projectLengths
 													option(name='totalWeeks',label='totalWeeks',value='#{project}') #{project}
 						.row.mt.job-card-other
@@ -77,7 +77,7 @@ block content
 									label.col-md-4.control-label(for='hoursPerWeek') Hours per week
 									.col-md-3
 										select#hoursPerWeek.postjob.multiselect(multiple='multiple',name='hoursPerWeek')
-											- var hoursPerWeek = ['< 10', '10-20', '20-30', '30-40']
+											- var hoursPerWeek = ['< 10', '10-20', '20-30', '30-40','To Be Determined']
 												each hour in hoursPerWeek
 													option(name='hoursPerWeek',label='hoursPerWeek',value='#{hour}') #{hour}
 						.row.mt.job-card-other

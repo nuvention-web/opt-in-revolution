@@ -12,6 +12,7 @@ script(type='text/javascript').
 		$('#'+jobID).empty();
 		var myDataRef = new Firebase('https://athenahire.firebaseio.com/#{jobAppWithChat.id}');
 		var jobAppWithChatID = '#{jobAppWithChat.id}';
+		$('#messageInput-' + jobAppWithChatID).unbind();
 		$('#messageInput-' + jobAppWithChatID).keypress(function (e) {
 			if (e.keyCode == 13) {
 				var name = $('#nameInput').val();
@@ -23,6 +24,7 @@ script(type='text/javascript').
 			}
 		});
 
+		myDataRef.off('child_added');
 		myDataRef.on('child_added', function(snapshot) {
 			var message = snapshot.val();
 			displayChatMessage(message.name, message.text);
@@ -33,6 +35,4 @@ script(type='text/javascript').
 			$('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#'+identifier));
 			$('#'+identifier)[0].scrollTop = $('#'+identifier)[0].scrollHeight;
 		};
-
 	});
-

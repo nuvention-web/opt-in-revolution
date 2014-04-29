@@ -26,56 +26,13 @@
 						td
 					else
 						each jobAppWithChat, i in jobChats
-							tr(type='button', data-toggle='collapse', data-target='#msg-#{i}', class='jobappWithChat-row')
+							tr(type='button', data-toggle='collapse', data-target='#msg-#{i}', class='jobappWithChat-row',id='view-message-#{jobAppWithChat.id}')
 								td.proj-title
 									| Chat for #{jobAppWithChat.job.jobName}
 								td #{jobAppWithChat.job.companyName}
 								td
-									.btn.btn-success.btn-md.job-btn(id='view-message-#{jobAppWithChat.id}') View Messages
+									.btn.btn-success.btn-md.job-btn View Messages
 							tr(id="msg-#{i}").collapse.out
 								td
 									div.tab-pane(id="chat-#{jobAppWithChat.id}")
-										div(id='#{jobAppWithChat.id}')
-										if user.userType == "mom"
-											input#nameInput(type='hidden', placeholder='Name', value='#{user.profile.name}')
-										else
-											input#nameInput(type='hidden', placeholder='Name', value='#{user.company.companyName}')
-
-										input(type='text', placeholder='Message', id="messageInput-#{jobAppWithChat.id}")
-
-										script(type='text/javascript').
-											var counter = 0;
-											$("#view-message-#{jobAppWithChat.id}").on("click", function() {
-												var jobID = '#{jobAppWithChat.id}';
-												$('#'+jobID).empty();
-												var myDataRef = new Firebase('https://athenahire.firebaseio.com/#{jobAppWithChat.id}');
-												myDataRef.off('child_added');
-												var jobAppWithChatID = '#{jobAppWithChat.id}';
-												$('#messageInput-' + jobAppWithChatID).unbind();
-												$('#messageInput-' + jobAppWithChatID).keypress(function (e) {
-													if (e.keyCode == 13) {
-														counter = 0;
-														var name = $('#nameInput').val();
-														var text = $('#messageInput-' + jobAppWithChatID).val();
-														if (text!='') {
-															myDataRef.push({name: name, text: text});
-															$('#messageInput-' + jobAppWithChatID).val('');
-														}
-													}
-												});
-
-
-												myDataRef.on('child_added', function(snapshot) {
-													if (counter==0) {
-														var message = snapshot.val();
-														displayChatMessage(message.name, message.text);
-														counter +=1;
-													}
-												});
-
-												function displayChatMessage(name, text) {
-													var identifier = jobAppWithChatID;
-													$('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#'+identifier));
-													$('#'+identifier)[0].scrollTop = $('#'+identifier)[0].scrollHeight;
-												};
-											});
+										include profile-chat.jade

@@ -8,7 +8,7 @@
 				.col-md-6
 	-var counter = 0;
 	-var jobChats = [];
-	each jobApp in joblist
+	each jobApp in jobApps
 		if jobApp.chatRequested
 			-jobChats.push(jobApp);
 			-counter +=1;
@@ -22,11 +22,56 @@
 				tbody.job-table
 					if (jobChats.length == 0)
 						td You have no messages.
+						td #{jobApps.length}
+						td
 					else
 						each jobApp, i in jobChats
-							tr
+							tr(type='button', data-toggle='collapse', data-target='#msg-#{i}', class='jobapp-row')
 								td.proj-title
-									a(href='#chat', data-toggle='tab') Chat for #{jobApp.job.jobName}
+									| sdf for #{jobApp.job.jobName}
 								td #{jobApp.job.companyName}
-								#chat.tab-pane
-									include profile-chat.jade	
+								td 
+									button.btn.btn-success.btn-md.job-btn(id='view-message-#{jobApp.id}', on='') View Messages
+							tr(id="msg-#{i}").collapse.out
+								td
+									div.tab-pane(id="chat-#{jobApp.id}")
+										div(id='#{jobApp.id}')
+										if user.userType == "mom"
+											input#nameInput(type='hidden', placeholder='Name', value='#{user.profile.name}')
+										else
+											input#nameInput(type='hidden', placeholder='Name', value='#{user.company.companyName}')
+										
+										input(type='text', placeholder='Message', id="messageInput-#{jobApp.id}")
+
+										script(type='text/javascript').
+											console.log('hi');
+											alert('hi');
+											$("#view-message-#{jobApp.id}").on("click", function() {
+												console.log('hi');
+												var myDataRef = new Firebase('https://athenahire.firebaseio.com/#{jobApp.id}');
+												var jobAppID = '#{jobApp.id}';
+												$('#messageInput-' + jobAppID).keypress(function (e) {
+													if (e.keyCode == 13) {
+														var name = $('#nameInput').val();
+														var text = $('#messageInput-' + jobAppID).val();
+														myDataRef.push({name: name, text: text});
+														alert(text);
+														$('#messageInput-' + jobAppID).val('');
+													}
+												});
+
+												myDataRef.on('child_added', function(snapshot) {
+													var message = snapshot.val();
+													displayChatMessage(message.name, message.text);
+												});
+
+												function displayChatMessage(name, text) {
+													var identifier = jobApp.id;
+													console.log(jobApp.id);
+													console.log("#{jobApp.id}");
+													$('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#'+identifier));
+													$('#'+identifier)[0].scrollTop = $('#'+identifier)[0].scrollHeight;
+												};
+
+											});
+

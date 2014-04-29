@@ -26,16 +26,14 @@
 						td #{jobAppArr.length}
 						td
 					else
-						each jobApp, i in jobChats
-							tr(type='button', data-toggle='collapse', data-target='#msg-#{i}', class='jobapp-row')
+						each jobAppWithChat, i in jobChats
+							tr(type='button', data-toggle='collapse', data-target='#msg-#{i}', class='jobAppWithChat-row')
 								td.proj-title
-									| Chat for #{jobApp.job.jobName}
-								td #{jobApp.job.companyName}
+									| Chat for #{jobAppWithChat.job.jobName}
+								td #{jobAppWithChat.job.companyName}
 								td 
-									.btn.btn-success.btn-md.job-btn View Messages
+									.btn.btn-success.btn-md.job-btn(id='view-message-#{jobAppWithChat.id}') View Messages
 							tr(id="msg-#{i}").collapse.out
 								td
-									#chat.tab-pane
+									div.tab-pane(id="chat-#{jobAppWithChat.id}")
 										include profile-chat.jade
-								td
-								td

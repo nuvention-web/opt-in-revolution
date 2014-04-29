@@ -16,10 +16,10 @@
 						th Status
 						th  
 				tbody.job-table
-					if (joblist.length == 0)
+					if (jobApps.length == 0)
 						td You haven't started any project applications yet!
 					else
-						each jobApp, i in joblist
+						each jobApp, i in jobApps
 							tr
 								td.proj-title #{jobApp.job.jobName}
 								td #{jobApp.lastModified}

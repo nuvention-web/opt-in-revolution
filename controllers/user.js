@@ -56,7 +56,7 @@ exports.getChat = function(req, res) {
     console.log(jobApp);
     res.render('account/partials/profile-chat', {
       title: 'Chat',
-      jobApp: jobApp,
+      jobApps: jobApp,
     });
   });
 };
@@ -75,7 +75,7 @@ exports.getAccount = function(req, res) {
         signUp: req.flash('signUp'),
         first: req.flash('first'),
         picErrors: req.flash('picErrors'),
-        "joblist" : docs
+        "jobApps" : docs
       });
       // });
   });

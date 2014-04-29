@@ -1,0 +1,33 @@
+.col-md-12
+	.page-header
+		.prof-label-header
+			.row.mt
+				.col-md-6
+					.fg-h2-special
+						#chatBox
+							h2 My Messages
+							label Chat Box
+							#messagesDiv
+							input#nameInput(type='hidden', placeholder='Name', value='#{user.profile.name}')
+							input#messageInput(type='text', placeholder='Message')
+
+							script(type='text/javascript').
+								var myDataRef = new Firebase('https://athenahire.firebaseio.com/hi');
+								$('#messageInput').keypress(function (e) {
+								if (e.keyCode == 13) {
+									var name = $('#nameInput').val();
+									var text = $('#messageInput').val();
+									myDataRef.push({name: name, text: text});
+									$('#messageInput').val('');
+								}
+								});
+
+								myDataRef.on('child_added', function(snapshot) {
+									var message = snapshot.val();
+									displayChatMessage(message.name, message.text);
+								});
+
+								function displayChatMessage(name, text) {
+									$('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
+									$('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+								};

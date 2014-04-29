@@ -7,29 +7,28 @@
 						h2 My Applications
 				.col-md-6
 	.opt-login-wrapper
-		.prof-label-header
-			.table-responsive
-				table.table.table-hover
-					thead
-						tr
-							th.proj-title Project Title
-							th Last Updated
-							th Status
-							th  
-					tbody.job-table
-						if (joblist.length == 0)
-							td You haven't started any project applications yet!
-						else
-							each jobApp, i in joblist
-								tr
-									td.proj-title #{jobApp.job.jobName}
-									td #{jobApp.lastModified}
-									td 
-										if jobApp.submitted == "yes"
-											| Submitted
-										else if jobApp.submitted == "no"
-											| In Progress
-										else if jobApp.submitted == "saved"
-											| Saved
-									td 
-										a.btn.btn-success.btn-md.job-btn(href='/job/apply-#{jobApp.jobID}', role='button') View
+		.table-responsive
+			table.table.table-hover
+				thead
+					tr
+						th.proj-title Project Title
+						th Last Updated
+						th Status
+						th  
+				tbody.job-table
+					if (joblist.length == 0)
+						td You haven't started any project applications yet!
+					else
+						each jobApp, i in joblist
+							tr
+								td.proj-title #{jobApp.job.jobName}
+								td #{jobApp.lastModified}
+								td 
+									if jobApp.submitted == "yes"
+										| Submitted
+									else if jobApp.submitted == "no"
+										| In Progress
+									else if jobApp.submitted == "saved"
+										| Saved
+								td 
+									a.btn.btn-success.btn-md.job-btn(href='/job/apply-#{jobApp.jobID}', role='button') View

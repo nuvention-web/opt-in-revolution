@@ -6,60 +6,27 @@
 					.fg-h2-special
 						h2 My Messages
 				.col-md-6
+	-var counter = 0;
+	-var jobChats = [];
+	each jobApp in joblist
+		if jobApp.chatRequested
+			-jobChats.push(jobApp);
+			-counter +=1;
 	.opt-login-wrapper
 		.table-responsive
 			table.table.table-hover
-				-var myDataRef = new Firebase('https://athenahire.firebaseio.com/')
-				if myDataRef.hasChildren()
-					
-				else //no children (no chats yet)
-					| No chats available. Keep applying to projects!
 				thead
 					tr
 						th.proj-title Project Title
 						th Company Name
-						th Status
-						th 
 				tbody.job-table
-					if (joblist.length == 0)
-						td You haven't started any project applications yet!
+					if (jobChats.length == 0)
+						td You have no messages.
 					else
-						each jobApp, i in joblist
+						each jobApp, i in jobChats
 							tr
-								td.proj-title #{jobApp.job.jobName}
-								td #{jobApp.lastModified}
-								td 
-									if jobApp.submitted == "yes"
-										| Submitted
-									else if jobApp.submitted == "no"
-										| In Progress
-									else if jobApp.submitted == "saved"
-										| Saved
-								td 
-									a.btn.btn-success.btn-md.job-btn(href='/job/apply-#{jobApp.jobID}', role='button') View
-
-
-						//- #messagesDiv
-						//- input#nameInput(type='hidden', placeholder='Name', value='#{user.profile.name}')
-						//- input#messageInput(type='text', placeholder='Message')
-
-						//- script(type='text/javascript').
-						//- 	var myDataRef = new Firebase('https://athenahire.firebaseio.com/hi');
-						//- 	$('#messageInput').keypress(function (e) {
-						//- 	if (e.keyCode == 13) {
-						//- 		var name = $('#nameInput').val();
-						//- 		var text = $('#messageInput').val();
-						//- 		myDataRef.push({name: name, text: text});
-						//- 		$('#messageInput').val('');
-						//- 	}
-						//- 	});
-
-						//- 	myDataRef.on('child_added', function(snapshot) {
-						//- 		var message = snapshot.val();
-						//- 		displayChatMessage(message.name, message.text);
-						//- 	});
-
-						//- 	function displayChatMessage(name, text) {
-						//- 		$('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
-						//- 		$('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
-						//- 	};
+								td.proj-title
+									a(href='#chat', data-toggle='tab') Chat for #{jobApp.job.jobName}
+								td #{jobApp.job.companyName}
+								#chat.tab-pane
+									include profile-chat.jade	

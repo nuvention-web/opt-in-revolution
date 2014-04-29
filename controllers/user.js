@@ -51,12 +51,22 @@ exports.initiateChat = function(req, res, next) {
   });
 };
 
+exports.getChat = function(req, res) {
+  JobApplication.findById(req.params.id, function(e, jobApp) {
+    console.log(jobApp);
+    res.render('account/partials/profile-chat', {
+      title: 'Chat',
+      jobApp: jobApp,
+    });
+  });
+};
 
 exports.getAccount = function(req, res) {
   if (req.user.userType == 'mom') {
     User.findById(req.user.id, function(err, user) {
       JobApplication.find({userID: req.user.id}, function (e, docs) {
-        // console.log(docs)
+        console.log(docs)
+        console.log("at 69");
         res.render('account/profile_mom', {
           title: 'Account Management',
           success: req.flash('success'),

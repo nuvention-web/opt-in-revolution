@@ -4,30 +4,62 @@
 			.row.mt
 				.col-md-6
 					.fg-h2-special
-						#chatBox
-							h2 My Messages
-							label Chat Box
-							#messagesDiv
-							input#nameInput(type='hidden', placeholder='Name', value='#{user.profile.name}')
-							input#messageInput(type='text', placeholder='Message')
+						h2 My Messages
+				.col-md-6
+	.opt-login-wrapper
+		.table-responsive
+			table.table.table-hover
+				-var myDataRef = new Firebase('https://athenahire.firebaseio.com/')
+				if myDataRef.hasChildren()
+					
+				else //no children (no chats yet)
+					| No chats available. Keep applying to projects!
+				thead
+					tr
+						th.proj-title Project Title
+						th Company Name
+						th Status
+						th 
+				tbody.job-table
+					if (joblist.length == 0)
+						td You haven't started any project applications yet!
+					else
+						each jobApp, i in joblist
+							tr
+								td.proj-title #{jobApp.job.jobName}
+								td #{jobApp.lastModified}
+								td 
+									if jobApp.submitted == "yes"
+										| Submitted
+									else if jobApp.submitted == "no"
+										| In Progress
+									else if jobApp.submitted == "saved"
+										| Saved
+								td 
+									a.btn.btn-success.btn-md.job-btn(href='/job/apply-#{jobApp.jobID}', role='button') View
 
-							script(type='text/javascript').
-								var myDataRef = new Firebase('https://athenahire.firebaseio.com/hi');
-								$('#messageInput').keypress(function (e) {
-								if (e.keyCode == 13) {
-									var name = $('#nameInput').val();
-									var text = $('#messageInput').val();
-									myDataRef.push({name: name, text: text});
-									$('#messageInput').val('');
-								}
-								});
 
-								myDataRef.on('child_added', function(snapshot) {
-									var message = snapshot.val();
-									displayChatMessage(message.name, message.text);
-								});
+						//- #messagesDiv
+						//- input#nameInput(type='hidden', placeholder='Name', value='#{user.profile.name}')
+						//- input#messageInput(type='text', placeholder='Message')
 
-								function displayChatMessage(name, text) {
-									$('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
-									$('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
-								};
+						//- script(type='text/javascript').
+						//- 	var myDataRef = new Firebase('https://athenahire.firebaseio.com/hi');
+						//- 	$('#messageInput').keypress(function (e) {
+						//- 	if (e.keyCode == 13) {
+						//- 		var name = $('#nameInput').val();
+						//- 		var text = $('#messageInput').val();
+						//- 		myDataRef.push({name: name, text: text});
+						//- 		$('#messageInput').val('');
+						//- 	}
+						//- 	});
+
+						//- 	myDataRef.on('child_added', function(snapshot) {
+						//- 		var message = snapshot.val();
+						//- 		displayChatMessage(message.name, message.text);
+						//- 	});
+
+						//- 	function displayChatMessage(name, text) {
+						//- 		$('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
+						//- 		$('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+						//- 	};

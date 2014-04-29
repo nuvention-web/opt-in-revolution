@@ -6,6 +6,7 @@ var Job = require('../models/Job');
 var JobApplication = require('../models/JobApplication');
 var fs = require('fs');
 var imgur=require('node-imgur').createClient('d5975d94776362d')
+var async = require('async');
 /**
  * GET /login
  * Login page.
@@ -37,6 +38,20 @@ exports.getSignup = function(req, res) {
  * Profile page.
  */
 
+
+exports.initiateChat = function(req, res, next) {
+  JobApplication.findById(req.params.id, function(e, jobApp) {
+    jobApp.chatRequested = true;
+    jobApp.save(function(e, next){
+      res.render('chat', {
+        title: "Chat",
+        jobApp: jobApp,
+      });
+    });
+  });
+};
+
+
 exports.getAccount = function(req, res) {
   if (req.user.userType == 'mom') {
     User.findById(req.user.id, function(err, user) {
@@ -57,15 +72,46 @@ exports.getAccount = function(req, res) {
     
   }
   else {
-    res.render('account/profile_employer', {
-      title: 'Account Management',
-      success: req.flash('success'),
-      error: req.flash('error'),
-      errors: req.flash('errors'),
-      signUp: req.flash('signUp'),
-      companyError: req.flash('companyError'),
-      first: req.flash('first'),
-    });
+      jobAppArray = []
+      Job.find({companyID: req.user.id}, function (e, docs) {
+        async.each(docs,
+          function(item, callback) {
+            JobApplication.find({jobID:item._id}, function(er, jobApps) {
+              for (var i=0; i<jobApps.length; i++) {
+                if (jobApps[i].submitted == "yes") {
+                  newObj = {}
+                  newObj['jobID'] = jobApps[i].jobID;
+                  newObj['userID'] = jobApps[i].userID;
+                  newObj['relevantJobExperience'] = jobApps[i].relevantJobExperience;
+                  newObj['projectApproach'] = jobApps[i].projectApproach;
+                  newObj['dateCreated'] = jobApps[i].dateCreated;
+                  newObj['id'] = jobApps[i]._id;
+                  newObj['user'] = jobApps[i].user;
+                  newObj['job'] = jobApps[i].job;
+
+                  jobAppArray.push(newObj);
+                }
+              }
+
+              callback();
+            });
+          },
+          function(err) {
+            // console.log(jobAppArray)
+            res.render('account/profile_employer', {
+            title: 'Account Management',
+            success: req.flash('success'),
+            error: req.flash('error'),
+            errors: req.flash('errors'),
+            signUp: req.flash('signUp'),
+            companyError: req.flash('companyError'),
+            first: req.flash('first'),
+            "joblist": docs,
+            "jobAppArr": jobAppArray
+          });
+          }
+        );
+      });
   }
 };
 

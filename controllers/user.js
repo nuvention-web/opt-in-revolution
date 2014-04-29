@@ -38,6 +38,20 @@ exports.getSignup = function(req, res) {
  * Profile page.
  */
 
+
+exports.initiateChat = function(req, res, next) {
+  JobApplication.findById(req.params.id, function(e, jobApp) {
+    jobApp.chatRequested = true;
+    jobApp.save(function(e, next){
+      res.render('chat', {
+        title: "Chat",
+        jobApp: jobApp,
+      });
+    });
+  });
+};
+
+
 exports.getAccount = function(req, res) {
   if (req.user.userType == 'mom') {
     User.findById(req.user.id, function(err, user) {
@@ -95,11 +109,6 @@ exports.getAccount = function(req, res) {
             "joblist": docs,
             "jobAppArr": jobAppArray
           });
-            // res.render("jobs/viewlistings", {
-            //   "joblist": docs,
-            //   "jobAppArr": jobAppArray,
-            //   title: "Company Listings",
-            // });
           }
         );
       });

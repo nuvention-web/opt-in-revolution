@@ -6,7 +6,7 @@ block content
     input#messageInput(type='text', placeholder='Message')
 
     script(type='text/javascript').
-      var myDataRef = new Firebase('https://d3lgjvm8xjd.firebaseio-demo.com/room5');
+      var myDataRef = new Firebase('https://athenahire.firebaseio.com/#{jobApp.id}');
       $('#messageInput').keypress(function (e) {
         if (e.keyCode == 13) {
           var name = $('#nameInput').val();

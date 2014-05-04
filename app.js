@@ -88,6 +88,8 @@ app.get('/about', homeController.about);
 app.get('/team', homeController.team);
 app.post('/subscribeEmailPost', homeController.subscribeEmailPost)
 
+app.get('/admin', passportConf.isAuthenticated, homeController.admin)
+
 // Account Stuff
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);

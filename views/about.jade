@@ -27,7 +27,7 @@ block content
 									a(href='/about?view=biz') Business
 			.row.mt.centered.opt-about-header-content
 				.col-md-6.opt-about-desc
-					iframe(src='//player.vimeo.com/video/92294554', width='95%', height='300px', frameborder='0', webkitallowfullscreen='webkitallowfullscreen', mozallowfullscreen='mozallowfullscreen', allowfullscreen='allowfullscreen')
+					//- iframe(src='//player.vimeo.com/video/92294554', width='95%', height='300px', frameborder='0', webkitallowfullscreen='webkitallowfullscreen', mozallowfullscreen='mozallowfullscreen', allowfullscreen='allowfullscreen')
 				.col-md-6.opt-about-desc
 					blockquote.special
 						p
@@ -46,46 +46,39 @@ block content
 								| Sheryl Sandberg,
 								cite(title='Source Title')  Lean In
 			#opt-how-it-works
-				.row.mt
-					.col-md-1
-						.step-column
-							p.opt-pillar-desc
-								.row.centered.step-row
-									.col-md-12
-										p.number 1.
-								.row.centered.step-row
-									.col-md-12
-										p.number 2.
-								.row.centered.step-row
-									.col-md-12
-										p.number 3.
-					.col-md-5
-						.pillar#employ
-							h4 How We Help Moms
-							p.opt-pillar-desc
-								.row.mt.step-row
-									.col-md-12
-										p.step Sign up to become an AthenaMom, search our database of awesome projects and apply to those that interest you
-								.row.mt.step-row
-									.col-md-12
-										p.step When selected, work with the business to agree on check-ins and deadlines that work for both of you
-								.row.mt.step-row
-									.col-md-12
-										p.step Complete the project, earning the sense of fulfillment that comes from being back at work, building and sharpening skills and receiving compensation
-					.col-md-5
-						.pillar#empower
-							h4 How We Help Businesses
-							p.opt-pillar-desc
-								.row.mt.step-row
-									.col-md-12
-										p.step Sign up, post your project-based talent needs, and receive applications from our network of AthenaMoms
-								.row.mt.step-row
-									.col-md-12
-										p.step Select the AthenaMom that’s right for your project(s), agree on check-ins and deadlines that work for both of you
-								.row.mt.step-row
-									.col-md-12
-										p.step Review interim and final deliverables, and pat yourself on the back for helping your business tackle a challenge with affordable, top-tier talent
-				.row.mt.centered
+				.row.centered.value-prop-moms
+					.pillar
+							h2 How We Help Moms
+					.row.about-icon-content
+						.col-md-4
+							img(src='../images/about-icons/sign_up.png', height="90px")
+							.about-icon-desc
+								p.step Sign up to become an AthenaMom, search our database of awesome projects and apply to those that interest you
+						.col-md-4
+							img(src='../images/about-icons/empty_list.png', height="90px")
+							.about-icon-desc
+								p.step When selected, work with the business to agree on check-ins and deadlines that work for both of you
+						.col-md-4
+							img(src='../images/about-icons/project.png', height="90px")
+							.about-icon-desc
+								p.step Complete the project, earning the sense of fulfillment that comes from being back at work, building and sharpening skills and receiving compensation
+				.row.centered.value-prop-business
+					.pillar
+						h2 How We Help Businesses
+					.row.about-icon-content
+						.col-md-4
+							img(src='../images/about-icons/sign_up.png', height="90px")
+							.about-icon-desc
+								p.step Sign up, post your project-based talent needs, and receive applications from our network of AthenaMoms
+						.col-md-4
+							img(src='../images/about-icons/athenamom2.png', height="90px")
+							.about-icon-desc
+								p.step Select the AthenaMom that’s right for your project(s), agree on check-ins and deadlines that work for both of you
+						.col-md-4
+							img(src='../images/about-icons/checked_list.png', height="90px")
+							.about-icon-desc
+								p.step Review interim and final deliverables, and pat yourself on the back for helping your business tackle a challenge with affordable, top-tier talent
+				.row.centered
 					.col-md-12
 						a.btn.btn-primary.opt-btn-about(href='/signup') Sign Up Today
 			br

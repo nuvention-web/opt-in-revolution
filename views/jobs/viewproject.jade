@@ -46,7 +46,10 @@ block content
 								| #{job.checkinFrequency}
 								br
 								b Pay: 
-								| #{job.pay}
+								if typeof(user)==='undefined'
+									|  Login to see.
+								else
+									| #{job.pay}
 						.row.mt.job-card-buttons
 							if user && user.userType == 'employer' && user.id == job.companyID
 								.col-md-2.col-md-offset-10

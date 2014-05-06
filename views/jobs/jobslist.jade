@@ -131,13 +131,20 @@ block content
 											b Check-in Frequency: 
 											| #{job.checkinFrequency}
 											br
-											b Pay: 
-											| #{job.pay}
+											b Pay:
+											if typeof(user)==='undefined'
+												|  Login to see.
+											else
+												| #{job.pay}
 									.row.mt.job-card-buttons
 										if typeof(user)==='undefined'
 											.col-md-3.col-md-offset-9
 												a.btn.btn-success.btn-md.job-btn(href='/login', role='button') Login to apply
-												a.btn.btn-success.btn-md.job-btn(href='/job/viewproject-#{job.id}', role='button') View job
+												//- localhost version
+												//- a.btn.btn-success.btn-md.job-btn(href="mailto:?subject=AthenaHire - #{job.jobName}!&body=Hello,%0D%0A%0D%0AI found an interesting project on AthenaHire!%0D%0A%0D%0ACheck it out: http://localhost:3000/job/viewproject-#{job.id}") Share
+												//- live version (athenahire)
+												a.btn.btn-success.btn-md.job-btn(href="mailto:?subject=AthenaHire - #{job.jobName}!&body=Hello,%0D%0A%0D%0AI found an interesting project on AthenaHire!%0D%0A%0D%0ACheck it out: http://athenahire.co/job/viewproject-#{job.id}") Share
+												//- a.btn.btn-success.btn-md.job-btn(href='/job/viewproject-#{job.id}', role='button') View job
 										else
 											.col-md-2.col-md-offset-10
 												if (user.userType == 'mom')

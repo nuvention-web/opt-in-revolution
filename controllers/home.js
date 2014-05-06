@@ -33,7 +33,7 @@ exports.about = function(req, res) {
 	// console.log(query);
 	// console.log(userType);
 	res.render('about', {
-		title: 'About',
+		title: 'How It Works',
 		view: userType
 	});
 };

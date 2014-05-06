@@ -65,7 +65,7 @@ exports.postJob = function (req, res) {
 
 	if (errors) {
 		req.flash('errors', errors);
-		return res.render('jobs/postjob', {title: "Post a job", errors: errors});
+		return res.render('jobs/postjob', {title: "Post A Project", errors: errors});
 	}
 
 	//get form value - based on the name attributes
@@ -116,7 +116,7 @@ exports.submitJobPost = function(req, res) {
 			return res.redirect('/account');
 		}
 		else{ 
-			res.render('jobs/postjob', {title: "Post a job"});
+			res.render('jobs/postjob', {title: "Post A Project"});
 		}
 	});
 };
@@ -139,7 +139,7 @@ exports.listJobs = function(req, res) {
 			res.render("jobs/jobslist", {
 			"joblist" : docs,
 			"selectedFilters": selectedFilters,
-			title: "Job Listing Page",
+			title: "Project Listings",
 		});
 	});
 
@@ -158,7 +158,7 @@ exports.applyJob = function(req, res) {
 							"job" : docs,
 							"jobApp" : jobApp,
 							success : req.flash('success'),
-							title: "Apply to this project",
+							title: "Project Application",
 						});
 					});
 				});
@@ -177,7 +177,7 @@ exports.viewProject = function(req, res) {
 		docs.save(function(err) {
 			res.render("jobs/viewproject", {
 				"job":docs,
-				title: "View this project"
+				title: "View Project"
 			});
 		});
 	});
@@ -228,7 +228,7 @@ exports.postFilterJobs = function (req,res) {
 			res.render("jobs/jobslist", {
 				"selectedFilters": selectedFilters,
 				"joblist" : docs,
-				title: "Job Listing Page",
+				title: "Project Listings",
 				"profileFilter": profileFilter
 			});
 		});
@@ -312,7 +312,7 @@ exports.viewCompanyPosts = function(req, res) {
 				res.render("jobs/viewlistings", {
 					"joblist": docs,
 					"jobAppArr": jobAppArray,
-					title: "Company Listings",
+					title: "My Projects",
 				});
 			}
 		);

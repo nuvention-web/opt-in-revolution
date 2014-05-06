@@ -149,14 +149,17 @@ exports.applyJob = function(req, res) {
 	User.findById(req.user.id, function(err, user) {
 		if((user.profile.name) && (user.userType == 'mom')) {
 			Job.findById(req.params.id, function(e, docs) {
+				docs.views = docs.views + 1;
 				JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function(err, jobApp) {
 					// console.log("Loading apply job..");
 					// console.log(jobApp);
-					res.render("jobs/applyjob", {
-						"job" : docs,
-						"jobApp" : jobApp,
-						success : req.flash('success'),
-						title: "Apply to this project",
+					docs.save(function(err) {
+						res.render("jobs/applyjob", {
+							"job" : docs,
+							"jobApp" : jobApp,
+							success : req.flash('success'),
+							title: "Apply to this project",
+						});
 					});
 				});
 			});
@@ -170,9 +173,12 @@ exports.applyJob = function(req, res) {
 
 exports.viewProject = function(req, res) {
 	Job.findById(req.params.id, function(e, docs) {
-		res.render("jobs/viewproject", {
-			"job":docs,
-			title: "View this project"
+		docs.views = docs.views + 1;
+		docs.save(function(err) {
+			res.render("jobs/viewproject", {
+				"job":docs,
+				title: "View this project"
+			});
 		});
 	});
 };
@@ -223,42 +229,6 @@ exports.postFilterJobs = function (req,res) {
 			});
 		});
 };
-
-// exports.profileFilterJobs = function(req, res) {
-// 	var industry = req.user.industryPreference;
-// 	var jobFunction = req.user.jobFunctionPreference;
-// 	var totalWeeks = req.user.desiredProjectLength;
-// 	var hoursPerWeek = req.user.desiredHoursPerWeek;
-// 	var checkinFrequency = req.user.checkinFrequencyPreference;
-// 	var primaryComm = req.user.communicationPreferences;
-
-// 	selectedFilters = {"industry": industry,
-// 					"jobFunction": jobFunction,
-// 					"totalWeeks": totalWeeks,
-// 					"hoursPerWeek": hoursPerWeek,
-// 					"checkinFrequency": checkinFrequency,
-// 					"primaryComm": primaryComm}
-
-
-// 	Job.find({industry: {$in: industry},
-// 				jobFunction: {$in: jobFunction},
-// 				totalWeeks: {$in: totalWeeks},
-// 				hoursPerWeek: {$in: hoursPerWeek},
-// 				checkinFrequency: {$in: checkinFrequency},
-// 				primaryComm: {$in: primaryComm}
-// 				}).
-// 		sort('-dateCreated').
-// 		exec(function(e, docs) {
-// 			// console.log(docs)
-// 			res.render("jobs/jobslist", {
-// 				"selectedFilters": selectedFilters,
-// 				"joblist" : docs,
-// 				title: "Job Listing Page",
-// 			});
-// 		});
-// }
-
-
 
 exports.saveJob = function(req, res) {
 	User.findById(req.user.id, function(err, user) {
@@ -347,9 +317,12 @@ exports.viewCompanyPosts = function(req, res) {
 
 exports.viewApplication = function(req, res) {
 	JobApplication.findById(req.params.id, function(err, jobApp) {
-		res.render("jobs/viewapplication", {
-			"jobApp": jobApp,
-			title: "View Application",
+		jobApp.timesViewedByEmployer = jobApp.timesViewedByEmployer+1;
+		jobApp.save(function(err) {
+			res.render("jobs/viewapplication", {
+				"jobApp": jobApp,
+				title: "View Application",
+			});
 		});
 	});
 };

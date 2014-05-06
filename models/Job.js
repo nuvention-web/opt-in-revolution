@@ -18,7 +18,8 @@ var jobSchema = new Schema({
     skillsNeeded: {type: String},
     pay: {type: String},
     dateCreated: { type: Date, default: Date.now },
-    companyID: {type: String}
+    companyID: {type: String},
+    views: {type: Number}
 });
 
 jobSchema.pre('save', function(next) {

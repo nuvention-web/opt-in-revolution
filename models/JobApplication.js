@@ -49,7 +49,7 @@ var jobApplicationSchema = new Schema({
 	submitted: {type: String, default: 'no'}, //yes, no, saved
 	dateCreated: {type: Date, default: Date.now},
 	lastModified: {type: Date, default: Date.now},
-	timesViewedByEmployer: {type: Number},
+	timesViewedByEmployer: {type: Number, default: 0},
 });
 
 // jobApplicationSchema.pre('save', function(next) {

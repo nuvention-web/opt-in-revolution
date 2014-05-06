@@ -1,0 +1,34 @@
+.container
+	.row.mt.centered.opt-team-desc
+		.prof-label-header
+			.table-responsive
+				table.table.table-hover
+					thead
+						tr
+							th Job Title
+							th Applicant Name
+							th Relevant Experience
+							th Project Approach
+							th Submitted?
+							th # Views
+							th Date Created
+							th Last Modified
+					tbody.job-table
+						if (jobApps.length == 0)
+							td No job applications
+							td
+							td
+							td
+							td
+							td
+							td
+						else
+							each ja, i in jobApps
+								tr
+									td #{ja.job.jobName}
+									td #{ja.user.profile.name}
+									td #{ja.relevantJobExperience}
+									td #{ja.projectApproach}
+									td #{ja.submitted}
+									td #{ja.dateCreated}
+									td #{ja.lastModified}

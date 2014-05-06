@@ -1,0 +1,32 @@
+extends layout
+
+block content
+	.container
+		.row.mt.centered.opt-team-desc
+			.prof-label-header
+				.table-responsive
+					table.table.table-hover
+						thead
+							tr
+								th userType
+								th Name
+								th Email
+								th industryPreference
+								th jobFunctionPreference
+								th LinkedIn
+						tbody.job-table
+							if (users.length == 0)
+								td No users
+								td
+								td
+								td
+							else
+								each u, i in users
+									tr
+										td #{u.userType}
+										td #{u.profile.name}
+										td #{u.email}
+										td #{u.industryPreference}
+										td #{u.jobFunctionPreference}
+										td 
+											a(href="#{u.linkedinURL}", target="_blank") #{u.linkedinURL}

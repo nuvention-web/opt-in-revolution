@@ -1,0 +1,49 @@
+.col-md-12
+	.page-header
+		.prof-label-header
+			.row.mt
+				.col-md-6
+					.fg-h2-special
+						h2 My Listings
+				.col-md-6
+	.opt-login-wrapper
+		.prof-label-header
+			.table-responsive
+				table.table.table-hover
+					thead
+						tr
+							th.proj-title Project Title
+							th Date Posted
+							th # of Applicants
+							th  
+					tbody.job-table
+						if (joblist.length == 0)
+							td You haven't posted any project listings yet!
+							td
+							td
+							td
+						else
+							each job, i in joblist
+								-var counter = 0;
+								-var appJobMatchArr = [];
+									each app in jobAppArr
+										if app.jobID==job.id
+											-appJobMatchArr.push(app);
+											-counter = counter + 1;
+									tr(type='button', data-toggle='collapse', data-target='#demo-#{i}', class='jobapp-row')
+										td.proj-title #{job.jobName}
+										td #{job.dateCreated}
+										td #{counter}
+										td 
+											a.btn.btn-success.btn-md.job-btn(href='/job/viewproject-#{job.id}', role='button') View
+									tr(id="demo-#{i}").collapse.out
+										td
+											div.jobapp-table
+												ul
+													each application in appJobMatchArr
+														li 
+															a(href='/job/viewapplication-#{application.id}', role='button') #{application.user.profile.name} application
+										td
+										td
+										td
+

@@ -65,6 +65,8 @@ block content
 																			each e in jobApplicant.education
 																				li
 																					| #{e.schoolName} - #{e.degree}
+																					if e.startDate && e.endDate
+																						| #{e.startDate} - #{e.endDate}
 																		else
 																			li
 																				| #{jobApplicant.education}
@@ -136,3 +138,30 @@ block content
 																	| Relevant Job Experience:
 																div
 																	| #{jobApp.relevantJobExperience}
+
+				a.btn.btn-success.btn-md.job-btn(href='/initiate-chat-#{jobApp.id}', role='button') Chat
+
+				//- label Chat Box
+				//- #messagesDiv
+				//- input#nameInput(type='hidden', placeholder='Name', value='#{user.company.companyName}')
+				//- input#messageInput(type='text', placeholder='Message')
+				//- script(type='text/javascript').
+				//- 	var myDataRef = new Firebase('https://athenahire.firebaseio.com/#{jobApp.id}');
+				//- 	$('#messageInput').keypress(function (e) {
+				//- 	if (e.keyCode == 13) {
+				//- 		var name = $('#nameInput').val();
+				//- 		var text = $('#messageInput').val();
+				//- 		myDataRef.push({name: name, text: text});
+				//- 		$('#messageInput').val('');
+				//- 	}
+				//- 	});
+
+				//- 	myDataRef.on('child_added', function(snapshot) {
+				//- 		var message = snapshot.val();
+				//- 		displayChatMessage(message.name, message.text);
+				//- 	});
+
+				//- 	function displayChatMessage(name, text) {
+				//- 		$('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
+				//- 		$('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+				//- 	};	

@@ -25,6 +25,11 @@ i {
 .opt-alert {
   margin-top: 10px;
 }
+
+.collapsing {   
+  -webkit-transition:height 0.4s ease;
+  transition:height 0.4s ease 
+}
 /****************************************************************
   Header Styles
 *****************************************************************/
@@ -130,7 +135,6 @@ button.opt-btn-prof.edit.special {
   position:relative;
   color:#777;
   margin-top:25px;
-  // text-align:center;
 }
 
 .opt-title-header {
@@ -138,15 +142,12 @@ button.opt-btn-prof.edit.special {
 }
 
 .landing-content-wrapper {
-  // margin-left:20px;
-}
-.opt-title-push-right {
-  text-align: right;
+  text-align: left;
 }
 
-.opt-call-to-action {
-  padding-top: 15%;
-  text-align: right;
+.home-about-btn {
+  margin-top: 15%;
+  text-align: center;
 }
 
 h1.opt-title-header {
@@ -405,6 +406,14 @@ a.pillar-link {
   width: 130px;
 }
 
+.form-group.prof-pic-upload {
+  padding-left:15px;
+}
+
+input[type="file"] {
+  line-height: 10px;
+}
+
 textarea.form-control.prof-experience {
   height:160px;
 }
@@ -430,12 +439,65 @@ button.btn.btn-primary.opt-btn-prof.edit:focus
 }
 
 .proj-title {
-  width: 65%;
+  width: 50%;
 }
 
 .job-table {
   font-size: 13px;
 }
+
+tr.jobapp-row {
+  cursor: pointer;
+}
+
+.jobapp-table {
+  padding-left:20px;
+}
+
+.big-wrapper {
+  padding-left: 18%;
+}
+
+.sidebar-wrapper {
+  margin-left: -18%;
+  left: 18%;
+  width: 18%;
+  background-color: #777;
+  position: fixed;
+  height: 100%;
+  // overflow-y: auto;
+  // z-index: -10;
+  // bottom: 180px;
+}
+
+.page-content-wrapper {
+  width: 100%;
+}
+
+.tab-content {
+  padding-left: 20px;
+}
+
+.tabs-left {
+  padding-left: 60px;
+}
+
+ul.nav.nav-tabs.tabs-left {
+  border-right: none;
+}
+
+.tabs-left>li>a {
+  border-radius: none;
+}
+
+.nav>li>a:hover, .nav>li>a:focus {
+  background-color: #777;
+}
+
+li.sidenav > a {
+  color: white;
+}
+
 
 /****************************************************************
   Job List Styles
@@ -468,6 +530,10 @@ button.btn.btn-primary.opt-btn-prof.edit:focus
 .job-listing-wrapper {
   margin-top: 15px;
   margin-bottom: 15px;
+}
+
+.view-project-wrapper {
+  margin-top: 30px;
 }
 
 .job-card {
@@ -539,7 +605,6 @@ input#pay {
   height: 50px;
   width: 200px;
 }
-
 
 .pagebreak {
   border-bottom: 3px solid #777; 
@@ -622,9 +687,9 @@ textarea.apply-job-textarea {
    color:white;
    font-size: 15px;
   background-color: #b5b5b5;
-  padding-bottom:20px;
+  // padding-bottom:20px;
   bottom: 0;
-    width: 100%;
+  width: 100%;
 }
 
 .footer-1 {
@@ -690,11 +755,27 @@ textarea.apply-job-textarea {
     margin-top:5px;
   }
 
-  .opt-title-push-right {
+  .landing-content-wrapper {
     text-align: center;
   }
 
-  .opt-call-to-action {
-    text-align: center;
+  .tabs-left {
+    padding-left: 20px;
+  }
+
+  .sidebar-wrapper {
+    margin-left: -150px;
+    left: 150px;
+    width: 150px;
+  }
+  .big-wrapper {
+    padding-left: 150px;
+  }
+
+  .tab-content {
+    padding-left: 10px;
+  }
+  .footer {
+    height:400px;
   }
 }

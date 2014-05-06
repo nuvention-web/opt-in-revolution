@@ -27,44 +27,53 @@ block content
 			.alert.alert-info.animated.fadeIn.opt-alert
 				button.close(data-dismiss='alert') x
 				= "Thanks for signing up, please fill out your profile before applying to jobs!"
-		.row.mt
-			.profile-wrap
-				.col-md-2
-					ul.nav.nav-tabs.tabs-left
-						li.homelink.active
-							a(href='#home', data-toggle='tab') Profile
-						li.jobs
-							a(href='#applications', data-toggle='tab') My Applications
-						li.acctlink
-							a(href='#settings', data-toggle='tab') Account Settings
-				.col-md-10
-					.tab-content
-						#home.tab-pane.active
-							include partials/profile_mom_home.jade												
-						#edit.tab-pane
-							include partials/profile_mom_edit.jade
-						#applications.tab-pane
-							include partials/profile_mom_applications.jade
-						#settings.tab-pane 
-							.opt-login-wrapper
-								.page-header
-									h3 Change Password
+	.big-wrapper
+		.sidebar-wrapper
+			.row.mt
+				.profile-wrap
+					.col-md-12
+						ul.nav.nav-tabs.tabs-left
+							li.sidenav.homelink.active
+								a(href='#home', data-toggle='tab') Profile
+							li.sidenav.jobs
+								a(href='#applications', data-toggle='tab') My Applications
+							li.sidenav.messages
+								a(href='#inbox', data-toggle='tab') My Messages
+							li.sidenav.acctlink
+								a(href='#settings', data-toggle='tab') Account Settings
+		.page-content-wrapper
+			.row.mt
+				.profile-wrap
+					.col-md-12
+						.tab-content
+							#home.tab-pane.active
+								include partials/profile_mom_home.jade										
+							#edit.tab-pane
+								include partials/profile_mom_edit.jade
+							#inbox.tab-pane
+								include partials/profile_mom_inbox.jade
+							#applications.tab-pane
+								include partials/profile_mom_applications.jade
+							#settings.tab-pane 
+								.opt-login-wrapper
+									.page-header
+										h3 Change Password
 
-								form.form-horizontal(action='/account/password', method='POST')
-									.form-group
-										label.col-md-3.control-label(for='password') New Password
-										.col-md-4
-											input.form-control(type='password', name='password', id='password')
-									.form-group
-										label.col-md-3.control-label(for='confirmPassword') Confirm Password
-										.col-md-4
-											input.form-control(type='password', name='confirmPassword', id='confirmPassword')
-									.form-group
-										.col-md-offset-3.col-md-4
-											button.btn.btn.btn-primary(type='submit') Change Password
-						//- .page-header
-						//- 	h3 Deactivate Account
+									form.form-horizontal(action='/account/password', method='POST')
+										.form-group
+											label.col-md-3.control-label(for='password') New Password
+											.col-md-4
+												input.form-control(type='password', name='password', id='password')
+										.form-group
+											label.col-md-3.control-label(for='confirmPassword') Confirm Password
+											.col-md-4
+												input.form-control(type='password', name='confirmPassword', id='confirmPassword')
+										.form-group
+											.col-md-offset-3.col-md-4
+												button.btn.btn.btn-primary(type='submit') Change Password
+							//- .page-header
+							//- 	h3 Deactivate Account
 
-						//- p You can deactivate your account.
-						//- form(action='/account/deactivate', method='POST')
-						//- 	button.btn.btn-danger(type='submit') Deactivate my account
+							//- p You can deactivate your account.
+							//- form(action='/account/deactivate', method='POST')
+							//- 	button.btn.btn-danger(type='submit') Deactivate my account

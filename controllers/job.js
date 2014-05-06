@@ -14,9 +14,9 @@ var url = require('url');
 var async = require('async');
 
 var default_industries = ['Accounting','Advertising','Broadcasting','Consulting','Consumer Products','Education','Entertainment and Leisure','Financial Services','Food & Beverage','Health Care', 'Nonprofit','Pharmaceuticals','Publishing','Retail', 'Technology'];
-var default_jobFunction = ['Accounting', 'Business Development', 'Customer Service', 'Finance', 'Human Resources', 'Marketing', 'Operations', 'Other', 'Sales', 'Strategy'];
-var default_totalWeeks = ['< 1 week', '1-2 weeks', '2-3 weeks', '3-4 weeks', '1-2 months', '2-3 months', '3+ months'];
-var default_hoursPerWeek = ['< 10', '10-20', '20-30', '30-40'];
+var default_jobFunction = ['Accounting', 'Business Development', 'Customer Service', 'Finance', 'Human Resources', 'Legal', 'Marketing', 'Operations', 'Other', 'Sales', 'Strategy'];
+var default_totalWeeks = ['< 1 week', '1-2 weeks', '2-3 weeks', '3-4 weeks', '1-2 months', '2-3 months', '3+ months', 'To Be Determined'];
+var default_hoursPerWeek = ['< 10', '10-20', '20-30', '30-40','To Be Determined'];
 var default_checkinFrequency = ['Daily', 'Twice a week', 'Weekly', 'Monthly'];
 var default_primaryComm = ['Email', 'Phone', 'In-Person'];
 
@@ -286,9 +286,10 @@ exports.viewCompanyPosts = function(req, res) {
 				});
 			},
 			function(err) {
+				console.log(jobAppArray)
 				res.render("jobs/viewlistings", {
 					"joblist": docs,
-					jobAppArr: jobAppArray,
+					"jobAppArr": jobAppArray,
 					title: "Company Listings",
 				});
 			}

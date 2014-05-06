@@ -88,6 +88,8 @@ app.get('/about', homeController.about);
 app.get('/team', homeController.team);
 app.post('/subscribeEmailPost', homeController.subscribeEmailPost)
 
+app.get('/admin', passportConf.isAuthenticated, homeController.admin)
+
 // Account Stuff
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
@@ -120,11 +122,11 @@ app.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failureRe
 // Job Related
 app.post('/postJob', passportConf.isAuthenticated, jobController.postJob);
 app.get('/postjob', passportConf.isAuthenticated, jobController.submitJobPost);
-app.get('/mylistings', passportConf.isAuthenticated, jobController.viewCompanyPosts);
+// app.get('/mylistings', passportConf.isAuthenticated, jobController.viewCompanyPosts);
 // app.get('/jobslist', jobController.listJobs);
 app.get('/job/apply-:id', passportConf.isAuthenticated, jobController.applyJob);
 app.get('/job/save-:id', passportConf.isAuthenticated, jobController.saveJob);
-app.get('/viewsavedjobs', passportConf.isAuthenticated, jobController.viewSavedJobs);
+// app.get('/viewsavedjobs', passportConf.isAuthenticated, jobController.viewSavedJobs);
 app.get('/job/viewapplication-:id', passportConf.isAuthenticated, jobController.viewApplication);
 
 app.get('/job/viewproject-:id', jobController.viewProject);
@@ -134,7 +136,10 @@ app.post('/job/submitApplication-:id', passportConf.isAuthenticated, jobControll
 
 // app.get('/viewcandidates', passportConf.isAuthenticated, userController.viewCandidates);
 
-app.get('/applyfilters', jobController.postJob)
+app.get('/applyfilters', jobController.postJob);
+
+app.get('/initiate-chat-:id', passportConf.isAuthenticated, userController.initiateChat);
+app.get('/chat-:id', passportConf.isAuthenticated, userController.getChat);
 
 // Pillars
 app.get('/employ', jobController.listJobs);

@@ -1,4 +1,11 @@
 var Emails = require('../models/Emails');
+var mongoose = require('mongoose');
+var passport = require('passport');
+var _ = require('underscore');
+var User = require('../models/User');
+var Job = require('../models/Job');
+var JobApplication = require('../models/JobApplication');
+
 /**
  * GET /
  * Home page.
@@ -76,4 +83,23 @@ exports.subscribeEmailPost = function(req,res) {
     return res.redirect('/');
 
   });
+};
+
+
+exports.admin = function (req,res) {
+  if (req.user.email == "contact@athenahire.co") {
+    User.find({}, function(err,docs) {
+      res.render('admin', {
+        title: 'Admin Dashboard',
+        "users":docs
+      });
+    });
+  } 
+  else {
+    res.render('home', {
+      title: 'Home',
+      errors: req.flash('errors'),
+      success: req.flash('success')
+    });
+  }
 };

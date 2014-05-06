@@ -16,13 +16,13 @@ html
     link(href='/css/styles.css', rel='stylesheet')
     link(href='/css/lib/bootstrap.vertical-tabs.css', rel='stylesheet')
     link(href='/css/lib/bootstrap-multiselect.css', rel='stylesheet')
-
     script(src='/js/lib/jquery.js')
     script(src='/js/lib/jquery_custom.js')
     script(src='/js/lib/bootstrap.js')
     script(src='/js/lib/bootstrap-multiselect.js')
     script(src='/js/google_analytics.js')  
     script(src='/js/main.js')
+    script(src='https://cdn.firebase.com/js/client/1.0.11/firebase.js')
 
     if title 
       if title == 'Create Account'
@@ -34,6 +34,8 @@ html
           (function(){var fpw = document.createElement('script');fpw.async = true;fpw.src = '//connect.facebook.net/en_US/fp.js';var ref = document.getElementsByTagName('script')[0];ref.parentNode.insertBefore(fpw, ref);})();
         noscript
           img(height='1', width='1', alt='', style='display: none;', src='https://www.facebook.com/offsite_event.php?id=6017494117063&value=0.01&currency=USD')
+      //- if title == 'Account Management'
+        script(src='/js/account_scroll.js')  
   body
     .opt-navbar-wrapper
       .navbar.navbar-default.navbar-fixed-top.opt-header(role='navigation')
@@ -88,7 +90,7 @@ html
                       li: a(href='/account') My Account
                       li.divider
                       li: a(href='/employ') View Listings
-                      li: a(href='/viewsavedjobs') View Saved Jobs
+                      //- li: a(href='/viewsavedjobs') View Saved Jobs
                       li.divider
                       li: a(href='/logout') Logout
                 else
@@ -102,53 +104,54 @@ html
                           -profLink = profLink.split("public").pop();
                           img.header-prof-pic(src='#{profLink}')
                       else
-                        img.header-prof-pic(src='/images/business-profile.jpg')
+                        img.header-prof-pic(src='/images/business_profile.jpg')
                       | #{user.profile.name || 'Profile'}&nbsp;
                       span.caret
                     ul.dropdown-menu
                       li: a(href='/account') My Account
                       li.divider
                       li: a(href='/postjob') Post a Project
-                      li: a(href='/mylistings') View My Listings
+                      //- li: a(href='/mylistings') View My Listings
                       //- li: a(href='/viewcandidates') Find Candidates
                       li.divider
                       li: a(href='/logout') Logout
     block content
-    .footer
-      .container
-        .footer-content
-          .row.mt
-            .col-md-4
-              .footer-1
-                p About Us
-                ul
-                  li
-                    a(href='/') AthenaHire
-                  li 
-                    a(href='http://blog.athenahire.co' target="_blank") Blog                    
-                  li 
-                    a(href='/team') Team
+    if title != "Account Management"
+      .footer
+        .container
+          .footer-content
+            .row.mt
+              .col-md-4
+                .footer-1
+                  p About Us
+                  ul
+                    li
+                      a(href='/') AthenaHire
+                    li 
+                      a(href='http://blog.athenahire.co' target="_blank") Blog                    
+                    li 
+                      a(href='/team') Team
+                  p
+                    | &copy; AthenaHire 2014                    
+              .col-md-4
+                p Join Our Mailing List for Updates
+                .form-wrapper
+                  form.form-inline.input-form(name="email", role="form", method="post",action="/subscribeEmailPost")
+                    .form-group
+                      label.sr-only(for='emailInput') Email address
+                      input#userEmailInput.form-control(type='email', name="email", placeholder='Enter email')
+                    button.btn.btn-default.opt-subscribe-btn(type='submit') Subscribe
+              .col-md-4
                 p
-                  | &copy; AthenaHire 2014                    
-            .col-md-4
-              p Join Our Mailing List for Updates
-              .form-wrapper
-                form.form-inline.input-form(name="email", role="form", method="post",action="/subscribeEmailPost")
-                  .form-group
-                    label.sr-only(for='emailInput') Email address
-                    input#userEmailInput.form-control(type='email', name="email", placeholder='Enter email')
-                  button.btn.btn-default.opt-subscribe-btn(type='submit') Subscribe
-            .col-md-4
-              p
-                | Contact Us
-                br
-                a(href="mailto:contact@athenahire.co") contact@athenahire.co
-                p
-                  a(href="https://www.facebook.com/athenahire" target="_blank").icon-link
-                    span.fa.fa-facebook-square.fa-icon-text
-                  a(href="https://twitter.com/athenahire" target="_blank").icon-link
-                    span.fa.fa-twitter-square.fa-icon-text 
-                  a(href="https://www.linkedin.com/company/3682281" target="_blank").icon-link
-                    span.fa.fa-linkedin-square.fa-icon-text 
+                  | Contact Us
+                  br
+                  a(href="mailto:contact@athenahire.co") contact@athenahire.co
+                  p
+                    a(href="https://www.facebook.com/athenahire" target="_blank").icon-link
+                      span.fa.fa-facebook-square.fa-icon-text
+                    a(href="https://twitter.com/athenahire" target="_blank").icon-link
+                      span.fa.fa-twitter-square.fa-icon-text 
+                    a(href="https://www.linkedin.com/company/3682281" target="_blank").icon-link
+                      span.fa.fa-linkedin-square.fa-icon-text 
 
 

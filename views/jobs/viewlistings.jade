@@ -67,7 +67,7 @@ block content
 									.panel.panel-default
 										.panel-heading
 											h4.panel-title
-												if counter > 2
+												if counter >= 2
 													a(data-toggle='collapse', data-parent='#accordion_#{i}', href='#collapse_#{i}') See #{counter} applications
 												else if counter == 1
 													a(data-toggle='collapse', data-parent='#accordion_#{i}', href='#collapse_#{i}') See #{counter} application

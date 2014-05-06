@@ -5,6 +5,10 @@ block content
 		.alert.alert-success.animated.fadeIn.opt-alert
 			button.close(data-dismiss='alert') ×
 			= "Note: We are currently in the process of curating jobs! Please check back soon for more opportunities!"
+		if profileFilter && profileFilter.length
+			.alert.alert-info.animated.fadeIn.opt-alert
+				button.close(data-dismiss='alert') x
+				= "Your profile preferences have been applied to the filters."
 		.container
 			.row.mt.centered
 				.col-lg-12
@@ -83,8 +87,8 @@ block content
 						if user
 							br
 							br
-							button.btn.btn-success.update-button(type='submit', onclick="$('#filterType').attr('value', 'profile');", formaction='/employ')
-								| Filter with Profile
+							button.btn.btn-success.profile-filter-button(type='submit', onclick="$('#filterType').attr('value', 'profile');", formaction='/employ')
+								| Filter Using Profile Fields
 			.col-md-10
 				.row.mt
 					//- .job-listing-filter-wrapper

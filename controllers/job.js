@@ -222,10 +222,14 @@ exports.postFilterJobs = function (req,res) {
 		sort('-dateCreated').
 		exec(function(e, docs) {
 			// console.log(docs)
+			if (req.body.filterType == 'profile') {
+				var profileFilter = "Your profile preferences have been applied to the filters.";
+			}
 			res.render("jobs/jobslist", {
 				"selectedFilters": selectedFilters,
 				"joblist" : docs,
 				title: "Job Listing Page",
+				"profileFilter": profileFilter
 			});
 		});
 };

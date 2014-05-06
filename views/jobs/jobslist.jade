@@ -76,9 +76,15 @@ block content
 									option(name='primaryComm', label='primaryComm',value='#{comm}', selected=selectedFilters['primaryComm'].indexOf(comm)!=-1) #{comm}
 						br
 						br
+						input#filterType(type='hidden', name='filterType', value='update')
 						//- button.btn.btn-default.opt-about-btn(type='submit') Submit
-						button.btn.btn-success.update-button(type='submit')
+						button.btn.btn-success.update-button(type='submit', formaction='/employ')
 							| Update Filters
+						if user
+							br
+							br
+							button.btn.btn-success.update-button(type='submit', onclick="$('#filterType').attr('value', 'profile');", formaction='/employ')
+								| Filter with Profile
 			.col-md-10
 				.row.mt
 					//- .job-listing-filter-wrapper

@@ -178,13 +178,25 @@ exports.viewProject = function(req, res) {
 };
 
 exports.postFilterJobs = function (req,res) {
+	if (req.body.filterType == 'profile') {
+		var industry = req.user.industryPreference;
+		var jobFunction = req.user.jobFunctionPreference;
+		var totalWeeks = req.user.desiredProjectLength;
+		var hoursPerWeek = req.user.desiredHoursPerWeek;
+		var checkinFrequency = req.user.checkinFrequencyPreference;
+		var primaryComm = req.user.communicationPreferences;
+	}
+	else {
+		var industry = strToArray(req.body.industry);
+		var jobFunction = strToArray(req.body.jobFunction);
+		var totalWeeks = strToArray(req.body.totalWeeks);
+		var hoursPerWeek = strToArray(req.body.hoursPerWeek);
+		var checkinFrequency = strToArray(req.body.checkinFrequency);
+		var primaryComm = strToArray(req.body.primaryComm);
+		
+	}
 
-	var industry = strToArray(req.body.industry);
-	var jobFunction = strToArray(req.body.jobFunction);
-	var totalWeeks = strToArray(req.body.totalWeeks);
-	var hoursPerWeek = strToArray(req.body.hoursPerWeek);
-	var checkinFrequency = strToArray(req.body.checkinFrequency);
-	var primaryComm = strToArray(req.body.primaryComm);
+
 
 	selectedFilters = {"industry": industry,
 					"jobFunction": jobFunction,
@@ -200,7 +212,7 @@ exports.postFilterJobs = function (req,res) {
 				hoursPerWeek: {$in: hoursPerWeek},
 				checkinFrequency: {$in: checkinFrequency},
 				primaryComm: {$in: primaryComm}
-				}).
+			}).
 		sort('-dateCreated').
 		exec(function(e, docs) {
 			// console.log(docs)
@@ -210,7 +222,43 @@ exports.postFilterJobs = function (req,res) {
 				title: "Job Listing Page",
 			});
 		});
-}
+};
+
+// exports.profileFilterJobs = function(req, res) {
+// 	var industry = req.user.industryPreference;
+// 	var jobFunction = req.user.jobFunctionPreference;
+// 	var totalWeeks = req.user.desiredProjectLength;
+// 	var hoursPerWeek = req.user.desiredHoursPerWeek;
+// 	var checkinFrequency = req.user.checkinFrequencyPreference;
+// 	var primaryComm = req.user.communicationPreferences;
+
+// 	selectedFilters = {"industry": industry,
+// 					"jobFunction": jobFunction,
+// 					"totalWeeks": totalWeeks,
+// 					"hoursPerWeek": hoursPerWeek,
+// 					"checkinFrequency": checkinFrequency,
+// 					"primaryComm": primaryComm}
+
+
+// 	Job.find({industry: {$in: industry},
+// 				jobFunction: {$in: jobFunction},
+// 				totalWeeks: {$in: totalWeeks},
+// 				hoursPerWeek: {$in: hoursPerWeek},
+// 				checkinFrequency: {$in: checkinFrequency},
+// 				primaryComm: {$in: primaryComm}
+// 				}).
+// 		sort('-dateCreated').
+// 		exec(function(e, docs) {
+// 			// console.log(docs)
+// 			res.render("jobs/jobslist", {
+// 				"selectedFilters": selectedFilters,
+// 				"joblist" : docs,
+// 				title: "Job Listing Page",
+// 			});
+// 		});
+// }
+
+
 
 exports.saveJob = function(req, res) {
 	User.findById(req.user.id, function(err, user) {
@@ -426,7 +474,7 @@ exports.postSubmitApp = function(req, res) {
 			jobApp.lastModified = Date();
 			jobApp.save(function(err) {
 				if(err) return next(err);
-				req.flash('success', 'Application saved.');
+				req.flash('success', 'Application submitted.');
 				res.redirect("/job/apply-"+req.params.id);
 			});
 

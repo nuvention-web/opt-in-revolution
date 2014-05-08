@@ -26,17 +26,18 @@ exports.index = function(req, res) {
   }
 };
 
-exports.about = function(req, res) {
-	var url_parts = url.parse(req.url, true);
-	var query = url_parts.query;
-	var userType = query.view;
-	// console.log(query);
-	// console.log(userType);
-	res.render('about', {
-		title: 'How It Works',
-		view: userType
+exports.aboutAthenamom = function(req, res) {
+	res.render('about_athenamom', {
+		title: 'How It Works'
 	});
 };
+
+exports.aboutBusiness = function(req, res) {
+  res.render('about_business', {
+    title: 'How It Works'
+  });
+};
+
 
 
 exports.team = function(req, res) {

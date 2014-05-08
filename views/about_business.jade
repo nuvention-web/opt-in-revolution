@@ -1,7 +1,7 @@
 extends layout
 
 block content
-	.tile-100
+	.tile-60
 		.opt-about-header-section
 			.container
 				.row.mt.centered.opt-about-header-content
@@ -10,33 +10,26 @@ block content
 						img(src='images/athenamom_business.jpg', width='95%', height='300px')
 					.col-md-6.opt-about-desc
 						blockquote.special
-							p
-								| BUSINESS
-							br
-							br
-							br
-							br
-							a.btn.btn-primary.opt-btn-about-top(href='/signup') Sign Up Today
-				#opt-how-it-works
-					.row
-						.col-md-6.opt-quote.why-quote-business
-							blockquote
-									p
-										| 60% of SMBs say that the "biggest challenge they face in hiring or managing staff is simply finding skilled workers to do the job.
-									small
-										b
-											| Business Study (source?)
-											cite(title='Source Title')  Publication
-						.col-md-6.why-content
 							h2 Why Hire an AthenaMom?
 							ul
 								li Gain access to highly qualified talent from top-tier universities and professional backgrounds
 								li Satisfy business needs by having AthenaMoms complete project based or part-time work 
 								li Ease the hiring process by quickly connecting to AthenaMoms and staffing projects at competitive rates 
+						a.btn.btn-primary.opt-btn-about-top(href='/signup') Sign Up Today
 	.tile-75
 		.container
 			.centered
-				.pillar
+				.row
+					.col-md-12
+						blockquote
+							p
+								| 60% of SMBs say that the "biggest challenge they face in hiring or managing staff is simply finding skilled workers to do the job.
+							small
+								b
+									| Business Study (source?)
+									cite(title='Source Title')  Publication
+				.row
+					.pillar
 					h2 How It Works
 				.row.about-icon-content
 					.col-md-4

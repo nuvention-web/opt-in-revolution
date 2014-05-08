@@ -28,13 +28,13 @@ exports.index = function(req, res) {
 
 exports.aboutAthenamom = function(req, res) {
 	res.render('about_athenamom', {
-		title: 'How It Works'
+		title: 'How It Works - AthenaMoms'
 	});
 };
 
 exports.aboutBusiness = function(req, res) {
   res.render('about_business', {
-    title: 'How It Works'
+    title: 'How It Works - Businesses'
   });
 };
 

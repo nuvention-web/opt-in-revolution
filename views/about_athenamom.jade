@@ -1,7 +1,7 @@
 extends layout
 
 block content
-	.tile-100
+	.tile-60
 		.opt-about-header-section
 			.container
 				.row.mt.centered.opt-about-header-content
@@ -9,41 +9,26 @@ block content
 						iframe(src='//player.vimeo.com/video/92294554', width='95%', height='300px', frameborder='0', webkitallowfullscreen='webkitallowfullscreen', mozallowfullscreen='mozallowfullscreen', allowfullscreen='allowfullscreen')
 					.col-md-6.opt-about-desc
 						blockquote.special
-							p
-								| AthenaHire is dedicated to finding viable work solutions for mothers and companies by providing a dynamic online marketplace, extensive resources and meaningful networks. 
-							br
-							br
-							br
-							br
-							a.btn.btn-primary.opt-btn-about-top(href='/signup') Sign Up Today
-					//- .col-md-6.opt-quote
+							h2 Why Work for an AthenaBusiness?
+							ul
+								li Gain access to highly qualified jobs from small to medium-sized businesses
+								li Keep your skills and work experience up-to-date with challenging and fulfilling project-based work
+								li Ease the job search process by quickly connecting with businesses and projects that offer flexible work schedules
+						a.btn.btn-primary.opt-btn-about-top(href='/signup') Sign Up Today
+	.tile-75
+		.container
+			.row.centered.value-prop-moms
+				.row
+					.col-md-12
 						blockquote
 							p
 								| Forty-three percent of women drop out of the workforce at some point in their life, yet they have the skills, experience, and knowledge that can still make them competitive.
 							small
 								b
 									| Sheryl Sandberg,
-									cite(title='Source Title')  Lean In
-				#opt-how-it-works
-					.row
-						.col-md-6.opt-quote.why-quote-athenamom
-							blockquote
-								p
-									| Forty-three percent of women drop out of the workforce at some point in their life, yet they have the skills, experience, and knowledge that can still make them competitive.
-								small
-									b
-										| Sheryl Sandberg,
-										cite(title='Source Title')  Lean In
-						.col-md-6.why-content
-							h2 Why Work for an AthenaBusiness?
-							ul
-								li Gain access to highly qualified jobs from small to medium-sized businesses
-								li Keep your skills and work experience up-to-date with challenging and fulfilling project-based work
-								li Ease the job search process by quickly connecting with businesses and projects that offer flexible work schedules
-	.tile-75
-		.container
-			.row.centered.value-prop-moms
-				.pillar
+									cite(title='Source Title')  Lean In						
+				.row
+					.pillar
 						h2 How It Works
 				.row.about-icon-content
 					.col-md-4

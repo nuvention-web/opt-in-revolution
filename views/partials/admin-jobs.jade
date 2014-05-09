@@ -12,6 +12,7 @@
 							th Job Function
 							th Pay
 							th # Views
+							th Viewers
 							th Date Created
 					tbody.job-table
 						if (jobs.length == 0)
@@ -33,4 +34,11 @@
 									td #{j.jobFunction}
 									td #{j.pay}
 									td #{j.views}
+									td
+									-var g = j.viewers[0]
+									if typeof(g)==='undefined'
+										pass
+									else
+										each v in g
+											| v
 									td #{j.dateCreated}

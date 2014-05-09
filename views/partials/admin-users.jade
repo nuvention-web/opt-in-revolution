@@ -11,6 +11,7 @@
 							th industryPreference
 							th jobFunctionPreference
 							th LinkedIn
+							th Number of Logins
 					tbody.job-table
 						if (users.length == 0)
 							td No users
@@ -27,3 +28,4 @@
 									td #{u.jobFunctionPreference}
 									td 
 										a(href="#{u.linkedinURL}", target="_blank") #{u.linkedinURL}
+									td #{u.numberOfLogins}

@@ -150,9 +150,25 @@ exports.applyJob = function(req, res) {
 		if((user.profile.name) && (user.userType == 'mom')) {
 			Job.findById(req.params.id, function(e, docs) {
 				docs.views = docs.views + 1;
+				console.log(typeof(docs.viewers));
+				console.log(docs.viewers);
+				console.log("banana fart");
+				console.log(typeof(docs.viewers[0]));
+				console.log(docs.viewers[0]);
+				if(typeof(docs.viewers[0])==='object' && user.id in docs.viewers[0]) { // already stored
+					docs.viewers[0][user.id].push(Date());
+				} else { // not stored
+					docs.viewers[0]={};
+					docs.viewers[0][user.id]=[Date()];
+				}
 				JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function(err, jobApp) {
 					// console.log("Loading apply job..");
 					// console.log(jobApp);
+					console.log(typeof(docs.viewers));
+					console.log(docs.viewers);
+					console.log("banana fart");
+					console.log(typeof(docs.viewers[0]));
+					console.log(docs.viewers[0]);
 					docs.save(function(err) {
 						res.render("jobs/applyjob", {
 							"job" : docs,
@@ -174,6 +190,22 @@ exports.applyJob = function(req, res) {
 exports.viewProject = function(req, res) {
 	Job.findById(req.params.id, function(e, docs) {
 		docs.views = docs.views + 1;
+		if (user) { //logged in
+			if(user.id in docs.viewers[0]) { // already stored
+				docs.viewers[0][user.id].push(Date());
+			} else { // not stored
+				docs.viewers[0][user.id]=[Date()];
+			}
+		}
+		else { //not logged in
+			//no user id, so use "anonymous" for key
+			if("anonymous" in docs.viewers[0]) {
+				docs.viewers[0]["anonymous"].push(Date());
+			} else {
+				docs.viewers[0]={};
+				docs.viewers[0]["anonymous"]=[Date()];
+			}
+		}
 		docs.save(function(err) {
 			res.render("jobs/viewproject", {
 				"job":docs,

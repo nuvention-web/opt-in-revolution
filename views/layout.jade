@@ -90,6 +90,8 @@ html
                       li: a(href='/account') My Account
                       li.divider
                       li: a(href='/employ') View Listings
+                      if user.email == 'contact@athenahire.co'
+                        li: a(href='/admin') Admin Dashboard
                       //- li: a(href='/viewsavedjobs') View Saved Jobs
                       li.divider
                       li: a(href='/logout') Logout

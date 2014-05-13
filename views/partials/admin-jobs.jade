@@ -1,0 +1,36 @@
+.container
+	.row.mt.centered.opt-team-desc
+		.prof-label-header
+			.table-responsive
+				table.table.table-hover
+					thead
+						tr
+							th Project Title
+							th Company
+							th Project Description
+							th Industry
+							th Job Function
+							th Pay
+							th # Views
+							th Date Created
+					tbody.job-table
+						if (jobs.length == 0)
+							td No jobs
+							td
+							td
+							td
+							td
+							td
+							td
+							td
+						else
+							each j, i in jobs
+								tr
+									td #{j.jobName}
+									td #{j.companyName}
+									td #{j.jobDescription}
+									td #{j.industry}
+									td #{j.jobFunction}
+									td #{j.pay}
+									td #{j.views}
+									td #{j.dateCreated}

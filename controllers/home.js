@@ -5,6 +5,7 @@ var _ = require('underscore');
 var User = require('../models/User');
 var Job = require('../models/Job');
 var JobApplication = require('../models/JobApplication');
+var async = require('async');
 
 /**
  * GET /
@@ -32,7 +33,7 @@ exports.about = function(req, res) {
 	// console.log(query);
 	// console.log(userType);
 	res.render('about', {
-		title: 'About',
+		title: 'How It Works',
 		view: userType
 	});
 };
@@ -88,12 +89,32 @@ exports.subscribeEmailPost = function(req,res) {
 
 exports.admin = function (req,res) {
   if (req.user.email == "contact@athenahire.co") {
-    User.find({}, function(err,docs) {
-      res.render('admin', {
-        title: 'Admin Dashboard',
-        "users":docs
-      });
-    });
+    async.parallel([
+      function(callback){
+        User.find({}, function(err, docs) {
+          callback(null, docs);
+        });
+      },
+      function(callback) {
+        JobApplication.find({}, function(err, docs) {
+          callback(null, docs);
+        });
+      },
+      function(callback) {
+        Job.find({}, function(err, docs) {
+          callback(null, docs);
+        });
+      }
+      ],
+      function(err, results) {
+        res.render('admin', {
+          title: 'Admin Dashboard',
+          "users":results[0],
+          "jobApps":results[1],
+          "jobs":results[2]
+        });
+      }
+    );
   } 
   else {
     res.render('home', {

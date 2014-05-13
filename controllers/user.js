@@ -153,6 +153,7 @@ exports.postLogin = function(req, res, next) {
       return res.redirect('/login');
     }
     user.numberOfLogins = user.numberOfLogins + 1;
+    user.timesLoggedIn.push(Date());
 
     user.save(function(err) {
       req.logIn(user, function(err) {
@@ -192,6 +193,7 @@ exports.postSignup = function(req, res, next) {
     userType: req.body.usertype,
     numberOfLogins: 1,
   });
+  user.timesLoggedIn.push(Date());
 
   user.save(function(err) {
     if (err) {

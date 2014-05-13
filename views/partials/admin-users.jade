@@ -12,9 +12,13 @@
 							th jobFunctionPreference
 							th LinkedIn
 							th Number of Logins
+							th Times Logged In
 					tbody.job-table
 						if (users.length == 0)
 							td No users
+							td
+							td
+							td
 							td
 							td
 							td
@@ -29,3 +33,9 @@
 									td 
 										a(href="#{u.linkedinURL}", target="_blank") #{u.linkedinURL}
 									td #{u.numberOfLogins}
+									td
+										if u.timesLoggedIn.length > 0
+											each tli in u.timesLoggedIn
+												-var tl = tli.replace(/(GMT-0500)/gm, "")
+												| #{tl}
+												br

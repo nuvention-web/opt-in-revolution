@@ -114,10 +114,13 @@ passport.use(new LinkedInStrategy(secrets.linkedin, function(req, token, tokenSe
       // multiple skills: skill1, skill2, skill3
       user.skills = [];
       skillString = "";
+
       for(var i=0; i<profile._json.skills.values.length; i++) {
         if (skillString != "")
           skillString += ", ";
         skillString += profile._json.skills.values[i].skill.name;
+
+        // // old code that used object for skills
         // userSkill = {}
 
         // userSkill['skill'] = profile._json.skills.values[i].skill.name
@@ -134,17 +137,22 @@ passport.use(new LinkedInStrategy(secrets.linkedin, function(req, token, tokenSe
       for(var i=0; i<profile._json.educations.values.length; i++) {
         if (educationString != "") //next obj
           educationString += "\n"
-        educationString = profile._json.educations.values[i].schoolName
+        educationString += profile._json.educations.values[i].schoolName
         if (profile._json.educations.values[i].degree)
           educationString += " - " + profile._json.educations.values[i].degree
         if (profile._json.educations.values[i].fieldOfStudy)
           educationString += ", " + profile._json.educations.values[i].fieldOfStudy
-        if (profile._json.educations.values[i].startDate)
-          educationString += " (" + profile._json.educations.values[i].startDate
-        if (profile._json.educations.values[i].endDate)
-          educationString += " - " + profile._json.educations.values[i].endDate + ")"
-        else //need to close paren
-          educationString += ")"
+        if (profile._json.educations.values[i].startDate.month) //month exists
+          educationString += " (" + profile._json.educations.values[i].startDate.month + "/" + profile._json.educations.values[i].startDate.year
+        else // month doesn't exist
+          educationString += " (" + profile._json.educations.values[i].startDate.year 
+        if (profile._json.educations.values[i].endDate) //there is an end date
+          if (profile._json.educations.values[i].endDate.month) //month exists
+            educationString += " - " + profile._json.educations.values[i].endDate.month + "/" + profile._json.educations.values[i].endDate.year + ")"
+          else
+            educationString += " - " + profile._json.educations.values[i].endDate.year + ")";
+        else // end date doesn't exist; this only happens when it is the present
+          educationString += " - Present)"
 
         //Old version code below with the object
         //userEducation = {}
@@ -168,15 +176,20 @@ passport.use(new LinkedInStrategy(secrets.linkedin, function(req, token, tokenSe
       for(var i=0; i<profile._json.positions.values.length; i++) {
         if (positionString != "") //next obj
           positionString += "\n"
-        positionString = profile._json.positions.values[i].title
+        positionString += profile._json.positions.values[i].title
         if (profile._json.positions.values[i].company.name)
-          positionString += " - " + positionStringprofile._json.positions.values[i].company.name
-        if (profile._json.positions.values[i].startDate)
-          positionString += " (" + profile._json.positions.values[i].startDate
-        if (profile._json.positions.values[i].endDate)
-          positionString += " - " + profile._json.positions.values[i].endDate + ")"
-        else //need to close parenthesis
-          positionString += ")"
+          positionString += " - " + profile._json.positions.values[i].company.name
+        if (profile._json.positions.values[i].startDate.month) //month exists
+          positionString += " (" + profile._json.positions.values[i].startDate.month + "/" + profile._json.positions.values[i].startDate.year
+        else // month doesn't exist
+          positionString += " (" + profile._json.positions.values[i].startDate.year 
+        if (profile._json.positions.values[i].endDate) //there is an end date
+          if (profile._json.positions.values[i].endDate.month) // month exists
+            positionString += " - " + profile._json.positions.values[i].endDate.month + "/" + profile._json.positions.values[i].endDate.year + ")"
+          else
+            positionString += " - " + profile._json.positions.values[i].endDate.year + ")";
+        else // end date doesn't exist; only happens when present
+          positionString += " - Present)"
 
         //This is the old version
         // userPosition = {}

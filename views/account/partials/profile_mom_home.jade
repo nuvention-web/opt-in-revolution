@@ -53,19 +53,19 @@
 									b
 										| Education
 							.row.mt.prof-row
-								.col-md-12
-									ul
-										if user.education[0]
-											if typeof(user.education[0])==='object'
-												each e in user.education
-													li
-														| #{e.schoolName} - #{e.degree}
-											else
-												li
-													| #{user.education}
+								.col-md-12.profile-tabbing
+									if user.education[0]
+										if typeof(user.education[0])==='object'
+											each e in user.education
+												| #{e.schoolName} - #{e.degree}
 										else
-											li
-												| Not filled out
+											-var edj = user.education[0].split(/(\r\n|\n|\r)/gm);
+											each ej in edj
+												if ej != "\r\n" && ej != "\r" && ej != "\n"
+													| #{ej}
+													br
+									else
+										| Not filled out
 					.row.mt
 						.col-md-12
 							.row.mt.prof-row
@@ -73,19 +73,19 @@
 									b 
 										| Professional Experience
 							.row.mt.prof-row
-								.col-md-12
-									ul
+								.col-md-12.profile-tabbing
 										if user.positions[0]
 											if typeof(user.positions[0])==='object'
 												each p in user.positions
-													li
-														| #{p.title}, #{p.company}
+													| #{p.title}, #{p.company}
 											else
-												li
-													| #{user.positions}
+												-var poz = user.positions[0].split(/(\r\n|\n|\r)/gm);
+												each po in poz
+													if po != "\r\n" && po!= "\r" && po!= "\n"
+														| #{po}
+														br
 										else
-												li 
-													| Not filled out
+											| Not filled out
 					.row.mt
 						.col-md-12
 							.row.mt.prof-row
@@ -93,26 +93,24 @@
 									b
 										| Skills
 							.row.mt.prof-row
-								.col-md-12
-									ul
-										li
-											if user.skills[0]							
-												- var length = user.skills.length - 1
-													each s,i in user.skills
-														| #{s.skill}
-														if i != (length)
-															| , 
-											else
-												| Not filled out
+								.col-md-12.profile-tabbing
+									if user.skills[0]
+										| #{user.skills[0]}
+										//- - var length = user.skills.length - 1
+										//- 	each s,i in user.skills
+										//- 		| #{s.skill}
+										//- 		if i != (length)
+										//- 			| , 
+									else
+										| Not filled out
 					.row.mt
 						.col-md-12
 							.row.mt.prof-row
 								.col-md-12
 									b
 										| Years of Professional Experience:
-									ul
-										li 
-											| #{user.yearsOfExperience}
+								.col-md-12.profile-tabbing
+									| #{user.yearsOfExperience}
 					.row.mt
 						.col-md-12
 							.row.mt.prof-row
@@ -120,15 +118,13 @@
 									b
 										| Industry
 							.row.mt.prof-row
-								.col-md-12
-									ul
-										li
-											if user.industryPreference.length > 0
-												| #{user.industryPreference[0]}
-												each industry in user.industryPreference.slice(1,user.industryPreference.length)
-													| , #{industry}
-											else
-												| Not filled out
+								.col-md-12.profile-tabbing
+									if user.industryPreference.length > 0
+										| #{user.industryPreference[0]}
+										each industry in user.industryPreference.slice(1,user.industryPreference.length)
+											| , #{industry}
+									else
+										| Not filled out
 					.row.mt
 						.col-md-12
 							.row.mt.prof-row
@@ -136,15 +132,13 @@
 									b
 										| Job Function
 							.row.mt.prof-row
-								.col-md-12
-									ul
-										li
-											if user.jobFunctionPreference.length > 0
-												| #{user.jobFunctionPreference[0]}
-												each jobFunc in user.jobFunctionPreference.slice(1,user.jobFunctionPreference.length)
-													| , #{jobFunc}
-											else
-												| Not filled out
+								.col-md-12.profile-tabbing
+									if user.jobFunctionPreference.length > 0
+										| #{user.jobFunctionPreference[0]}
+										each jobFunc in user.jobFunctionPreference.slice(1,user.jobFunctionPreference.length)
+											| , #{jobFunc}
+									else
+										| Not filled out
 					.row.mt
 						.col-md-12
 							.row.mt.prof-row
@@ -152,15 +146,13 @@
 									b
 										| Desired Project Length
 							.row.mt.prof-row
-								.col-md-12
-									ul
-										li
-											if user.desiredProjectLength.length > 0
-												| #{user.desiredProjectLength[0]}
-												each projLen in user.desiredProjectLength.slice(1,user.desiredProjectLength.length)
-													| , #{projLen}
-											else
-												| Not filled out
+								.col-md-12.profile-tabbing
+									if user.desiredProjectLength.length > 0
+										| #{user.desiredProjectLength[0]}
+										each projLen in user.desiredProjectLength.slice(1,user.desiredProjectLength.length)
+											| , #{projLen}
+									else
+										| Not filled out
 					.row.mt
 						.col-md-12
 							.row.mt.prof-row
@@ -168,15 +160,13 @@
 									b
 										| Desired Hours Per Week
 							.row.mt.prof-row
-								.col-md-12
-									ul
-										li
-											if user.desiredHoursPerWeek.length > 0
-												| #{user.desiredHoursPerWeek[0]}
-												each hours in user.desiredHoursPerWeek.slice(1,user.desiredHoursPerWeek.length)
-													| , #{hours}
-											else
-												| Not filled out
+								.col-md-12.profile-tabbing
+									if user.desiredHoursPerWeek.length > 0
+										| #{user.desiredHoursPerWeek[0]}
+										each hours in user.desiredHoursPerWeek.slice(1,user.desiredHoursPerWeek.length)
+											| , #{hours}
+									else
+										| Not filled out
 					.row.mt
 						.col-md-12
 							.row.mt.prof-row
@@ -184,15 +174,13 @@
 									b
 										| Check-in Frequency
 							.row.mt.prof-row
-								.col-md-12
-									ul
-										li
-											if user.checkinFrequencyPreference.length > 0
-												| #{user.checkinFrequencyPreference[0]}
-												each checkin in user.checkinFrequencyPreference.slice(1,user.checkinFrequencyPreference.length)
-													| , #{checkin}
-											else
-												| Not filled out
+								.col-md-12.profile-tabbing
+									if user.checkinFrequencyPreference.length > 0
+										| #{user.checkinFrequencyPreference[0]}
+										each checkin in user.checkinFrequencyPreference.slice(1,user.checkinFrequencyPreference.length)
+											| , #{checkin}
+									else
+										| Not filled out
 					.row.mt
 						.col-md-12
 							.row.mt.prof-row
@@ -200,22 +188,20 @@
 									b
 										| Primary Communication Method
 							.row.mt.prof-row
-								.col-md-12
-									ul
-										li
-											if user.communicationPreferences.length > 0
-												| #{user.communicationPreferences[0]}
-												each comm in user.communicationPreferences.slice(1, user.communicationPreferences.length)
-													| , #{comm}
-											else
-												| Not filled out
+								.col-md-12.profile-tabbing
+									if user.communicationPreferences.length > 0
+										| #{user.communicationPreferences[0]}
+										each comm in user.communicationPreferences.slice(1, user.communicationPreferences.length)
+											| , #{comm}
+									else
+										| Not filled out
 					.row.mt
 						.col-md-12
 							.row.mt.prof-row
 								.col-md-12
 									label Resume 
 							.row.mt.prof-row
-								.col-md-12
+								.col-md-12.profile-tabbing
 									a(href="/account/resume-download-id=#{user._id}") #{user.resume.name}
 					//- .row.mt
 						.col-md-12

@@ -59,8 +59,7 @@
 													each e in user.education
 														| #{e.schoolName} - #{e.degree}
 												else
-													li 
-														| #{user.education}
+													| #{user.education}
 					.row.mt
 						.col-md-12
 							.form-group
@@ -86,11 +85,12 @@
 									.col-md-12
 										textarea.form-control(type='text', name='skills', id='skills')
 											if user.skills[0]
-												- var length = user.skills.length - 1
-													each s,i in user.skills
-														| #{s.skill}
-														if i != (length)
-															| ,
+												| #{user.skills[0]}
+												//- - var length = user.skills.length - 1
+												//- 	each s,i in user.skills
+												//- 		| #{s.skill}
+												//- 		if i != (length)
+												//- 			| ,
 					.row.mt
 						.col-md-12
 							.form-group

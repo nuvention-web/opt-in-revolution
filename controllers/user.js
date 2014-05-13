@@ -152,12 +152,16 @@ exports.postLogin = function(req, res, next) {
       req.flash('errors', { msg: info.message });
       return res.redirect('/login');
     }
+    user.numberOfLogins = user.numberOfLogins + 1;
+    user.timesLoggedIn.push(Date());
 
-    req.logIn(user, function(err) {
-      if (err) return next(err);
-      return res.redirect('/account');
+    user.save(function(err) {
+      req.logIn(user, function(err) {
+        if (err) return next(err);
+        return res.redirect('/account');
+      });
     });
-  })(req, res, next);
+  })(req, res, next)
 };
 
 /**
@@ -186,8 +190,10 @@ exports.postSignup = function(req, res, next) {
   var user = new User({
     email: req.body.email,
     password: req.body.password,
-    userType: req.body.usertype
+    userType: req.body.usertype,
+    numberOfLogins: 1,
   });
+  user.timesLoggedIn.push(Date());
 
   user.save(function(err) {
     if (err) {

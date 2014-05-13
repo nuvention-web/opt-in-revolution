@@ -148,8 +148,22 @@ exports.listJobs = function(req, res) {
 exports.applyJob = function(req, res) {
 	User.findById(req.user.id, function(err, user) {
 		if((user.profile.name) && (user.userType == 'mom')) {
+
 			Job.findById(req.params.id, function(e, docs) {
-				docs.views = docs.views + 1;
+				docs.views += 1;
+
+				if(typeof(docs.viewers[0])==='object') { // object has been initialized
+					if(user.id in docs.viewers[0]) //user id is in object, then just add the date
+						docs.viewers[0][user.id].push(Date());
+					else //user id is not in the object yet but object exists, so add the first entry
+						docs.viewers[0][user.id]=[Date()];
+				} else { // object has not been initialized yet
+					docs.viewers[0]={};
+					docs.viewers[0][user.id]=[Date()];
+				}
+				console.log("169")
+				console.log(docs.viewers)
+				console.log(docs.viewers[0])
 				JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function(err, jobApp) {
 					// console.log("Loading apply job..");
 					// console.log(jobApp);
@@ -173,7 +187,43 @@ exports.applyJob = function(req, res) {
 
 exports.viewProject = function(req, res) {
 	Job.findById(req.params.id, function(e, docs) {
-		docs.views = docs.views + 1;
+		docs.views += 1;
+		if (req.user) { //logged in
+			if(typeof(docs.viewers[0])==='object') { // object has been initialized
+				if(user.id in docs.viewers[0]) { //user id is in object, then just add the date
+					console.log("at 205")
+					docs.viewers[0][user.id].push(Date());
+				} else { //user id is not in the object yet but object exists, so add the first entry
+					console.log("at 208")
+					docs.viewers[0][user.id]=[Date()];
+				}
+			} else { // object has not been initialized yet
+				console.log("at 211")
+				docs.viewers[0]={};
+				docs.viewers[0][user.id]=[Date()];
+			}
+		}
+		else { //not logged in
+			//no user id, so use "anonymous" for key
+			console.log("219");
+			console.log(docs.viewers);
+			console.log(docs.viewers[0]);
+			if(typeof(docs.viewers[0])==='object') { // object has been initialized
+				if("anonymous" in docs.viewers[0]) { //user id is in object, then just add the date
+					console.log("at 220")
+					docs.viewers[0]["anonymous"].push(Date());
+				} else { //user id is not in the object yet but object exists, so add the first entry
+					console.log("at 223")
+					docs.viewers[0]["anonymous"]=[Date()];
+				}
+			} else { // object has not been initialized yet
+				console.log("at 226")
+				docs.viewers[0]={};
+				docs.viewers[0]["anonymous"]=[Date()];
+			}
+		}
+		console.log(docs.viewers);
+		console.log(docs.viewers[0]);
 		docs.save(function(err) {
 			res.render("jobs/viewproject", {
 				"job":docs,

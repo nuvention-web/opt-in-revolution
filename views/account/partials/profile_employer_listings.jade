@@ -35,7 +35,7 @@
 										td #{job.dateCreated}
 										td #{counter}
 										td 
-											a.btn.btn-success.btn-md.job-btn(href='/job/viewproject-#{job.id}', role='button') View
+											a.btn.btn-success.btn-md.job-btn(type='button', data-toggle='collapse', data-target='#demo-#{i}', class='jobapp-row') View
 									tr(id="demo-#{i}").collapse.out
 										td
 											div.jobapp-table

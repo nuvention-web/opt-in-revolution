@@ -27,6 +27,10 @@ block content
 			.alert.alert-info.animated.fadeIn.opt-alert
 				button.close(data-dismiss='alert') x
 				= "Fill out your profile."
+		if projectUpdated && projectUpdated.length
+			.alert.alert-info.animated.fadeIn.opt-alert
+				button.close(data-dismiss='alert') x
+				= "Your project has been successfully updated."
 	.big-wrapper
 		.sidebar-wrapper
 			.row.mt

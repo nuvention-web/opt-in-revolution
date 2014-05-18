@@ -116,6 +116,7 @@ exports.getAccount = function(req, res) {
             errors: req.flash('errors'),
             signUp: req.flash('signUp'),
             companyError: req.flash('companyError'),
+            projectUpdated: req.flash('projectUpdated'),
             first: req.flash('first'),
             "joblist": docs,
             "jobAppArr": jobAppArray

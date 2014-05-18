@@ -132,7 +132,9 @@ app.get('/job/save-:id', passportConf.isAuthenticated, jobController.saveJob);
 app.get('/job/viewapplication-:id', passportConf.isAuthenticated, jobController.viewApplication);
 
 app.get('/job/viewproject-:id', jobController.viewProject);
+
 app.get('/job/editproject-:id', passportConf.isAuthenticated, jobController.editProject);
+app.post('/job/updateproject-:id', passportConf.isAuthenticated, jobController.updateProject);
 
 app.post('/job/saveApplication-:id', passportConf.isAuthenticated, jobController.postSaveApp);
 app.post('/job/submitApplication-:id', passportConf.isAuthenticated, jobController.postSubmitApp);

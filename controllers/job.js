@@ -102,7 +102,7 @@ exports.postJob = function (req, res) {
 				res.send("There was a problem adding the information to the database.");
 			}
 			else {
-				res.redirect("/employ");
+				res.redirect("/findprojects");
 			}
 		});
 	});
@@ -234,9 +234,82 @@ exports.viewProject = function(req, res) {
 };
 
 exports.editProject = function(req, res) {
+	Job.findById(req.params.id, function(e, docs) {
+	
 	res.render("jobs/editproject", {
+				job: docs,
 				title: "Edit Project"
 			});
+	});
+};
+
+exports.updateProject = function (req, res) {
+
+	// Error checking
+	req.assert('jobName', 'Job Title cannot be blank').notEmpty();
+	req.assert('description', 'Description cannot be blank').notEmpty()
+	req.assert('skillsNeeded', 'Skills Needed cannot be blank').notEmpty()
+	req.assert('industry', 'Industry cannot be blank').notEmpty()
+	req.assert('jobFunction', 'Job Function cannot be blank').notEmpty()
+	req.assert('totalWeeks', 'Project Length cannot be blank').notEmpty()
+	req.assert('hoursPerWeek', 'Hours per week cannot be blank').notEmpty()
+	req.assert('checkinFrequency', 'Check-in Frequency cannot be blank').notEmpty()
+	req.assert('primaryComm', 'Contact Method cannot be blank').notEmpty()
+	req.assert('pay', 'Pay cannot be blank').notEmpty()
+
+	var errors = req.validationErrors();
+
+	if (errors) {
+		Job.findById(req.params.id, function(e, docs) {
+			req.flash('errors', errors);
+			return res.render('jobs/editproject', 
+				{title: "Post A Project", 
+				job:docs,
+				errors: errors});
+		})
+	}
+
+	//get form value - based on the name attributes
+	var jobName = req.body.jobName;
+	var description = req.body.description;
+	var skillsNeeded = req.body.skillsNeeded;
+
+	var industry = strToArray(req.body.industry);
+	var jobFunction = strToArray(req.body.jobFunction);
+	var totalWeeks = strToArray(req.body.totalWeeks);
+	var hoursPerWeek = strToArray(req.body.hoursPerWeek);
+	var checkinFrequency = strToArray(req.body.checkinFrequency);
+	var primaryComm = strToArray(req.body.primaryComm);
+
+	var pay = req.body.pay;
+
+	Job.findById(req.params.id, function(err, jobDoc) {
+		//submit to the DB
+		jobDoc.jobName = jobName;
+		jobDoc.jobDescription = description; 
+		jobDoc.industry = industry;
+		jobDoc.skillsNeeded = skillsNeeded;
+		jobDoc.jobFunction = jobFunction;
+		jobDoc.totalWeeks = totalWeeks;
+		jobDoc.hoursPerWeek = hoursPerWeek;
+		jobDoc.checkinFrequency = checkinFrequency;
+		jobDoc.primaryComm = primaryComm;
+		jobDoc.pay = pay;
+
+		jobDoc.save(function(err, doc) {
+			if(err) {
+				//if failed, return error
+				res.send("There was a problem updating your project.");
+			}
+			else {
+				// projectUpdated: req.flash('projectUpdated'),
+				// req.flash('projectUpdated', 'projectUpdated');
+				console.log("successfully updated")
+				req.flash('projectUpdated', 'Your project has been successfully updated.');
+				res.redirect("/account");
+			}
+		});
+	});	
 };
 
 exports.postFilterJobs = function (req,res) {

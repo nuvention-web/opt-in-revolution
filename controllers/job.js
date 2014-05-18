@@ -192,15 +192,15 @@ exports.viewProject = function(req, res) {
 			if(typeof(docs.viewers[0])==='object') { // object has been initialized
 				if(user.id in docs.viewers[0]) { //user id is in object, then just add the date
 					console.log("at 205")
-					docs.viewers[0][user.id].push(Date());
+					docs.viewers[0][req.user.id].push(Date());
 				} else { //user id is not in the object yet but object exists, so add the first entry
 					console.log("at 208")
-					docs.viewers[0][user.id]=[Date()];
+					docs.viewers[0][req.user.id]=[Date()];
 				}
 			} else { // object has not been initialized yet
 				console.log("at 211")
 				docs.viewers[0]={};
-				docs.viewers[0][user.id]=[Date()];
+				docs.viewers[0][req.user.id]=[Date()];
 			}
 		}
 		else { //not logged in
@@ -231,6 +231,12 @@ exports.viewProject = function(req, res) {
 			});
 		});
 	});
+};
+
+exports.editProject = function(req, res) {
+	res.render("jobs/editproject", {
+				title: "Edit Project"
+			});
 };
 
 exports.postFilterJobs = function (req,res) {

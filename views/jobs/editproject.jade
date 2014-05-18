@@ -1,0 +1,17 @@
+extends ../layout
+
+block content
+	.container
+		if errors && errors.length
+			.alert.alert-danger.animated.fadeIn.opt-alert
+				for error in errors
+					div= error.msg
+		.row.mt
+			.col-md-10.col-md-offset-1
+				.post-job-wrapper
+					form.form-horizontal(name="JobPost", role="form", method="post",action="postJob")
+						.row.mt.job-card-other.centered
+							.col-md-12
+								legend
+									h2.centered Edit Project
+						

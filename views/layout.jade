@@ -128,7 +128,7 @@ html
                       li.divider
                       li: a(href='/logout') Logout
     block content
-    if title != "Account Management"
+    if (title != "Account Management") && (title != "Admin Dashboard")
       .footer
         .container
           .footer-content

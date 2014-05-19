@@ -46,7 +46,22 @@
 												ul.dropdown-menu.pull-right.job-options
 													li: a(href='/job/editproject-#{job.id}') Edit Project
 													li.divider
-													li: a(href='/findprojects') Delete Project
+													li: a(data-toggle='modal', data-target='#deleteProjModal') Delete Project
+											#deleteProjModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+												.modal-dialog
+													.modal-content
+														.modal-header
+															button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+															h4#myModalLabel.modal-title Confirm Deletion of Project - #{job.jobName}
+														.modal-body
+																.deleteprompt
+																	| Are you sure you want to delete this project?
+																.disclaimer
+																	| (Note: It is not possible to undo this action)
+														.modal-footer
+															form.form-horizontal(method='POST', role='form', action="/job/deleteproject-#{job.id}")
+																button.btn.btn-default(type='button', data-dismiss='modal') Close
+																button.btn.btn-primary(type='submit') Confirm deletion
 									tr(id="demo-#{i}").collapse.out
 										td
 											div.jobapp-table

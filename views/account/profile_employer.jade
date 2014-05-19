@@ -31,6 +31,14 @@ block content
 			.alert.alert-info.animated.fadeIn.opt-alert
 				button.close(data-dismiss='alert') x
 				= "Your project has been successfully updated."
+		if projectDeleted && projectDeleted.length
+			.alert.alert-info.animated.fadeIn.opt-alert
+				button.close(data-dismiss='alert') x
+				= "Your project has been successfully removed."		
+		if deleteError && deleteError.length
+			.alert.alert-info.animated.fadeIn.opt-alert
+				button.close(data-dismiss='alert') x
+				= "There was an error with your project removal request."
 	.big-wrapper
 		.sidebar-wrapper
 			.row.mt

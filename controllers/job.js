@@ -302,15 +302,31 @@ exports.updateProject = function (req, res) {
 				res.send("There was a problem updating your project.");
 			}
 			else {
-				// projectUpdated: req.flash('projectUpdated'),
-				// req.flash('projectUpdated', 'projectUpdated');
-				console.log("successfully updated")
+				console.log("successfully updated");
 				req.flash('projectUpdated', 'Your project has been successfully updated.');
 				res.redirect("/account");
 			}
 		});
 	});	
 };
+
+exports.deleteProject = function(req, res) {
+	Job.findById(req.params.id, function(e, docs) {
+
+		// Only delete if job.companyID matches the ID of the company making the request
+		if (req.user.id == docs.companyID) {
+			console.log("successfully matched jobID with job creator");
+			req.flash('projectDeleted', 'Your project has been successfully removed.');
+			res.redirect("/account");
+		}
+		else {
+			console.log("job's companyID did not match with the user making this request");
+			req.flash('deleteError', 'There was an error with your project removal request.');
+			res.redirect("/account");
+		}
+	});
+};
+
 
 exports.postFilterJobs = function (req,res) {
 	if (req.body.filterType == 'profile') {

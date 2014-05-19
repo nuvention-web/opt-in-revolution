@@ -318,8 +318,21 @@ exports.deleteProject = function(req, res) {
 			console.log("successfully matched job's companyID with job creator");
 			// req.flash('projectDeleted', 'Your project has been successfully removed.');
 			// res.redirect("/account");
-			req.flash('projectDeleted', 'Your project has been successfully removed.');
-			res.redirect("/account");
+			docs.status = "inactive";
+			docs.save(function(err,doc) {
+				JobApplication.find({jobID:req.params.id}, function(er, jobApps) {
+					// console.log(jobApps.length)
+					// console.log(jobApps)
+					for (var i=0; i<jobApps.length; i++) {
+						// console.log(i)
+						// console.log(jobApps[i])
+                		jobApps[i].submitted = "inactive"
+                		jobApps[i].save()
+                	}
+					req.flash('projectDeleted', 'Your project has been successfully removed.');
+					res.redirect("/account");	
+				})
+			})
 		}
 		else {
 			console.log("job's companyID did not match with the user making this request");

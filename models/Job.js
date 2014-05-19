@@ -20,7 +20,8 @@ var jobSchema = new Schema({
     dateCreated: { type: Date, default: Date.now },
     companyID: {type: String},
     views: {type: Number, default: 0},
-    viewers: {type: Array}
+    viewers: {type: Array},
+    status: {type: String, default: "active"}
 });
 
 jobSchema.pre('save', function(next) {

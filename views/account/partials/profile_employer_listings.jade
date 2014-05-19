@@ -32,44 +32,65 @@
 										if app.jobID==job.id
 											-appJobMatchArr.push(app);
 											-counter = counter + 1;
-									tr(class='jobapp-row')
-										td.proj-title #{job.jobName}
-										td #{job.dateCreated}
-										td #{counter}
-										td 
-											a.btn.btn-success.btn-md.job-btn(type='button', data-toggle='collapse', data-target='#demo-#{i}', class='jobapp-row') View Applicants										
-										td
-											.btn.btn-success.btn-md.job-btn.dropdown(class='athenamom-submenu')
-												a.dropdown-toggle.job-toggle(href='#', data-toggle='dropdown')
-													| More Options
-												span.caret.job-caret
-												ul.dropdown-menu.pull-right.job-options
-													li: a(href='/job/editproject-#{job.id}') Edit Project
-													li.divider
-													li: a(data-toggle='modal', data-target='#deleteProjModal') Delete Project
-											#deleteProjModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
-												.modal-dialog
-													.modal-content
-														.modal-header
-															button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
-															h4#myModalLabel.modal-title Confirm Deletion of Project - #{job.jobName}
-														.modal-body
-																.deleteprompt
-																	| Are you sure you want to delete this project?
-																.disclaimer
-																	| (Note: It is not possible to undo this action)
-														.modal-footer
-															form.form-horizontal(method='POST', role='form', action="/job/deleteproject-#{job.id}")
-																button.btn.btn-default(type='button', data-dismiss='modal') Close
-																button.btn.btn-primary(type='submit') Confirm deletion
-									tr(id="demo-#{i}").collapse.out
-										td
-											div.jobapp-table
-												ul
-													each application in appJobMatchArr
-														li 
-															a(href='/job/viewapplication-#{application.id}', role='button') #{application.user.profile.name} application
-										td
-										td
-										td
+									if job.status == 'active'
+										tr(class='jobapp-row')
+											td.proj-title #{job.jobName}
+											td #{job.dateCreated}
+											td #{counter}
+											td 
+												a.btn.btn-success.btn-md.job-btn(type='button', data-toggle='collapse', data-target='#demo-#{i}', class='jobapp-row') View Applicants										
+											td
+												.btn.btn-success.btn-md.job-btn.dropdown(class='athenamom-submenu')
+													a.dropdown-toggle.job-toggle(href='#', data-toggle='dropdown')
+														| More Options
+													span.caret.job-caret
+													ul.dropdown-menu.pull-right.job-options
+														li: a(href='/job/editproject-#{job.id}') Edit Project
+														li.divider
+														li: a(data-toggle='modal', data-target='#deleteProjModal-#{job.id}') Delete Project
+												.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true', class='deleteModal', id="deleteProjModal-#{job.id}")
+													.modal-dialog
+														.modal-content
+															.modal-header
+																button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+																h4#myModalLabel.modal-title Confirm Deletion of Project - #{job.jobName}
+															.modal-body
+																	.deleteprompt
+																		| Are you sure you want to delete this project? - #{job.id}
+																	.disclaimer
+																		| (Note: It is not possible to undo this action)
+															.modal-footer
+																form.form-horizontal(method='POST', role='form', action="/job/deleteproject-#{job.id}")
+																	button.btn.btn-default(type='button', data-dismiss='modal') Close
+																	button.btn.btn-primary(type='submit') Confirm deletion
+										tr(id="demo-#{i}").collapse.out
+											td
+												div.jobapp-table
+													ul
+														each application in appJobMatchArr
+															li 
+																a(href='/job/viewapplication-#{application.id}', role='button') #{application.user.profile.name} application
+											td
+											td
+											td
+									else 
+										tr(class='jobapp-row')
+											td.proj-title #{job.jobName}
+											td #{job.dateCreated}
+											td #{counter}
+											td 
+												a.btn.btn-success.btn-md.job-btn(type='button', data-toggle='collapse', data-target='#demo-#{i}', class='jobapp-row') View Applicants										
+											td
+												.job-inactive
+													.btn.btn-danger.btn-md.job-btn.inactive Inactive
+										tr(id="demo-#{i}").collapse.out
+											td
+												div.jobapp-table
+													ul
+														each application in appJobMatchArr
+															li 
+																a(href='/job/viewapplication-#{application.id}', role='button') #{application.user.profile.name} application
+											td
+											td
+											td
 

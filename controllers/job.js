@@ -315,13 +315,15 @@ exports.deleteProject = function(req, res) {
 
 		// Only delete if job.companyID matches the ID of the company making the request
 		if (req.user.id == docs.companyID) {
-			console.log("successfully matched jobID with job creator");
+			console.log("successfully matched job's companyID with job creator");
+			// req.flash('projectDeleted', 'Your project has been successfully removed.');
+			// res.redirect("/account");
 			req.flash('projectDeleted', 'Your project has been successfully removed.');
 			res.redirect("/account");
 		}
 		else {
 			console.log("job's companyID did not match with the user making this request");
-			req.flash('deleteError', 'There was an error with your project removal request.');
+			req.flash('projectError', 'There was an error with your project removal request.');
 			res.redirect("/account");
 		}
 	});

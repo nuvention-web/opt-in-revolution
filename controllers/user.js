@@ -186,7 +186,7 @@ exports.postSignup = function(req, res, next) {
     return res.redirect('/signup');
   }
 
-  req.flash('first', {msg:'Fill out your profile.'});
+  req.flash('first', {msg:'Please fill out your profile!'});
 
   var user = new User({
     email: req.body.email,

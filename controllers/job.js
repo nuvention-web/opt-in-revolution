@@ -680,9 +680,7 @@ exports.postSubmitApp = function(req, res) {
 			});
 
 			User.findById(thisJob.companyID, function(er, companyInfo) {
-				// email the company that the job came in!		
-				console.log(companyInfo);
-				console.log("Fuck");		
+				// email the company that the job came in!
 				var smtpTransport = nodemailer.createTransport("SMTP",{
 					service: "Gmail",
 					auth: {

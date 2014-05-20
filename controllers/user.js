@@ -7,6 +7,7 @@ var JobApplication = require('../models/JobApplication');
 var fs = require('fs');
 var imgur=require('node-imgur').createClient('d5975d94776362d')
 var async = require('async');
+var nodemailer = require("nodemailer");
 /**
  * GET /login
  * Login page.
@@ -43,7 +44,7 @@ exports.initiateChat = function(req, res, next) {
   JobApplication.findById(req.params.id, function(e, jobApp) {
     jobApp.chatRequested = true;
     jobApp.save(function(e, next){
-      res.render('chat', {
+      res.render('account/partials/profile-chat', {
         title: "Chat",
         jobApp: jobApp,
       });
@@ -198,6 +199,60 @@ exports.postSignup = function(req, res, next) {
   });
   user.timesLoggedIn.push(Date());
 
+  //Welcome message stuff here
+  var smtpTransport = nodemailer.createTransport("SMTP",{
+    service: "Gmail",
+    auth: {
+        user: "elizabeth@athenahire.co",
+        pass: "NUventionWeb2014"
+    }
+  });
+
+  if (req.body.usertype == 'mom') {
+    var mailOptions = {
+      from: "AthenaHire <elizabeth@athenahire.co>", // sender address
+      to: req.body.email, // list of receivers
+      subject: "Welcome to AthenaHire", // Subject line
+      text: "Hello, I am one of the founders of AthenaHire, and I wanted to reach out and welcome you to the site! As a new company, we are thrilled to see more moms join our platform. In order to improve the platform for you, would you mind filling out a quick survey below: https://docs.google.com/forms/d/1HQcRlaw7lOA81NPI73NxGj79AgHe35FFXEtF8harTQ4/viewform. Also, we'd love to chat with you more if you are open to providing anymore feedback about the site. If you'd be up for a phone chat sometime soon, please let me know! Thanks again for all your interest in AthenaHire and I look forward to hearing back from you soon!", // plaintext body
+      html: "<span style='text-align:left;'>Hello,</span>" + // html body
+      "<p style='text-align:left;'>I am one of the founders of AthenaHire, and I wanted to reach out and welcome you to the site! As a new company, we are thrilled to see more moms join our platform. In order to improve the platform for you, would you mind filling out a quick survey below: <a href='https://docs.google.com/forms/d/1HQcRlaw7lOA81NPI73NxGj79AgHe35FFXEtF8harTQ4/viewform', target='_blank'>AthenaHire Survey</a></p>" +
+      "<p style='text-align:left;'>Also, we'd love to chat with you more if you are open to providing anymore feedback about the site. If you'd be up for a phone chat sometime soon, please let me know!</p>" +
+      "<p style='text-align:left;'>Thanks again for all your interest in AthenaHire and I look forward to hearing back from you soon!</p>" +
+      "<span style='font-size:8pt;'><b>Elizabeth Baumann</b></span>" + "<br>" +
+      "<span style='font-size:8pt;text-align:left;'>Founder, AthenaHire</span>" + "<br>" +
+      "<span style='font-size:8pt;text-align:left;'><a href='mailto:elizabeth@athenahire.co' target='_blank'>elizabeth@athenahire.co</a></span>" + "<br>" +
+      "<span style='font-size:8pt;text-align:left;'><a href='www.athenahire.co' target='_blank'>athenahire.co</a></span>" + "<br>" +
+      "<span style='font-size:8pt;'>Employ. Engage. Empower</span>"
+    }
+  }
+  else {
+    var mailOptions = {
+      from: "AthenaHire <elizabeth@athenahire.co>", // sender address
+      to: req.body.email, // list of receivers
+      subject: "Welcome to AthenaHire", // Subject line
+      text: "Hello, I am one of the founders of AthenaHire, and I wanted to reach out and welcome you to the site! As a new company, we are thrilled to see more businesses join our platform. In order to improve the platform for you, would you mind filling out a quick survey below: https://docs.google.com/forms/d/1HQcRlaw7lOA81NPI73NxGj79AgHe35FFXEtF8harTQ4/viewform. Also, we'd love to chat with you more if you are open to providing anymore feedback about the site. If you'd be up for a phone chat sometime soon, please let me know! Thanks again for all your interest in AthenaHire and I look forward to hearing back from you soon!", // plaintext body
+      html: "<span style='text-align:left;'>Hello,</span>" + // html body
+      "<p style='text-align:left;'>I am one of the founders of AthenaHire, and I wanted to reach out and welcome you to the site! As a new company, we are thrilled to see more businesses join our platform. In order to improve the platform for you, would you mind filling out a quick survey below: <a href='https://docs.google.com/forms/d/1HQcRlaw7lOA81NPI73NxGj79AgHe35FFXEtF8harTQ4/viewform', target='_blank'>AthenaHire Survey</a></p>" +
+      "<p style='text-align:left;'>Also, we'd love to chat with you more if you are open to providing anymore feedback about the site. If you'd be up for a phone chat sometime soon, please let me know!</p>" + 
+      "<p style='text-align:left;'>Thanks again for all your interest in AthenaHire and I look forward to hearing back from you soon!</p>" +
+      "<span style='font-size:8pt;'><b>Elizabeth Baumann</b></span>" + "<br>" +
+      "<span style='font-size:8pt;text-align:left;'>Founder, AthenaHire</span>" + "<br>" +
+      "<span style='font-size:8pt;text-align:left;'><a href='mailto:elizabeth@athenahire.co' target='_blank'>elizabeth@athenahire.co</a></span>" + "<br>" +
+      "<span style='font-size:8pt;text-align:left;'><a href='www.athenahire.co' target='_blank'>athenahire.co</a></span>" + "<br>" +
+      "<span style='font-size:8pt;'>Employ. Engage. Empower</span>"
+    }  
+  }
+  // send mail with defined transport object
+  smtpTransport.sendMail(mailOptions, function(error, response){
+      if(error){
+          console.log(error);
+      }else{
+          console.log("Message sent: " + response.message);
+      }
+
+      // if you don't want to use this transport object anymore, uncomment following line
+      smtpTransport.close(); // shut down the connection pool, no more messages
+  });
   user.save(function(err) {
     if (err) {
       if (err.code === 11000) {

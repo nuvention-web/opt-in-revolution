@@ -12,6 +12,7 @@ var User = require('../models/User');
 var ObjectID = require('mongoose').Types.ObjectId; 
 var url = require('url');
 var async = require('async');
+var nodemailer = require('nodemailer');
 
 var default_industries = ['Accounting','Advertising','Broadcasting','Consulting','Consumer Products','Education','Entertainment and Leisure','Financial Services','Food & Beverage','Health Care', 'Nonprofit','Pharmaceuticals','Publishing','Retail', 'Technology'];
 var default_jobFunction = ['Accounting', 'Business Development', 'Customer Service', 'Finance', 'Human Resources', 'Legal', 'Marketing', 'Operations', 'Other', 'Sales', 'Strategy'];
@@ -96,6 +97,40 @@ exports.postJob = function (req, res) {
 								primaryComm: primaryComm, 
 								pay: pay, 
 								companyID: req.user.id});
+
+		var smtpTransport = nodemailer.createTransport("SMTP",{
+			service: "Gmail",
+			auth: {
+				user: "contact@athenahire.co",
+				pass: "NUventionWeb2014"
+			}
+		});
+
+		var mailOptions = {
+			from: "AthenaHire <contact@athenahire.co>", // sender address
+			to: user.email, // list of receivers
+			subject: "Project posted successfully", // Subject line
+			text: "Your project has been posted successfully. We will notify you when applications arrive.", // plaintext body
+			html: "<span style='text-align:left;'>Congrats!</span>" + // html body
+			"<p style='text-align:left;'>Your project has been posted successfully!</p>" +
+			"<p style='text-align:left;'>What's next? We will notify you when applications arrive.</p>" +
+			"<span style='font-size:8pt;text-align:left;'>The AthenaHire Team</span>" + "<br>" +
+			"<span style='font-size:8pt;text-align:left;'><a href='mailto:contact@athenahire.co' target='_blank'>contact@athenahire.co</a></span>" + "<br>" +
+			"<span style='font-size:8pt;text-align:left;'><a href='www.athenahire.co' target='_blank'>athenahire.co</a></span>" + "<br>" +
+			"<span style='font-size:8pt;'>Employ. Engage. Empower</span>"
+		}
+
+		smtpTransport.sendMail(mailOptions, function(error, response){
+			if(error){
+				console.log(error);
+			}else{
+				console.log("Message sent: " + response.message);
+			}
+
+			// if you don't want to use this transport object anymore, uncomment following line
+			smtpTransport.close(); // shut down the connection pool, no more messages
+		});
+
 		newJob.save(function(err, doc) {
 			if(err) {
 				//if failed, return error
@@ -179,9 +214,9 @@ exports.applyJob = function(req, res) {
 			});
 		}
 		else {
-   			req.flash('signUp', 'signUp');
+			req.flash('signUp', 'signUp');
 			res.redirect('/account');
- 		}
+		}
 	});
 };
 
@@ -326,9 +361,9 @@ exports.deleteProject = function(req, res) {
 					for (var i=0; i<jobApps.length; i++) {
 						// console.log(i)
 						// console.log(jobApps[i])
-                		jobApps[i].submitted = "inactive"
-                		jobApps[i].save()
-                	}
+						jobApps[i].submitted = "inactive"
+						jobApps[i].save()
+					}
 					req.flash('projectDeleted', 'Your project has been successfully removed.');
 					res.redirect("/account");	
 				})
@@ -436,7 +471,7 @@ exports.saveJob = function(req, res) {
 			});
 		}
 		else {
-   			req.flash('signUp', 'signUp');
+			req.flash('signUp', 'signUp');
 			res.redirect('/account');
 		}
 	});
@@ -609,6 +644,41 @@ exports.postSubmitApp = function(req, res) {
 		Job.findById(req.params.id, function(erro, thisJob) {
 			copyJobInformation(jobApp, thisJob);
 			jobApp.lastModified = Date();
+
+			// notify mom that application successfully sent
+			var smtpTransport = nodemailer.createTransport("SMTP",{
+				service: "Gmail",
+				auth: {
+					user: "contact@athenahire.co",
+					pass: "NUventionWeb2014"
+				}
+			});
+
+			var mailOptions = {
+				from: "AthenaHire <contact@athenahire.co>", // sender address
+				to: jobApp.user.email, // list of receivers
+				subject: "Application for " + jobApp.job.jobName + " submitted successfully", // Subject line
+				text: "Your application has been submitted successfully. We will notify you when your application status changes.", // plaintext body
+				html: "<span style='text-align:left;'>Congrats!</span>" + // html body
+				"<p style='text-align:left;'>Your application has been submitted successfully!</p>" +
+				"<p style='text-align:left;'>What's next? We will notify you when your application status changes. In the meanwhile, check out our <a href='blog.athenahire.co' target='_blank'>blog</a> for inspiration!.</p>" +
+				"<span style='font-size:8pt;text-align:left;'>The AthenaHire Team</span>" + "<br>" +
+				"<span style='font-size:8pt;text-align:left;'><a href='mailto:contact@athenahire.co' target='_blank'>contact@athenahire.co</a></span>" + "<br>" +
+				"<span style='font-size:8pt;text-align:left;'><a href='www.athenahire.co' target='_blank'>athenahire.co</a></span>" + "<br>" +
+				"<span style='font-size:8pt;'>Employ. Engage. Empower</span>"
+			}
+
+			smtpTransport.sendMail(mailOptions, function(error, response){
+				if(error){
+					console.log(error);
+				}else{
+					console.log("Message sent: " + response.message);
+				}
+
+				// if you don't want to use this transport object anymore, uncomment following line
+				smtpTransport.close(); // shut down the connection pool, no more messages
+			});
+
 			jobApp.save(function(err) {
 				if(err) return next(err);
 				req.flash('success', 'Application submitted.');

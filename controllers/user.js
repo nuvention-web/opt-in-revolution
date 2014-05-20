@@ -210,7 +210,7 @@ exports.postSignup = function(req, res, next) {
 
   if (req.body.usertype == 'mom') {
     var mailOptions = {
-      from: "AthenaHire <elizabeth@athenahire.co>", // sender address
+      from: "Elizabeth <elizabeth@athenahire.co>", // sender address
       to: req.body.email, // list of receivers
       subject: "Welcome to AthenaHire", // Subject line
       text: "Hello, I am one of the founders of AthenaHire, and I wanted to reach out and welcome you to the site! As a new company, we are thrilled to see more moms join our platform. In order to improve the platform for you, would you mind filling out a quick survey below: https://docs.google.com/forms/d/1HQcRlaw7lOA81NPI73NxGj79AgHe35FFXEtF8harTQ4/viewform. Also, we'd love to chat with you more if you are open to providing anymore feedback about the site. If you'd be up for a phone chat sometime soon, please let me know! Thanks again for all your interest in AthenaHire and I look forward to hearing back from you soon!", // plaintext body
@@ -227,7 +227,7 @@ exports.postSignup = function(req, res, next) {
   }
   else {
     var mailOptions = {
-      from: "AthenaHire <elizabeth@athenahire.co>", // sender address
+      from: "Elizabeth <elizabeth@athenahire.co>", // sender address
       to: req.body.email, // list of receivers
       subject: "Welcome to AthenaHire", // Subject line
       text: "Hello, I am one of the founders of AthenaHire, and I wanted to reach out and welcome you to the site! As a new company, we are thrilled to see more businesses join our platform. In order to improve the platform for you, would you mind filling out a quick survey below: https://docs.google.com/forms/d/1HQcRlaw7lOA81NPI73NxGj79AgHe35FFXEtF8harTQ4/viewform. Also, we'd love to chat with you more if you are open to providing anymore feedback about the site. If you'd be up for a phone chat sometime soon, please let me know! Thanks again for all your interest in AthenaHire and I look forward to hearing back from you soon!", // plaintext body

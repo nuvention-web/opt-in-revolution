@@ -1,38 +1,34 @@
-div(id='#{jobAppWithChat.id}')
-if user.userType == "mom"
-	input#nameInput(type='hidden', placeholder='Name', value='#{user.profile.name}')
-else
-	input#nameInput(type='hidden', placeholder='Name', value='#{user.company.companyName}')
+extends ../../layout
 
-input(type='text', placeholder='Message', id="messageInput-#{jobAppWithChat.id}")
+block content
+      b
+        | Relevant Job Experience: 
+      |#{jobApp.relevantJobExperience}
+      br
+      b
+        | Project Approach: 
+      |#{jobApp.projectApproach}
+      #messagesDiv
+      input#nameInput(type='hidden', placeholder='Name', value='#{user.company.companyName}')
+      input#messageInput(type='text', placeholder='Message')
 
-script(type='text/javascript').
-	$("#view-message-#{jobAppWithChat.id}").on("click", function() {
-		var jobID = '#{jobAppWithChat.id}';
-		$('#'+jobID).empty();
-		var myDataRef = new Firebase('https://athenahire.firebaseio.com/#{jobAppWithChat.id}');
-		var jobAppWithChatID = '#{jobAppWithChat.id}';
-		$('#messageInput-' + jobAppWithChatID).unbind();
-		$('#messageInput-' + jobAppWithChatID).keypress(function (e) {
-			if (e.keyCode == 13) {
-				var name = $('#nameInput').val();
-				var text = $('#messageInput-' + jobAppWithChatID).val();
-				if (text!='') {
-					myDataRef.push({name: name, text: text});
-					$('#messageInput-' + jobAppWithChatID).val('');
-				}
-			}
-		});
+      script(type='text/javascript').
+        var myDataRef = new Firebase('https://athenahire.firebaseio.com/#{jobApp.id}');
+        $('#messageInput').keypress(function (e) {
+          if (e.keyCode == 13) {
+            var name = $('#nameInput').val();
+            var text = $('#messageInput').val();
+            myDataRef.push({name: name, text: text});
+            $('#messageInput').val('');
+          }
+        });
 
-		myDataRef.off('child_added');
-		myDataRef.on('child_added', function(snapshot) {
-			var message = snapshot.val();
-			displayChatMessage(message.name, message.text);
-		});
+        myDataRef.on('child_added', function(snapshot) {
+          var message = snapshot.val();
+          displayChatMessage(message.name, message.text);
+        });
 
-		function displayChatMessage(name, text) {
-			var identifier = jobAppWithChatID;
-			$('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#'+identifier));
-			$('#'+identifier)[0].scrollTop = $('#'+identifier)[0].scrollHeight;
-		};
-	});
+        function displayChatMessage(name, text) {
+          $('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
+          $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+        };

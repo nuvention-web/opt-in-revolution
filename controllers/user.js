@@ -56,7 +56,7 @@ exports.getChat = function(req, res) {
     console.log(jobApp);
     res.render('account/partials/profile-chat', {
       title: 'Chat',
-      jobApps: jobApp,
+      jobApp: jobApp,
     });
   });
 };

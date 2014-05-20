@@ -679,12 +679,47 @@ exports.postSubmitApp = function(req, res) {
 				smtpTransport.close(); // shut down the connection pool, no more messages
 			});
 
-			jobApp.save(function(err) {
-				if(err) return next(err);
-				req.flash('success', 'Application submitted.');
-				res.redirect("/job/apply-"+req.params.id);
-			});
+			User.findById(thisJob.companyID, function(er, companyInfo) {
+				// email the company that the job came in!		
+				console.log(companyInfo);
+				console.log("Fuck");		
+				var smtpTransport = nodemailer.createTransport("SMTP",{
+					service: "Gmail",
+					auth: {
+						user: "contact@athenahire.co",
+						pass: "NUventionWeb2014"
+					}
+				});
 
+				var mailOptions = {
+					from: "AthenaHire <contact@athenahire.co>", // sender address
+					to: companyInfo.email, // list of receivers
+					subject: "Application for " + jobApp.job.jobName + " has arrived", // Subject line
+					text: "An application for the " + jobApp.job.jobName + " position has come in. Log in to http://www.athenahire.co/login to see it.", // plaintext body
+					html: "<span style='text-align:left;'>Greetings!</span>" + // html body
+					"<p style='text-align:left;'>An application for the " + jobApp.job.jobName + " position has come in. Log in to <a href='http://www.athenahire.co/login' target='_blank'>AthenaHire</a> to see it.</p>" +
+					"<span style='font-size:8pt;text-align:left;'>The AthenaHire Team</span>" + "<br>" +
+					"<span style='font-size:8pt;text-align:left;'><a href='mailto:contact@athenahire.co' target='_blank'>contact@athenahire.co</a></span>" + "<br>" +
+					"<span style='font-size:8pt;text-align:left;'><a href='www.athenahire.co' target='_blank'>athenahire.co</a></span>" + "<br>" +
+					"<span style='font-size:8pt;'>Employ. Engage. Empower</span>"
+				}
+
+				smtpTransport.sendMail(mailOptions, function(error, response){
+					if(error){
+						console.log(error);
+					}else{
+						console.log("Message sent: " + response.message);
+					}
+
+					// if you don't want to use this transport object anymore, uncomment following line
+					smtpTransport.close(); // shut down the connection pool, no more messages
+				});
+				jobApp.save(function(err) {
+					if(err) return next(err);
+					req.flash('success', 'Application submitted.');
+					res.redirect("/job/apply-"+req.params.id);
+				});
+			})
 		});
 	});
 };

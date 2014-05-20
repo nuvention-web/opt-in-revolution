@@ -97,62 +97,63 @@ block content
 				.job-listing-wrapper
 					if joblist.length > 0
 						each job, i in joblist
-							.row.mt
-								.job-card
-									.row.mt.job-card-heading
-										.col-md-12
-											h4 
-												| #{job.jobName} - #{job.companyName}
-									.row.mt.job-card-description
-										h5 Description
-										.col-md-12
-											| #{job.jobDescription}
-									.row.mt.job-card-other
-										h5 Details
-										.col-md-6
-											b Industry: 
-											| #{job.industry}
-											br
-											b Job Function: 
-											| #{job.jobFunction}
-											br
-											b Skills Needed: 
-											| #{job.skillsNeeded}
-											br
-											b Contact Method: 
-											| #{job.primaryComm}
-										.col-md-6
-											b Project Length: 
-											| #{job.totalWeeks}
-											br
-											b Hours per week: 
-											| #{job.hoursPerWeek}
-											br
-											b Check-in Frequency: 
-											| #{job.checkinFrequency}
-											br
-											b Pay:
-											if typeof(user)==='undefined'
-												|  Login to see more!
-											else
-												| #{job.pay}
-									.row.mt.job-card-buttons
-										if typeof(user)==='undefined'
-											.col-md-3.col-md-offset-9
-												a.btn.btn-success.btn-md.job-btn(href='/login', role='button') Login to apply
-												//- localhost version
-												//- a.btn.btn-success.btn-md.job-btn(href="mailto:?subject=AthenaHire - #{job.jobName}&body=Hello,%0D%0A%0D%0AI found an interesting project on AthenaHire.%0D%0A%0D%0ACheck it out: http://localhost:3000/job/viewproject-#{job.id}") Share
-												//- live version (athenahire)
-												a.btn.btn-success.btn-md.job-btn(href="mailto:?subject=AthenaHire - #{job.jobName}&body=Hello,%0D%0A%0D%0AI found an interesting project on AthenaHire.%0D%0A%0D%0ACheck it out: http://athenahire.co/job/viewproject-#{job.id}") Share
-												//- a.btn.btn-success.btn-md.job-btn(href='/job/viewproject-#{job.id}', role='button') View job
-										else
-											.col-md-2.col-md-offset-10
-												if (user.userType == 'mom')
-													a.btn.btn-success.btn-md.job-btn(href='/job/apply-#{job.id}', role='button') Apply
-													a.btn.btn-success.btn-md.job-btn(href='/job/save-#{job.id}', role='button') Save
+							if job.status == 'active'
+								.row.mt
+									.job-card
+										.row.mt.job-card-heading
+											.col-md-12
+												h4 
+													| #{job.jobName} - #{job.companyName}
+										.row.mt.job-card-description
+											h5 Description
+											.col-md-12
+												| #{job.jobDescription}
+										.row.mt.job-card-other
+											h5 Details
+											.col-md-6
+												b Industry: 
+												| #{job.industry}
+												br
+												b Job Function: 
+												| #{job.jobFunction}
+												br
+												b Skills Needed: 
+												| #{job.skillsNeeded}
+												br
+												b Contact Method: 
+												| #{job.primaryComm}
+											.col-md-6
+												b Project Length: 
+												| #{job.totalWeeks}
+												br
+												b Hours per week: 
+												| #{job.hoursPerWeek}
+												br
+												b Check-in Frequency: 
+												| #{job.checkinFrequency}
+												br
+												b Pay:
+												if typeof(user)==='undefined'
+													|  Login to see more!
 												else
-													br
-													br
+													| #{job.pay}
+										.row.mt.job-card-buttons
+											if typeof(user)==='undefined'
+												.col-md-3.col-md-offset-9
+													a.btn.btn-success.btn-md.job-btn(href='/login', role='button') Login to apply
+													//- localhost version
+													//- a.btn.btn-success.btn-md.job-btn(href="mailto:?subject=AthenaHire - #{job.jobName}&body=Hello,%0D%0A%0D%0AI found an interesting project on AthenaHire.%0D%0A%0D%0ACheck it out: http://localhost:3000/job/viewproject-#{job.id}") Share
+													//- live version (athenahire)
+													a.btn.btn-success.btn-md.job-btn(href="mailto:?subject=AthenaHire - #{job.jobName}&body=Hello,%0D%0A%0D%0AI found an interesting project on AthenaHire.%0D%0A%0D%0ACheck it out: http://athenahire.co/job/viewproject-#{job.id}") Share
+													//- a.btn.btn-success.btn-md.job-btn(href='/job/viewproject-#{job.id}', role='button') View job
+											else
+												.col-md-2.col-md-offset-10
+													if (user.userType == 'mom')
+														a.btn.btn-success.btn-md.job-btn(href='/job/apply-#{job.id}', role='button') Apply
+														a.btn.btn-success.btn-md.job-btn(href='/job/save-#{job.id}', role='button') Save
+													else
+														br
+														br
 					else 
 						.row.mt
 							p 

@@ -116,6 +116,9 @@ exports.getAccount = function(req, res) {
             errors: req.flash('errors'),
             signUp: req.flash('signUp'),
             companyError: req.flash('companyError'),
+            projectUpdated: req.flash('projectUpdated'),
+            projectDeleted: req.flash('projectDeleted'),
+            projectError: req.flash('projectError'),
             first: req.flash('first'),
             "joblist": docs,
             "jobAppArr": jobAppArray
@@ -152,12 +155,16 @@ exports.postLogin = function(req, res, next) {
       req.flash('errors', { msg: info.message });
       return res.redirect('/login');
     }
+    user.numberOfLogins = user.numberOfLogins + 1;
+    user.timesLoggedIn.push(Date());
 
-    req.logIn(user, function(err) {
-      if (err) return next(err);
-      return res.redirect('/employ');
+    user.save(function(err) {
+      req.logIn(user, function(err) {
+        if (err) return next(err);
+        return res.redirect('/account');
+      });
     });
-  })(req, res, next);
+  })(req, res, next)
 };
 
 /**
@@ -181,13 +188,15 @@ exports.postSignup = function(req, res, next) {
     return res.redirect('/signup');
   }
 
-  req.flash('first', {msg:'Fill out your profile.'});
+  req.flash('first', {msg:'Please fill out your profile!'});
 
   var user = new User({
     email: req.body.email,
     password: req.body.password,
-    userType: req.body.usertype
+    userType: req.body.usertype,
+    numberOfLogins: 1,
   });
+  user.timesLoggedIn.push(Date());
 
   user.save(function(err) {
     if (err) {
@@ -286,73 +295,86 @@ exports.postUpdateProfile = function(req, res, next) {
     }
 
     if (user.userType=='mom') {
-      formEducation = req.body.education.replace(/[\r]/g, '').split("\n")
+      //We are no longer tracking the education as an object, it is just a string.
+      formEducation = req.body.education;
+      user.education = [];
+      user.education.push(formEducation);
+      
+      //We are no longer tracking the positions as an object, it is just a string.
+      formPositions = req.body.positions;
+      user.positions = [];
+      user.positions.push(formPositions);    
 
-      user.education = []
-      if (formEducation.length != 0) {
-        for(var i=0; i<formEducation.length; i++) {
-            userSchool = {}
+      //We are no longer tracking the skills as an object, it is just a string.
+      formSkills = req.body.skills;
+      user.skills = [];
+      user.skills.push(formSkills);
+      // formEducation = req.body.education.replace(/[\r]/g, '').split("\n")
+      // user.education = []
+      // if (formEducation.length != 0) {
+      //   user.education.push(formEducation);
+      //   for(var i=0; i<formEducation.length; i++) {
+      //       userSchool = {}
             
-            positionArray = formEducation[i].split(" - ")
-            schoolName = positionArray[0]
-            degree = positionArray[1]
+      //       positionArray = formEducation[i].split(" - ")
+      //       schoolName = positionArray[0]
+      //       degree = positionArray[1]
 
-            userSchool['schoolName'] = schoolName
-            userSchool['degree'] = degree
+      //       userSchool['schoolName'] = schoolName
+      //       userSchool['degree'] = degree
 
-            // console.log("userSchool")
-            // console.log(userSchool)
-            user.education.push(userSchool);
-        }
-      } else {
-        user.education = ''
-      }
+      //       // console.log("userSchool")
+      //       // console.log(userSchool)
+      //       user.education.push(userSchool);
+      //   }
+      // } else {
+      //   user.education = ''
+      // }
 
+      // formPositions = req.body.positions.replace(/[\r]/g, '').split("\n")
+      // // console.log(formPositions)
 
-      formPositions = req.body.positions.replace(/[\r]/g, '').split("\n")
-      // console.log(formPositions)
-
-      user.positions = []
-      if (formPositions.length != 0) {
-        // -1 because the last one is blank -- FIX THIS ANOTHER TIME
-        for(var i=0; i<formPositions.length-1; i++) {
-            userPosition = {}
+      // user.positions = []
+      // if (formPositions.length != 0) {
+      //   // -1 because the last one is blank -- FIX THIS ANOTHER TIME
+      //   for(var i=0; i<formPositions.length-1; i++) {
+      //       userPosition = {}
             
-            positionArray = formPositions[i].split(",")
-            title = positionArray[0]
-            company = positionArray[1]
+      //       positionArray = formPositions[i].split(",")
+      //       title = positionArray[0]
+      //       company = positionArray[1]
 
-            if (title != '') {
-              userPosition['title'] = title
-              userPosition['company'] = company
-              // console.log(userPosition)
-              user.positions.push(userPosition);
-            }
-        }
-      } else {
-        user.positions = ''
-      }
+      //       if (title != '') {
+      //         userPosition['title'] = title
+      //         userPosition['company'] = company
+      //         // console.log(userPosition)
+      //         user.positions.push(userPosition);
+      //       }
+      //   }
+      // } else {
+      //   user.positions = ''
+      // }
 
-      formSkills = req.body.skills.replace(/[\r\n]/g, '').split(",")
+      // formSkills = req.body.skills.replace(/[\r\n]/g, '').split(",")
 
-      user.skills = []
-      if (formSkills.length != 0) {
-        count = 1
-        for(var i=0; i<formSkills.length; i++) {
-            userSkill = {}
+      // user.skills = []
+      // if (formSkills.length != 0) {
+      //   count = 1
+      //   for(var i=0; i<formSkills.length; i++) {
+      //       userSkill = {}
             
-            skill = formSkills[i]
+      //       skill = formSkills[i]
 
-            if (skill != '') {
+      //       if (skill != '') {
               
-              userSkill['skill'] = skill
-              count += 1 
-              user.skills.push(userSkill);
-            }
-        }
-      } else {
-        user.skills = ''
-      }
+      //         userSkill['skill'] = skill
+      //         count += 1 
+      //         user.skills.push(userSkill);
+      //       }
+      //   }
+      // } else {
+      //   user.skills = ''
+      // }
 
       //resume upload 
       if(req.files.resume.size>0) {

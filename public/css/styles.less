@@ -18,6 +18,10 @@ a {
   text-align: center;
 }
 
+.align-left {
+  text-align: left;
+}
+
 i {
   padding-right: 5px;
 }
@@ -30,6 +34,11 @@ i {
   -webkit-transition:height 0.4s ease;
   transition:height 0.4s ease 
 }
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+ }
+
 /****************************************************************
   Header Styles
 *****************************************************************/
@@ -162,8 +171,7 @@ h3.custom-h3 {
   margin-left: 5px;
   margin-right: 5px;
   background-color: #FEE000;
-  // background-color: #c76e8f;
-  color:black;
+  color:#5f5f5f;
   height: 50px;
   width: 200px;
 }
@@ -176,6 +184,11 @@ h3.custom-h3 {
 .opt-about-btn.btn {
   border:none;
 }
+
+.row.special {
+  margin-left: -45px;
+}
+
 /****************************************************************
   About Us Page Styles
 *****************************************************************/
@@ -190,23 +203,45 @@ h3.custom-h3 {
   margin-left:50px;
 }
 
-.tile {
+.tile-100 {
   min-height: 100%;
-    color: red;
+}
+
+.tile-75 {
+  min-height: 75%;
+}
+
+.tile-60 {
+  // min-height: 60%;
+}
+
+.athenahire-blockquote {
+  padding-top: 30px;
 }
 
 .opt-about-header-section {
   color:black;
 }
 
-.opt-about-header-section-biz {
-    background:transparent url('../images/job-banner.jpg') center no-repeat;
-    background-size:cover;
-    min-height: 30%;
-      -webkit-box-shadow: 0 4px 4px -2px #777;
-   -moz-box-shadow: 0 4px 4px -2px #777;
-        box-shadow: 0 4px 4px -2px #777;
-        color:white;
+
+.why-hire-an-athenamom {
+  margin-top: 10%;
+}
+
+.why-quote-athenamom {
+  padding-top: 5%;
+}
+
+.why-quote-business {
+  padding-top:7%;
+}
+
+.why-content {
+  // font-size:17px;
+}
+
+.how-it-works-column {
+  padding-left: 3%;
 }
 
 p.number {
@@ -217,6 +252,9 @@ p.step {
   padding-top: 5px;
 }
 
+.set-quote {
+  margin-top:10%;
+}
 
 .opt-btn-about {
   margin-top:50px;
@@ -248,9 +286,26 @@ p.step {
 }
 
 .opt-about-header-content {
+  margin-top:20px;
   padding-bottom:10px;
-  padding-top: 50px;
-    text-align:center;
+  padding-top: 10px;
+  background-color: #c8c8c8;
+  // background-color: #f8f8f8;
+  text-align:center;
+}
+
+.athenamom-projects {
+  white-space: normal;
+  text-align: center;
+  // background-color: #FEE000;
+}
+
+.athenamom-project-heading {
+  // text-align: center;
+}
+
+.athenamom-exp {
+  padding-bottom:15px;
 }
 
 span.caret.d-text {
@@ -291,13 +346,13 @@ span.caret.d-text {
 
 .opt-about-desc {
   font-size: 15px;
+  text-align: center;
 }
 
 
 blockquote.special {
-  padding-top:20px;
   border-left:none;
-  
+  text-align: left;
 }
 
 blockquote.special > p{
@@ -340,18 +395,14 @@ a.pillar-link {
   margin-bottom: 50px;
 }
 
-.about-icon {
-  height:30px;
-  width:30px;
+.about-step {
+  padding-bottom: 50px;
 }
 
 .about-icon-content {
-  padding-top: 60px;
+  padding-top:30px;
 }
 
-.about-icon-desc {
-  padding-top: 15px;
-}
 
 /****************************************************************
   Team Page Styles
@@ -410,6 +461,11 @@ a.pillar-link {
     margin-right: -30px;
 }
 
+.profile-tabbing {
+  margin-left: 25px;
+  margin-bottom: 12px;
+}
+
 .prof-pic {
   border-radius: 10px; 
   height: 130px;
@@ -458,6 +514,43 @@ button.btn.btn-primary.opt-btn-prof.edit:focus
 
 tr.jobapp-row {
   cursor: pointer;
+}
+
+a.dropdown-toggle.job-toggle {
+  color:black;
+}
+
+a.dropdown-toggle.job-toggle:hover {
+  text-decoration: none;
+}
+
+span.caret.job-caret {
+  color:black;
+  margin-left: 5px;
+  border-top-color: black;
+}
+
+.dropdown-menu.pull-right.job-options {
+  min-width: 30px;
+  font-size: 14px;
+}
+
+.inactive-job {
+  text-align: center;
+}
+
+.deleteModal {
+  text-align: center;
+  font-size: 16px;
+}
+
+.deleteprompt {
+  font-size: 17px;
+}
+
+.disclaimer {
+  color: #777;
+  font-size:15px;
 }
 
 .jobapp-table {
@@ -585,6 +678,21 @@ li.sidenav > a {
   background-color: #FEE000;
   color:black;
 }
+
+.job-inactive {
+  text-align: center;
+}
+
+.job-btn.inactive {
+  background-color: #d9534f;
+  color: white;
+}
+
+.job-btn.inactive:hover {
+  background-color: #d9534f;
+  color: black;
+}
+
 
 .job-btn.btn-success:hover {
   color: #9975b9;
@@ -740,7 +848,7 @@ textarea.apply-job-textarea {
    p.step {
        text-align: center;
    }
-   .pillar > h4 {
+   .pillar {
       text-align: center;
    }
 
@@ -755,9 +863,17 @@ textarea.apply-job-textarea {
     display:none;
    }
 
-   .pillar {
-    // margin-top: 20px;
+   .opt-about-btn.home-btn {
+    margin-bottom: 10px;
    }
+
+   .why-quote-athenamom {
+    padding-top:none;
+  }
+
+   .why-quote-business {
+    padding-top:none;
+  }
 
    button.opt-btn-prof.edit.linkedin {
     margin-left: 15px;

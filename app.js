@@ -84,7 +84,9 @@ app.use(express.errorHandler());
  */
 
 app.get('/', homeController.index);
-app.get('/about', homeController.about);
+app.get('/how-it-works-athenamom', homeController.aboutAthenamom);
+app.get('/how-it-works-business', homeController.aboutBusiness);
+
 app.get('/team', homeController.team);
 app.post('/subscribeEmailPost', homeController.subscribeEmailPost)
 
@@ -120,8 +122,8 @@ app.get('/auth/linkedin', passport.authenticate('linkedin'));
 app.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failureRedirect: '/', successRedirect: '/account', scope: ['r_basicprofile', 'r_fullprofile', 'r_emailaddress']  }));
 
 // Job Related
-app.post('/postJob', passportConf.isAuthenticated, jobController.postJob);
-app.get('/postjob', passportConf.isAuthenticated, jobController.submitJobPost);
+app.post('/postproject', passportConf.isAuthenticated, jobController.postJob);
+app.get('/postproject', passportConf.isAuthenticated, jobController.submitJobPost);
 // app.get('/mylistings', passportConf.isAuthenticated, jobController.viewCompanyPosts);
 // app.get('/jobslist', jobController.listJobs);
 app.get('/job/apply-:id', passportConf.isAuthenticated, jobController.applyJob);
@@ -130,6 +132,12 @@ app.get('/job/save-:id', passportConf.isAuthenticated, jobController.saveJob);
 app.get('/job/viewapplication-:id', passportConf.isAuthenticated, jobController.viewApplication);
 
 app.get('/job/viewproject-:id', jobController.viewProject);
+
+app.get('/job/editproject-:id', passportConf.isAuthenticated, jobController.editProject);
+app.post('/job/updateproject-:id', passportConf.isAuthenticated, jobController.updateProject);
+
+app.post('/job/deleteproject-:id', passportConf.isAuthenticated, jobController.deleteProject);
+
 
 app.post('/job/saveApplication-:id', passportConf.isAuthenticated, jobController.postSaveApp);
 app.post('/job/submitApplication-:id', passportConf.isAuthenticated, jobController.postSubmitApp);
@@ -142,11 +150,11 @@ app.get('/initiate-chat-:id', passportConf.isAuthenticated, userController.initi
 app.get('/chat-:id', passportConf.isAuthenticated, userController.getChat);
 
 // Pillars
-app.get('/employ', jobController.listJobs);
-app.post('/employ', jobController.postFilterJobs);
+app.get('/findprojects', jobController.listJobs);
+app.post('/findprojects', jobController.postFilterJobs);
 
-app.get('/empower', homeController.empower);
-app.get('/engage', homeController.engage);
+// app.get('/empower', homeController.empower);
+// app.get('/engage', homeController.engage);
 
 app.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));

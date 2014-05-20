@@ -12,7 +12,9 @@ var userSchema = new mongoose.Schema({
   google: { type: String, unique: true, sparse: true },
   linkedin: {type: String },
   active: { type: String, default: 'yes' },
-
+  numberOfLogins: {type: Number, default: 1},
+  timesLoggedIn: {type: Array},
+  
   profile: {
     name: { type: String, default: '' },
     gender: { type: String, default: '' },

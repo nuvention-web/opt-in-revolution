@@ -30,5 +30,7 @@
 										| In Progress
 									else if jobApp.submitted == "saved"
 										| Saved
+									else if jobApp.submitted == "inactive"
+										| Filled			
 								td 
 									a.btn.btn-success.btn-md.job-btn(href='/job/apply-#{jobApp.jobID}', role='button') View

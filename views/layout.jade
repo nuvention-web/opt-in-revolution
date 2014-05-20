@@ -55,15 +55,28 @@ html
           .navbar-collapse.collapse
             .cust-navbar
               ul.nav.navbar-nav
-                //- each nav in [{link: 'about', name: "About"}, {link: 'employ', name: "Employ"}, {link: 'empower', name: "Empower"}, {link: 'engage', name: "Engage"}]
-                //- each nav in [{link: 'about', name: "How It Works"}, {link: 'employ', name: "Find a Project"}, {link: 'empower', name: "Post a Project"}]
-                if !user || user.userType == 'employer'
-                  - var navElems = [{link: 'about', name: "How It Works"}, {link: 'employ', name: "Find a Project"}, {link: 'postjob', name: "Post a Project"}]
-                else
-                  -var navElems = [{link: 'about', name: "How It Works"}, {link: 'employ', name: "Find a Project"}]
-                each nav in navElems
+                //- if !user || user.userType == 'employer'
+                  - var navElems = [{link: 'about', name: "How It Works"}, {link: 'findprojects', name: "Find a Project"}, {link: 'postproject', name: "Post a Project"}]
+                //- else
+                  -var navElems = [{link: 'about', name: "How It Works"}, {link: 'findprojects', name: "Find a Project"}]
+                //- each nav in navElems
                   li 
                     a.opt-nav-text(href='/#{nav.link}') #{nav.name}
+                li
+                  li.dropdown(class='athenamom-submenu')
+                    a.dropdown-toggle(href='#', data-toggle='dropdown')
+                      | For AthenaMoms
+                    ul.dropdown-menu
+                      li: a(href='/how-it-works-athenamom') How It Works
+                      li.divider
+                      li: a(href='/findprojects') Find a Project
+                  li.dropdown(class='business-submenu')
+                    a.dropdown-toggle(href='#', data-toggle='dropdown')
+                      | For Businesses
+                    ul.dropdown-menu
+                      li: a(href='/how-it-works-business') How It Works
+                      li.divider
+                      li: a(href='/postproject') Post a Project
                 li
                   a.opt-nav-text(href='http://blog.athenahire.co' target="_blank") Blog
               ul.nav.navbar-nav.navbar-right
@@ -89,8 +102,9 @@ html
                     ul.dropdown-menu
                       li: a(href='/account') My Account
                       li.divider
-                      li: a(href='/employ') View Listings
-                      //- li: a(href='/viewsavedjobs') View Saved Jobs
+                      li: a(href='/findprojects') View Listings
+                      if user.email == 'contact@athenahire.co'
+                        li: a(href='/admin') Admin Dashboard
                       li.divider
                       li: a(href='/logout') Logout
                 else
@@ -110,13 +124,11 @@ html
                     ul.dropdown-menu
                       li: a(href='/account') My Account
                       li.divider
-                      li: a(href='/postjob') Post a Project
-                      //- li: a(href='/mylistings') View My Listings
-                      //- li: a(href='/viewcandidates') Find Candidates
+                      li: a(href='/postproject') Post a Project
                       li.divider
                       li: a(href='/logout') Logout
     block content
-    if title != "Account Management"
+    if (title != "Account Management") && (title != "Admin Dashboard")
       .footer
         .container
           .footer-content

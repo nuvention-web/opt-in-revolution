@@ -102,7 +102,7 @@ exports.postJob = function (req, res) {
 				res.send("There was a problem adding the information to the database.");
 			}
 			else {
-				res.redirect("/employ");
+				res.redirect("/findprojects");
 			}
 		});
 	});
@@ -148,8 +148,22 @@ exports.listJobs = function(req, res) {
 exports.applyJob = function(req, res) {
 	User.findById(req.user.id, function(err, user) {
 		if((user.profile.name) && (user.userType == 'mom')) {
+
 			Job.findById(req.params.id, function(e, docs) {
-				docs.views = docs.views + 1;
+				docs.views += 1;
+
+				if(typeof(docs.viewers[0])==='object') { // object has been initialized
+					if(user.id in docs.viewers[0]) //user id is in object, then just add the date
+						docs.viewers[0][user.id].push(Date());
+					else //user id is not in the object yet but object exists, so add the first entry
+						docs.viewers[0][user.id]=[Date()];
+				} else { // object has not been initialized yet
+					docs.viewers[0]={};
+					docs.viewers[0][user.id]=[Date()];
+				}
+				console.log("169")
+				console.log(docs.viewers)
+				console.log(docs.viewers[0])
 				JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function(err, jobApp) {
 					// console.log("Loading apply job..");
 					// console.log(jobApp);
@@ -173,7 +187,43 @@ exports.applyJob = function(req, res) {
 
 exports.viewProject = function(req, res) {
 	Job.findById(req.params.id, function(e, docs) {
-		docs.views = docs.views + 1;
+		docs.views += 1;
+		if (req.user) { //logged in
+			if(typeof(docs.viewers[0])==='object') { // object has been initialized
+				if(user.id in docs.viewers[0]) { //user id is in object, then just add the date
+					console.log("at 205")
+					docs.viewers[0][req.user.id].push(Date());
+				} else { //user id is not in the object yet but object exists, so add the first entry
+					console.log("at 208")
+					docs.viewers[0][req.user.id]=[Date()];
+				}
+			} else { // object has not been initialized yet
+				console.log("at 211")
+				docs.viewers[0]={};
+				docs.viewers[0][req.user.id]=[Date()];
+			}
+		}
+		else { //not logged in
+			//no user id, so use "anonymous" for key
+			console.log("219");
+			console.log(docs.viewers);
+			console.log(docs.viewers[0]);
+			if(typeof(docs.viewers[0])==='object') { // object has been initialized
+				if("anonymous" in docs.viewers[0]) { //user id is in object, then just add the date
+					console.log("at 220")
+					docs.viewers[0]["anonymous"].push(Date());
+				} else { //user id is not in the object yet but object exists, so add the first entry
+					console.log("at 223")
+					docs.viewers[0]["anonymous"]=[Date()];
+				}
+			} else { // object has not been initialized yet
+				console.log("at 226")
+				docs.viewers[0]={};
+				docs.viewers[0]["anonymous"]=[Date()];
+			}
+		}
+		console.log(docs.viewers);
+		console.log(docs.viewers[0]);
 		docs.save(function(err) {
 			res.render("jobs/viewproject", {
 				"job":docs,
@@ -182,6 +232,116 @@ exports.viewProject = function(req, res) {
 		});
 	});
 };
+
+exports.editProject = function(req, res) {
+	Job.findById(req.params.id, function(e, docs) {
+	
+	res.render("jobs/editproject", {
+				job: docs,
+				title: "Edit Project"
+			});
+	});
+};
+
+exports.updateProject = function (req, res) {
+
+	// Error checking
+	req.assert('jobName', 'Job Title cannot be blank').notEmpty();
+	req.assert('description', 'Description cannot be blank').notEmpty()
+	req.assert('skillsNeeded', 'Skills Needed cannot be blank').notEmpty()
+	req.assert('industry', 'Industry cannot be blank').notEmpty()
+	req.assert('jobFunction', 'Job Function cannot be blank').notEmpty()
+	req.assert('totalWeeks', 'Project Length cannot be blank').notEmpty()
+	req.assert('hoursPerWeek', 'Hours per week cannot be blank').notEmpty()
+	req.assert('checkinFrequency', 'Check-in Frequency cannot be blank').notEmpty()
+	req.assert('primaryComm', 'Contact Method cannot be blank').notEmpty()
+	req.assert('pay', 'Pay cannot be blank').notEmpty()
+
+	var errors = req.validationErrors();
+
+	if (errors) {
+		Job.findById(req.params.id, function(e, docs) {
+			req.flash('errors', errors);
+			return res.render('jobs/editproject', 
+				{title: "Post A Project", 
+				job:docs,
+				errors: errors});
+		})
+	}
+
+	//get form value - based on the name attributes
+	var jobName = req.body.jobName;
+	var description = req.body.description;
+	var skillsNeeded = req.body.skillsNeeded;
+
+	var industry = strToArray(req.body.industry);
+	var jobFunction = strToArray(req.body.jobFunction);
+	var totalWeeks = strToArray(req.body.totalWeeks);
+	var hoursPerWeek = strToArray(req.body.hoursPerWeek);
+	var checkinFrequency = strToArray(req.body.checkinFrequency);
+	var primaryComm = strToArray(req.body.primaryComm);
+
+	var pay = req.body.pay;
+
+	Job.findById(req.params.id, function(err, jobDoc) {
+		//submit to the DB
+		jobDoc.jobName = jobName;
+		jobDoc.jobDescription = description; 
+		jobDoc.industry = industry;
+		jobDoc.skillsNeeded = skillsNeeded;
+		jobDoc.jobFunction = jobFunction;
+		jobDoc.totalWeeks = totalWeeks;
+		jobDoc.hoursPerWeek = hoursPerWeek;
+		jobDoc.checkinFrequency = checkinFrequency;
+		jobDoc.primaryComm = primaryComm;
+		jobDoc.pay = pay;
+
+		jobDoc.save(function(err, doc) {
+			if(err) {
+				//if failed, return error
+				res.send("There was a problem updating your project.");
+			}
+			else {
+				console.log("successfully updated");
+				req.flash('projectUpdated', 'Your project has been successfully updated.');
+				res.redirect("/account");
+			}
+		});
+	});	
+};
+
+exports.deleteProject = function(req, res) {
+	Job.findById(req.params.id, function(e, docs) {
+
+		// Only delete if job.companyID matches the ID of the company making the request
+		if (req.user.id == docs.companyID) {
+			console.log("successfully matched job's companyID with job creator");
+			// req.flash('projectDeleted', 'Your project has been successfully removed.');
+			// res.redirect("/account");
+			docs.status = "inactive";
+			docs.save(function(err,doc) {
+				JobApplication.find({jobID:req.params.id}, function(er, jobApps) {
+					// console.log(jobApps.length)
+					// console.log(jobApps)
+					for (var i=0; i<jobApps.length; i++) {
+						// console.log(i)
+						// console.log(jobApps[i])
+                		jobApps[i].submitted = "inactive"
+                		jobApps[i].save()
+                	}
+					req.flash('projectDeleted', 'Your project has been successfully removed.');
+					res.redirect("/account");	
+				})
+			})
+		}
+		else {
+			console.log("job's companyID did not match with the user making this request");
+			req.flash('projectError', 'There was an error with your project removal request.');
+			res.redirect("/account");
+		}
+	});
+};
+
 
 exports.postFilterJobs = function (req,res) {
 	if (req.body.filterType == 'profile') {

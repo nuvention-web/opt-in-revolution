@@ -42,42 +42,44 @@ exports.getSignup = function(req, res) {
 
 exports.initiateChat = function(req, res, next) {
   JobApplication.findById(req.params.id, function(e, jobApp) {
-    jobApp.chatRequested = true;
+    if (jobApp.chatRequested == false) {
+      //Only send the email the first time
+      var smtpTransport = nodemailer.createTransport("SMTP",{
+        service: "Gmail",
+        auth: {
+          user: "contact@athenahire.co",
+          pass: "NUventionWeb2014"
+        }
+      });
 
-    var smtpTransport = nodemailer.createTransport("SMTP",{
-      service: "Gmail",
-      auth: {
-        user: "contact@athenahire.co",
-        pass: "NUventionWeb2014"
+      console.log(jobApp.user.email);
+      var mailOptions = {
+        from: "AthenaHire <contact@athenahire.co>", // sender address
+        to: jobApp.user.email, // list of receivers
+        subject: jobApp.job.companyName + " wants to chat with you about the " + jobApp.job.jobName + " position", // Subject line
+        text: "Log in to http://www.athenahire.co/login and go to 'My Messages' in your dashboard.", // plaintext body
+        html: "<span style='text-align:left;'>Hello,</span>" + // html body
+        "<p style='text-align:left;'>" + jobApp.job.companyName + " wants to chat with you about the " + jobApp.job.jobName + " position. Log in to <a href='http://www.athenahire.co/login' target='_blank'>AthenaHire</a> to see it. Head over to 'My Messages' in your dashboard to chat.</p>" +
+        "<p style='text-align:left;'>Please let us know if you have any questions.</p>" +
+        "<span style='font-size:8pt;text-align:left;'>The AthenaHire Team</span>" + "<br>" +
+        "<span style='font-size:8pt;text-align:left;'><a href='mailto:contact@athenahire.co' target='_blank'>contact@athenahire.co</a></span>" + "<br>" +
+        "<span style='font-size:8pt;text-align:left;'><a href='www.athenahire.co' target='_blank'>athenahire.co</a></span>" + "<br>" +
+        "<span style='font-size:8pt;'>Employ. Engage. Empower</span>"
       }
-    });
 
-    console.log(jobApp.user.email);
-    var mailOptions = {
-      from: "AthenaHire <contact@athenahire.co>", // sender address
-      to: jobApp.user.email, // list of receivers
-      subject: jobApp.job.companyName + " wants to chat with you about the " + jobApp.job.jobName + " position", // Subject line
-      text: "Log in to http://www.athenahire.co/login and go to 'My Messages' in your dashboard.", // plaintext body
-      html: "<span style='text-align:left;'>Hello,</span>" + // html body
-      "<p style='text-align:left;'>" + jobApp.job.companyName + " wants to chat with you about the " + jobApp.job.jobName + " position. Log in to <a href='http://www.athenahire.co/login' target='_blank'>AthenaHire</a> to see it. Head over to 'My Messages' in your dashboard to chat.</p>" +
-      "<p style='text-align:left;'>Please let us know if you have any questions.</p>" +
-      "<span style='font-size:8pt;text-align:left;'>The AthenaHire Team</span>" + "<br>" +
-      "<span style='font-size:8pt;text-align:left;'><a href='mailto:contact@athenahire.co' target='_blank'>contact@athenahire.co</a></span>" + "<br>" +
-      "<span style='font-size:8pt;text-align:left;'><a href='www.athenahire.co' target='_blank'>athenahire.co</a></span>" + "<br>" +
-      "<span style='font-size:8pt;'>Employ. Engage. Empower</span>"
+      smtpTransport.sendMail(mailOptions, function(error, response){
+        if(error){
+          console.log(error);
+        }else{
+          console.log("Message sent: " + response.message);
+        }
+
+        // if you don't want to use this transport object anymore, uncomment following line
+        smtpTransport.close(); // shut down the connection pool, no more messages
+      });
     }
 
-    smtpTransport.sendMail(mailOptions, function(error, response){
-      if(error){
-        console.log(error);
-      }else{
-        console.log("Message sent: " + response.message);
-      }
-
-      // if you don't want to use this transport object anymore, uncomment following line
-      smtpTransport.close(); // shut down the connection pool, no more messages
-    });
-
+    jobApp.chatRequested = true;
     jobApp.save(function(e, next){
       res.render('account/partials/profile-chat', {
         title: "Chat",

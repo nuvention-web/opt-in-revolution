@@ -67,8 +67,6 @@
 
 												function displayChatMessage(name, text) {
 													var identifier = jobApp.id;
-													console.log(jobApp.id);
-													console.log("#{jobApp.id}");
 													$('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#'+identifier));
 													$('#'+identifier)[0].scrollTop = $('#'+identifier)[0].scrollHeight;
 												};

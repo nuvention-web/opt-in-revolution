@@ -1,37 +1,80 @@
 extends ../../layout
 
 block content
-      b
-        | Relevant Job Experience: 
-      |#{jobApp.relevantJobExperience}
-      br
-      b
-        | Project Approach: 
-      |#{jobApp.projectApproach}
-      #messagesDiv
-      if user.userType == 'mom'
-        input#nameInput(type='hidden', placeholder='Name', value='#{user.profile.name}')
-      else
-        input#nameInput(type='hidden', placeholder='Name', value='#{user.company.companyName}')
-      input#messageInput(type='text', placeholder='Message')
+	.tile-job
+		.container
+			.row.mt.centered
+				.col-lg-12
+					.job-header
+						big
+							h1 Project Chat
+						small
+							| Review application discuss project details
+	.container
+		.messages-container
+			.row
+				.col-md-6
+					.proj-details
+						.row
+							p 
+								b Project Details
+							.details
+								p
+									| Project Name: #{jobApp.job.jobName}
+									br
+									| Company: #{jobApp.job.companyName}
+									br
+									| Industry: #{jobApp.job.industry}
+									br
+									| Project Function: #{jobApp.job.jobFunction}
+									br
+									| Project Length: #{jobApp.job.totalWeeks}
+									br
+									| Skills Needed: #{jobApp.job.skillsNeeded}
+									br
+									| Pay: #{jobApp.job.pay}
+						.row
+							p 
+								b Application Details
+							.details
+								p
+									| Relevant Project Experience: 
+									br
+									.detail-contents
+										|#{jobApp.relevantJobExperience}
+									br
+									| Project Approach: 
+									br
+									.detail-contents
+										|#{jobApp.projectApproach}
+				.col-md-6
+					p
+						b Chat
+					p
+						#messagesDiv
+						if user.userType == 'mom'
+							input#nameInput(type='hidden', placeholder='Name', value='#{user.profile.name}')
+						else
+							input#nameInput(type='hidden', placeholder='Name', value='#{user.company.companyName}')
+						input#messageInput(type='text', placeholder='Message')
 
-      script(type='text/javascript').
-        var myDataRef = new Firebase('https://athenahire.firebaseio.com/#{jobApp.id}');
-        $('#messageInput').keypress(function (e) {
-          if (e.keyCode == 13) {
-            var name = $('#nameInput').val();
-            var text = $('#messageInput').val();
-            myDataRef.push({name: name, text: text});
-            $('#messageInput').val('');
-          }
-        });
+						script(type='text/javascript').
+							var myDataRef = new Firebase('https://athenahire.firebaseio.com/#{jobApp.id}');
+							$('#messageInput').keypress(function (e) {
+								if (e.keyCode == 13) {
+									var name = $('#nameInput').val();
+									var text = $('#messageInput').val();
+									myDataRef.push({name: name, text: text});
+									$('#messageInput').val('');
+								}
+							});
 
-        myDataRef.on('child_added', function(snapshot) {
-          var message = snapshot.val();
-          displayChatMessage(message.name, message.text);
-        });
+							myDataRef.on('child_added', function(snapshot) {
+								var message = snapshot.val();
+								displayChatMessage(message.name, message.text);
+							});
 
-        function displayChatMessage(name, text) {
-          $('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
-          $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
-        };
+							function displayChatMessage(name, text) {
+								$('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
+								$('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+							};

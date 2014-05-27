@@ -1,8 +1,7 @@
 script(type='text/javascript').
 	function s3_upload(){
-		console.log("this worked");
 		var s3upload = new S3Upload({
-			file_dom_selector: '#profilePicture',
+			file_dom_selector: '#profPicture',
 			s3_sign_put_url: '/sign_s3',
 			onProgress: function(percent, message) {
 				//- $('#status').html('Upload progress: ' + percent + '% ' + message);
@@ -18,7 +17,7 @@ script(type='text/javascript').
 		});
 	}
 	$(document).ready(function() {
-		$('#profilePicture').on("change", s3_upload);
+		$('#profPicture').on("change", s3_upload);
 	});
 
 .col-md-12
@@ -44,9 +43,6 @@ script(type='text/javascript').
 								img.prof-pic.pagination-centered(src='#{user.profile.picture}')
 							else
 								-var profLink = user.profile.picture;
-								//- remove the line below eventually!!!
-								-console.log("REMOVE LINE 26 IN PROFILE_EMPLOYER_HOME");
-								//- -profLink = profLink.split("public").pop();
 								img.prof-pic.pagination-centered(src='#{profLink}')
 						else
 							img.prof-pic.pagination-centered(src='/images/business_profile.jpg')
@@ -54,7 +50,7 @@ script(type='text/javascript').
 						.form-group.prof-pic-upload
 							label.control-label(for='profilePicture') Profile Picture Upload
 							br
-							input(type="file", id="profilePicture", name="profilePicture")
+							input(type="file", id="profPicture", name="profilePicture")
 							input(type="hidden" id="avatar_url" name="avatar_url" value="#{user.profile.picture}")
 					.col-md-9
 						.form-group

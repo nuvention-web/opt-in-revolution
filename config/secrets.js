@@ -32,5 +32,10 @@ module.exports = {
     key: "8044774gaw64duf",
     secret: "p3vmfn0i86460w8"
   },
-
+  s3:{
+    accessKeyId: "AKIAJF3QM52SMFTN4QDQ",
+    secretAccessKey: "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",
+    bucket: "athenahire",
+    region: "us-west-2"
+  },
 };

@@ -9,6 +9,8 @@ var imgur=require('node-imgur').createClient('d5975d94776362d')
 var async = require('async');
 var nodemailer = require("nodemailer");
 var AWS = require('aws-sdk');
+var crypto = require('crypto');
+var secrets = require('../config/secrets.js');
 /**
  * GET /login
  * Login page.
@@ -320,6 +322,9 @@ exports.postResumeProfile = function(req, res, next) {
 };
 
 exports.signS3 = function(req, res){
+    var AWS_ACCESS_KEY = secrets.s3.accessKeyId;
+    var AWS_SECRET_KEY = secrets.s3.secretAccessKey;
+    var S3_BUCKET = secrets.s3.bucket;
     var object_name = req.query.s3_object_name;
     var mime_type = req.query.s3_object_type;
 
@@ -327,21 +332,20 @@ exports.signS3 = function(req, res){
     var expires = Math.ceil((now.getTime() + 10000)/1000); // 10 seconds from now
     var amz_headers = "x-amz-acl:public-read";
 
-    var put_request = "PUT\n\n"+mime_type+"\n"+expires+"\n"+amz_headers+"\n/"+S3_BUCKET+"/"+object_name;
+    var put_request = "PUT\n\n"+mime_type+"\n"+expires+"\n"+amz_headers+"\n/"+S3_BUCKET+"/"+ "profile-" + req.user.id;
 
     var signature = crypto.createHmac('sha1', AWS_SECRET_KEY).update(put_request).digest('base64');
     signature = encodeURIComponent(signature.trim());
     signature = signature.replace('%2B','+');
 
-    var url = 'https://'+S3_BUCKET+'.s3.amazonaws.com/' + "profile-" + req.user.id;//object_name;
-
+    var url = 'https://'+S3_BUCKET+'.s3.amazonaws.com/' + "profile-" + req.user.id;
+    console.log(url);
     var credentials = {
         signed_request: url+"?AWSAccessKeyId="+AWS_ACCESS_KEY+"&Expires="+expires+"&Signature="+signature,
         url: url
     };
     res.write(JSON.stringify(credentials));
     res.end();
-    console.log("doing this shit");
 };
 
 /**

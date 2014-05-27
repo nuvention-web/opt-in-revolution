@@ -202,7 +202,8 @@
 									label Resume 
 							.row.mt.prof-row
 								.col-md-12.profile-tabbing
-									a(href="/account/resume-download-id=#{user._id}") #{user.resume.name}
+									a(href="#{user.resume.path}", target="_blank") #{user.resume.name}
+									//- a(href="/account/resume-download-id=#{user._id}") #{user.resume.name}
 					//- .row.mt
 						.col-md-12
 							.row.mt.prof-row

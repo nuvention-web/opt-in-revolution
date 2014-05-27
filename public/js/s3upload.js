@@ -7,7 +7,7 @@
     S3Upload.prototype.s3_sign_put_url = '/signS3put';
 
     // S3Upload.prototype.file_dom_selector = 'file_upload';
-    S3Upload.prototype.file_dom_selector = "profilePicture";
+    S3Upload.prototype.file_dom_selector = "file_upload";
     S3Upload.prototype.onFinishS3Put = function(public_url) {
       return console.log('base.onFinishS3Put()', public_url);
     };

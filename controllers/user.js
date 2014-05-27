@@ -348,6 +348,33 @@ exports.signS3 = function(req, res){
     res.end();
 };
 
+exports.signResumeS3 = function(req, res){
+    var AWS_ACCESS_KEY = secrets.s3.accessKeyId;
+    var AWS_SECRET_KEY = secrets.s3.secretAccessKey;
+    var S3_BUCKET = secrets.s3.bucket;
+    var object_name = req.query.s3_object_name;
+    var mime_type = req.query.s3_object_type;
+
+    var now = new Date();
+    var expires = Math.ceil((now.getTime() + 10000)/1000); // 10 seconds from now
+    var amz_headers = "x-amz-acl:public-read";
+
+    var put_request = "PUT\n\n"+mime_type+"\n"+expires+"\n"+amz_headers+"\n/"+S3_BUCKET+"/"+ "resume-" + req.user.id;
+
+    var signature = crypto.createHmac('sha1', AWS_SECRET_KEY).update(put_request).digest('base64');
+    signature = encodeURIComponent(signature.trim());
+    signature = signature.replace('%2B','+');
+
+    var url = 'https://'+S3_BUCKET+'.s3.amazonaws.com/' + "resume-" + req.user.id;
+    console.log(url);
+    var credentials = {
+        signed_request: url+"?AWSAccessKeyId="+AWS_ACCESS_KEY+"&Expires="+expires+"&Signature="+signature,
+        url: url
+    };
+    res.write(JSON.stringify(credentials));
+    res.end();
+};
+
 /**
  * POST /account/profile
  * Update profile information.
@@ -420,30 +447,6 @@ exports.postUpdateProfile = function(req, res, next) {
     // }
 
     if (user.userType=='mom') {
-      console.log("390");
-      AWS.config.loadFromPath('./config/config.json');
-      console.log(AWS);
-      var s3 = new AWS.S3(); 
-      // s3.createBucket({Bucket: 'athenahire'}, function() {
-      console.log("making a bucket...");
-      var params = {Bucket: 'athenahire', Key: 'newlogo.png'}; //, Body: 'Hello!'};
-      // s3.putObject(params, function(err, data) {
-      //     if (err)
-      //       console.log(err)     
-      //     else
-      //       console.log("Successfully uploaded data to athenahire/monkey");
-      //  });
-
-      s3.getObject(params, function(err, data) {
-          if (err)
-            console.log(err)     
-          else {
-            console.log(data);
-            console.log(data.Body.toString());
-            console.log("Successfully uploaded data to athenahire/monkey");
-          }
-       });
-
       //We are no longer tracking the education as an object, it is just a string.
       formEducation = req.body.education;
       user.education = [];
@@ -525,47 +528,50 @@ exports.postUpdateProfile = function(req, res, next) {
       //   user.skills = ''
       // }
 
-      //resume upload 
-      if(req.files.resume.size>0) {
-        // AWS.config.loadFromPath('./config/config.json');
-        // console.log("310 unique shit");
-        // var s3 = new AWS.S3(); 
-        // s3.createBucket({Bucket: 'myBucket'}, function() {
-        //   var params = {Bucket: 'myBucket', Key: 'myKey', Body: 'Hello!'};
-        //   s3.putObject(params, function(err, data) {
-        //       if (err)
-        //         console.log(err)     
-        //       else
-        //         console.log("Successfully uploaded data to myBucket/myKey");
-        //    });
+      console.log(req.body.resume_url);
+      user.resume.path = req.body.resume_url;
+      //resume upload is obsolete, just update the link
+      // //resume upload 
+      // if(req.files.resume.size>0) {
+      //   // AWS.config.loadFromPath('./config/config.json');
+      //   // console.log("310 unique shit");
+      //   // var s3 = new AWS.S3(); 
+      //   // s3.createBucket({Bucket: 'myBucket'}, function() {
+      //   //   var params = {Bucket: 'myBucket', Key: 'myKey', Body: 'Hello!'};
+      //   //   s3.putObject(params, function(err, data) {
+      //   //       if (err)
+      //   //         console.log(err)     
+      //   //       else
+      //   //         console.log("Successfully uploaded data to myBucket/myKey");
+      //   //    });
 
-        // });
-        var errors = [];
-        var fileGood = true;
-        var acceptableFileTypes = ['application/pdf'];//, 'text/plain', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+      //   // });
+      //   var errors = [];
+      //   var fileGood = true;
+      //   var acceptableFileTypes = ['application/pdf'];//, 'text/plain', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
 
-        if(req.files.resume.size > (500 * 1024)) {
-          errors.push({param:"size", msg:"Resume file size must be less than 500 kb.", value: req.files.resume.size});
-          fileGood = false;
-        }
-        if(acceptableFileTypes.indexOf(req.files.resume.type)==-1) {
-          errors.push({param:"type", "msg":"Resume file type must be pdf.", value: req.files.resume.type});
-          fileGood = false;
-        }
-        if (errors.length>0) {
-          req.flash('errors', errors);
-        }
+      //   if(req.files.resume.size > (500 * 1024)) {
+      //     errors.push({param:"size", msg:"Resume file size must be less than 500 kb.", value: req.files.resume.size});
+      //     fileGood = false;
+      //   }
+      //   if(acceptableFileTypes.indexOf(req.files.resume.type)==-1) {
+      //     errors.push({param:"type", "msg":"Resume file type must be pdf.", value: req.files.resume.type});
+      //     fileGood = false;
+      //   }
+      //   if (errors.length>0) {
+      //     req.flash('errors', errors);
+      //   }
 
-        if (fileGood) {
-          if (user.resume.path!='') //if there is an old resume
-            fs.unlink(user.resume.path); //delete it
-          user.resume.name = req.files.resume.originalFilename; //set resume name to file name
-          user.resume.path = req.files.resume.path;   //set resume path to uploaded file path
-        }
-        else {
-          fs.unlink(req.files.resume.path); //file was not good, delete it
-        }
-      }
+      //   if (fileGood) {
+      //     if (user.resume.path!='') //if there is an old resume
+      //       fs.unlink(user.resume.path); //delete it
+      //     user.resume.name = req.files.resume.originalFilename; //set resume name to file name
+      //     user.resume.path = req.files.resume.path;   //set resume path to uploaded file path
+      //   }
+      //   else {
+      //     fs.unlink(req.files.resume.path); //file was not good, delete it
+      //   }
+      // }
     }
 
     user.save(function(err) {

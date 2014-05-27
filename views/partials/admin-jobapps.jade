@@ -6,6 +6,7 @@
 					thead
 						tr
 							th Job Title
+							th Company Name
 							th Applicant Name
 							th Relevant Experience
 							th Project Approach
@@ -22,10 +23,12 @@
 							td
 							td
 							td
+							td
 						else
 							each ja, i in jobApps
 								tr
 									td #{ja.job.jobName}
+									td #{ja.job.companyName}
 									td #{ja.user.profile.name}
 									td #{ja.relevantJobExperience}
 									td #{ja.projectApproach}

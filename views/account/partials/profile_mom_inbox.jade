@@ -19,6 +19,7 @@
 					tr
 						th.proj-title Project Title
 						th Company Name
+						th
 				tbody.job-table
 					if (jobChats.length == 0)
 						td You have no messages.
@@ -26,13 +27,14 @@
 						td
 					else
 						each jobAppWithChat, i in jobChats
-							tr(type='button', data-toggle='collapse', data-target='#msg-#{i}', class='jobappWithChat-row',id='view-message-#{jobAppWithChat.id}')
+							tr(type='button', class='jobappWithChat-row')
 								td.proj-title
 									| Chat for #{jobAppWithChat.job.jobName}
 								td #{jobAppWithChat.job.companyName}
 								td
-									.btn.btn-success.btn-md.job-btn View Messages
-							tr(id="msg-#{i}").collapse.out
-								td
-									div.tab-pane(id="chat-#{jobAppWithChat.id}")
-										include profile-chat.jade
+									a.btn.btn-success.btn-md.job-btn(href='/chat-#{jobAppWithChat.id}', target='_blank') View Messages
+									//- .btn.btn-success.btn-md.job-btn(data-toggle='collapse', data-target='#msg-#{i}', id='view-message-#{jobAppWithChat.id}') View Messages
+							//- tr(id="msg-#{i}").collapse.out
+							//- 	td
+							//- 		div.tab-pane(id="chat-#{jobAppWithChat.id}")
+							//- 	

@@ -19,7 +19,7 @@ var jobSchema = new Schema({
     pay: {type: String},
     dateCreated: { type: Date, default: Date.now },
     companyID: {type: String},
-    companyEmail: {type: String},
+    companyEmail: {type: String, default: ''},
     views: {type: Number, default: 0},
     viewers: {type: Array},
     status: {type: String, default: "active"}

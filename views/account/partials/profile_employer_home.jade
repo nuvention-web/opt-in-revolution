@@ -1,3 +1,26 @@
+script(type='text/javascript').
+	function s3_upload(){
+		console.log("this worked");
+		var s3upload = new S3Upload({
+			file_dom_selector: '#profilePicture',
+			s3_sign_put_url: '/sign_s3',
+			onProgress: function(percent, message) {
+				//- $('#status').html('Upload progress: ' + percent + '% ' + message);
+			},
+			onFinishS3Put: function(public_url) {
+				//- $('#status').html('Upload completed. Uploaded to: '+ public_url);
+				$("#avatar_url").val(public_url);
+				//- $("#preview").html('<img src="'+public_url+'" style="width:300px;" />');
+			},
+			onError: function(status) {
+				$('#status').html('Upload error: ' + status);
+			}
+		});
+	}
+	$(document).ready(function() {
+		$('#profilePicture').on("change", s3_upload);
+	});
+
 .col-md-12
 	form.form-horizontal(action='/account/profile', method='POST', enctype="multipart/form-data")
 		.page-header
@@ -21,7 +44,9 @@
 								img.prof-pic.pagination-centered(src='#{user.profile.picture}')
 							else
 								-var profLink = user.profile.picture;
-								-profLink = profLink.split("public").pop();
+								//- remove the line below eventually!!!
+								-console.log("REMOVE LINE 26 IN PROFILE_EMPLOYER_HOME");
+								//- -profLink = profLink.split("public").pop();
 								img.prof-pic.pagination-centered(src='#{profLink}')
 						else
 							img.prof-pic.pagination-centered(src='/images/business_profile.jpg')
@@ -29,7 +54,8 @@
 						.form-group.prof-pic-upload
 							label.control-label(for='profilePicture') Profile Picture Upload
 							br
-							input(type="file", name="profilePicture")
+							input(type="file", id="profilePicture", name="profilePicture")
+							input(type="hidden" id="avatar_url" name="avatar_url" value="#{user.profile.picture}")
 					.col-md-9
 						.form-group
 							label.col-md-2.control-label(for='companyName') Name

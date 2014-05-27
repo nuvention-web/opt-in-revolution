@@ -319,6 +319,31 @@ exports.postResumeProfile = function(req, res, next) {
   });
 };
 
+exports.signS3 = function(req, res){
+    var object_name = req.query.s3_object_name;
+    var mime_type = req.query.s3_object_type;
+
+    var now = new Date();
+    var expires = Math.ceil((now.getTime() + 10000)/1000); // 10 seconds from now
+    var amz_headers = "x-amz-acl:public-read";
+
+    var put_request = "PUT\n\n"+mime_type+"\n"+expires+"\n"+amz_headers+"\n/"+S3_BUCKET+"/"+object_name;
+
+    var signature = crypto.createHmac('sha1', AWS_SECRET_KEY).update(put_request).digest('base64');
+    signature = encodeURIComponent(signature.trim());
+    signature = signature.replace('%2B','+');
+
+    var url = 'https://'+S3_BUCKET+'.s3.amazonaws.com/' + "profile-" + req.user.id;//object_name;
+
+    var credentials = {
+        signed_request: url+"?AWSAccessKeyId="+AWS_ACCESS_KEY+"&Expires="+expires+"&Signature="+signature,
+        url: url
+    };
+    res.write(JSON.stringify(credentials));
+    res.end();
+    console.log("doing this shit");
+};
+
 /**
  * POST /account/profile
  * Update profile information.
@@ -350,57 +375,70 @@ exports.postUpdateProfile = function(req, res, next) {
     user.jobFunctionPreference = req.body.jobFunctionPreference || '';
     //Need to add company image
 
-    //profile picture upload 
-    if(req.files.profilePicture.size>0) {
-      var picErrors = [];
-      var fileGood = true;
-      var acceptableFileTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+    // take hidden image and store this link instead
+    console.log(req.body.avatar_url);
+    user.profile.picture = req.body.avatar_url;
+    //profile picture upload // This part is obsolete since images are uploaded to AWS s3 now.
+    // if(req.files.profilePicture.size>0) {
+    //   var picErrors = [];
+    //   var fileGood = true;
+    //   var acceptableFileTypes = ['image/png', 'image/jpeg', 'image/jpg'];
 
-      if(req.files.profilePicture.size > (5000 * 1024)) {
-        picErrors.push({param:"size", msg:"Image file sizes must be less than 5mb.", value:req.files.profilePicture.size});
-        fileGood = false;
-      }
-      if(acceptableFileTypes.indexOf(req.files.profilePicture.type)==-1) {
-        picErrors.push({param:"type", "msg":"Please upload an image.", value: req.files.profilePicture.type});
-        fileGood = false;
-      }
-      if(picErrors.length>0) {
-        req.flash('picErrors', picErrors);
-      }
+    //   if(req.files.profilePicture.size > (5000 * 1024)) {
+    //     picErrors.push({param:"size", msg:"Image file sizes must be less than 5mb.", value:req.files.profilePicture.size});
+    //     fileGood = false;
+    //   }
+    //   if(acceptableFileTypes.indexOf(req.files.profilePicture.type)==-1) {
+    //     picErrors.push({param:"type", "msg":"Please upload an image.", value: req.files.profilePicture.type});
+    //     fileGood = false;
+    //   }
+    //   if(picErrors.length>0) {
+    //     req.flash('picErrors', picErrors);
+    //   }
 
-      if(fileGood) {
-        if (user.profile.picture!='') //if there is an old pic
-          fs.unlink(user.profile.picture); //delete it
-        user.profile.picture = req.files.profilePicture.path;   //set pic path to uploaded file path
-      }
-      else {
-        fs.unlink(req.files.profilePicture.path); //file was not good, delete it
-      }
-        // imgur.upload(req.files.profilePicture.path, function(err, profPic) {
-        //   console.log(err);
-        //   if (err) {}
-        //   else { //file uploaded successfully
-        //     user.profile.picture = profPic;
-        //     fs.unlink(req.files.profilePicture.path);
-        //     console.log(profPic);
-        //   }
-        // });
-    }
+    //   if(fileGood) {
+    //     if (user.profile.picture!='') //if there is an old pic
+    //       fs.unlink(user.profile.picture); //delete it
+    //     user.profile.picture = req.files.profilePicture.path;   //set pic path to uploaded file path
+    //   }
+    //   else {
+    //     fs.unlink(req.files.profilePicture.path); //file was not good, delete it
+    //   }
+    //     // imgur.upload(req.files.profilePicture.path, function(err, profPic) {
+    //     //   console.log(err);
+    //     //   if (err) {}
+    //     //   else { //file uploaded successfully
+    //     //     user.profile.picture = profPic;
+    //     //     fs.unlink(req.files.profilePicture.path);
+    //     //     console.log(profPic);
+    //     //   }
+    //     // });
+    // }
 
     if (user.userType=='mom') {
       console.log("390");
       AWS.config.loadFromPath('./config/config.json');
+      console.log(AWS);
       var s3 = new AWS.S3(); 
-      s3.createBucket({Bucket: 'myBucket'}, function() {
-        var params = {Bucket: 'myBucket', Key: 'myKey', Body: 'Hello!'};
-        s3.putObject(params, function(err, data) {
-            if (err)
-              console.log(err)     
-            else
-              console.log("Successfully uploaded data to myBucket/myKey");
-         });
+      // s3.createBucket({Bucket: 'athenahire'}, function() {
+      console.log("making a bucket...");
+      var params = {Bucket: 'athenahire', Key: 'newlogo.png'}; //, Body: 'Hello!'};
+      // s3.putObject(params, function(err, data) {
+      //     if (err)
+      //       console.log(err)     
+      //     else
+      //       console.log("Successfully uploaded data to athenahire/monkey");
+      //  });
 
-      });
+      s3.getObject(params, function(err, data) {
+          if (err)
+            console.log(err)     
+          else {
+            console.log(data);
+            console.log(data.Body.toString());
+            console.log("Successfully uploaded data to athenahire/monkey");
+          }
+       });
 
       //We are no longer tracking the education as an object, it is just a string.
       formEducation = req.body.education;

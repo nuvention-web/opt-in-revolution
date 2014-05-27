@@ -33,6 +33,7 @@ var jobApplicationSchema = new Schema({
 	job: {
 		jobName: {type: String},
 		companyName: {type: String},
+		companyEmail: {type: String},
 		jobDescription: {type: String},
 		industry: {type: Array},
 		jobFunction: {type: Array},

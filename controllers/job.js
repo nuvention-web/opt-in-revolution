@@ -87,6 +87,7 @@ exports.postJob = function (req, res) {
 		//submit to the DB
 		var newJob = new Job({jobName: jobName, 
 								companyName: user.company.companyName, 
+								companyEmail: user.email, 
 								jobDescription: description, 
 								industry: industry, 
 								skillsNeeded: skillsNeeded,
@@ -564,6 +565,7 @@ function copyUserInformation(jobApplication, user) {
 function copyJobInformation(jobApplication, job) {
 	jobApplication.job.jobName = job.jobName;
 	jobApplication.job.companyName = job.companyName;
+	jobApplication.job.companyEmail = job.companyEmail;
 	jobApplication.job.jobDescription = job.jobDescription;
 	jobApplication.job.industry = job.industry;
 	jobApplication.job.jobFunction = job.jobFunction;

@@ -602,6 +602,7 @@ exports.postUpdateProfile = function(req, res, next) {
         }
 
         if (fileGood) {
+          user.resume.name = req.files.resume.originalFilename;
           user.resume.path = req.body.resume_url;
           // if (user.resume.path!='') //if there is an old resume
           //   fs.unlink(user.resume.path); //delete it

@@ -21,15 +21,15 @@ script(type='text/javascript').
 			file_dom_selector: '#resume',
 			s3_sign_put_url: '/sign_resume_s3',
 			onProgress: function(percent, message) {
-				//- $('#status').html('Upload progress: ' + percent + '% ' + message);
+				$('#resumeStatus').html('Upload progress: ' + percent + '% ' + message);
 			},
 			onFinishS3Put: function(public_url) {
-				//- $('#status').html('Upload completed. Uploaded to: '+ public_url);
+				$('#resumeStatus').html('Upload completed.');
 				$("#resume_url").val(public_url);
 				//- $("#preview").html('<img src="'+public_url+'" style="width:300px;" />');
 			},
 			onError: function(status) {
-				$('#status').html('Upload error: ' + status);
+				$('#resumeStatus').html('Upload error: ' + status);
 			}
 		});
 	}
@@ -348,6 +348,7 @@ script(type='text/javascript').
 								.row.mt
 									.col-md-12
 										input(type="file", id='resume', name="resume")
+										div(id='resumeStatus')
 										input(type="hidden" id="resume_url" name="resume_url" value="#{user.resume.name}")
 					.row.mt
 						button.btn.btn-primary.opt-btn-prof.edit.special(type='submit') Update Profile

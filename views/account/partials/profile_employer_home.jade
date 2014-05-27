@@ -4,10 +4,10 @@ script(type='text/javascript').
 			file_dom_selector: '#profPicture',
 			s3_sign_put_url: '/sign_s3',
 			onProgress: function(percent, message) {
-				//- $('#status').html('Upload progress: ' + percent + '% ' + message);
+				$('#status').html('Upload progress: ' + percent + '% ' + message);
 			},
 			onFinishS3Put: function(public_url) {
-				//- $('#status').html('Upload completed. Uploaded to: '+ public_url);
+				$('#status').html('Upload completed.');
 				$("#avatar_url").val(public_url);
 				//- $("#preview").html('<img src="'+public_url+'" style="width:300px;" />');
 			},
@@ -51,6 +51,7 @@ script(type='text/javascript').
 							label.control-label(for='profilePicture') Profile Picture Upload
 							br
 							input(type="file", id="profPicture", name="profilePicture")
+							div(id='status')
 							input(type="hidden" id="avatar_url" name="avatar_url" value="#{user.profile.picture}")
 					.col-md-9
 						.form-group

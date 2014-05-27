@@ -8,6 +8,7 @@ var fs = require('fs');
 var imgur=require('node-imgur').createClient('d5975d94776362d')
 var async = require('async');
 var nodemailer = require("nodemailer");
+var AWS = require('aws-sdk');
 /**
  * GET /login
  * Login page.
@@ -387,6 +388,20 @@ exports.postUpdateProfile = function(req, res, next) {
     }
 
     if (user.userType=='mom') {
+      console.log("390");
+      AWS.config.loadFromPath('./config/config.json');
+      var s3 = new AWS.S3(); 
+      s3.createBucket({Bucket: 'myBucket'}, function() {
+        var params = {Bucket: 'myBucket', Key: 'myKey', Body: 'Hello!'};
+        s3.putObject(params, function(err, data) {
+            if (err)
+              console.log(err)     
+            else
+              console.log("Successfully uploaded data to myBucket/myKey");
+         });
+
+      });
+
       //We are no longer tracking the education as an object, it is just a string.
       formEducation = req.body.education;
       user.education = [];
@@ -470,6 +485,19 @@ exports.postUpdateProfile = function(req, res, next) {
 
       //resume upload 
       if(req.files.resume.size>0) {
+        // AWS.config.loadFromPath('./config/config.json');
+        // console.log("310 unique shit");
+        // var s3 = new AWS.S3(); 
+        // s3.createBucket({Bucket: 'myBucket'}, function() {
+        //   var params = {Bucket: 'myBucket', Key: 'myKey', Body: 'Hello!'};
+        //   s3.putObject(params, function(err, data) {
+        //       if (err)
+        //         console.log(err)     
+        //       else
+        //         console.log("Successfully uploaded data to myBucket/myKey");
+        //    });
+
+        // });
         var errors = [];
         var fileGood = true;
         var acceptableFileTypes = ['application/pdf'];//, 'text/plain', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];

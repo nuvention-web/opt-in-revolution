@@ -44,13 +44,13 @@ exports.getSignup = function(req, res) {
 
 exports.resetUserFields = function(req, res) {
   User.find({}, function(e, users) {
-    for (var i=0; i<users.length; i++) {
-      users[i].profile.picture = '';
-      users[i].resume.path = '';
-      users[i].resume.name = '';
-      users[i].save();
-    }
-    console.log("User profile pictures and resumes reset!");
+    // for (var i=0; i<users.length; i++) {
+    //   users[i].profile.picture = '';
+    //   users[i].resume.path = '';
+    //   users[i].resume.name = '';
+    //   users[i].save();
+    // }
+    // console.log("User profile pictures and resumes reset!");
     res.redirect('/');
   });
 };

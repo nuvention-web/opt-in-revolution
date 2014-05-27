@@ -128,6 +128,16 @@ html
                       li: a(href='/postproject') Post a Project
                       li.divider
                       li: a(href='/logout') Logout
+      div(id="ieVersion", style="display: none", value='false')
+      script.
+        var ieBool = (navigator.userAgent.indexOf("MSIE")==-1) //Not IE
+        $('#ieVersion').val(ieBool);  
+      if "#{ieBool}"
+        pass
+      else
+        .alert.alert-info.animated.fadeInUp.opt-alert
+          button.close(data-dismiss='alert') ×
+          = "AthenaHire does not have support for Internet Explorer. Please use a different browser (Chrome or Firefox) for the best experience."
     block content
     if (title != "Account Management") && (title != "Admin Dashboard")
       .footer

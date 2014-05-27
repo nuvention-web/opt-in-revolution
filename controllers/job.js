@@ -196,9 +196,9 @@ exports.applyJob = function(req, res) {
 					docs.viewers[0]={};
 					docs.viewers[0][user.id]=[Date()];
 				}
-				console.log("169")
-				console.log(docs.viewers)
-				console.log(docs.viewers[0])
+				// console.log("169")
+				// console.log(docs.viewers)
+				// console.log(docs.viewers[0])
 				JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function(err, jobApp) {
 					// console.log("Loading apply job..");
 					// console.log(jobApp);
@@ -240,9 +240,9 @@ exports.viewProject = function(req, res) {
 		}
 		else { //not logged in
 			//no user id, so use "anonymous" for key
-			console.log("219");
-			console.log(docs.viewers);
-			console.log(docs.viewers[0]);
+			// console.log("219");
+			// console.log(docs.viewers);
+			// console.log(docs.viewers[0]);
 			if(typeof(docs.viewers[0])==='object') { // object has been initialized
 				if("anonymous" in docs.viewers[0]) { //user id is in object, then just add the date
 					console.log("at 220")
@@ -257,8 +257,8 @@ exports.viewProject = function(req, res) {
 				docs.viewers[0]["anonymous"]=[Date()];
 			}
 		}
-		console.log(docs.viewers);
-		console.log(docs.viewers[0]);
+		// console.log(docs.viewers);
+		// console.log(docs.viewers[0]);
 		docs.save(function(err) {
 			res.render("jobs/viewproject", {
 				"job":docs,

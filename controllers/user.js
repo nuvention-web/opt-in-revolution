@@ -94,7 +94,7 @@ exports.initiateChat = function(req, res, next) {
 
 exports.getChat = function(req, res) {
   JobApplication.findById(req.params.id, function(e, jobApp) {
-    console.log(jobApp);
+    // console.log(jobApp);
     res.render('account/partials/profile-chat', {
       title: 'Chat',
       jobApp: jobApp,
@@ -106,7 +106,7 @@ exports.getAccount = function(req, res) {
   if (req.user.userType == 'mom') {
     // User.findById(req.user.id, function(err, user) {
     JobApplication.find({userID: req.user.id}, function (e, docs) {
-      console.log(docs)
+      // console.log(docs)
       console.log("at 69");
       res.render('account/profile_mom', {
         title: 'Account Management',
@@ -322,57 +322,95 @@ exports.postResumeProfile = function(req, res, next) {
 };
 
 exports.signS3 = function(req, res){
-    var AWS_ACCESS_KEY = secrets.s3.accessKeyId;
-    var AWS_SECRET_KEY = secrets.s3.secretAccessKey;
-    var S3_BUCKET = secrets.s3.bucket;
-    var object_name = req.query.s3_object_name;
-    var mime_type = req.query.s3_object_type;
+  var AWS_ACCESS_KEY = secrets.s3.accessKeyId;
+  var AWS_SECRET_KEY = secrets.s3.secretAccessKey;
+  var S3_BUCKET = secrets.s3.bucket;
+  var object_name = req.query.s3_object_name;
+  var mime_type = req.query.s3_object_type;
+  var file_size = req.query.s3_file_size;
+  console.log(req.query);
+  if(file_size>0) {
+    var picErrors = [];
+    var fileGood = true;
+    var acceptableFileTypes = ['image/png', 'image/jpeg', 'image/jpg'];
 
-    var now = new Date();
-    var expires = Math.ceil((now.getTime() + 10000)/1000); // 10 seconds from now
-    var amz_headers = "x-amz-acl:public-read";
+    if(file_size > (5000 * 1024)) {
+      fileGood = false;
+    }
+    if(acceptableFileTypes.indexOf(mime_type)==-1) {
+      fileGood = false;
+    }
+    console.log('filegood', fileGood);
+    if(fileGood) { // if the file is fine, then update it
+      var now = new Date();
+      var expires = Math.ceil((now.getTime() + 10000)/1000); // 10 seconds from now
+      var amz_headers = "x-amz-acl:public-read";
 
-    var put_request = "PUT\n\n"+mime_type+"\n"+expires+"\n"+amz_headers+"\n/"+S3_BUCKET+"/"+ "profile-" + req.user.id;
+      var put_request = "PUT\n\n"+mime_type+"\n"+expires+"\n"+amz_headers+"\n/"+S3_BUCKET+"/"+ "profile-" + req.user.id;
 
-    var signature = crypto.createHmac('sha1', AWS_SECRET_KEY).update(put_request).digest('base64');
-    signature = encodeURIComponent(signature.trim());
-    signature = signature.replace('%2B','+');
+      var signature = crypto.createHmac('sha1', AWS_SECRET_KEY).update(put_request).digest('base64');
+      signature = encodeURIComponent(signature.trim());
+      signature = signature.replace('%2B','+');
 
-    var url = 'https://'+S3_BUCKET+'.s3.amazonaws.com/' + "profile-" + req.user.id;
-    console.log(url);
-    var credentials = {
-        signed_request: url+"?AWSAccessKeyId="+AWS_ACCESS_KEY+"&Expires="+expires+"&Signature="+signature,
-        url: url
-    };
-    res.write(JSON.stringify(credentials));
-    res.end();
+      var url = 'https://'+S3_BUCKET+'.s3.amazonaws.com/' + "profile-" + req.user.id;
+      console.log(url);
+      var credentials = {
+          signed_request: url+"?AWSAccessKeyId="+AWS_ACCESS_KEY+"&Expires="+expires+"&Signature="+signature,
+          url: url
+      };
+      res.write(JSON.stringify(credentials));
+      res.end();
+    }
+    else {
+      // don't update it
+    }
+  }
 };
 
 exports.signResumeS3 = function(req, res){
-    var AWS_ACCESS_KEY = secrets.s3.accessKeyId;
-    var AWS_SECRET_KEY = secrets.s3.secretAccessKey;
-    var S3_BUCKET = secrets.s3.bucket;
-    var object_name = req.query.s3_object_name;
-    var mime_type = req.query.s3_object_type;
+  var AWS_ACCESS_KEY = secrets.s3.accessKeyId;
+  var AWS_SECRET_KEY = secrets.s3.secretAccessKey;
+  var S3_BUCKET = secrets.s3.bucket;
+  var object_name = req.query.s3_object_name;
+  var mime_type = req.query.s3_object_type;
+  var file_size = req.query.s3_file_size;
 
-    var now = new Date();
-    var expires = Math.ceil((now.getTime() + 10000)/1000); // 10 seconds from now
-    var amz_headers = "x-amz-acl:public-read";
+  if(file_size>0) {
+    var errors = [];
+    var fileGood = true;
+    var acceptableFileTypes = ['application/pdf'];//, 'text/plain', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
 
-    var put_request = "PUT\n\n"+mime_type+"\n"+expires+"\n"+amz_headers+"\n/"+S3_BUCKET+"/"+ "resume-" + req.user.id;
+    if(file_size > (500 * 1024)) {
+      fileGood = false;
+    }
+    if(acceptableFileTypes.indexOf(mime_type)==-1) {
+      fileGood = false;
+    }
 
-    var signature = crypto.createHmac('sha1', AWS_SECRET_KEY).update(put_request).digest('base64');
-    signature = encodeURIComponent(signature.trim());
-    signature = signature.replace('%2B','+');
+    if (fileGood) {
+      var now = new Date();
+      var expires = Math.ceil((now.getTime() + 10000)/1000); // 10 seconds from now
+      var amz_headers = "x-amz-acl:public-read";
 
-    var url = 'https://'+S3_BUCKET+'.s3.amazonaws.com/' + "resume-" + req.user.id;
-    console.log(url);
-    var credentials = {
-        signed_request: url+"?AWSAccessKeyId="+AWS_ACCESS_KEY+"&Expires="+expires+"&Signature="+signature,
-        url: url
-    };
-    res.write(JSON.stringify(credentials));
-    res.end();
+      var put_request = "PUT\n\n"+mime_type+"\n"+expires+"\n"+amz_headers+"\n/"+S3_BUCKET+"/"+ "resume-" + req.user.id;
+
+      var signature = crypto.createHmac('sha1', AWS_SECRET_KEY).update(put_request).digest('base64');
+      signature = encodeURIComponent(signature.trim());
+      signature = signature.replace('%2B','+');
+
+      var url = 'https://'+S3_BUCKET+'.s3.amazonaws.com/' + "resume-" + req.user.id;
+      console.log(url);
+      var credentials = {
+          signed_request: url+"?AWSAccessKeyId="+AWS_ACCESS_KEY+"&Expires="+expires+"&Signature="+signature,
+          url: url
+      };
+      res.write(JSON.stringify(credentials));
+      res.end();
+    }
+    else {
+      // do nothing
+    }
+  }
 };
 
 /**
@@ -407,44 +445,47 @@ exports.postUpdateProfile = function(req, res, next) {
     //Need to add company image
 
     // take hidden image and store this link instead
-    console.log(req.body.avatar_url);
-    user.profile.picture = req.body.avatar_url;
-    //profile picture upload // This part is obsolete since images are uploaded to AWS s3 now.
-    // if(req.files.profilePicture.size>0) {
-    //   var picErrors = [];
-    //   var fileGood = true;
-    //   var acceptableFileTypes = ['image/png', 'image/jpeg', 'image/jpg'];
 
-    //   if(req.files.profilePicture.size > (5000 * 1024)) {
-    //     picErrors.push({param:"size", msg:"Image file sizes must be less than 5mb.", value:req.files.profilePicture.size});
-    //     fileGood = false;
-    //   }
-    //   if(acceptableFileTypes.indexOf(req.files.profilePicture.type)==-1) {
-    //     picErrors.push({param:"type", "msg":"Please upload an image.", value: req.files.profilePicture.type});
-    //     fileGood = false;
-    //   }
-    //   if(picErrors.length>0) {
-    //     req.flash('picErrors', picErrors);
-    //   }
+    // profile picture upload
+    console.log(req.files);
+    if(req.files.profilePicture.size>0) {
+      var picErrors = [];
+      var fileGood = true;
+      var acceptableFileTypes = ['image/png', 'image/jpeg', 'image/jpg'];
 
-    //   if(fileGood) {
-    //     if (user.profile.picture!='') //if there is an old pic
-    //       fs.unlink(user.profile.picture); //delete it
-    //     user.profile.picture = req.files.profilePicture.path;   //set pic path to uploaded file path
-    //   }
-    //   else {
-    //     fs.unlink(req.files.profilePicture.path); //file was not good, delete it
-    //   }
-    //     // imgur.upload(req.files.profilePicture.path, function(err, profPic) {
-    //     //   console.log(err);
-    //     //   if (err) {}
-    //     //   else { //file uploaded successfully
-    //     //     user.profile.picture = profPic;
-    //     //     fs.unlink(req.files.profilePicture.path);
-    //     //     console.log(profPic);
-    //     //   }
-    //     // });
-    // }
+      if(req.files.profilePicture.size > (5000 * 1024)) {
+        picErrors.push({param:"size", msg:"Image file sizes must be less than 5mb.", value:req.files.profilePicture.size});
+        fileGood = false;
+      }
+      if(acceptableFileTypes.indexOf(req.files.profilePicture.type)==-1) {
+        picErrors.push({param:"type", "msg":"Please upload an .png, .jpeg, or .jpg image.", value: req.files.profilePicture.type});
+        fileGood = false;
+      }
+      if(picErrors.length>0) {
+        req.flash('picErrors', picErrors);
+      }
+
+      if(fileGood) {
+        user.profile.picture = req.body.avatar_url;
+        // code below is only used when uploading to your own server and not s3
+        // if (user.profile.picture!='') //if there is an old pic
+        //   fs.unlink(user.profile.picture); //delete it
+        // user.profile.picture = req.files.profilePicture.path;   //set pic path to uploaded file path
+      }
+      else {
+        // just don't do anything
+        // fs.unlink(req.files.profilePicture.path); //file was not good, delete it
+      }
+        // imgur.upload(req.files.profilePicture.path, function(err, profPic) {
+        //   console.log(err);
+        //   if (err) {}
+        //   else { //file uploaded successfully
+        //     user.profile.picture = profPic;
+        //     fs.unlink(req.files.profilePicture.path);
+        //     console.log(profPic);
+        //   }
+        // });
+    }
 
     if (user.userType=='mom') {
       //We are no longer tracking the education as an object, it is just a string.
@@ -528,50 +569,38 @@ exports.postUpdateProfile = function(req, res, next) {
       //   user.skills = ''
       // }
 
-      console.log(req.body.resume_url);
-      user.resume.path = req.body.resume_url;
-      //resume upload is obsolete, just update the link
-      // //resume upload 
-      // if(req.files.resume.size>0) {
-      //   // AWS.config.loadFromPath('./config/config.json');
-      //   // console.log("310 unique shit");
-      //   // var s3 = new AWS.S3(); 
-      //   // s3.createBucket({Bucket: 'myBucket'}, function() {
-      //   //   var params = {Bucket: 'myBucket', Key: 'myKey', Body: 'Hello!'};
-      //   //   s3.putObject(params, function(err, data) {
-      //   //       if (err)
-      //   //         console.log(err)     
-      //   //       else
-      //   //         console.log("Successfully uploaded data to myBucket/myKey");
-      //   //    });
+      // console.log(req.body.resume_url);
+      // resume upload is obsolete, just update the link
+      //resume upload 
+      if(req.files.resume.size>0) {
+        var errors = [];
+        var fileGood = true;
+        var acceptableFileTypes = ['application/pdf'];//, 'text/plain', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
 
-      //   // });
-      //   var errors = [];
-      //   var fileGood = true;
-      //   var acceptableFileTypes = ['application/pdf'];//, 'text/plain', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+        if(req.files.resume.size > (500 * 1024)) {
+          errors.push({param:"size", msg:"Resume file size must be less than 500 kb.", value: req.files.resume.size});
+          fileGood = false;
+        }
+        if(acceptableFileTypes.indexOf(req.files.resume.type)==-1) {
+          errors.push({param:"type", "msg":"Resume file type must be pdf.", value: req.files.resume.type});
+          fileGood = false;
+        }
+        if (errors.length>0) {
+          req.flash('errors', errors);
+        }
 
-      //   if(req.files.resume.size > (500 * 1024)) {
-      //     errors.push({param:"size", msg:"Resume file size must be less than 500 kb.", value: req.files.resume.size});
-      //     fileGood = false;
-      //   }
-      //   if(acceptableFileTypes.indexOf(req.files.resume.type)==-1) {
-      //     errors.push({param:"type", "msg":"Resume file type must be pdf.", value: req.files.resume.type});
-      //     fileGood = false;
-      //   }
-      //   if (errors.length>0) {
-      //     req.flash('errors', errors);
-      //   }
-
-      //   if (fileGood) {
-      //     if (user.resume.path!='') //if there is an old resume
-      //       fs.unlink(user.resume.path); //delete it
-      //     user.resume.name = req.files.resume.originalFilename; //set resume name to file name
-      //     user.resume.path = req.files.resume.path;   //set resume path to uploaded file path
-      //   }
-      //   else {
-      //     fs.unlink(req.files.resume.path); //file was not good, delete it
-      //   }
-      // }
+        if (fileGood) {
+          user.resume.path = req.body.resume_url;
+          // if (user.resume.path!='') //if there is an old resume
+          //   fs.unlink(user.resume.path); //delete it
+          // user.resume.name = req.files.resume.originalFilename; //set resume name to file name
+          // user.resume.path = req.files.resume.path;   //set resume path to uploaded file path
+        }
+        else {
+          // do nothing
+          // fs.unlink(req.files.resume.path); //file was not good, delete it
+        }
+      }
     }
 
     user.save(function(err) {

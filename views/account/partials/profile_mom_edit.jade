@@ -1,3 +1,43 @@
+script(type='text/javascript').
+	function s3_upload(){
+		var s3upload = new S3Upload({
+			file_dom_selector: '#profPicture',
+			s3_sign_put_url: '/sign_s3',
+			onProgress: function(percent, message) {
+				$('#status').html('Upload progress: ' + percent + '% ' + message);
+			},
+			onFinishS3Put: function(public_url) {
+				$('#status').html('Upload completed.');
+				$("#avatar_url").val(public_url);
+				//- $("#preview").html('<img src="'+public_url+'" style="width:300px;" />');
+			},
+			onError: function(status) {
+				$('#status').html('Upload error: ' + status);
+			}
+		});
+	}
+	function s3_res_upload(){
+		var s3upload = new S3Upload({
+			file_dom_selector: '#resume',
+			s3_sign_put_url: '/sign_resume_s3',
+			onProgress: function(percent, message) {
+				$('#resumeStatus').html('Upload progress: ' + percent + '% ' + message);
+			},
+			onFinishS3Put: function(public_url) {
+				$('#resumeStatus').html('Upload completed.');
+				$("#resume_url").val(public_url);
+				//- $("#preview").html('<img src="'+public_url+'" style="width:300px;" />');
+			},
+			onError: function(status) {
+				$('#resumeStatus').html('Upload error: ' + status);
+			}
+		});
+	}
+	$(document).ready(function() {
+		$('#profPicture').on("change", s3_upload);
+		$('#resume').on("change", s3_res_upload);
+	});
+
 .col-md-12
 	form.form-horizontal(action='/account/profile', method='POST', enctype="multipart/form-data")
 		.page-header
@@ -22,7 +62,6 @@
 								img.prof-pic.pagination-centered(src='#{user.profile.picture}', height='130px')
 							else
 								-var profLink = user.profile.picture;
-								-profLink = profLink.split("public").pop();
 								img.prof-pic.pagination-centered(src='#{profLink}', height='130px', width='130px')
 						else
 							img.prof-pic.pagination-centered(src='/images/linkedin-default.jpg', height='130px')
@@ -30,7 +69,9 @@
 						.form-group.prof-pic-upload
 							label.control-label(for='profilePicture') Profile Picture Upload
 							br
-							input(type="file", name="profilePicture")
+							input(type="file", id="profPicture", name="profilePicture")
+							div(id='status')
+							input(type="hidden" id="avatar_url" name="avatar_url" value="#{user.profile.picture}")
 					.col-md-9
 						.form-group
 							label.col-md-2.control-label(for='name') Name
@@ -306,7 +347,9 @@
 											a(href="/account/resume-download-id=#{user._id}") #{user.resume.name}
 								.row.mt
 									.col-md-12
-										input(type="file", name="resume")
+										input(type="file", id='resume', name="resume")
+										div(id='resumeStatus')
+										input(type="hidden" id="resume_url" name="resume_url" value="#{user.resume.name}")
 					.row.mt
 						button.btn.btn-primary.opt-btn-prof.edit.special(type='submit') Update Profile
 

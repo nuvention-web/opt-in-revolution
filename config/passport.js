@@ -96,11 +96,8 @@ passport.use(new GoogleStrategy(secrets.google, function (req, accessToken, refr
 
 
 passport.use(new LinkedInStrategy(secrets.linkedin, function(req, token, tokenSecret, profile, done) {
-    // console.log(req.user.id);
-    // console.log(profile);
     User.findById(req.user.id, function (err, user) {
       user.linkedin = profile.id;
-      // console.log(profile);
 
       // user.tokens.push({kind: 'linkedin', accessToken: token});
       user.profile.name = profile._json.firstName + " " + profile._json.lastName;

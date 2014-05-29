@@ -103,7 +103,7 @@ app.post('/contact', contactController.postContact);
 app.get('/account', passportConf.isAuthenticated, userController.getAccount);
 app.post('/account/profile', passportConf.isAuthenticated, userController.postUpdateProfile);
 app.get('/sign_s3', passportConf.isAuthenticated, userController.signS3);
-
+app.get('/sign_resume_s3', passportConf.isAuthenticated, userController.signResumeS3);
 app.post('/account/password', passportConf.isAuthenticated, userController.postUpdatePassword);
 // app.post('/account/deactivate', passportConf.isAuthenticated, userController.postDeactivateAccount);
 app.get('/account/unlink/:provider', passportConf.isAuthenticated, userController.getOauthUnlink);
@@ -147,6 +147,9 @@ app.post('/job/submitApplication-:id', passportConf.isAuthenticated, jobControll
 // app.get('/viewcandidates', passportConf.isAuthenticated, userController.viewCandidates);
 
 app.get('/applyfilters', jobController.postJob);
+
+
+// app.get('/resetUsers', userController.resetUserFields);
 
 app.get('/initiate-chat-:id', passportConf.isAuthenticated, userController.initiateChat);
 app.get('/chat-:id', passportConf.isAuthenticated, userController.getChat);

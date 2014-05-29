@@ -6,8 +6,8 @@
 
     S3Upload.prototype.s3_sign_put_url = '/signS3put';
 
-    S3Upload.prototype.file_dom_selector = 'file_upload';
-
+    // S3Upload.prototype.file_dom_selector = 'file_upload';
+    S3Upload.prototype.file_dom_selector = "file_upload";
     S3Upload.prototype.onFinishS3Put = function(public_url) {
       return console.log('base.onFinishS3Put()', public_url);
     };
@@ -25,7 +25,7 @@
       for (option in options) {
         this[option] = options[option];
       }
-      this.handleFileSelect(document.getElementById(this.file_dom_selector));
+      this.handleFileSelect(document.getElementById(this.file_dom_selector.substring(1)));
     }
 
     S3Upload.prototype.handleFileSelect = function(file_element) {
@@ -59,7 +59,7 @@
       var this_s3upload, xhr;
       this_s3upload = this;
       xhr = new XMLHttpRequest();
-      xhr.open('GET', this.s3_sign_put_url + '?s3_object_type=' + file.type + '&s3_object_name=' + this.s3_object_name, true);
+      xhr.open('GET', this.s3_sign_put_url + '?s3_object_type=' + file.type + '&s3_object_name=' + this.s3_object_name + '&s3_file_size=' + file.size, true);
       xhr.overrideMimeType('text/plain; charset=x-user-defined');
       xhr.onreadystatechange = function(e) {
         var result;

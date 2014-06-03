@@ -30,7 +30,7 @@ block content
 							| Industry
 						br
 						select#industry.joblist.multiselect(multiple='multiple',name='industry')
-							- var industries = ['Accounting','Advertising','Broadcasting','Consulting','Consumer Products','Education','Entertainment and Leisure','Financial Services','Food & Beverage','Health Care', 'Nonprofit','Pharmaceuticals','Publishing','Retail', 'Technology']
+							- var industries = ['Accounting','Advertising','Broadcasting','Consulting','Consumer Products','Education','Entertainment & Leisure','Financial Services','Food & Beverage','Health Care', 'Nonprofit','Pharmaceuticals','Publishing','Retail', 'Technology']
 								each industry in industries
 									option(name='industry',label='industry',value='#{industry}', selected=selectedFilters['industry'].indexOf(industry)!=-1) #{industry}
 						br
@@ -57,7 +57,7 @@ block content
 							| Hours Per week
 						br
 						select#hoursPerWeek.joblist.multiselect(multiple='multiple',name='hoursPerWeek')
-							- var hoursPerWeek = ['< 10', '10-20', '20-30', '30-40','To Be Determined']
+							- var hoursPerWeek = ['<10', '10-20', '20-30', '30-40','To Be Determined']
 								each hour in hoursPerWeek
 									option(name='hoursPerWeek',label='hoursPerWeek',value='#{hour}', selected=selectedFilters['hoursPerWeek'].indexOf(hour)!=-1) #{hour}
 						br

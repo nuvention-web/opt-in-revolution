@@ -44,6 +44,8 @@ $(document).ready(function() {
     	$('body').scrollTop(0);
     });
 
+    $('.carousel').carousel('pause');
+
 });
 
 var jobCategories = ['industry','jobFunction','desiredProjectLength','desiredHoursPerWeek','checkinFrequency','communicationPreferences'];

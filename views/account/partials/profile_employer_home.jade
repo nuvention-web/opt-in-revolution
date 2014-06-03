@@ -1,25 +1,3 @@
-script(type='text/javascript').
-	function s3_upload(){
-		var s3upload = new S3Upload({
-			file_dom_selector: '#profPicture',
-			s3_sign_put_url: '/sign_s3',
-			onProgress: function(percent, message) {
-				$('#status').html('Upload progress: ' + percent + '% ' + message);
-			},
-			onFinishS3Put: function(public_url) {
-				$('#status').html('Upload completed.');
-				$("#avatar_url").val(public_url);
-				//- $("#preview").html('<img src="'+public_url+'" style="width:300px;" />');
-			},
-			onError: function(status) {
-				$('#status').html('Upload error: ' + status);
-			}
-		});
-	}
-	$(document).ready(function() {
-		$('#profPicture').on("change", s3_upload);
-	});
-
 .col-md-12
 	form.form-horizontal(action='/account/profile', method='POST', enctype="multipart/form-data")
 		.page-header

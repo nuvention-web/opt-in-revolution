@@ -6,7 +6,40 @@ block content
 			.container
 				.row.mt.centered.opt-about-header-content
 					.col-md-6.opt-about-desc
-						iframe(src='//player.vimeo.com/video/92294554', width='95%', height='300px', frameborder='0', webkitallowfullscreen='webkitallowfullscreen', mozallowfullscreen='mozallowfullscreen', allowfullscreen='allowfullscreen')
+						#featuredAthenaMoms.carousel.slide(data-ride='carousel data-interval="false"')
+							ol.carousel-indicators
+								li.active(data-target='#featuredAthenaMoms', data-slide-to='0')
+								li(data-target='#featuredAthenaMoms', data-slide-to='1')
+								//- li(data-target='#featuredAthenaMoms', data-slide-to='2')
+							.carousel-inner
+								.item.active
+									.centered
+										img(src="images/athenamom_schools.JPG", height="300px")
+										//- img(src='http://www.roberts-1.com/t/b07/f/i/ss/j/131-E_to_mountain_across_gorge_390x293.jpg', height="300px",alt='Third slide')
+									.container
+										.carousel-caption
+											p
+												| Our AthenaMoms have attended top universities in the nation
+								.item
+									.centered
+										img(src="images/athenamom_companies.JPG", height="300px")
+									.container
+										.carousel-caption
+											p
+												| They also have experience working in Fortune 100 companies
+								//- .item
+									.centered
+										img(src='http://www.roberts-1.com/t/b07/f/i/ss/j/131-E_to_mountain_across_gorge_390x293.jpg', height="300px",alt='Third slide')
+									.container
+										.carousel-caption
+											h1 One more for good measure.
+											p
+												| Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+							//- a.left.carousel-control(href='#featuredAthenaMoms', data-slide='prev')
+								span.glyphicon.glyphicon-chevron-left
+							//- a.right.carousel-control(href='#featuredAthenaMoms', data-slide='next')
+								span.glyphicon.glyphicon-chevron-right						
+						//- iframe(src='//player.vimeo.com/video/92294554', width='95%', height='300px', frameborder='0', webkitallowfullscreen='webkitallowfullscreen', mozallowfullscreen='mozallowfullscreen', allowfullscreen='allowfullscreen')
 						//- img(src='images/athenamom_business.jpg', width='95%', height='300px')
 					.col-md-6.opt-about-desc
 						blockquote.special

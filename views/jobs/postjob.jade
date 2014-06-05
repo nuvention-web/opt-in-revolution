@@ -50,7 +50,7 @@ block content
 									label.col-md-4.control-label(for='industry') Industry
 									.col-md-3
 										select#industry.postjob.multiselect(multiple='multiple',name='industry')
-											- var industries = ['Accounting','Advertising','Broadcasting','Consulting','Consumer Products','Education','Entertainment and Leisure','Financial Services','Food & Beverage','Health Care', 'Nonprofit','Pharmaceuticals','Publishing','Retail', 'Technology']
+											- var industries = ['Accounting','Advertising','Broadcasting','Consulting','Consumer Products','Education','Entertainment & Leisure','Financial Services','Food & Beverage','Health Care', 'Nonprofit','Pharmaceuticals','Publishing','Retail', 'Technology']
 												each industry in industries
 													option(name='industry',label='industry',value='#{industry}') #{industry}
 						.row.mt.job-card-other

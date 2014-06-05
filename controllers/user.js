@@ -47,7 +47,7 @@ exports.resetUserFields = function(req, res) {
 
     for (var i=0; i<users.length; i++) {
       if (users[i].desiredHoursPerWeek.indexOf("<10")!=-1) {
-        users[i].desiredHoursPerWeek =  "< 10";
+        users[i].desiredHoursPerWeek = ['< 10', '10-20', '20-30', '30-40'];
         users[i].save();
         console.log("This matches to the old version! Need to make a change!");
       }
@@ -452,7 +452,8 @@ exports.postUpdateProfile = function(req, res, next) {
     // user.skills = req.body.skills || '';
     user.yearsOfExperience = req.body.yearsOfExperience || '';
     user.desiredHoursPerWeek = req.body.desiredHoursPerWeek || '';
-
+    console.log("@ 455");
+    console.log(req.body.desiredHoursPerWeek);
     user.company.companyName = req.body.companyName || '';
     user.company.companyDescription = req.body.companyDescription || '';
     user.desiredHoursPerWeek = req.body.desiredHoursPerWeek || '';

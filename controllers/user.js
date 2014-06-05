@@ -46,16 +46,10 @@ exports.resetUserFields = function(req, res) {
   User.find({}, function(e, users) {
 
     for (var i=0; i<users.length; i++) {
-      users[i].desiredHoursPerWeek = ['< 10', '10-20', '20-30', '30-40'];
-      users[i].save();
-      console.log("This matches to the old version! Need to make a change!");
+      // users[i].desiredHoursPerWeek = ['< 10', '10-20', '20-30', '30-40'];
+      // users[i].save();
+      // console.log("This matches to the old version! Need to make a change!");
     }
-    //   users[i].profile.picture = '';
-    //   users[i].resume.path = '';
-    //   users[i].resume.name = '';
-    //   users[i].save();
-    // }
-    // console.log("User profile pictures and resumes reset!");
     res.redirect('/');
   });
 };

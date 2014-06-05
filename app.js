@@ -149,7 +149,7 @@ app.post('/job/submitApplication-:id', passportConf.isAuthenticated, jobControll
 app.get('/applyfilters', jobController.postJob);
 
 
-// app.get('/resetUsers', userController.resetUserFields);
+app.get('/resetUsers', userController.resetUserFields);
 
 app.get('/initiate-chat-:id', passportConf.isAuthenticated, userController.initiateChat);
 app.get('/chat-:id', passportConf.isAuthenticated, userController.getChat);

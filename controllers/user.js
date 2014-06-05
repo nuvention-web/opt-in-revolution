@@ -44,7 +44,14 @@ exports.getSignup = function(req, res) {
 
 exports.resetUserFields = function(req, res) {
   User.find({}, function(e, users) {
-    // for (var i=0; i<users.length; i++) {
+
+    for (var i=0; i<users.length; i++) {
+      if (users[i].desiredHoursPerWeek.indexOf("<10")!=-1) {
+        users[i].desiredHoursPerWeek =  "< 10";
+        users[i].save();
+        console.log("This matches to the old version! Need to make a change!");
+      }
+    }
     //   users[i].profile.picture = '';
     //   users[i].resume.path = '';
     //   users[i].resume.name = '';

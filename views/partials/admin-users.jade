@@ -5,14 +5,15 @@
 				table.table.table-hover
 					thead
 						tr
+							th number
 							th userType
 							th Name
 							th Email
-							th industryPreference
-							th jobFunctionPreference
+							//- th industryPreference
+							//- th jobFunctionPreference
 							th LinkedIn
 							th Number of Logins
-							th Times Logged In
+							//- th Times Logged In
 					tbody.job-table
 						if (users.length == 0)
 							td No users
@@ -25,15 +26,16 @@
 						else
 							each u, i in users
 								tr
+									td #{i}
 									td #{u.userType}
 									td #{u.profile.name}
 									td #{u.email}
-									td #{u.industryPreference}
-									td #{u.jobFunctionPreference}
+									//- td #{u.industryPreference}
+									//- td #{u.jobFunctionPreference}
 									td 
 										a(href="#{u.linkedinURL}", target="_blank") #{u.linkedinURL}
 									td #{u.numberOfLogins}
-									td
+									//- td
 										if u.timesLoggedIn.length > 0
 											each tli in u.timesLoggedIn
 												-var tl = tli.replace(/(GMT-0500)/gm, "")

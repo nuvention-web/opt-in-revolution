@@ -57,7 +57,7 @@ block content
 							| Hours Per week
 						br
 						select#hoursPerWeek.joblist.multiselect(multiple='multiple',name='hoursPerWeek')
-							- var hoursPerWeek = ['<10', '10-20', '20-30', '30-40','To Be Determined']
+							- var hoursPerWeek = ['< 10', '10-20', '20-30', '30-40','To Be Determined']
 								each hour in hoursPerWeek
 									option(name='hoursPerWeek',label='hoursPerWeek',value='#{hour}', selected=selectedFilters['hoursPerWeek'].indexOf(hour)!=-1) #{hour}
 						br

@@ -17,7 +17,7 @@ $(document).ready(function() {
     	$('body').scrollTop(0);
     });
 
-    // $('.carousel').carousel('pause');
+    $('.carousel').carousel('pause');
 
 	var website= 'www.opentable.com'.split(''); //your text
 	var valuWebsite=$('input#website').val(); //store current value in the space you want to be typed into

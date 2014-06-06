@@ -444,8 +444,6 @@ exports.postUpdateProfile = function(req, res, next) {
     // user.skills = req.body.skills || '';
     user.yearsOfExperience = req.body.yearsOfExperience || '';
     user.desiredHoursPerWeek = req.body.desiredHoursPerWeek || '';
-    console.log("@ 455");
-    console.log(req.body.desiredHoursPerWeek);
     user.company.companyName = req.body.companyName || '';
     user.company.companyDescription = req.body.companyDescription || '';
     user.desiredHoursPerWeek = req.body.desiredHoursPerWeek || '';
@@ -454,52 +452,49 @@ exports.postUpdateProfile = function(req, res, next) {
     user.checkinFrequencyPreference = req.body.checkinFrequency || '';
     user.industryPreference = req.body.industryPreference || '';
     user.jobFunctionPreference = req.body.jobFunctionPreference || '';
-    //Need to add company image
-
-    // take hidden image and store this link instead
-
-    // profile picture upload
-    console.log(req.files);
-    if(req.files.profilePicture.size>0) {
-      var picErrors = [];
-      var fileGood = true;
-      var acceptableFileTypes = ['image/png', 'image/jpeg', 'image/jpg'];
-
-      if(req.files.profilePicture.size > (5000 * 1024)) {
-        picErrors.push({param:"size", msg:"Image file sizes must be less than 5mb.", value:req.files.profilePicture.size});
-        fileGood = false;
-      }
-      if(acceptableFileTypes.indexOf(req.files.profilePicture.type)==-1) {
-        picErrors.push({param:"type", "msg":"Please upload an .png, .jpeg, or .jpg image.", value: req.files.profilePicture.type});
-        fileGood = false;
-      }
-      if(picErrors.length>0) {
-        req.flash('picErrors', picErrors);
-      }
-
-      if(fileGood) {
-        user.profile.picture = req.body.avatar_url;
-        // code below is only used when uploading to your own server and not s3
-        // if (user.profile.picture!='') //if there is an old pic
-        //   fs.unlink(user.profile.picture); //delete it
-        // user.profile.picture = req.files.profilePicture.path;   //set pic path to uploaded file path
-      }
-      else {
-        // just don't do anything
-        // fs.unlink(req.files.profilePicture.path); //file was not good, delete it
-      }
-        // imgur.upload(req.files.profilePicture.path, function(err, profPic) {
-        //   console.log(err);
-        //   if (err) {}
-        //   else { //file uploaded successfully
-        //     user.profile.picture = profPic;
-        //     fs.unlink(req.files.profilePicture.path);
-        //     console.log(profPic);
-        //   }
-        // });
-    }
 
     if (user.userType=='mom') {
+      // profile picture upload
+      // take hidden image and store this link instead
+      if(req.files.profilePicture.size>0) {
+        var picErrors = [];
+        var fileGood = true;
+        var acceptableFileTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+
+        if(req.files.profilePicture.size > (5000 * 1024)) {
+          picErrors.push({param:"size", msg:"Image file sizes must be less than 5mb.", value:req.files.profilePicture.size});
+          fileGood = false;
+        }
+        if(acceptableFileTypes.indexOf(req.files.profilePicture.type)==-1) {
+          picErrors.push({param:"type", "msg":"Please upload an .png, .jpeg, or .jpg image.", value: req.files.profilePicture.type});
+          fileGood = false;
+        }
+        if(picErrors.length>0) {
+          req.flash('picErrors', picErrors);
+        }
+
+        if(fileGood) {
+          user.profile.picture = req.body.avatar_url;
+          // code below is only used when uploading to your own server and not s3
+          // if (user.profile.picture!='') //if there is an old pic
+          //   fs.unlink(user.profile.picture); //delete it
+          // user.profile.picture = req.files.profilePicture.path;   //set pic path to uploaded file path
+        }
+        else {
+          // just don't do anything
+          // fs.unlink(req.files.profilePicture.path); //file was not good, delete it
+        }
+          // imgur.upload(req.files.profilePicture.path, function(err, profPic) {
+          //   console.log(err);
+          //   if (err) {}
+          //   else { //file uploaded successfully
+          //     user.profile.picture = profPic;
+          //     fs.unlink(req.files.profilePicture.path);
+          //     console.log(profPic);
+          //   }
+          // });
+      }
+
       //We are no longer tracking the education as an object, it is just a string.
       formEducation = req.body.education;
       user.education = [];

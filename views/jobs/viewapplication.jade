@@ -107,10 +107,11 @@ block content
 															.col-md-12
 																ul
 																	li
-																		if jobApplicant.skills[0]							
+																		if jobApplicant.skills[0]
+																			| #{jobApplicant.skills[0]}							
 																			- var length = jobApplicant.skills.length - 1
 																				each s,i in jobApplicant.skills
-																					| #{s.skill}
+																					| #{s}
 																					if i != (length)
 																						| , 
 																		else

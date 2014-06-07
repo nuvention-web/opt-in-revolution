@@ -88,6 +88,40 @@ $(document).ready(function() {
 	// 	} 
 	// });
 
+	var jobExp= 'I have had previous experience working on projects geared towards expanding brand presence to different markets by identifying and targeting new customer segments.'.split(''); //your text
+	var valujobExp=$('textarea#relevantJobExperience').val(); //store current value in the space you want to be typed into
+	var delay=100;
+	$('textarea#relevantJobExperience').keypress(function (e) { 
+		console.log("pressed")
+		if (e.keyCode == 59) { 
+			console.log('you pressed keycode 186')
+			for (var i=0; i<jobExp.length;i++){   
+    			setTimeout(function(){        
+    				valujobExp = valujobExp.concat(jobExp.shift());
+    				console.log(valujobExp)
+        			$('textarea#relevantJobExperience').val(valujobExp)
+    			}, delay * (i/4))       
+			}
+		} 
+	});
+
+	var projApproach= 'Review current work and identify areas for improvement. Evaluate current company customer acquisition channels and adapt for use in the southeastern US market, identifying different channels as necessary.'.split(''); //your text
+	var valuprojApproach=$('textarea#projectApproach').val(); //store current value in the space you want to be typed into
+	var delay=100;
+	$('textarea#projectApproach').keypress(function (e) { 
+		console.log("pressed")
+		if (e.keyCode == 59) { 
+			console.log('you pressed keycode 186')
+			for (var i=0; i<projApproach.length;i++){   
+    			setTimeout(function(){        
+    				valuprojApproach = valuprojApproach.concat(projApproach.shift());
+    				console.log(valuprojApproach)
+        			$('textarea#projectApproach').val(valuprojApproach)
+    			}, delay * (i/4))
+			}
+		} 
+	});
+
 });
 
 var jobCategories = ['industry','jobFunction','desiredProjectLength','desiredHoursPerWeek','checkinFrequency','communicationPreferences'];

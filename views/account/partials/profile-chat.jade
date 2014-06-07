@@ -66,9 +66,7 @@ block content
 									var text = $('#messageInput').val();
 									myDataRef.push({name: name, text: text});
 									$('#messageInput').val('');
-								} else {
-									myDataRef.remove()
-								}
+								} 
 							});
 
 							myDataRef.on('child_added', function(snapshot) {

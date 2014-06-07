@@ -21,7 +21,8 @@ html
     script(src='/js/lib/bootstrap.js')
     script(src='/js/lib/bootstrap-multiselect.js')
     script(src='/js/google_analytics.js')  
-    script(src='/js/main.js')
+    script(src='/js/main.js')  
+    script(src='/js/s3upload.js')
     script(src='https://cdn.firebase.com/js/client/1.0.11/firebase.js')
 
     if title 
@@ -127,6 +128,16 @@ html
                       li: a(href='/postproject') Post a Project
                       li.divider
                       li: a(href='/logout') Logout
+      div(id="ieVersion", style="display: none", value='false')
+      script.
+        var ieBool = (navigator.userAgent.indexOf("MSIE")==-1) //Not IE
+        $('#ieVersion').val(ieBool);  
+      if "#{ieBool}"
+        pass
+      else
+        .alert.alert-info.animated.fadeInUp.opt-alert
+          button.close(data-dismiss='alert') ×
+          = "AthenaHire does not have support for Internet Explorer. Please use a different browser (Chrome or Firefox) for the best experience."
     block content
     if (title != "Account Management") && (title != "Admin Dashboard")
       .footer
@@ -168,7 +179,7 @@ html
     script(type='text/javascript').
       (function() {
       var se = document.createElement('script'); se.type = 'text/javascript'; se.async = true;
-      se.src = '//commondatastorage.googleapis.com/code.snapengage.com/js/fb8e8e6c-9b5a-4094-a194-22fadffb0c33.js';
+      se.src = '//commondatastorage.googleapis.com/code.snapengage.com/js/2a4c2d2a-4854-4e4b-bb12-53cee3464d09.js';
       var done = false;
       se.onload = se.onreadystatechange = function() {
       if (!done&&(!this.readyState||this.readyState==='loaded'||this.readyState==='complete')) {
@@ -179,4 +190,3 @@ html
       };
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(se, s);
       })();
-

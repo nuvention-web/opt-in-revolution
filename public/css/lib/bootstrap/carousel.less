@@ -153,11 +153,12 @@
 
   li {
     display: inline-block;
-    width:  10px;
-    height: 10px;
-    margin: 1px;
+    width:  15px;
+    height: 15px;
+    margin: 3px;
     text-indent: -999px;
-    border: 1px solid @carousel-indicator-border-color;
+    // border: 1px solid @carousel-indicator-border-color;
+    border: 1px solid black;
     border-radius: 10px;
     cursor: pointer;
 
@@ -173,10 +174,11 @@
     background-color: rgba(0,0,0,0); // IE9
   }
   .active {
-    margin: 0;
-    width:  12px;
-    height: 12px;
-    background-color: @carousel-indicator-active-bg;
+    // margin: 0;
+    width:  15px;
+    height: 15px;
+    // background-color: @carousel-indicator-active-bg;
+    background-color: #777;
   }
 }
 
@@ -191,9 +193,10 @@
   z-index: 10;
   padding-top: 20px;
   padding-bottom: 20px;
-  color: @carousel-caption-color;
+  // color: @carousel-caption-color;
+  color: black;
   text-align: center;
-  text-shadow: @carousel-text-shadow;
+  // text-shadow: @carousel-text-shadow;
   & .btn {
     text-shadow: none; // No shadow for button elements in carousel-caption
   }

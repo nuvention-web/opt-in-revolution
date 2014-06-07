@@ -18,7 +18,7 @@
 				thead
 					tr
 						th.proj-title Project Title
-						th Company Name
+						th Applicant Name
 						th
 				tbody.job-table
 					if (jobChats.length == 0)
@@ -30,7 +30,7 @@
 							tr(type='button', class='jobappWithChat-row')
 								td.proj-title
 									| Chat for #{jobAppWithChat.job.jobName}
-								td #{jobAppWithChat.job.companyName}
+								td #{jobAppWithChat.user.profile.name}
 								td
 									a.btn.btn-success.btn-md.job-btn(href='/chat-#{jobAppWithChat.id}', target='_blank') View Messages
 									//- .btn.btn-success.btn-md.job-btn(data-toggle='collapse', data-target='#msg-#{i}', id='view-message-#{jobAppWithChat.id}') View Messages

@@ -14,7 +14,7 @@ var url = require('url');
 var async = require('async');
 var nodemailer = require('nodemailer');
 
-var default_industries = ['Accounting','Advertising','Broadcasting','Consulting','Consumer Products','Education','Entertainment and Leisure','Financial Services','Food & Beverage','Health Care', 'Nonprofit','Pharmaceuticals','Publishing','Retail', 'Technology'];
+var default_industries = ['Accounting','Advertising','Broadcasting','Consulting','Consumer Products','Education','Entertainment & Leisure','Financial Services','Food & Beverage','Health Care', 'Nonprofit','Pharmaceuticals','Publishing','Retail', 'Technology'];
 var default_jobFunction = ['Accounting', 'Business Development', 'Customer Service', 'Finance', 'Human Resources', 'Legal', 'Marketing', 'Operations', 'Other', 'Sales', 'Strategy'];
 var default_totalWeeks = ['< 1 week', '1-2 weeks', '2-3 weeks', '3-4 weeks', '1-2 months', '2-3 months', '3+ months', 'To Be Determined'];
 var default_hoursPerWeek = ['< 10', '10-20', '20-30', '30-40','To Be Determined'];
@@ -87,6 +87,7 @@ exports.postJob = function (req, res) {
 		//submit to the DB
 		var newJob = new Job({jobName: jobName, 
 								companyName: user.company.companyName, 
+								companyEmail: user.email, 
 								jobDescription: description, 
 								industry: industry, 
 								skillsNeeded: skillsNeeded,
@@ -196,9 +197,9 @@ exports.applyJob = function(req, res) {
 					docs.viewers[0]={};
 					docs.viewers[0][user.id]=[Date()];
 				}
-				console.log("169")
-				console.log(docs.viewers)
-				console.log(docs.viewers[0])
+				// console.log("169")
+				// console.log(docs.viewers)
+				// console.log(docs.viewers[0])
 				JobApplication.findOne({jobID: req.params.id, userID: req.user.id}, function(err, jobApp) {
 					// console.log("Loading apply job..");
 					// console.log(jobApp);
@@ -240,9 +241,9 @@ exports.viewProject = function(req, res) {
 		}
 		else { //not logged in
 			//no user id, so use "anonymous" for key
-			console.log("219");
-			console.log(docs.viewers);
-			console.log(docs.viewers[0]);
+			// console.log("219");
+			// console.log(docs.viewers);
+			// console.log(docs.viewers[0]);
 			if(typeof(docs.viewers[0])==='object') { // object has been initialized
 				if("anonymous" in docs.viewers[0]) { //user id is in object, then just add the date
 					console.log("at 220")
@@ -257,8 +258,8 @@ exports.viewProject = function(req, res) {
 				docs.viewers[0]["anonymous"]=[Date()];
 			}
 		}
-		console.log(docs.viewers);
-		console.log(docs.viewers[0]);
+		// console.log(docs.viewers);
+		// console.log(docs.viewers[0]);
 		docs.save(function(err) {
 			res.render("jobs/viewproject", {
 				"job":docs,
@@ -564,6 +565,7 @@ function copyUserInformation(jobApplication, user) {
 function copyJobInformation(jobApplication, job) {
 	jobApplication.job.jobName = job.jobName;
 	jobApplication.job.companyName = job.companyName;
+	jobApplication.job.companyEmail = job.companyEmail;
 	jobApplication.job.jobDescription = job.jobDescription;
 	jobApplication.job.industry = job.industry;
 	jobApplication.job.jobFunction = job.jobFunction;

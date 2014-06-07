@@ -6,7 +6,31 @@ block content
 			.container
 				.row.mt.centered.opt-about-header-content
 					.col-md-6.opt-about-desc
-						iframe(src='//player.vimeo.com/video/92294554', width='95%', height='300px', frameborder='0', webkitallowfullscreen='webkitallowfullscreen', mozallowfullscreen='mozallowfullscreen', allowfullscreen='allowfullscreen')
+						#featuredAthenaMoms.carousel.slide(data-ride='carousel' data-interval="false")
+							ol.carousel-indicators
+								li.active(data-target='#featuredAthenaMoms', data-slide-to='0')
+								li(data-target='#featuredAthenaMoms', data-slide-to='1')
+								//- li(data-target='#featuredAthenaMoms', data-slide-to='2')
+							.carousel-inner
+								.item.active
+									.centered
+										img(src="images/athenamom_schools.JPG", height="300px")
+									.container
+										.carousel-caption
+											p
+												| Our AthenaMoms have attended top universities in the nation
+								.item
+									.centered
+										img(src="images/athenamom_companies.JPG", height="300px")
+									.container
+										.carousel-caption
+											p
+												| They also have experience working in Fortune 100 companies
+							//- a.left.carousel-control(href='#featuredAthenaMoms', data-slide='prev')
+								span.glyphicon.glyphicon-chevron-left
+							//- a.right.carousel-control(href='#featuredAthenaMoms', data-slide='next')
+								span.glyphicon.glyphicon-chevron-right						
+						//- iframe(src='//player.vimeo.com/video/92294554', width='95%', height='300px', frameborder='0', webkitallowfullscreen='webkitallowfullscreen', mozallowfullscreen='mozallowfullscreen', allowfullscreen='allowfullscreen')
 						//- img(src='images/athenamom_business.jpg', width='95%', height='300px')
 					.col-md-6.opt-about-desc
 						blockquote.special
@@ -26,8 +50,8 @@ block content
 								| "60% of SMBs say that the biggest challenge they face in hiring or managing staff is simply finding skilled workers to do the job."
 							small
 								b
-									| Business Study
-									cite(title='Source Title')  Publication
+									| Study conducted by 
+									cite(title='Source Title') Robert Half International
 			.row
 				.col-md-8.how-it-works-column
 					.row

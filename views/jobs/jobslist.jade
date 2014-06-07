@@ -22,7 +22,7 @@ block content
 			.col-md-2
 				.job-listing-filter-wrapper
 					b
-						a(href='/employ', role='button') All Jobs
+						a(href='/findprojects', role='button') All Jobs
 					br
 					br
 					form.form-horizontal(name="JobFilter", role="form", method="post",action="employ")
@@ -30,7 +30,7 @@ block content
 							| Industry
 						br
 						select#industry.joblist.multiselect(multiple='multiple',name='industry')
-							- var industries = ['Accounting','Advertising','Broadcasting','Consulting','Consumer Products','Education','Entertainment and Leisure','Financial Services','Food & Beverage','Health Care', 'Nonprofit','Pharmaceuticals','Publishing','Retail', 'Technology']
+							- var industries = ['Accounting','Advertising','Broadcasting','Consulting','Consumer Products','Education','Entertainment & Leisure','Financial Services','Food & Beverage','Health Care', 'Nonprofit','Pharmaceuticals','Publishing','Retail', 'Technology']
 								each industry in industries
 									option(name='industry',label='industry',value='#{industry}', selected=selectedFilters['industry'].indexOf(industry)!=-1) #{industry}
 						br
@@ -82,12 +82,12 @@ block content
 						br
 						input#filterType(type='hidden', name='filterType', value='update')
 						//- button.btn.btn-default.opt-about-btn(type='submit') Submit
-						button.btn.btn-success.update-button(type='submit', formaction='/employ')
+						button.btn.btn-success.update-button(type='submit', formaction='/findprojects')
 							| Update Filters
 						if user
 							br
 							br
-							button.btn.btn-success.profile-filter-button(type='submit', onclick="$('#filterType').attr('value', 'profile');", formaction='/employ')
+							button.btn.btn-success.profile-filter-button(type='submit', onclick="$('#filterType').attr('value', 'profile');", formaction='/findprojects')
 								| Filter Using Profile Fields
 			.col-md-10
 				.row.mt

@@ -7,7 +7,7 @@ block content
 				.col-lg-12
 					.job-header
 						big
-							h1 My Applicants
+							h1 Viewing Application
 	if jobApp.length==0
 		.container
 			.job-listing-wrapper
@@ -20,8 +20,12 @@ block content
 					.row.mt
 						.job-card
 							.row.mt.job-card-heading
-								.col-md-12
-									h2 #{jobApplicant.profile.name}
+								.row
+									.col-md-5
+										h2.appName #{jobApplicant.profile.name}
+									.col-md-7
+										h2.pull-right
+											a.btn.btn-success.btn-md.job-btn.chat-btn(href='/initiate-chat-#{jobApp.id}', role='button') Start a Chat
 								.row.mt
 										.col-md-12
 											.row.mt.prof-column
@@ -138,8 +142,11 @@ block content
 																	| Relevant Job Experience:
 																div
 																	| #{jobApp.relevantJobExperience}
-
-				a.btn.btn-success.btn-md.job-btn(href='/initiate-chat-#{jobApp.id}', role='button') Chat
+												.row
+													.col-md-6
+														//- a.btn.btn-success.btn-md.job-btn(href='/initiate-chat-#{jobApp.id}', role='button') Chat
+													.col-md-6
+													
 
 				//- label Chat Box
 				//- #messagesDiv
